@@ -4,21 +4,247 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>電競人生模擬器</title>
+
+    <style>
+        body {
+            margin: 0;
+            font-family: Arial, "Microsoft JhengHei", sans-serif;
+            background: #f2f2f2;
+            color: #222;
+        }
+
+        .game {
+            width: 900px;
+            max-width: 92%;
+            margin: 40px auto;
+            background: white;
+            border-radius: 12px;
+            padding: 30px;
+            box-sizing: border-box;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.12);
+        }
+
+        h1 {
+            margin-top: 0;
+            text-align: center;
+        }
+
+        .info {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 10px;
+            margin: 25px 0;
+        }
+
+        .stat {
+            background: #f5f5f5;
+            padding: 15px;
+            border-radius: 8px;
+            text-align: center;
+        }
+
+        .stat strong {
+            display: block;
+            font-size: 24px;
+            margin-top: 5px;
+        }
+
+        .event {
+            border-top: 1px solid #ddd;
+            padding-top: 25px;
+            margin-top: 20px;
+        }
+
+        .event h2 {
+            margin-top: 0;
+        }
+
+        .choices {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            margin-top: 20px;
+        }
+
+        button {
+            padding: 14px;
+            border: none;
+            border-radius: 8px;
+            background: #222;
+            color: white;
+            font-size: 16px;
+            cursor: pointer;
+        }
+
+        button:hover {
+            opacity: 0.8;
+        }
+
+        #result {
+            margin-top: 20px;
+            min-height: 30px;
+            font-weight: bold;
+        }
+
+        @media (max-width: 600px) {
+            .info {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .game {
+                padding: 20px;
+            }
+        }
+    </style>
 </head>
 
 <body>
 
-    <h1>電競人生模擬器</h1>
+<div class="game">
 
-    <p>遊戲正在建置中。</p>
+    <h1>🎮 電競人生模擬器</h1>
 
-    <button onclick="startGame()">開始遊戲</button>
+    <div class="info">
 
-    <script>
-        function startGame() {
-            alert("電競人生開始！");
-        }
-    </script>
+        <div class="stat">
+            年齡
+            <strong id="age">16</strong>
+        </div>
+
+        <div class="stat">
+            操作
+            <strong id="skill">50</strong>
+        </div>
+
+        <div class="stat">
+            遊戲理解
+            <strong id="gameSense">50</strong>
+        </div>
+
+        <div class="stat">
+            心態
+            <strong id="mental">50</strong>
+        </div>
+
+        <div class="stat">
+            體力
+            <strong id="stamina">50</strong>
+        </div>
+
+        <div class="stat">
+            人氣
+            <strong id="fame">0</strong>
+        </div>
+
+    </div>
+
+    <div class="event">
+
+        <h2 id="eventTitle">你的電競人生開始了</h2>
+
+        <p id="eventText">
+            你是一名16歲的高中生，最近開始認真打英雄聯盟。
+            你發現自己的天賦似乎不錯。
+        </p>
+
+        <div class="choices">
+
+            <button onclick="choose(1)">
+                🎮 狂打排位
+            </button>
+
+            <button onclick="choose(2)">
+                📚 先把課業顧好
+            </button>
+
+            <button onclick="choose(3)">
+                😴 今天休息
+            </button>
+
+        </div>
+
+        <div id="result"></div>
+
+    </div>
+
+</div>
+
+<script>
+
+let player = {
+    age: 16,
+    skill: 50,
+    gameSense: 50,
+    mental: 50,
+    stamina: 50,
+    fame: 0
+};
+
+function updateScreen() {
+
+    document.getElementById("age").textContent = player.age;
+    document.getElementById("skill").textContent = player.skill;
+    document.getElementById("gameSense").textContent = player.gameSense;
+    document.getElementById("mental").textContent = player.mental;
+    document.getElementById("stamina").textContent = player.stamina;
+    document.getElementById("fame").textContent = player.fame;
+
+}
+
+function choose(choice) {
+
+    let result = "";
+
+    if (choice === 1) {
+
+        player.skill += 5;
+        player.gameSense += 2;
+        player.stamina -= 3;
+        player.mental -= 2;
+
+        result = "你瘋狂打了一整晚排位。操作變強了，但人快沒了。";
+
+    }
+
+    if (choice === 2) {
+
+        player.gameSense += 1;
+        player.mental += 3;
+
+        result = "你先把功課完成，晚上才有時間打遊戲。";
+
+    }
+
+    if (choice === 3) {
+
+        player.mental += 5;
+        player.stamina += 5;
+
+        result = "你今天什麼都沒做，舒服。";
+
+    }
+
+    player.age++;
+
+    updateScreen();
+
+    document.getElementById("result").textContent = result;
+
+    if (player.age >= 18) {
+
+        document.getElementById("eventTitle").textContent =
+            "你高中畢業了";
+
+        document.getElementById("eventText").textContent =
+            "你的電競能力逐漸成形。接下來，你必須決定是否踏上職業道路。";
+
+    }
+
+}
+
+updateScreen();
+
+</script>
 
 </body>
 </html>
