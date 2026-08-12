@@ -6,243 +6,204 @@
 <title>LoL 電競人生模擬器</title>
 
 <style>
-*{
-    box-sizing:border-box;
-}
+*{box-sizing:border-box}
 
 html,body{
     margin:0;
-    padding:0;
-    background:#0a0f1d;
-    color:#e9eef8;
-    font-family:
-        system-ui,
-        -apple-system,
-        BlinkMacSystemFont,
-        "Noto Sans TC",
-        "Microsoft JhengHei",
-        sans-serif;
+    background:#080d18;
+    color:#edf2ff;
+    font-family:system-ui,-apple-system,"Noto Sans TC","Microsoft JhengHei",sans-serif;
 }
 
-button,input{
-    font:inherit;
-}
-
-button{
-    cursor:pointer;
-}
+button,input{font:inherit}
+button{cursor:pointer}
 
 .app{
-    width:100%;
     max-width:1050px;
     min-height:100vh;
     margin:auto;
-    padding-bottom:82px;
+    padding-bottom:76px;
 }
-
-/* =========================
-   TOP
-========================= */
 
 .top{
     position:sticky;
     top:0;
     z-index:50;
-    padding:13px 17px;
-    background:rgba(10,15,29,.94);
-    backdrop-filter:blur(14px);
-    border-bottom:1px solid #252e44;
+    padding:13px 16px;
+    background:rgba(8,13,24,.95);
+    backdrop-filter:blur(12px);
+    border-bottom:1px solid #222c42;
 }
 
 .topline{
     display:flex;
-    justify-content:space-between;
     align-items:center;
-    gap:12px;
+    justify-content:space-between;
+    gap:10px;
 }
 
 .top-name{
-    font-size:18px;
+    font-size:17px;
     font-weight:900;
 }
 
 .top-sub{
+    color:#7f8ba3;
+    font-size:11px;
     margin-top:2px;
-    color:#8792a9;
-    font-size:12px;
 }
 
-.age-pill{
-    padding:7px 12px;
+.age{
+    background:#172139;
+    color:#bfcbea;
     border-radius:999px;
-    background:#182238;
-    color:#cbd5ea;
-    font-size:12px;
-    white-space:nowrap;
+    padding:7px 11px;
+    font-size:11px;
 }
-
-/* =========================
-   MAIN
-========================= */
 
 main{
     padding:15px;
 }
 
 .card{
-    background:#11182a;
-    border:1px solid #252e44;
-    border-radius:15px;
-    padding:15px;
-    margin-bottom:13px;
+    background:#101729;
+    border:1px solid #242e45;
+    border-radius:14px;
+    padding:14px;
+    margin-bottom:12px;
 }
 
 .title{
     font-size:21px;
     font-weight:900;
-    margin:4px 0;
 }
 
 .subtitle{
-    color:#8995ad;
-    font-size:13px;
-    line-height:1.55;
+    color:#8290a8;
+    font-size:12px;
+    line-height:1.6;
+    margin-top:3px;
 }
 
 .card-title{
-    font-size:15px;
+    font-size:14px;
     font-weight:850;
-    margin-bottom:11px;
+    margin-bottom:9px;
 }
 
-.muted{
-    color:#8995ad;
-}
-
-/* =========================
-   CHARACTER CREATION
-========================= */
+/* 建立角色 */
 
 .create-header{
     text-align:center;
-    padding:15px 5px 18px;
+    padding:12px 5px 18px;
 }
 
-.create-logo{
+.create-icon{
     font-size:34px;
-    margin-bottom:7px;
 }
 
 .create-title{
-    font-size:25px;
+    font-size:24px;
     font-weight:950;
+    margin-top:5px;
 }
 
-.create-sub{
-    color:#8995ad;
-    font-size:13px;
-    margin-top:5px;
+.create-layout{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:12px;
 }
 
 label{
     display:block;
-    font-size:12px;
-    color:#aeb8cc;
     margin-top:10px;
+    margin-bottom:5px;
+    color:#aab5ca;
+    font-size:11px;
 }
 
 .input{
     width:100%;
-    margin-top:5px;
     padding:11px 12px;
-    border:1px solid #2b3650;
-    border-radius:9px;
-    background:#0c1322;
+    background:#0a1120;
     color:#fff;
+    border:1px solid #2a354d;
+    border-radius:9px;
     outline:none;
 }
 
 .input:focus{
-    border-color:#657cff;
+    border-color:#657aff;
 }
 
 .option-grid{
     display:grid;
     grid-template-columns:repeat(3,1fr);
-    gap:8px;
+    gap:7px;
 }
 
 .option{
-    border:1px solid #2b3650;
-    background:#0d1525;
-    color:#cbd5e7;
-    border-radius:10px;
-    padding:11px 7px;
-    transition:.15s;
-}
-
-.option:hover{
-    background:#17223a;
+    border:1px solid #2a354d;
+    border-radius:9px;
+    background:#0c1424;
+    color:#c7d0e2;
+    padding:10px 5px;
 }
 
 .option.active{
-    background:#26365f;
-    border-color:#7387ff;
-    color:#fff;
-    font-weight:800;
+    background:#283762;
+    border-color:#6d83ff;
+    color:white;
+    font-weight:850;
 }
 
 .option small{
     display:block;
+    color:#718099;
+    font-size:9px;
     margin-top:3px;
-    color:#7f8ca5;
-    font-size:10px;
 }
 
 .option.active small{
-    color:#bac7ef;
+    color:#bac7eb;
 }
 
-.create-status{
+.status{
     display:flex;
     flex-wrap:wrap;
-    gap:7px;
-    margin-top:10px;
+    gap:6px;
 }
 
-.status-pill{
-    padding:6px 9px;
-    border-radius:999px;
+.status span{
+    padding:6px 8px;
     background:#182238;
-    color:#9da9bf;
-    font-size:11px;
+    color:#77849d;
+    border-radius:999px;
+    font-size:10px;
 }
 
-.status-pill.done{
-    background:#203454;
-    color:#c8d6ff;
+.status span.done{
+    background:#20365b;
+    color:#cbd8ff;
 }
 
-.start-btn{
+.start{
     width:100%;
-    border:0;
-    border-radius:11px;
-    padding:13px;
     margin-top:10px;
-    background:#536dfe;
-    color:#fff;
+    padding:12px;
+    border:0;
+    border-radius:10px;
+    background:#536cff;
+    color:white;
     font-weight:900;
 }
 
-.start-btn:disabled{
-    background:#252d40;
-    color:#68748b;
-    cursor:not-allowed;
+.start:disabled{
+    background:#242d40;
+    color:#69758b;
 }
 
-/* =========================
-   STATS
-========================= */
+/* 數值 */
 
 .stat{
     margin:13px 0;
@@ -251,261 +212,193 @@ label{
 .stat-head{
     display:flex;
     justify-content:space-between;
-    align-items:center;
-    margin-bottom:6px;
+    margin-bottom:5px;
 }
 
 .stat-name{
-    font-weight:750;
+    font-size:12px;
+    font-weight:800;
 }
 
-.stat-number{
-    color:#b9c4d9;
-    font-size:12px;
+.stat-value{
+    color:#aab6cc;
+    font-size:11px;
 }
 
 .bar{
-    height:11px;
+    height:10px;
+    background:#202a3e;
     border-radius:999px;
     overflow:hidden;
-    background:#202a40;
 }
 
 .fill{
     height:100%;
+    background:linear-gradient(90deg,#536cff,#8c9aff);
     border-radius:999px;
-    background:linear-gradient(
-        90deg,
-        #536dfe,
-        #8d9cff
-    );
 }
 
 .distance{
-    margin-top:4px;
-    color:#748098;
-    font-size:10px;
-}
-
-/* =========================
-   STYLE
-========================= */
-
-.style-box{
-    display:flex;
-    justify-content:space-between;
-    align-items:center;
-    gap:10px;
-    background:#0d1424;
-    border-radius:12px;
-    padding:12px;
-}
-
-.style-name{
-    font-size:18px;
-    font-weight:900;
-}
-
-.style-desc{
     margin-top:3px;
-    color:#8290a9;
-    font-size:11px;
+    color:#69768d;
+    font-size:9px;
 }
 
-.style-score{
-    text-align:right;
-}
+/* 事件 */
 
-.style-score b{
-    font-size:18px;
-}
-
-/* =========================
-   EVENT
-========================= */
-
-.event-text{
-    font-size:14px;
+.event{
+    color:#d8dfed;
+    font-size:13px;
     line-height:1.7;
-    color:#d8dfec;
 }
 
 .event-meta{
-    color:#73809a;
-    font-size:11px;
-    margin-bottom:8px;
+    color:#6f7c94;
+    font-size:10px;
+    margin-bottom:7px;
 }
 
 .choice{
     width:100%;
-    margin-top:8px;
     text-align:left;
-    border:1px solid #29354d;
-    background:#0d1525;
-    color:#e8edf7;
-    border-radius:11px;
-    padding:11px 12px;
+    margin-top:7px;
+    padding:10px;
+    border-radius:10px;
+    border:1px solid #29344b;
+    background:#0c1424;
+    color:#edf2ff;
 }
 
 .choice:hover{
-    background:#17233a;
+    background:#17233b;
 }
 
 .choice-title{
     font-weight:850;
+    font-size:12px;
 }
 
 .choice-effect{
-    color:#8794ab;
-    font-size:11px;
-    margin-top:4px;
+    color:#78859d;
+    font-size:10px;
+    margin-top:3px;
 }
 
-/* =========================
-   CLUBS
-========================= */
+/* 俱樂部 */
 
 .club-grid{
     display:grid;
-    grid-template-columns:repeat(2,minmax(0,1fr));
-    gap:10px;
+    grid-template-columns:repeat(2,1fr);
+    gap:9px;
 }
 
 .club{
-    background:#0d1525;
-    border:1px solid #29344c;
-    border-radius:13px;
-    padding:13px;
+    background:#0b1322;
+    border:1px solid #28334a;
+    border-radius:12px;
+    padding:11px;
 }
 
 .club-top{
     display:flex;
     justify-content:space-between;
-    align-items:flex-start;
-    gap:8px;
+    gap:7px;
 }
 
 .club-name{
-    font-size:16px;
+    font-size:14px;
     font-weight:900;
 }
 
 .club-region{
-    color:#77849d;
-    font-size:10px;
+    color:#718099;
+    font-size:9px;
     margin-top:2px;
 }
 
 .stars{
+    font-size:11px;
     white-space:nowrap;
-    font-size:12px;
-    letter-spacing:1px;
 }
 
 .club-desc{
-    color:#9ba7bc;
-    font-size:11px;
-    line-height:1.55;
-    margin:9px 0;
+    color:#929eb3;
+    font-size:10px;
+    line-height:1.5;
+    margin:7px 0;
 }
 
 .club-stats{
     display:grid;
     grid-template-columns:1fr 1fr;
-    gap:6px;
+    gap:5px;
 }
 
 .club-stat{
-    padding:7px;
+    padding:6px;
     background:#141d30;
-    border-radius:8px;
+    border-radius:7px;
 }
 
 .club-stat b{
     display:block;
-    font-size:11px;
+    font-size:10px;
 }
 
 .club-stat span{
     display:block;
-    color:#76839b;
-    font-size:9px;
+    color:#68758d;
+    font-size:8px;
     margin-top:2px;
 }
 
 .club-status{
-    margin-top:8px;
-    padding:8px;
-    border-radius:8px;
-    font-size:11px;
+    margin-top:7px;
+    padding:7px;
+    border-radius:7px;
+    font-size:9px;
 }
 
 .good{
-    background:#163326;
-    color:#91d7ad;
+    background:#143324;
+    color:#8bd0a6;
 }
 
 .mid{
-    background:#302d19;
-    color:#d7c47b;
+    background:#302d1b;
+    color:#d0bd75;
 }
 
 .bad{
-    background:#321c24;
-    color:#d994a5;
+    background:#321b24;
+    color:#d58e9e;
 }
 
 .club-btn{
     width:100%;
-    margin-top:8px;
-    padding:9px;
+    margin-top:7px;
+    padding:8px;
     border:0;
-    border-radius:9px;
+    border-radius:8px;
     background:#29385d;
     color:#fff;
-    font-weight:750;
+    font-size:10px;
+    font-weight:800;
 }
 
-/* =========================
-   LOCKED
-========================= */
-
-.locked{
-    opacity:.42;
-    filter:grayscale(.3);
-}
-
-.lock-message{
-    text-align:center;
-    padding:35px 10px;
-}
-
-.lock-icon{
-    font-size:34px;
-    margin-bottom:8px;
-}
-
-/* =========================
-   SAVE
-========================= */
+/* 存檔 */
 
 .save-btn{
     width:100%;
-    margin-top:8px;
-    padding:11px;
-    border:1px solid #2b3650;
-    border-radius:10px;
-    background:#10182a;
-    color:#e9eef8;
+    margin-top:7px;
+    padding:10px;
+    background:#0d1525;
+    color:#e8edf8;
+    border:1px solid #29344b;
+    border-radius:9px;
 }
 
-.save-btn:hover{
-    background:#18233a;
-}
-
-/* =========================
-   BOTTOM NAV
-========================= */
+/* 底部 */
 
 .bottom{
     position:fixed;
@@ -513,27 +406,27 @@ label{
     left:50%;
     transform:translateX(-50%);
     width:min(1050px,100%);
-    height:68px;
+    height:66px;
     display:grid;
     grid-template-columns:repeat(3,1fr);
-    background:rgba(10,15,29,.97);
-    border-top:1px solid #252e44;
+    background:rgba(8,13,24,.97);
+    border-top:1px solid #222c42;
     z-index:100;
 }
 
-.nav-btn{
+.nav{
     border:0;
     background:none;
-    color:#707d95;
-    font-size:11px;
+    color:#69758c;
+    font-size:10px;
 }
 
-.nav-btn.active{
-    color:#dce4ff;
+.nav.active{
+    color:#dce5ff;
 }
 
-.nav-btn:disabled{
-    color:#343e52;
+.nav:disabled{
+    color:#30394b;
     cursor:not-allowed;
 }
 
@@ -543,60 +436,26 @@ label{
     margin-bottom:2px;
 }
 
-/* =========================
-   DESKTOP
-========================= */
-
-@media(min-width:700px){
-
-    main{
-        padding:20px;
-    }
-
-    .create-layout{
-        display:grid;
-        grid-template-columns:1fr 1fr;
-        gap:14px;
-    }
-
-}
-
-/* =========================
-   MOBILE
-========================= */
-
 @media(max-width:699px){
 
     main{
-        padding:11px;
+        padding:10px;
     }
 
-    .card{
-        padding:13px;
-        border-radius:13px;
+    .create-layout{
+        grid-template-columns:1fr;
     }
 
     .club-grid{
         grid-template-columns:1fr;
     }
 
-    .option-grid{
-        grid-template-columns:repeat(2,1fr);
-    }
-
-    .title{
-        font-size:19px;
-    }
-
-    .create-title{
-        font-size:22px;
-    }
 }
 
-@media(max-width:370px){
+@media(max-width:380px){
 
     .option-grid{
-        grid-template-columns:1fr 1fr;
+        grid-template-columns:repeat(2,1fr);
     }
 
 }
@@ -621,7 +480,7 @@ label{
             </div>
         </div>
 
-        <div class="age-pill" id="topAge">
+        <div class="age" id="topAge">
             17歲
         </div>
 
@@ -636,7 +495,7 @@ label{
 <nav class="bottom">
 
     <button
-        class="nav-btn active"
+        class="nav active"
         id="navLife"
         onclick="navigate('life')">
 
@@ -647,7 +506,7 @@ label{
 
 
     <button
-        class="nav-btn"
+        class="nav"
         id="navClub"
         onclick="navigate('club')"
         disabled>
@@ -659,7 +518,7 @@ label{
 
 
     <button
-        class="nav-btn"
+        class="nav"
         id="navSave"
         onclick="navigate('save')"
         disabled>
@@ -677,417 +536,17 @@ label{
 <script>
 
 /* =========================================================
-   俱樂部資料
+   玩家
 ========================================================= */
 
-const CLUBS = [
-
-    /* LCK */
-
-    {
-        id:"t1",
-        name:"T1",
-        region:"LCK",
-        stars:5,
-        academy:5,
-        international:5,
-        roster:{
-            TOP:95,
-            JUG:94,
-            MID:99,
-            ADC:94,
-            SUP:93
-        },
-        history:"世界級豪門",
-        desc:"頂級職業體系與豐富國際賽經驗。"
-    },
-
-    {
-        id:"gen",
-        name:"Gen.G",
-        region:"LCK",
-        stars:5,
-        academy:4,
-        international:5,
-        roster:{
-            TOP:94,
-            JUG:96,
-            MID:95,
-            ADC:94,
-            SUP:93
-        },
-        history:"爭冠熱門",
-        desc:"陣容完整，年度冠軍競爭力極高。"
-    },
-
-    {
-        id:"hle",
-        name:"Hanwha Life Esports",
-        region:"LCK",
-        stars:5,
-        academy:4,
-        international:4,
-        roster:{
-            TOP:92,
-            JUG:91,
-            MID:93,
-            ADC:94,
-            SUP:91
-        },
-        history:"爭冠隊伍",
-        desc:"強大陣容，但先發競爭也非常激烈。"
-    },
-
-    {
-        id:"dk",
-        name:"Dplus KIA",
-        region:"LCK",
-        stars:4,
-        academy:4,
-        international:4,
-        roster:{
-            TOP:86,
-            JUG:88,
-            MID:88,
-            ADC:86,
-            SUP:84
-        },
-        history:"老牌強隊",
-        desc:"具備成熟職業環境與國際賽經驗。"
-    },
-
-    {
-        id:"kt",
-        name:"kt Rolster",
-        region:"LCK",
-        stars:4,
-        academy:4,
-        international:4,
-        roster:{
-            TOP:84,
-            JUG:85,
-            MID:86,
-            ADC:85,
-            SUP:83
-        },
-        history:"競爭型",
-        desc:"強度穩定，適合尋找突破機會的選手。"
-    },
-
-    /* LPL */
-
-    {
-        id:"blg",
-        name:"Bilibili Gaming",
-        region:"LPL",
-        stars:5,
-        academy:4,
-        international:5,
-        roster:{
-            TOP:94,
-            JUG:94,
-            MID:94,
-            ADC:96,
-            SUP:94
-        },
-        history:"LPL爭冠熱門",
-        desc:"頂級陣容，聯賽與國際賽競爭力都很高。"
-    },
-
-    {
-        id:"tes",
-        name:"Top Esports",
-        region:"LPL",
-        stars:5,
-        academy:4,
-        international:4,
-        roster:{
-            TOP:90,
-            JUG:90,
-            MID:92,
-            ADC:92,
-            SUP:89
-        },
-        history:"爭冠隊伍",
-        desc:"具有國際賽競爭能力，先發競爭激烈。"
-    },
-
-    {
-        id:"al",
-        name:"Anyone's Legend",
-        region:"LPL",
-        stars:4,
-        academy:4,
-        international:4,
-        roster:{
-            TOP:84,
-            JUG:85,
-            MID:85,
-            ADC:86,
-            SUP:83
-        },
-        history:"上升隊伍",
-        desc:"逐漸建立競爭力，新人有突破機會。"
-    },
-
-    {
-        id:"jdg",
-        name:"JD Gaming",
-        region:"LPL",
-        stars:4,
-        academy:4,
-        international:4,
-        roster:{
-            TOP:86,
-            JUG:87,
-            MID:87,
-            ADC:86,
-            SUP:84
-        },
-        history:"傳統強隊",
-        desc:"成熟的職業體系與深厚歷史。"
-    },
-
-    {
-        id:"wbg",
-        name:"Weibo Gaming",
-        region:"LPL",
-        stars:4,
-        academy:3,
-        international:4,
-        roster:{
-            TOP:84,
-            JUG:83,
-            MID:85,
-            ADC:84,
-            SUP:82
-        },
-        history:"競爭型",
-        desc:"具備季後賽與國際賽競爭能力。"
-    },
-
-    /* LCP */
-
-    {
-        id:"cfo",
-        name:"CTBC Flying Oyster",
-        region:"LCP",
-        stars:4,
-        academy:4,
-        international:4,
-        roster:{
-            TOP:83,
-            JUG:84,
-            MID:84,
-            ADC:84,
-            SUP:82
-        },
-        history:"LCP強隊",
-        desc:"具備區域冠軍與國際賽競爭能力。"
-    },
-
-    {
-        id:"dfm",
-        name:"DetonatioN FocusMe",
-        region:"LCP",
-        stars:3,
-        academy:4,
-        international:4,
-        roster:{
-            TOP:76,
-            JUG:78,
-            MID:78,
-            ADC:77,
-            SUP:76
-        },
-        history:"老牌隊伍",
-        desc:"擁有豐富國際賽經驗。"
-    },
-
-    {
-        id:"dcg",
-        name:"Deep Cross Gaming",
-        region:"LCP",
-        stars:3,
-        academy:3,
-        international:3,
-        roster:{
-            TOP:73,
-            JUG:74,
-            MID:74,
-            ADC:75,
-            SUP:72
-        },
-        history:"挑戰型",
-        desc:"新人有機會透過比賽爭取位置。"
-    },
-
-    {
-        id:"gam",
-        name:"GAM Esports",
-        region:"LCP",
-        stars:3,
-        academy:4,
-        international:4,
-        roster:{
-            TOP:77,
-            JUG:79,
-            MID:78,
-            ADC:76,
-            SUP:76
-        },
-        history:"國際經驗",
-        desc:"具備區域賽與國際賽經驗。"
-    },
-
-    {
-        id:"shg",
-        name:"Fukuoka SoftBank HAWKS gaming",
-        region:"LCP",
-        stars:3,
-        academy:3,
-        international:3,
-        roster:{
-            TOP:72,
-            JUG:74,
-            MID:73,
-            ADC:74,
-            SUP:71
-        },
-        history:"成長型",
-        desc:"新人可以透過青訓與競爭進入主力。"
-    },
-
-    /* LEC */
-
-    {
-        id:"g2",
-        name:"G2 Esports",
-        region:"LEC",
-        stars:5,
-        academy:4,
-        international:5,
-        roster:{
-            TOP:88,
-            JUG:91,
-            MID:91,
-            ADC:89,
-            SUP:90
-        },
-        history:"LEC豪門",
-        desc:"歐洲代表級隊伍，國際賽經驗豐富。"
-    },
-
-    {
-        id:"fnc",
-        name:"Fnatic",
-        region:"LEC",
-        stars:4,
-        academy:4,
-        international:4,
-        roster:{
-            TOP:84,
-            JUG:85,
-            MID:86,
-            ADC:84,
-            SUP:84
-        },
-        history:"傳統豪門",
-        desc:"歷史悠久，具有大量國際賽經驗。"
-    },
-
-    {
-        id:"kc",
-        name:"Karmine Corp",
-        region:"LEC",
-        stars:4,
-        academy:4,
-        international:3,
-        roster:{
-            TOP:82,
-            JUG:83,
-            MID:84,
-            ADC:82,
-            SUP:81
-        },
-        history:"高人氣隊伍",
-        desc:"人氣與競爭力兼具。"
-    },
-
-    /* LCS */
-
-    {
-        id:"c9",
-        name:"Cloud9 Kia",
-        region:"LCS",
-        stars:4,
-        academy:4,
-        international:4,
-        roster:{
-            TOP:82,
-            JUG:84,
-            MID:84,
-            ADC:83,
-            SUP:82
-        },
-        history:"LCS強隊",
-        desc:"北美老牌隊伍，具備國際賽經驗。"
-    },
-
-    {
-        id:"tl",
-        name:"Team Liquid Alienware",
-        region:"LCS",
-        stars:4,
-        academy:4,
-        international:4,
-        roster:{
-            TOP:84,
-            JUG:84,
-            MID:85,
-            ADC:84,
-            SUP:84
-        },
-        history:"LCS豪門",
-        desc:"完整職業體系與較高競爭力。"
-    },
-
-    {
-        id:"fly",
-        name:"FlyQuest",
-        region:"LCS",
-        stars:3,
-        academy:4,
-        international:3,
-        roster:{
-            TOP:77,
-            JUG:79,
-            MID:78,
-            ADC:77,
-            SUP:76
-        },
-        history:"競爭型",
-        desc:"新人有機會透過表現爭取位置。"
-    }
-
-];
-
-
-/* =========================================================
-   玩家資料
-========================================================= */
-
-let player = {
+let player={
     created:false,
-
     name:"",
     id:"",
     region:"",
     role:"",
-
     age:17,
     year:2026,
-
     club:null,
 
     stats:{
@@ -1095,329 +554,551 @@ let player = {
         gameSense:45,
         mentality:47,
         stamina:50
-    },
-
-    style:"尚未定型"
+    }
 };
 
 
 /* =========================================================
-   初始化
+   俱樂部
 ========================================================= */
 
-function loadInitial(){
+const CLUBS=[
 
-    /*
-       這裡故意不自動讀取存檔。
-       每次重新開啟都是新的遊戲。
-    */
+{
+    name:"T1",
+    region:"LCK",
+    stars:5,
+    academy:5,
+    international:5,
+    roster:{TOP:95,JUG:94,MID:99,ADC:94,SUP:93},
+    history:"世界級豪門",
+    desc:"頂級職業體系與豐富國際賽經驗。"
+},
 
-    player = {
-        created:false,
+{
+    name:"Gen.G",
+    region:"LCK",
+    stars:5,
+    academy:4,
+    international:5,
+    roster:{TOP:94,JUG:96,MID:95,ADC:94,SUP:93},
+    history:"爭冠熱門",
+    desc:"陣容完整，年度冠軍競爭力極高。"
+},
 
-        name:"",
-        id:"",
-        region:"",
-        role:"",
+{
+    name:"Hanwha Life Esports",
+    region:"LCK",
+    stars:5,
+    academy:4,
+    international:4,
+    roster:{TOP:92,JUG:91,MID:93,ADC:94,SUP:91},
+    history:"爭冠隊伍",
+    desc:"強大陣容，但先發競爭也非常激烈。"
+},
 
-        age:17,
-        year:2026,
+{
+    name:"Dplus KIA",
+    region:"LCK",
+    stars:4,
+    academy:4,
+    international:4,
+    roster:{TOP:86,JUG:88,MID:88,ADC:86,SUP:84},
+    history:"老牌強隊",
+    desc:"具備成熟職業環境與國際賽經驗。"
+},
 
-        club:null,
+{
+    name:"Bilibili Gaming",
+    region:"LPL",
+    stars:5,
+    academy:4,
+    international:5,
+    roster:{TOP:94,JUG:94,MID:94,ADC:96,SUP:94},
+    history:"LPL爭冠熱門",
+    desc:"頂級陣容，聯賽與國際賽競爭力都很高。"
+},
 
-        stats:{
-            operation:48,
-            gameSense:45,
-            mentality:47,
-            stamina:50
-        },
+{
+    name:"Top Esports",
+    region:"LPL",
+    stars:5,
+    academy:4,
+    international:4,
+    roster:{TOP:90,JUG:90,MID:92,ADC:92,SUP:89},
+    history:"爭冠隊伍",
+    desc:"具有國際賽競爭能力，先發競爭激烈。"
+},
 
-        style:"尚未定型"
-    };
+{
+    name:"JD Gaming",
+    region:"LPL",
+    stars:4,
+    academy:4,
+    international:4,
+    roster:{TOP:86,JUG:87,MID:87,ADC:86,SUP:84},
+    history:"傳統強隊",
+    desc:"成熟的職業體系與深厚歷史。"
+},
 
-    render();
+{
+    name:"CTBC Flying Oyster",
+    region:"LCP",
+    stars:4,
+    academy:4,
+    international:4,
+    roster:{TOP:83,JUG:84,MID:84,ADC:84,SUP:82},
+    history:"LCP強隊",
+    desc:"具備區域冠軍與國際賽競爭能力。"
+},
+
+{
+    name:"DetonatioN FocusMe",
+    region:"LCP",
+    stars:3,
+    academy:4,
+    international:4,
+    roster:{TOP:76,JUG:78,MID:78,ADC:77,SUP:76},
+    history:"老牌隊伍",
+    desc:"擁有豐富國際賽經驗。"
+},
+
+{
+    name:"Deep Cross Gaming",
+    region:"LCP",
+    stars:3,
+    academy:3,
+    international:3,
+    roster:{TOP:73,JUG:74,MID:74,ADC:75,SUP:72},
+    history:"挑戰型",
+    desc:"新人有機會透過比賽爭取位置。"
+},
+
+{
+    name:"GAM Esports",
+    region:"LCP",
+    stars:3,
+    academy:4,
+    international:4,
+    roster:{TOP:77,JUG:79,MID:78,ADC:76,SUP:76},
+    history:"國際經驗",
+    desc:"具備區域賽與國際賽經驗。"
+},
+
+{
+    name:"G2 Esports",
+    region:"LEC",
+    stars:5,
+    academy:4,
+    international:5,
+    roster:{TOP:88,JUG:91,MID:91,ADC:89,SUP:90},
+    history:"LEC豪門",
+    desc:"歐洲代表級隊伍，國際賽經驗豐富。"
+},
+
+{
+    name:"Fnatic",
+    region:"LEC",
+    stars:4,
+    academy:4,
+    international:4,
+    roster:{TOP:84,JUG:85,MID:86,ADC:84,SUP:84},
+    history:"傳統豪門",
+    desc:"歷史悠久，具有大量國際賽經驗。"
+},
+
+{
+    name:"Cloud9",
+    region:"LCS",
+    stars:4,
+    academy:4,
+    international:4,
+    roster:{TOP:82,JUG:84,MID:84,ADC:83,SUP:82},
+    history:"LCS強隊",
+    desc:"北美老牌隊伍，具備國際賽經驗。"
+},
+
+{
+    name:"Team Liquid",
+    region:"LCS",
+    stars:4,
+    academy:4,
+    international:4,
+    roster:{TOP:84,JUG:84,MID:85,ADC:84,SUP:84},
+    history:"LCS豪門",
+    desc:"完整職業體系與較高競爭力。"
+}
+
+];
+
+
+/* =========================================================
+   建立頁
+========================================================= */
+
+function creationHTML(){
+
+return `
+
+<div class="create-header">
+
+    <div class="create-icon">🎮</div>
+
+    <div class="create-title">
+        建立你的電競人生
+    </div>
+
+    <div class="subtitle">
+        你將從 2026 年開始自己的職業生涯。
+    </div>
+
+</div>
+
+
+<div class="create-layout">
+
+<div>
+
+<div class="card">
+
+    <div class="card-title">
+        ① 選手資料
+    </div>
+
+    <label>選手姓名</label>
+
+    <input
+        id="nameInput"
+        class="input"
+        placeholder="輸入姓名"
+        autocomplete="off"
+    >
+
+    <label>遊戲 ID</label>
+
+    <input
+        id="idInput"
+        class="input"
+        placeholder="輸入你的 ID"
+        autocomplete="off"
+    >
+
+</div>
+
+
+<div class="card">
+
+    <div class="card-title">
+        ② 出身賽區
+    </div>
+
+    <div class="subtitle">
+        決定你最初接觸的聯賽環境。
+    </div>
+
+    <div
+        class="option-grid"
+        style="margin-top:10px"
+        id="regionOptions">
+
+        ${regionButton("LCP","太平洋聯賽")}
+        ${regionButton("LCK","韓國")}
+        ${regionButton("LPL","中國")}
+        ${regionButton("LEC","歐洲")}
+        ${regionButton("LCS","北美")}
+        ${regionButton("CBLOL","巴西")}
+
+    </div>
+
+</div>
+
+</div>
+
+
+<div>
+
+<div class="card">
+
+    <div class="card-title">
+        ③ 主要位置
+    </div>
+
+    <div class="subtitle">
+        決定你之後的先發競爭與部分事件。
+    </div>
+
+    <div
+        class="option-grid"
+        style="margin-top:10px"
+        id="roleOptions">
+
+        ${roleButton("TOP","上路")}
+        ${roleButton("JUG","打野")}
+        ${roleButton("MID","中路")}
+        ${roleButton("ADC","下路")}
+        ${roleButton("SUP","輔助")}
+
+    </div>
+
+</div>
+
+
+<div class="card">
+
+    <div class="card-title">
+        建立狀態
+    </div>
+
+    <div class="status">
+
+        <span id="statusName">
+            ○ 姓名
+        </span>
+
+        <span id="statusID">
+            ○ ID
+        </span>
+
+        <span id="statusRegion">
+            ○ 賽區
+        </span>
+
+        <span id="statusRole">
+            ○ 位置
+        </span>
+
+    </div>
+
+    <button
+        class="start"
+        id="startButton"
+        disabled
+        onclick="createPlayer()">
+
+        請完成以上資料
+
+    </button>
+
+</div>
+
+</div>
+
+</div>
+
+`;
+
 }
 
 
 /* =========================================================
-   建立角色頁
-========================================================= */
-
-function creationScreen(){
-
-    const complete =
-        player.name.trim() &&
-        player.id.trim() &&
-        player.region &&
-        player.role;
-
-    return `
-
-        <div class="create-header">
-
-            <div class="create-logo">
-                🎮
-            </div>
-
-            <div class="create-title">
-                建立你的電競人生
-            </div>
-
-            <div class="create-sub">
-                你將從 2026 年開始自己的職業生涯。
-            </div>
-
-        </div>
-
-
-        <div class="create-layout">
-
-            <div>
-
-                <div class="card">
-
-                    <div class="card-title">
-                        ① 選手資料
-                    </div>
-
-                    <label>
-                        選手姓名
-                    </label>
-
-                    <input
-                        id="nameInput"
-                        class="input"
-                        value="${escapeHTML(player.name)}"
-                        placeholder="輸入姓名"
-                        oninput="updateName(this.value)"
-                    >
-
-
-                    <label>
-                        遊戲 ID
-                    </label>
-
-                    <input
-                        id="idInput"
-                        class="input"
-                        value="${escapeHTML(player.id)}"
-                        placeholder="輸入你的 ID"
-                        oninput="updateID(this.value)"
-                    >
-
-                </div>
-
-
-                <div class="card">
-
-                    <div class="card-title">
-                        ② 出身賽區
-                    </div>
-
-                    <div class="subtitle">
-                        決定你最初接觸的聯賽環境。
-                    </div>
-
-                    <div class="option-grid" style="margin-top:10px">
-
-                        ${regionButton("LCP","太平洋聯賽")}
-                        ${regionButton("LCK","韓國")}
-                        ${regionButton("LPL","中國")}
-                        ${regionButton("LEC","歐洲")}
-                        ${regionButton("LCS","北美")}
-                        ${regionButton("CBLOL","巴西")}
-
-                    </div>
-
-                </div>
-
-            </div>
-
-
-            <div>
-
-                <div class="card">
-
-                    <div class="card-title">
-                        ③ 主要位置
-                    </div>
-
-                    <div class="subtitle">
-                        這會影響你之後遇到的隊伍陣容與先發競爭。
-                    </div>
-
-                    <div class="option-grid" style="margin-top:10px">
-
-                        ${roleButton("TOP","上路")}
-                        ${roleButton("JUG","打野")}
-                        ${roleButton("MID","中路")}
-                        ${roleButton("ADC","下路")}
-                        ${roleButton("SUP","輔助")}
-
-                    </div>
-
-                </div>
-
-
-                <div class="card">
-
-                    <div class="card-title">
-                        建立狀態
-                    </div>
-
-                    <div class="create-status">
-
-                        <div class="status-pill ${player.name.trim()?"done":""}">
-                            ${player.name.trim()?"✓":"○"} 姓名
-                        </div>
-
-                        <div class="status-pill ${player.id.trim()?"done":""}">
-                            ${player.id.trim()?"✓":"○"} ID
-                        </div>
-
-                        <div class="status-pill ${player.region?"done":""}">
-                            ${player.region?"✓":"○"} 賽區
-                        </div>
-
-                        <div class="status-pill ${player.role?"done":""}">
-                            ${player.role?"✓":"○"} 位置
-                        </div>
-
-                    </div>
-
-
-                    <button
-                        class="start-btn"
-                        onclick="createPlayer()"
-                        ${complete ? "" : "disabled"}>
-
-                        ${complete
-                            ? "開始我的職業生涯"
-                            : "請完成以上資料"}
-
-                    </button>
-
-                </div>
-
-            </div>
-
-        </div>
-
-    `;
-}
-
-
-/* =========================================================
-   建立頁按鈕
+   賽區 / 位置按鈕
 ========================================================= */
 
 function regionButton(id,desc){
 
-    return `
-        <button
-            class="option ${player.region===id?"active":""}"
-            onclick="selectRegion('${id}')">
+return `
+<button
+    class="option ${player.region===id?"active":""}"
+    data-region="${id}"
+    onclick="selectRegion('${id}')">
 
-            ${id}
+    ${id}
+    <small>${desc}</small>
 
-            <small>${desc}</small>
+</button>
+`;
 
-        </button>
-    `;
 }
 
 
 function roleButton(id,desc){
 
-    return `
-        <button
-            class="option ${player.role===id?"active":""}"
-            onclick="selectRole('${id}')">
+return `
+<button
+    class="option ${player.role===id?"active":""}"
+    data-role="${id}"
+    onclick="selectRole('${id}')">
 
-            ${id}
+    ${id}
+    <small>${desc}</small>
 
-            <small>${desc}</small>
+</button>
+`;
 
-        </button>
-    `;
 }
 
 
 /* =========================================================
-   重要：
-   這些函式只修改資料，
-   不會跳頁。
+   ★ 這次最重要的修正
+   輸入文字不重新建立 input
 ========================================================= */
 
-function updateName(value){
+function updateCreateStatus(){
 
-    player.name = value;
+    const name =
+        document.getElementById("nameInput").value.trim();
 
-    refreshCreation();
+    const id =
+        document.getElementById("idInput").value.trim();
+
+
+    player.name=name;
+    player.id=id;
+
+
+    document
+        .getElementById("statusName")
+        .className=name?"done":"";
+
+
+    document
+        .getElementById("statusName")
+        .textContent=
+        name ? "✓ 姓名" : "○ 姓名";
+
+
+    document
+        .getElementById("statusID")
+        .className=id?"done":"";
+
+
+    document
+        .getElementById("statusID")
+        .textContent=
+        id ? "✓ ID" : "○ ID";
+
+
+    document
+        .getElementById("statusRegion")
+        .className=
+        player.region ? "done":"";
+
+
+    document
+        .getElementById("statusRegion")
+        .textContent=
+        player.region
+        ? "✓ 賽區"
+        : "○ 賽區";
+
+
+    document
+        .getElementById("statusRole")
+        .className=
+        player.role ? "done":"";
+
+
+    document
+        .getElementById("statusRole")
+        .textContent=
+        player.role
+        ? "✓ 位置"
+        : "○ 位置";
+
+
+    const complete =
+        name &&
+        id &&
+        player.region &&
+        player.role;
+
+
+    const btn =
+        document.getElementById("startButton");
+
+
+    btn.disabled=!complete;
+
+
+    btn.textContent=
+        complete
+        ? "開始我的職業生涯"
+        : "請完成以上資料";
+
 }
 
 
-function updateID(value){
-
-    player.id = value;
-
-    refreshCreation();
-}
-
+/* =========================================================
+   選賽區
+========================================================= */
 
 function selectRegion(region){
 
-    player.region = region;
-
-    refreshCreation();
-}
+    player.region=region;
 
 
-function selectRole(role){
+    document
+        .querySelectorAll("[data-region]")
+        .forEach(button=>{
 
-    player.role = role;
+            button.classList.toggle(
+                "active",
+                button.dataset.region===region
+            );
 
-    refreshCreation();
-}
+        });
 
 
-/*
-   重新繪製「建立角色」時，
-   會先保存 player 裡的資料。
-   所以不會洗掉姓名、ID、賽區、位置。
-*/
+    updateCreateStatus();
 
-function refreshCreation(){
-
-    if(player.created){
-        return;
-    }
-
-    document.getElementById("screen").innerHTML =
-        creationScreen();
-
-    updateTop();
 }
 
 
 /* =========================================================
-   真正建立角色
+   選位置
+========================================================= */
+
+function selectRole(role){
+
+    player.role=role;
+
+
+    document
+        .querySelectorAll("[data-role]")
+        .forEach(button=>{
+
+            button.classList.toggle(
+                "active",
+                button.dataset.role===role
+            );
+
+        });
+
+
+    updateCreateStatus();
+
+}
+
+
+/* =========================================================
+   真正建立
 ========================================================= */
 
 function createPlayer(){
 
+    const name=
+        document.getElementById("nameInput")
+        .value.trim();
+
+    const id=
+        document.getElementById("idInput")
+        .value.trim();
+
+
     if(
-        !player.name.trim() ||
-        !player.id.trim() ||
+        !name ||
+        !id ||
         !player.region ||
         !player.role
     ){
         return;
     }
 
-    player.created = true;
 
-    player.style = calculateStyle();
+    player.name=name;
+    player.id=id;
+    player.created=true;
+
 
     enableNavigation();
 
@@ -1427,31 +1108,119 @@ function createPlayer(){
 
 
 /* =========================================================
-   風格判定
+   人生頁
 ========================================================= */
 
-function calculateStyle(){
+function lifeHTML(){
 
-    const s = player.stats;
+return `
 
-    const arr = [
-        ["操作型",s.operation],
-        ["理解型",s.gameSense],
-        ["心態型",s.mentality],
-        ["體能型",s.stamina]
-    ];
+<div class="title">
+    ${player.year}・職業人生
+</div>
 
-    arr.sort((a,b)=>b[1]-a[1]);
+<div class="subtitle">
+    ${player.club
+        ? "你已經踏入職業體系。"
+        : "你的職業生涯即將開始。"}
+</div>
 
-    if(arr[0][1] < 60){
-        return "尚未定型";
-    }
 
-    if(arr[0][1] - arr[1][1] >= 12){
-        return arr[0][0];
-    }
+<div class="card">
 
-    return "均衡型";
+    <div class="card-title">
+        目前能力
+    </div>
+
+    ${statHTML("操作",player.stats.operation)}
+    ${statHTML("遊戲理解",player.stats.gameSense)}
+    ${statHTML("心態",player.stats.mentality)}
+    ${statHTML("體力",player.stats.stamina)}
+
+</div>
+
+
+<div class="card">
+
+    <div class="card-title">
+        🔎 英雄池風格調查
+    </div>
+
+    <div class="event">
+
+        目前系統觀察到你的英雄池仍在形成。
+        如果你長期集中某一類型，該類型會逐漸成為你的招牌；
+        如果各類型平均發展，英雄池會比較完整，但也可能沒有明顯長處。
+
+    </div>
+
+    <div style="margin-top:9px">
+
+        <b>
+            目前傾向：
+        </b>
+
+        <span style="color:#9eafff">
+            ${calculateStyle()}
+        </span>
+
+    </div>
+
+</div>
+
+
+<div class="card">
+
+    <div class="card-title">
+        📰 今日事件
+    </div>
+
+    <div class="event-meta">
+        ${player.year}年・職業生涯早期
+    </div>
+
+    <div class="event">
+
+        你坐在訓練室裡，看著螢幕上的比賽資料。
+        以前你只覺得自己「打得不錯」，但現在開始有人認真評估你的潛力。
+        這可能是成為職業選手的第一步，也可能只是短暫的幻想。
+
+    </div>
+
+
+    <button
+        class="choice"
+        onclick="training()">
+
+        <div class="choice-title">
+            🎯 進行一次賽訓
+        </div>
+
+        <div class="choice-effect">
+            操作 +2 ・遊戲理解 +1 ・體力 -1
+        </div>
+
+    </button>
+
+
+    <button
+        class="choice"
+        onclick="navigate('club')">
+
+        <div class="choice-title">
+            📩 查看俱樂部市場
+        </div>
+
+        <div class="choice-effect">
+            尋找青訓與職業隊伍機會
+        </div>
+
+    </button>
+
+</div>
+
+`;
+
 }
 
 
@@ -1461,163 +1230,71 @@ function calculateStyle(){
 
 function statHTML(name,value){
 
-    return `
+return `
 
-        <div class="stat">
+<div class="stat">
 
-            <div class="stat-head">
+    <div class="stat-head">
 
-                <span class="stat-name">
-                    ${name}
-                </span>
+        <span class="stat-name">
+            ${name}
+        </span>
 
-                <span class="stat-number">
-                    ${value} / 100
-                </span>
+        <span class="stat-value">
+            ${value} / 100
+        </span>
 
-            </div>
+    </div>
 
+    <div class="bar">
 
-            <div class="bar">
-
-                <div
-                    class="fill"
-                    style="width:${value}%">
-                </div>
-
-            </div>
-
-
-            <div class="distance">
-
-                距離登頂還差 ${100-value} 點
-
-            </div>
-
+        <div
+            class="fill"
+            style="width:${value}%">
         </div>
 
-    `;
+    </div>
+
+    <div class="distance">
+        距離登頂還差 ${100-value} 點
+    </div>
+
+</div>
+
+`;
+
 }
 
 
 /* =========================================================
-   人生首頁
+   風格
 ========================================================= */
 
-function lifeScreen(){
+function calculateStyle(){
 
-    player.style = calculateStyle();
-
-    const s = player.stats;
-
-    return `
-
-        <div class="title">
-            ${player.year}・職業人生
-        </div>
-
-        <div class="subtitle">
-            你的第一個職業賽季即將開始。
-        </div>
+    const stats=[
+        ["操作型",player.stats.operation],
+        ["理解型",player.stats.gameSense],
+        ["心態型",player.stats.mentality],
+        ["體能型",player.stats.stamina]
+    ];
 
 
-        <div class="card">
-
-            <div class="card-title">
-                目前狀態
-            </div>
+    stats.sort((a,b)=>b[1]-a[1]);
 
 
-            <div class="style-box">
-
-                <div>
-
-                    <div class="style-name">
-                        ${player.style}
-                    </div>
-
-                    <div class="style-desc">
-                        你的英雄池／能力傾向正在形成
-                    </div>
-
-                </div>
+    if(stats[0][1]<60){
+        return "尚未定型";
+    }
 
 
-                <div class="style-score">
-
-                    <div class="muted">
-                        年齡
-                    </div>
-
-                    <b>
-                        ${player.age}
-                    </b>
-
-                </div>
-
-            </div>
+    if(stats[0][1]-stats[1][1]>=12){
+        return stats[0][0];
+    }
 
 
-            ${statHTML("操作",s.operation)}
-            ${statHTML("遊戲理解",s.gameSense)}
-            ${statHTML("心態",s.mentality)}
-            ${statHTML("體力",s.stamina)}
+    return "均衡型";
 
-        </div>
-
-
-        <div class="card">
-
-            <div class="card-title">
-                📰 今日事件
-            </div>
-
-            <div class="event-meta">
-                ${player.year}年・職業生涯早期
-            </div>
-
-
-            <div class="event-text">
-
-                你坐在訓練室裡，看著螢幕上的比賽資料。
-                以前你只覺得自己「打得不錯」，但現在開始有人認真評估你的潛力。
-                這可能是成為職業選手的第一步，也可能只是短暫的幻想。
-
-            </div>
-
-
-            <button
-                class="choice"
-                onclick="doTraining()">
-
-                <div class="choice-title">
-                    🎯 認真進行一次賽訓
-                </div>
-
-                <div class="choice-effect">
-                    操作 +2 ・ 遊戲理解 +1
-                </div>
-
-            </button>
-
-
-            <button
-                class="choice"
-                onclick="navigate('club')">
-
-                <div class="choice-title">
-                    📩 查看俱樂部市場
-                </div>
-
-                <div class="choice-effect">
-                    尋找青訓與職業隊伍機會
-                </div>
-
-            </button>
-
-        </div>
-
-    `;
 }
 
 
@@ -1625,23 +1302,17 @@ function lifeScreen(){
    賽訓
 ========================================================= */
 
-function doTraining(){
+function training(){
 
-    player.stats.operation =
+    player.stats.operation=
         Math.min(100,player.stats.operation+2);
 
-    player.stats.gameSense =
+    player.stats.gameSense=
         Math.min(100,player.stats.gameSense+1);
 
-    player.stats.stamina =
+    player.stats.stamina=
         Math.max(0,player.stats.stamina-1);
 
-    alert(
-        "你完成了一次高強度賽訓。\n\n" +
-        "操作 +2\n" +
-        "遊戲理解 +1\n" +
-        "體力 -1"
-    );
 
     render();
 
@@ -1652,301 +1323,255 @@ function doTraining(){
    俱樂部
 ========================================================= */
 
-function clubScreen(){
-
-    const domestic =
-        CLUBS.filter(c=>c.region===player.region);
-
-    const overseas =
-        CLUBS.filter(c=>c.region!==player.region);
-
-
-    return `
-
-        <div class="title">
-            俱樂部市場
-        </div>
-
-        <div class="subtitle">
-            你可以觀察哪些隊伍適合你的職業道路。
-        </div>
-
-
-        <div class="card">
-
-            <div class="card-title">
-                🏠 ${player.region}・本賽區
-            </div>
-
-            <div class="club-grid">
-
-                ${
-                    domestic.length
-                    ? domestic.map(clubHTML).join("")
-                    : `<div class="muted">目前沒有資料。</div>`
-                }
-
-            </div>
-
-        </div>
-
-
-        <div class="card">
-
-            <div class="card-title">
-                🌏 海外隊伍
-            </div>
-
-            <div class="subtitle" style="margin-bottom:10px">
-                海外隊伍通常具有更高曝光與國際賽機會，但競爭也可能更加激烈。
-            </div>
-
-            <div class="club-grid">
-
-                ${
-                    overseas.map(clubHTML).join("")
-                }
-
-            </div>
-
-        </div>
-
-    `;
-}
-
-
-/* =========================================================
-   俱樂部卡
-========================================================= */
-
 function clubHTML(club){
 
-    const stars =
-        "★".repeat(club.stars) +
+    const stars=
+        "★".repeat(club.stars)+
         "☆".repeat(5-club.stars);
 
 
-    const currentAbility =
+    const ability=
         Math.round(
             (
-                player.stats.operation +
-                player.stats.gameSense +
-                player.stats.mentality
-            ) / 3
-        );
-
-
-    const enemy =
-        club.roster[player.role] || 80;
-
-
-    let chance =
-        50 + (currentAbility-enemy)*2;
-
-
-    chance =
-        Math.max(5,Math.min(95,chance));
-
-
-    let statusClass;
-    let statusText;
-
-
-    if(chance>=70){
-
-        statusClass="good";
-        statusText=
-            `🟢 先發機會不錯・預估 ${Math.round(chance)}%`;
-
-    }
-    else if(chance>=40){
-
-        statusClass="mid";
-        statusText=
-            `🟡 需要競爭・預估 ${Math.round(chance)}%`;
-
-    }
-    else{
-
-        statusClass="bad";
-        statusText=
-            `🔴 先發競爭激烈・預估 ${Math.round(chance)}%`;
-
-    }
-
-
-    const champion =
-        club.stars>=5
-        ? "🏆 冠軍熱門"
-        : club.stars>=4
-        ? "⚔️ 強力競爭者"
-        : "🌱 挑戰者";
-
-
-    return `
-
-        <div class="club">
-
-            <div class="club-top">
-
-                <div>
-
-                    <div class="club-name">
-                        ${club.name}
-                    </div>
-
-                    <div class="club-region">
-                        ${club.region}・${club.history}
-                    </div>
-
-                </div>
-
-                <div class="stars">
-                    ${stars}
-                </div>
-
-            </div>
-
-
-            <div class="club-desc">
-                ${club.desc}
-            </div>
-
-
-            <div class="club-stats">
-
-                <div class="club-stat">
-
-                    <b>
-                        ${"★".repeat(club.academy)}
-                    </b>
-
-                    <span>
-                        青訓能力
-                    </span>
-
-                </div>
-
-
-                <div class="club-stat">
-
-                    <b>
-                        ${"★".repeat(club.international)}
-                    </b>
-
-                    <span>
-                        國際競爭力
-                    </span>
-
-                </div>
-
-
-                <div class="club-stat">
-
-                    <b>
-                        ${champion}
-                    </b>
-
-                    <span>
-                        戰隊定位
-                    </span>
-
-                </div>
-
-
-                <div class="club-stat">
-
-                    <b>
-                        ${club.roster[player.role] || "—"}
-                    </b>
-
-                    <span>
-                        目前該位置強度
-                    </span>
-
-                </div>
-
-            </div>
-
-
-            <div class="club-status ${statusClass}">
-                ${statusText}
-            </div>
-
-
-            <button
-                class="club-btn"
-                onclick="clubOffer('${club.id}')">
-
-                查看青訓邀請
-
-            </button>
-
-        </div>
-
-    `;
-}
-
-
-/* =========================================================
-   俱樂部邀請
-========================================================= */
-
-function clubOffer(id){
-
-    const club =
-        CLUBS.find(c=>c.id===id);
-
-    if(!club)return;
-
-
-    const currentAbility =
-        Math.round(
-            (
-                player.stats.operation +
-                player.stats.gameSense +
+                player.stats.operation+
+                player.stats.gameSense+
                 player.stats.mentality
             )/3
         );
 
 
-    const opponent =
-        club.roster[player.role] || 80;
+    const roster=
+        club.roster[player.role]||80;
 
 
-    let chance =
+    let chance=
+        50+(ability-roster)*2;
+
+
+    chance=
         Math.max(
             5,
-            Math.min(
-                95,
-                50+(currentAbility-opponent)*2
-            )
+            Math.min(95,chance)
         );
 
 
-    const result =
-        chance>=45
-        ? "教練團對你的潛力產生了興趣。"
-        : "教練團認為你目前還需要更多時間成長。";
+    let status;
+    let cls;
 
 
-    alert(
-        `${club.name}\n\n` +
-        `${result}\n\n` +
-        `青訓邀請評估：${Math.round(chance)}%`
-    );
+    if(chance>=70){
+
+        status="🟢 先發機會不錯";
+        cls="good";
+
+    }else if(chance>=40){
+
+        status="🟡 需要競爭先發";
+        cls="mid";
+
+    }else{
+
+        status="🔴 先發競爭非常激烈";
+        cls="bad";
+
+    }
 
 
-    if(chance>=45){
+return `
 
-        player.club = club.id;
+<div class="club">
+
+    <div class="club-top">
+
+        <div>
+
+            <div class="club-name">
+                ${club.name}
+            </div>
+
+            <div class="club-region">
+                ${club.region}・${club.history}
+            </div>
+
+        </div>
+
+        <div class="stars">
+            ${stars}
+        </div>
+
+    </div>
+
+
+    <div class="club-desc">
+        ${club.desc}
+    </div>
+
+
+    <div class="club-stats">
+
+        <div class="club-stat">
+            <b>${"★".repeat(club.academy)}</b>
+            <span>青訓能力</span>
+        </div>
+
+        <div class="club-stat">
+            <b>${"★".repeat(club.international)}</b>
+            <span>國際競爭力</span>
+        </div>
+
+        <div class="club-stat">
+            <b>${club.stars>=5?"🏆 冠軍熱門":club.stars>=4?"⚔️ 競爭者":"🌱 挑戰者"}</b>
+            <span>戰隊定位</span>
+        </div>
+
+        <div class="club-stat">
+            <b>${roster}</b>
+            <span>${player.role}位置強度</span>
+        </div>
+
+    </div>
+
+
+    <div class="club-status ${cls}">
+        ${status}・${Math.round(chance)}%
+    </div>
+
+
+    <button
+        class="club-btn"
+        onclick="clubOffer('${club.name}')">
+
+        查看青訓邀請
+
+    </button>
+
+</div>
+
+`;
+
+}
+
+
+function clubHTMLList(){
+
+    const domestic=
+        CLUBS.filter(c=>c.region===player.region);
+
+    const overseas=
+        CLUBS.filter(c=>c.region!==player.region);
+
+
+return `
+
+<div class="title">
+    俱樂部市場
+</div>
+
+<div class="subtitle">
+    星級越高，通常代表陣容與資源越強；
+    但強隊的先發競爭也會更加激烈。
+</div>
+
+
+<div class="card">
+
+    <div class="card-title">
+        🏠 ${player.region}・本賽區
+    </div>
+
+    <div class="club-grid">
+
+        ${
+            domestic.length
+            ? domestic.map(clubHTML).join("")
+            : "<div class='subtitle'>目前沒有資料。</div>"
+        }
+
+    </div>
+
+</div>
+
+
+<div class="card">
+
+    <div class="card-title">
+        🌏 海外隊伍
+    </div>
+
+    <div class="subtitle" style="margin-bottom:9px">
+        海外隊伍通常帶來更高的國際曝光，但語言、文化與先發競爭也可能提高難度。
+    </div>
+
+    <div class="club-grid">
+
+        ${overseas.map(clubHTML).join("")}
+
+    </div>
+
+</div>
+
+`;
+
+}
+
+
+/* =========================================================
+   青訓邀請
+========================================================= */
+
+function clubOffer(name){
+
+    const club=
+        CLUBS.find(c=>c.name===name);
+
+    if(!club)return;
+
+
+    const ability=
+        Math.round(
+            (
+                player.stats.operation+
+                player.stats.gameSense+
+                player.stats.mentality
+            )/3
+        );
+
+
+    const roster=
+        club.roster[player.role]||80;
+
+
+    let chance=
+        50+(ability-roster)*2;
+
+
+    chance=
+        Math.max(
+            5,
+            Math.min(95,chance)
+        );
+
+
+    if(Math.random()*100<=chance){
+
+        player.club=club.name;
 
         alert(
-            `你加入了 ${club.name} 的青訓體系。\n\n` +
-            "你的職業生涯正式開始。"
+            `${club.name}\n\n`+
+            "青訓教練對你的表現產生興趣。\n\n"+
+            "你獲得了青訓邀請！"
         );
 
+
         navigate("life");
+
+    }else{
+
+        alert(
+            `${club.name}\n\n`+
+            "教練團認為你目前還需要更多成長。\n\n"+
+            "這次沒有拿到邀請。"
+        );
 
     }
 
@@ -1957,79 +1582,71 @@ function clubOffer(id){
    存檔
 ========================================================= */
 
-function saveScreen(){
+function saveHTML(){
 
-    const hasSave =
-        !!localStorage.getItem("lolLifeSave");
+return `
 
+<div class="title">
+    存檔
+</div>
 
-    return `
-
-        <div class="title">
-            存檔
-        </div>
-
-        <div class="subtitle">
-            遊戲不會自動讀取存檔。
-        </div>
+<div class="subtitle">
+    遊戲不會自動讀取存檔。
+</div>
 
 
-        <div class="card">
+<div class="card">
 
-            <div class="card-title">
-                💾 遊戲進度
-            </div>
+    <div class="card-title">
+        💾 遊戲進度
+    </div>
 
+    <button
+        class="save-btn"
+        onclick="saveGame()">
 
-            <button
-                class="save-btn"
-                onclick="saveGame()">
+        💾 儲存目前進度
 
-                💾 儲存目前進度
-
-            </button>
-
-
-            <button
-                class="save-btn"
-                onclick="loadGame()">
-
-                📂 讀取存檔
-                ${hasSave?"":"（目前沒有存檔）"}
-
-            </button>
+    </button>
 
 
-            <button
-                class="save-btn"
-                onclick="resetGame()">
+    <button
+        class="save-btn"
+        onclick="loadGame()">
 
-                🔄 重置遊戲
+        📂 讀取存檔
 
-            </button>
-
-        </div>
+    </button>
 
 
-        <div class="card">
+    <button
+        class="save-btn"
+        onclick="resetGame()">
 
-            <div class="card-title">
-                存檔規則
-            </div>
+        🔄 重置遊戲
 
-            <div class="subtitle">
+    </button>
 
-                關閉網頁後再次開啟，
-                遊戲會從新的職業人生開始。
+</div>
 
-                只有你主動按下「讀取存檔」，
-                才會恢復之前的進度。
 
-            </div>
+<div class="card">
 
-        </div>
+    <div class="card-title">
+        存檔規則
+    </div>
 
-    `;
+    <div class="subtitle">
+
+        每次重新打開遊戲預設都是新的生涯。
+        只有主動選擇「讀取存檔」才會恢復進度。
+
+    </div>
+
+</div>
+
+`;
+
 }
 
 
@@ -2040,14 +1657,14 @@ function saveGame(){
         JSON.stringify(player)
     );
 
-    alert("存檔成功。");
+    alert("存檔成功！");
 
 }
 
 
 function loadGame(){
 
-    const data =
+    const data=
         localStorage.getItem("lolLifeSave");
 
 
@@ -2061,19 +1678,16 @@ function loadGame(){
 
     try{
 
-        player =
+        player=
             JSON.parse(data);
 
-        player.created = true;
+        player.created=true;
 
         enableNavigation();
 
         navigate("life");
 
-        alert("讀檔成功。");
-
-    }
-    catch(e){
+    }catch(e){
 
         alert("存檔資料損壞。");
 
@@ -2086,7 +1700,7 @@ function resetGame(){
 
     if(
         !confirm(
-            "確定要刪除目前進度並重新開始嗎？"
+            "確定要重置目前遊戲嗎？"
         )
     ){
         return;
@@ -2098,7 +1712,28 @@ function resetGame(){
     );
 
 
-    loadInitial();
+    player={
+        created:false,
+        name:"",
+        id:"",
+        region:"",
+        role:"",
+        age:17,
+        year:2026,
+        club:null,
+
+        stats:{
+            operation:48,
+            gameSense:45,
+            mentality:47,
+            stamina:50
+        }
+    };
+
+
+    disableNavigation();
+
+    render();
 
 }
 
@@ -2109,11 +1744,6 @@ function resetGame(){
 
 function navigate(page){
 
-    /*
-       角色還沒建立：
-       只能留在建立頁。
-    */
-
     if(!player.created){
 
         render();
@@ -2123,10 +1753,8 @@ function navigate(page){
 
 
     document
-        .querySelectorAll(".nav-btn")
-        .forEach(btn=>{
-            btn.classList.remove("active");
-        });
+        .querySelectorAll(".nav")
+        .forEach(x=>x.classList.remove("active"));
 
 
     if(page==="life"){
@@ -2137,8 +1765,8 @@ function navigate(page){
 
         document
             .getElementById("screen")
-            .innerHTML =
-            lifeScreen();
+            .innerHTML=
+            lifeHTML();
 
     }
 
@@ -2151,8 +1779,8 @@ function navigate(page){
 
         document
             .getElementById("screen")
-            .innerHTML =
-            clubScreen();
+            .innerHTML=
+            clubHTMLList();
 
     }
 
@@ -2165,8 +1793,8 @@ function navigate(page){
 
         document
             .getElementById("screen")
-            .innerHTML =
-            saveScreen();
+            .innerHTML=
+            saveHTML();
 
     }
 
@@ -2177,18 +1805,21 @@ function navigate(page){
 
 
 /* =========================================================
-   啟用底部導覽
+   導覽權限
 ========================================================= */
 
 function enableNavigation(){
 
-    document
-        .getElementById("navClub")
-        .disabled=false;
+    document.getElementById("navClub").disabled=false;
+    document.getElementById("navSave").disabled=false;
 
-    document
-        .getElementById("navSave")
-        .disabled=false;
+}
+
+
+function disableNavigation(){
+
+    document.getElementById("navClub").disabled=true;
+    document.getElementById("navSave").disabled=true;
 
 }
 
@@ -2199,14 +1830,39 @@ function enableNavigation(){
 
 function render(){
 
-    const screen =
+    const screen=
         document.getElementById("screen");
 
 
     if(!player.created){
 
-        screen.innerHTML =
-            creationScreen();
+        screen.innerHTML=
+            creationHTML();
+
+
+        /*
+         * 這裡只在第一次建立頁面時生成 input。
+         * 後續輸入文字不會觸發 render。
+         */
+
+        const nameInput=
+            document.getElementById("nameInput");
+
+        const idInput=
+            document.getElementById("idInput");
+
+
+        nameInput.addEventListener(
+            "input",
+            updateCreateStatus
+        );
+
+
+        idInput.addEventListener(
+            "input",
+            updateCreateStatus
+        );
+
 
         updateTop();
 
@@ -2217,14 +1873,12 @@ function render(){
 
     enableNavigation();
 
-    screen.innerHTML =
-        lifeScreen();
+    screen.innerHTML=
+        lifeHTML();
 
     document
-        .querySelectorAll(".nav-btn")
-        .forEach(btn=>{
-            btn.classList.remove("active");
-        });
+        .querySelectorAll(".nav")
+        .forEach(x=>x.classList.remove("active"));
 
     document
         .getElementById("navLife")
@@ -2243,7 +1897,7 @@ function updateTop(){
 
     document
         .getElementById("topName")
-        .textContent =
+        .textContent=
         player.created
         ? `${player.name}「${player.id}」`
         : "尚未建立選手";
@@ -2251,7 +1905,7 @@ function updateTop(){
 
     document
         .getElementById("topSub")
-        .textContent =
+        .textContent=
         player.created
         ? `${player.region} · ${player.role} · ${player.year}`
         : "建立你的職業人生";
@@ -2259,24 +1913,8 @@ function updateTop(){
 
     document
         .getElementById("topAge")
-        .textContent =
+        .textContent=
         `${player.age}歲`;
-
-}
-
-
-/* =========================================================
-   HTML 安全
-========================================================= */
-
-function escapeHTML(value){
-
-    return String(value)
-        .replaceAll("&","&amp;")
-        .replaceAll("<","&lt;")
-        .replaceAll(">","&gt;")
-        .replaceAll('"',"&quot;")
-        .replaceAll("'","&#039;");
 
 }
 
@@ -2285,7 +1923,8 @@ function escapeHTML(value){
    啟動
 ========================================================= */
 
-loadInitial();
+disableNavigation();
+render();
 
 </script>
 
