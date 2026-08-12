@@ -3,1812 +3,2045 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>LOL 職業人生模擬器</title>
+<title>LOL 人生模擬器</title>
 
 <style>
-* {
-    box-sizing: border-box;
+@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;500;700;800;900&display=swap');
+
+:root{
+    --bg:#e8f0e8;
+    --panel:#f9fbf8;
+    --panel2:#f1f6f0;
+    --green:#205c3b;
+    --green2:#2d7b4d;
+    --green3:#dcebdd;
+    --text:#1c2b21;
+    --muted:#718075;
+    --line:#d4dfd4;
+    --gold:#c08a31;
+    --red:#a34a4a;
+    --shadow:0 8px 30px rgba(31,70,43,.08);
 }
 
-body {
-    margin: 0;
-    background: #dcebdc;
-    color: #18351f;
-    font-family:
-        "Noto Sans TC",
-        "Microsoft JhengHei",
-        Arial,
-        sans-serif;
+*{
+    box-sizing:border-box;
 }
 
-button,
-input,
-select {
-    font: inherit;
+body{
+    margin:0;
+    background:
+        radial-gradient(circle at 15% 0%,#f7fbf5 0,transparent 32%),
+        var(--bg);
+    color:var(--text);
+    font-family:"Noto Sans TC","Microsoft JhengHei",sans-serif;
 }
 
-button {
-    cursor: pointer;
+button,input,select{
+    font:inherit;
 }
 
-#app {
-    width: 100%;
-    min-height: 100vh;
-    padding-bottom: 82px;
+button{
+    cursor:pointer;
 }
 
-/* ===== 頂部 ===== */
-
-.topbar {
-    background: #174d2b;
-    color: white;
-    padding: 12px 16px;
-    position: sticky;
-    top: 0;
-    z-index: 10;
-    box-shadow: 0 2px 8px #0002;
+.app{
+    min-height:100vh;
 }
 
-.topbar-inner {
-    max-width: 1100px;
-    margin: auto;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    gap: 12px;
+/* ================= TOP ================= */
+
+.top{
+    height:70px;
+    background:rgba(249,251,248,.94);
+    border-bottom:1px solid var(--line);
+    backdrop-filter:blur(10px);
+    position:sticky;
+    top:0;
+    z-index:20;
 }
 
-.game-title {
-    font-size: 20px;
-    font-weight: 900;
+.top-inner{
+    max-width:1250px;
+    height:100%;
+    margin:auto;
+    padding:0 22px;
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
 }
 
-.year-box {
-    background: #ffffff1c;
-    padding: 6px 12px;
-    border-radius: 999px;
-    font-size: 14px;
+.logo{
+    font-weight:900;
+    font-size:20px;
+    color:var(--green);
 }
 
-/* ===== 主體 ===== */
-
-.container {
-    max-width: 1100px;
-    margin: auto;
-    padding: 14px;
+.top-right{
+    display:flex;
+    align-items:center;
+    gap:9px;
 }
 
-.page {
-    display: none;
+.quarter{
+    padding:7px 12px;
+    border-radius:999px;
+    background:var(--green3);
+    color:var(--green);
+    font-size:13px;
+    font-weight:800;
 }
 
-.page.active {
-    display: block;
+.icon-btn{
+    border:1px solid var(--line);
+    background:white;
+    color:var(--green);
+    border-radius:9px;
+    padding:7px 11px;
+    font-weight:800;
 }
 
-/* ===== 卡片 ===== */
+/* ================= MAIN ================= */
 
-.card {
-    background: #f9fff9;
-    border: 1px solid #b8d3ba;
-    border-radius: 14px;
-    padding: 14px;
-    margin-bottom: 12px;
-    box-shadow: 0 2px 7px #174d2b12;
+.layout{
+    max-width:1250px;
+    margin:auto;
+    padding:22px;
+    display:grid;
+    grid-template-columns:270px minmax(0,1fr) 285px;
+    gap:18px;
 }
 
-.card-title {
-    font-weight: 900;
-    font-size: 17px;
-    margin-bottom: 10px;
+/* ================= LEFT ================= */
+
+.left{
+    display:flex;
+    flex-direction:column;
+    gap:12px;
 }
 
-.small {
-    font-size: 13px;
-    color: #58705d;
+.player-card{
+    background:var(--panel);
+    border:1px solid var(--line);
+    border-radius:18px;
+    padding:18px;
+    box-shadow:var(--shadow);
 }
 
-/* ===== 玩家 ===== */
-
-.player-header {
-    display: grid;
-    grid-template-columns: 1fr auto;
-    gap: 12px;
-    align-items: center;
+.avatar{
+    width:52px;
+    height:52px;
+    border-radius:15px;
+    background:var(--green3);
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    font-size:25px;
+    margin-bottom:12px;
 }
 
-.player-name {
-    font-size: 24px;
-    font-weight: 900;
+.name{
+    font-size:21px;
+    font-weight:900;
 }
 
-.player-id {
-    color: #66806b;
-    font-size: 14px;
+.player-id{
+    color:var(--muted);
+    font-size:13px;
+    margin-top:2px;
 }
 
-.rank-box {
-    text-align: right;
+.meta{
+    display:flex;
+    flex-wrap:wrap;
+    gap:5px;
+    margin-top:12px;
 }
 
-.lp {
-    font-size: 28px;
-    font-weight: 900;
-    color: #176b36;
+.tag{
+    background:var(--panel2);
+    border:1px solid var(--line);
+    border-radius:999px;
+    padding:5px 8px;
+    font-size:11px;
+    font-weight:800;
 }
 
-.progress {
-    height: 9px;
-    background: #d8e6d9;
-    border-radius: 99px;
-    overflow: hidden;
-    margin-top: 5px;
+.side-card{
+    background:rgba(249,251,248,.72);
+    border:1px solid var(--line);
+    border-radius:16px;
+    padding:14px;
 }
 
-.progress > div {
-    height: 100%;
-    background: #2c8b4b;
-    transition: width .3s;
+.side-title{
+    font-size:12px;
+    font-weight:900;
+    color:var(--muted);
+    margin-bottom:10px;
+    letter-spacing:.5px;
 }
 
-/* ===== 屬性 ===== */
-
-.stats-grid {
-    display: grid;
-    grid-template-columns: repeat(4, 1fr);
-    gap: 9px;
+.timeline{
+    display:flex;
+    flex-direction:column;
+    gap:9px;
 }
 
-.stat {
-    background: #eef7ef;
-    border-radius: 11px;
-    padding: 10px;
+.timeline-item{
+    font-size:12px;
+    line-height:1.45;
+    padding-left:11px;
+    border-left:2px solid #bdd0bf;
 }
 
-.stat-name {
-    font-weight: 800;
-    font-size: 14px;
+.timeline-item strong{
+    color:var(--green);
 }
 
-.stat-number {
-    margin-top: 4px;
-    font-size: 19px;
-    font-weight: 900;
+/* ================= CENTER ================= */
+
+.center{
+    min-width:0;
 }
 
-.stat-limit {
-    color: #708173;
-    font-size: 12px;
+.hero{
+    background:
+        linear-gradient(135deg,#214f35,#2e7048);
+    color:white;
+    border-radius:20px;
+    padding:23px;
+    box-shadow:var(--shadow);
+    margin-bottom:14px;
 }
 
-.cost {
-    color: #a15d19;
-    font-size: 12px;
-    font-weight: 800;
+.hero-top{
+    display:flex;
+    justify-content:space-between;
+    gap:15px;
 }
 
-/* ===== 按鈕 ===== */
-
-.btn {
-    border: 0;
-    border-radius: 10px;
-    padding: 11px 14px;
-    background: #2c7c43;
-    color: white;
-    font-weight: 800;
-    transition: .15s;
+.hero-label{
+    font-size:12px;
+    opacity:.72;
+    font-weight:800;
 }
 
-.btn:hover {
-    filter: brightness(1.08);
+.hero-title{
+    font-size:28px;
+    line-height:1.2;
+    font-weight:900;
+    margin-top:5px;
 }
 
-.btn:disabled {
-    opacity: .45;
-    cursor: not-allowed;
+.hero-desc{
+    margin-top:9px;
+    color:#dcecdf;
+    font-size:14px;
+    line-height:1.6;
+    max-width:700px;
 }
 
-.btn.secondary {
-    background: #dce9de;
-    color: #214d2b;
+.lp-box{
+    text-align:right;
+    min-width:100px;
 }
 
-.btn.dark {
-    background: #174d2b;
+.lp-number{
+    font-size:30px;
+    font-weight:900;
 }
 
-.btn.warning {
-    background: #a9691b;
+.lp-label{
+    font-size:11px;
+    opacity:.7;
 }
 
-.btn.danger {
-    background: #9b3f3f;
+.event{
+    background:var(--panel);
+    border:1px solid var(--line);
+    border-radius:20px;
+    padding:20px;
+    box-shadow:var(--shadow);
 }
 
-.button-row {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 8px;
+.event-type{
+    display:inline-flex;
+    padding:5px 9px;
+    border-radius:999px;
+    background:var(--green3);
+    color:var(--green);
+    font-size:11px;
+    font-weight:900;
+    margin-bottom:9px;
 }
 
-/* ===== 訓練 ===== */
-
-.training-grid {
-    display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    gap: 10px;
+.event-title{
+    font-size:22px;
+    font-weight:900;
+    margin-bottom:8px;
 }
 
-.action {
-    border: 1px solid #b7d0b9;
-    background: white;
-    border-radius: 12px;
-    padding: 13px;
-    text-align: left;
+.story{
+    font-size:14px;
+    line-height:1.75;
+    color:#46564b;
 }
 
-.action:hover {
-    border-color: #398652;
-    background: #f5fff6;
+.choices{
+    display:grid;
+    gap:9px;
+    margin-top:17px;
 }
 
-.action-title {
-    font-weight: 900;
-    margin-bottom: 5px;
+.choice{
+    width:100%;
+    text-align:left;
+    border:1px solid var(--line);
+    background:white;
+    border-radius:13px;
+    padding:13px 14px;
+    transition:.15s;
 }
 
-.action-desc {
-    color: #607462;
-    font-size: 13px;
-    line-height: 1.45;
+.choice:hover{
+    border-color:#77a481;
+    transform:translateY(-1px);
+    box-shadow:0 5px 15px rgba(32,92,59,.08);
 }
 
-.gain {
-    display: inline-block;
-    margin-top: 7px;
-    background: #e4f2e5;
-    color: #246a36;
-    padding: 4px 8px;
-    border-radius: 999px;
-    font-size: 12px;
-    font-weight: 800;
+.choice-title{
+    font-size:14px;
+    font-weight:900;
+    color:var(--text);
 }
 
-/* ===== 事件文本 ===== */
-
-.story {
-    background: #f2f8f2;
-    border-left: 4px solid #31814a;
-    padding: 11px 13px;
-    border-radius: 8px;
-    line-height: 1.55;
-    font-size: 14px;
+.choice-desc{
+    margin-top:4px;
+    color:var(--muted);
+    font-size:12px;
+    line-height:1.5;
 }
 
-/* ===== 頁籤 ===== */
-
-.tabs {
-    display: flex;
-    gap: 6px;
-    overflow-x: auto;
-    margin-bottom: 12px;
+.choice-reward{
+    margin-top:7px;
+    color:var(--green2);
+    font-size:11px;
+    font-weight:900;
 }
 
-.tab {
-    flex: 0 0 auto;
-    border: 0;
-    background: #cbdccc;
-    color: #31553a;
-    padding: 9px 14px;
-    border-radius: 999px;
-    font-weight: 800;
+.choice.danger:hover{
+    border-color:#c57b7b;
 }
 
-.tab.active {
-    background: #24723d;
-    color: white;
+/* ================= RIGHT ================= */
+
+.right{
+    display:flex;
+    flex-direction:column;
+    gap:12px;
 }
 
-/* ===== 招募 ===== */
-
-.offer {
-    border: 2px solid #c79a4a;
-    background: #fffaf0;
+.panel{
+    background:var(--panel);
+    border:1px solid var(--line);
+    border-radius:18px;
+    padding:15px;
+    box-shadow:var(--shadow);
 }
 
-.club-star {
-    color: #d39a22;
-    letter-spacing: 1px;
+.panel-title{
+    font-size:13px;
+    font-weight:900;
+    margin-bottom:12px;
 }
 
-.club-name {
-    font-size: 19px;
-    font-weight: 900;
+.stat{
+    margin-bottom:12px;
 }
 
-/* ===== 底部導航 ===== */
-
-.bottom-nav {
-    position: fixed;
-    bottom: 0;
-    left: 0;
-    right: 0;
-    height: 68px;
-    background: #f7fff8;
-    border-top: 1px solid #bad0bc;
-    z-index: 20;
-    box-shadow: 0 -2px 8px #0001;
+.stat:last-child{
+    margin-bottom:0;
 }
 
-.bottom-inner {
-    max-width: 700px;
-    height: 100%;
-    margin: auto;
-    display: grid;
-    grid-template-columns: repeat(4, 1fr);
+.stat-head{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    font-size:12px;
+    font-weight:800;
 }
 
-.nav-btn {
-    border: 0;
-    background: transparent;
-    color: #637465;
-    font-weight: 800;
-    font-size: 12px;
+.stat-value{
+    font-size:12px;
+    color:var(--green);
 }
 
-.nav-btn.active {
-    color: #176633;
-    background: #e8f4e9;
+.bar{
+    height:7px;
+    background:#e2e9e2;
+    border-radius:999px;
+    overflow:hidden;
+    margin-top:5px;
 }
 
-/* ===== 彈窗 ===== */
-
-.modal-bg {
-    display: none;
-    position: fixed;
-    inset: 0;
-    background: #0007;
-    z-index: 100;
-    align-items: center;
-    justify-content: center;
-    padding: 15px;
+.bar-fill{
+    height:100%;
+    background:linear-gradient(90deg,var(--green2),#62a873);
+    border-radius:999px;
 }
 
-.modal-bg.show {
-    display: flex;
+.stat-foot{
+    display:flex;
+    justify-content:space-between;
+    margin-top:4px;
+    color:var(--muted);
+    font-size:10px;
 }
 
-.modal {
-    width: min(520px, 100%);
-    max-height: 85vh;
-    overflow-y: auto;
-    background: white;
-    border-radius: 16px;
-    padding: 17px;
+.ap{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    padding:11px;
+    background:var(--panel2);
+    border-radius:11px;
 }
 
-input,
-select {
-    width: 100%;
-    padding: 11px;
-    border: 1px solid #aac4ae;
-    border-radius: 9px;
-    background: white;
-    color: #18351f;
-    margin-top: 5px;
-    margin-bottom: 10px;
+.ap-number{
+    font-size:23px;
+    font-weight:900;
+    color:var(--green);
 }
 
-label {
-    font-size: 13px;
-    font-weight: 800;
+.style{
+    font-size:18px;
+    font-weight:900;
+    color:var(--green);
 }
 
-/* ===== 響應式 ===== */
+.style-desc{
+    font-size:11px;
+    color:var(--muted);
+    line-height:1.5;
+    margin-top:5px;
+}
 
-@media (max-width: 700px) {
-    .container {
-        padding: 10px;
+/* ================= MOBILE ================= */
+
+@media(max-width:950px){
+
+    .layout{
+        grid-template-columns:1fr 260px;
     }
 
-    .stats-grid {
-        grid-template-columns: repeat(2, 1fr);
+    .left{
+        grid-column:1 / -1;
+        display:grid;
+        grid-template-columns:1fr 1fr;
     }
 
-    .training-grid {
-        grid-template-columns: 1fr;
+    .left .player-card{
+        grid-row:span 2;
+    }
+}
+
+@media(max-width:700px){
+
+    .top{
+        height:62px;
     }
 
-    .player-name {
-        font-size: 20px;
+    .top-inner{
+        padding:0 12px;
     }
 
-    .lp {
-        font-size: 23px;
+    .logo{
+        font-size:16px;
     }
 
-    .card {
-        padding: 11px;
+    .top-right{
+        gap:5px;
     }
 
-    .topbar {
-        padding: 10px 11px;
+    .quarter{
+        font-size:10px;
+        padding:6px 8px;
     }
 
-    .game-title {
-        font-size: 17px;
+    .icon-btn{
+        padding:6px 8px;
+        font-size:11px;
     }
+
+    .layout{
+        display:block;
+        padding:10px;
+    }
+
+    .left{
+        display:block;
+    }
+
+    .left .side-card{
+        display:none;
+    }
+
+    .player-card{
+        margin-bottom:10px;
+        padding:14px;
+    }
+
+    .avatar{
+        display:none;
+    }
+
+    .name{
+        font-size:19px;
+    }
+
+    .hero{
+        border-radius:16px;
+        padding:17px;
+    }
+
+    .hero-title{
+        font-size:22px;
+    }
+
+    .lp-number{
+        font-size:25px;
+    }
+
+    .event{
+        padding:16px;
+        border-radius:16px;
+    }
+
+    .event-title{
+        font-size:19px;
+    }
+
+    .right{
+        margin-top:10px;
+    }
+
+    .panel{
+        border-radius:14px;
+    }
+}
+
+/* ================= CREATE ================= */
+
+.overlay{
+    position:fixed;
+    inset:0;
+    background:rgba(16,36,23,.58);
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    padding:15px;
+    z-index:100;
+}
+
+.create{
+    width:min(470px,100%);
+    background:var(--panel);
+    border-radius:20px;
+    padding:22px;
+    box-shadow:0 20px 70px #0004;
+}
+
+.create h1{
+    margin:0;
+    font-size:23px;
+}
+
+.create p{
+    color:var(--muted);
+    font-size:13px;
+    line-height:1.6;
+}
+
+label{
+    display:block;
+    font-size:12px;
+    font-weight:900;
+    margin-top:11px;
+}
+
+input,select{
+    width:100%;
+    border:1px solid var(--line);
+    border-radius:10px;
+    padding:10px;
+    margin-top:5px;
+    background:white;
+    outline:none;
+}
+
+input:focus,select:focus{
+    border-color:#6b9c76;
+}
+
+.start{
+    width:100%;
+    margin-top:15px;
+    border:0;
+    border-radius:11px;
+    background:var(--green);
+    color:white;
+    padding:12px;
+    font-weight:900;
+}
+
+/* ================= NOTIFICATION ================= */
+
+.toast{
+    position:fixed;
+    left:50%;
+    bottom:25px;
+    transform:translateX(-50%) translateY(20px);
+    background:#193e29;
+    color:white;
+    padding:10px 15px;
+    border-radius:999px;
+    font-size:12px;
+    font-weight:800;
+    opacity:0;
+    pointer-events:none;
+    transition:.25s;
+    z-index:200;
+}
+
+.toast.show{
+    opacity:1;
+    transform:translateX(-50%) translateY(0);
 }
 </style>
 </head>
 
 <body>
 
-<div id="app">
+<div class="app">
 
-<header class="topbar">
-    <div class="topbar-inner">
-        <div class="game-title">🏆 LOL 職業人生模擬器</div>
-        <div class="year-box" id="yearText">17歲・路人玩家</div>
+<header class="top">
+    <div class="top-inner">
+        <div class="logo">⚡ LOL 人生模擬器</div>
+
+        <div class="top-right">
+            <div class="quarter" id="quarterText">尚未開始</div>
+            <button class="icon-btn" onclick="saveGame()">💾</button>
+            <button class="icon-btn" onclick="undo()">↶</button>
+        </div>
     </div>
 </header>
 
-<main class="container">
+<main class="layout">
 
-<!-- ================= 首頁 ================= -->
+<!-- ================= 左 ================= -->
 
-<section id="page-home" class="page active">
+<aside class="left">
 
-    <div class="card">
-        <div class="player-header">
+    <div class="player-card">
+        <div class="avatar">🎮</div>
+
+        <div class="name" id="playerName">未命名選手</div>
+        <div class="player-id" id="playerId">@PLAYER</div>
+
+        <div class="meta">
+            <span class="tag" id="regionTag">PCS</span>
+            <span class="tag" id="roleTag">ADC</span>
+            <span class="tag" id="ageTag">17歲</span>
+        </div>
+    </div>
+
+    <div class="side-card">
+        <div class="side-title">📜 生涯軌跡</div>
+        <div class="timeline" id="timeline"></div>
+    </div>
+
+    <div class="side-card">
+        <div class="side-title">🏢 職業狀態</div>
+        <div id="clubStatus" class="story">
+            尚未進入職業體系。
+        </div>
+    </div>
+
+</aside>
+
+
+<!-- ================= 中間 ================= -->
+
+<section class="center">
+
+    <div class="hero">
+
+        <div class="hero-top">
+
             <div>
-                <div class="player-name" id="homeName">尚未建立選手</div>
-                <div class="player-id" id="homeId">@PLAYER</div>
+                <div class="hero-label" id="seasonLabel">
+                    2026・第一季度
+                </div>
+
+                <div class="hero-title" id="heroTitle">
+                    你的故事，從 Rank 開始
+                </div>
+
+                <div class="hero-desc" id="heroDesc">
+                    沒有俱樂部、沒有教練，也沒有職業隊友。
+                    你現在唯一能做的，就是證明自己。
+                </div>
             </div>
 
-            <div class="rank-box">
-                <div class="small">目前積分</div>
-                <div class="lp" id="homeLP">0 LP</div>
+            <div class="lp-box">
+                <div class="lp-number" id="lp">0</div>
+                <div class="lp-label">LP</div>
             </div>
+
         </div>
+
     </div>
 
-    <div class="card">
-        <div class="card-title">📖 生涯狀況</div>
-        <div class="story" id="storyText">
-            你還沒有加入任何俱樂部。現在沒有教練、沒有賽訓，
-            只有一個目標：把自己的 Rank 打上去。
-        </div>
-    </div>
 
-    <div class="card">
-        <div class="card-title">📊 選手能力</div>
-        <div class="stats-grid" id="stats"></div>
-    </div>
+    <div class="event">
 
-    <div class="card">
-        <div class="card-title">🧠 目前風格</div>
-        <div id="styleText" class="story">
-            系統正在觀察你的打法……
-        </div>
-    </div>
-
-    <div class="card">
-        <div class="card-title">💎 養成點數</div>
-        <div>
-            目前可用：
-            <strong id="points">0</strong> 點
+        <div class="event-type" id="eventType">
+            生涯開始
         </div>
 
-        <div class="small" style="margin-top:6px;">
-            能力越接近個人軟上限，升級所需點數越高。
+        <div class="event-title" id="eventTitle">
+            你準備好開始了嗎？
         </div>
+
+        <div class="story" id="eventStory">
+            每一年分成四個季度。
+            每個季度，你會面臨一次真正影響生涯的選擇。
+            沒有能量條，也沒有每天打卡。
+            你只需要決定：這一季要怎麼成長。
+        </div>
+
+        <div class="choices" id="choices"></div>
+
     </div>
 
 </section>
 
-<!-- ================= 養成 ================= -->
 
-<section id="page-train" class="page">
+<!-- ================= 右 ================= -->
 
-    <div class="card">
-        <div class="card-title">🧪 養成</div>
-        <div class="story">
-            你目前還沒有隊伍。這個階段最重要的事情就是建立自己的打法，
-            然後用 Rank 證明自己。
-        </div>
+<aside class="right">
+
+    <div class="panel">
+
+        <div class="panel-title">📊 選手能力</div>
+
+        <div id="stats"></div>
+
     </div>
 
-    <div class="card">
-        <div class="card-title">
-            選擇訓練
-            <span class="small">每次訓練會消耗時間</span>
-        </div>
+    <div class="panel">
 
-        <div class="training-grid">
+        <div class="panel-title">💎 養成資源</div>
 
-            <button class="action" onclick="train('mechanic')">
-                <div class="action-title">⚔️ 單人線／操作訓練</div>
-                <div class="action-desc">
-                    練習補刀、換血、技能命中與極限操作。
-                    更適合想成為操作型選手的人。
+        <div class="ap">
+            <div>
+                <div style="font-size:11px;color:var(--muted)">
+                    可自由分配
                 </div>
-                <span class="gain">獲得 3～5 技術點</span>
-            </button>
-
-            <button class="action" onclick="train('macro')">
-                <div class="action-title">🗺️ 戰術研究</div>
-                <div class="action-desc">
-                    研究兵線、資源交換、地圖節奏與團隊決策。
-                </div>
-                <span class="gain">獲得 3～5 理解點</span>
-            </button>
-
-            <button class="action" onclick="train('champion')">
-                <div class="action-title">📚 英雄池訓練</div>
-                <div class="action-desc">
-                    練習不同英雄與不同打法。
-                    英雄池越廣，越不容易被版本與 BP 限制。
-                </div>
-                <span class="gain">獲得 3～5 英雄池點</span>
-            </button>
-
-            <button class="action" onclick="train('mental')">
-                <div class="action-title">🧘 心態／穩定訓練</div>
-                <div class="action-desc">
-                    調整比賽節奏，減少逆風與連敗時的失誤。
-                </div>
-                <span class="gain">獲得 3～5 穩定點</span>
-            </button>
-
-        </div>
-    </div>
-
-    <div class="card">
-        <div class="card-title">📦 可投入的養成點</div>
-        <div id="trainingPoints">目前沒有養成點。</div>
-    </div>
-
-</section>
-
-<!-- ================= RANK ================= -->
-
-<section id="page-rank" class="page">
-
-    <div class="card">
-        <div class="card-title">🎮 Ranked</div>
-
-        <div class="story" id="rankStory">
-            這裡是你的核心戰場。
-            你的能力與訓練方向，最後都必須在 Rank 裡得到驗證。
-        </div>
-
-        <div style="margin-top:12px;">
-            <div class="small">距離下一個重要門檻</div>
-            <div id="rankGoal" style="font-weight:900;"></div>
-            <div class="progress">
-                <div id="rankProgress"></div>
+                <div class="ap-number" id="points">0</div>
             </div>
-        </div>
 
-        <div style="margin-top:14px;">
-            <button class="btn dark" onclick="playRank()">
-                ⚔️ 打一段積分
+            <button class="icon-btn" onclick="openAllocation()">
+                分配
             </button>
         </div>
+
     </div>
 
-    <div class="card">
-        <div class="card-title">📈 最近戰績</div>
-        <div id="matchHistory">
-            尚未進行積分。
+    <div class="panel">
+
+        <div class="panel-title">🧠 系統判定風格</div>
+
+        <div class="style" id="style">尚在觀察</div>
+
+        <div class="style-desc" id="styleDesc">
+            系統會根據你長期的養成方向判定，而不是一開始直接指定。
         </div>
+
     </div>
 
-</section>
-
-<!-- ================= 俱樂部 ================= -->
-
-<section id="page-club" class="page">
-
-    <div class="card">
-        <div class="card-title">🏢 俱樂部</div>
-
-        <div id="clubContent">
-            <div class="story">
-                你目前沒有加入任何俱樂部。
-                <br><br>
-                俱樂部不會直接讓你挑選。
-                當你的 Rank 與實戰表現達到一定程度後，
-                Scout 才可能主動注意你。
-            </div>
-        </div>
-    </div>
-
-</section>
-
-<!-- ================= 存檔 ================= -->
-
-<section id="page-save" class="page">
-
-    <div class="card">
-        <div class="card-title">💾 生涯管理</div>
-
-        <div class="story">
-            新開啟遊戲時會建立新的生涯。
-            只有你主動儲存後，才可以從這個存檔繼續。
-        </div>
-
-        <div class="button-row" style="margin-top:12px;">
-            <button class="btn" onclick="saveGame()">💾 儲存</button>
-            <button class="btn secondary" onclick="loadGame()">📂 讀取</button>
-            <button class="btn warning" onclick="previousState()">↩ 上一步</button>
-            <button class="btn danger" onclick="newGame()">🗑 新遊戲</button>
-        </div>
-
-        <div id="saveStatus" class="small" style="margin-top:12px;"></div>
-    </div>
-
-</section>
+</aside>
 
 </main>
 
-<!-- ===== 底部 ===== -->
-
-<nav class="bottom-nav">
-    <div class="bottom-inner">
-
-        <button class="nav-btn active" onclick="showPage('home', this)">
-            🏠<br>生涯
-        </button>
-
-        <button class="nav-btn" onclick="showPage('train', this)">
-            🧪<br>養成
-        </button>
-
-        <button class="nav-btn" onclick="showPage('rank', this)">
-            ⚔️<br>Rank
-        </button>
-
-        <button class="nav-btn" onclick="showPage('club', this)">
-            🏢<br>俱樂部
-        </button>
-
-    </div>
-</nav>
-
 </div>
 
-<!-- ===== 建立角色 ===== -->
 
-<div class="modal-bg" id="createModal">
-    <div class="modal">
+<!-- ================= 建立玩家 ================= -->
 
-        <div class="card-title">建立你的選手</div>
+<div class="overlay" id="createOverlay">
+
+    <div class="create">
+
+        <h1>建立你的選手</h1>
+
+        <p>
+            這不是選英雄，而是建立一名真正的玩家。
+            之後你的打法、Rank、事件與俱樂部經歷都會慢慢塑造他。
+        </p>
 
         <label>選手姓名</label>
-        <input id="inputName" placeholder="例如：林小明">
+        <input id="nameInput" placeholder="例如：林昱翔">
 
         <label>遊戲 ID</label>
-        <input id="inputId" placeholder="例如：CarryKing">
+        <input id="idInput" placeholder="例如：Yuki">
 
         <label>出身賽區</label>
-        <select id="inputRegion">
-            <option value="PCS">PCS</option>
-            <option value="LCK">LCK</option>
-            <option value="LPL">LPL</option>
-            <option value="LEC">LEC</option>
-            <option value="LTA">LTA</option>
+        <select id="regionInput">
+            <option>PCS</option>
+            <option>LCK</option>
+            <option>LPL</option>
+            <option>LEC</option>
+            <option>LTA</option>
         </select>
 
         <label>主要位置</label>
-        <select id="inputRole">
-            <option value="TOP">TOP</option>
-            <option value="JUG">JUNGLE</option>
-            <option value="MID">MID</option>
-            <option value="ADC">ADC</option>
-            <option value="SUP">SUPPORT</option>
+        <select id="roleInput">
+            <option>TOP</option>
+            <option>JUNGLE</option>
+            <option>MID</option>
+            <option>ADC</option>
+            <option>SUPPORT</option>
         </select>
 
-        <div class="button-row">
-            <button class="btn" onclick="createPlayer()">
-                開始生涯
-            </button>
-        </div>
+        <button class="start" onclick="startGame()">
+            開始我的職業人生
+        </button>
 
     </div>
+
 </div>
 
-<!-- ===== 分配點數 ===== -->
 
-<div class="modal-bg" id="pointModal">
-    <div class="modal">
+<!-- ================= 分配 ================= -->
 
-        <div class="card-title">📊 分配養成點</div>
+<div class="overlay" id="allocationOverlay" style="display:none">
 
-        <div class="small" style="margin-bottom:10px;">
-            點數不會自動增加屬性。
-            由你決定如何培養這名選手。
-        </div>
+    <div class="create">
 
-        <div id="pointList"></div>
+        <h1>分配養成點</h1>
 
-        <div class="button-row">
-            <button class="btn secondary" onclick="closePoints()">
-                完成
-            </button>
-        </div>
+        <p>
+            點數不會自動加能力。
+            越接近你的個人軟上限，下一點所需成本越高。
+        </p>
+
+        <div id="allocation"></div>
+
+        <button class="start" onclick="closeAllocation()">
+            完成
+        </button>
 
     </div>
+
 </div>
+
+
+<div class="toast" id="toast"></div>
+
 
 <script>
 
 /* =========================================================
-   遊戲資料
+   GAME DATA
 ========================================================= */
 
-const DEFAULT_STATS = {
-    mechanic: 45,
-    macro: 45,
-    stability: 45,
-    champion: 40
+const statNames = {
+    mechanic:"操作",
+    macro:"遊戲理解",
+    stability:"穩定度",
+    champion:"英雄池"
+};
+
+const roleNames = {
+    TOP:"TOP",
+    JUNGLE:"JUNGLE",
+    MID:"MID",
+    ADC:"ADC",
+    SUPPORT:"SUPPORT"
 };
 
 let game = {
-    started: false,
+    started:false,
 
-    name: "",
-    id: "",
-    region: "PCS",
-    role: "ADC",
+    name:"",
+    id:"",
+    region:"PCS",
+    role:"ADC",
 
-    age: 17,
-    year: 2026,
-    month: 1,
+    year:2026,
+    quarter:1,
+    age:17,
 
-    lp: 0,
+    lp:0,
 
-    stats: {...DEFAULT_STATS},
-
-    limits: {
-        mechanic: randomLimit(78, 90),
-        macro: randomLimit(78, 92),
-        stability: randomLimit(72, 88),
-        champion: randomLimit(75, 90)
+    stats:{
+        mechanic:45,
+        macro:45,
+        stability:45,
+        champion:40
     },
 
-    points: {
-        mechanic: 0,
-        macro: 0,
-        stability: 0,
-        champion: 0
+    limits:{
+        mechanic:86,
+        macro:90,
+        stability:82,
+        champion:86
     },
 
-    totalPoints: 0,
+    points:0,
 
-    club: null,
+    club:null,
 
-    history: [],
+    history:[],
 
-    previous: null,
+    previous:null,
 
-    lastEvent: "你還沒有開始你的職業人生。"
+    currentEvent:null
 };
 
 
 /* =========================================================
-   工具
+   BASIC
 ========================================================= */
 
-function randomLimit(min, max) {
-    return Math.floor(Math.random() * (max - min + 1)) + min;
+function rand(a,b){
+    return Math.floor(Math.random()*(b-a+1))+a;
 }
 
-function rand(min, max) {
-    return Math.floor(Math.random() * (max - min + 1)) + min;
+function savePrevious(){
+    game.previous=JSON.parse(JSON.stringify(game));
 }
 
-function clamp(value, min, max) {
-    return Math.max(min, Math.min(max, value));
+function toast(text){
+    const t=document.getElementById("toast");
+    t.innerText=text;
+    t.classList.add("show");
+
+    setTimeout(()=>{
+        t.classList.remove("show");
+    },2200);
 }
 
 
 /* =========================================================
-   初始化
+   START
 ========================================================= */
 
-window.onload = function() {
+function startGame(){
 
-    /*
-       刻意不自動讀取存檔。
-       每次重新開啟都是新生涯。
-       玩家要去「生涯管理」手動讀取。
-    */
+    const name=document.getElementById("nameInput").value.trim();
+    const id=document.getElementById("idInput").value.trim();
 
-    document.getElementById("createModal").classList.add("show");
-
-    render();
-};
-
-
-/* =========================================================
-   建立玩家
-========================================================= */
-
-function createPlayer() {
-
-    const name = document.getElementById("inputName").value.trim();
-    const id = document.getElementById("inputId").value.trim();
-
-    if (!name || !id) {
-        alert("請輸入選手姓名與 ID。");
+    if(!name || !id){
+        alert("請輸入姓名與 ID。");
         return;
     }
 
-    game.started = true;
+    game.started=true;
 
-    game.name = name;
-    game.id = id;
+    game.name=name;
+    game.id=id;
 
-    game.region = document.getElementById("inputRegion").value;
-    game.role = document.getElementById("inputRole").value;
-
-    game.age = 17;
-    game.year = 2026;
-    game.month = 1;
+    game.region=document.getElementById("regionInput").value;
+    game.role=document.getElementById("roleInput").value;
 
     /*
-       不因為位置而直接灌大量能力。
-       出身與位置只影響初始微小差異。
+       位置只給非常輕微的初始差異，
+       不會直接決定玩家未來。
     */
 
-    if (game.role === "ADC") {
-        game.stats.mechanic += 2;
+    if(game.role==="ADC"){
+        game.stats.mechanic+=2;
     }
 
-    if (game.role === "MID") {
-        game.stats.macro += 2;
+    if(game.role==="MID"){
+        game.stats.macro+=2;
     }
 
-    if (game.role === "SUP") {
-        game.stats.macro += 1;
-        game.stats.stability += 1;
+    if(game.role==="JUNGLE"){
+        game.stats.macro+=2;
     }
 
-    if (game.role === "JUG") {
-        game.stats.macro += 2;
+    if(game.role==="TOP"){
+        game.stats.stability+=2;
     }
 
-    if (game.role === "TOP") {
-        game.stats.stability += 2;
+    if(game.role==="SUPPORT"){
+        game.stats.macro+=1;
+        game.stats.stability+=1;
     }
 
-    document.getElementById("createModal").classList.remove("show");
+    document.getElementById("createOverlay").style.display="none";
 
-    game.lastEvent =
-        `你正式開始了自己的 Rank 生涯。沒有戰隊、沒有教練，現在唯一能證明自己的方式就是打上去。`;
+    game.history.push({
+        year:2026,
+        quarter:1,
+        text:"開始自己的 Rank 生涯。"
+    });
+
+    generateQuarterEvent();
 
     render();
+
+    toast("你的生涯開始了。");
 }
 
 
 /* =========================================================
-   頁面切換
+   QUARTER EVENT
 ========================================================= */
 
-function showPage(page, button) {
+function generateQuarterEvent(){
 
-    document.querySelectorAll(".page").forEach(p => {
-        p.classList.remove("active");
-    });
+    /*
+       職業前：主要是 Rank / 訓練 / 復盤
+       職業後：加入試訓、隊內訓練、賽事等
+    */
 
-    document.getElementById("page-" + page).classList.add("active");
+    if(game.club){
 
-    document.querySelectorAll(".nav-btn").forEach(b => {
-        b.classList.remove("active");
-    });
+        generateProEvent();
 
-    if (button) {
-        button.classList.add("active");
+    }else{
+
+        generateAmateurEvent();
+
     }
-
-    render();
 }
 
 
 /* =========================================================
-   訓練
+   AMATEUR
 ========================================================= */
 
-function train(type) {
+function generateAmateurEvent(){
 
-    if (!game.started) {
-        alert("請先建立選手。");
-        return;
+    let events=[];
+
+    events.push({
+        type:"RANK",
+        title:"這一季，你要怎麼證明自己？",
+        story:
+        "你沒有教練，也沒有固定隊友。你的履歷上現在只有一件最重要的東西：Rank。"+
+        "但除了爬分，你也可以選擇停下來復盤，或者專門訓練自己的弱點。",
+        choices:[
+            {
+                title:"🎮 獨自爬分",
+                desc:"把大量時間投入實戰，讓 Rank 成為你的履歷。",
+                reward:"實戰養成點 +5～9｜LP 變化",
+                action:"rank"
+            },
+            {
+                title:"🔍 復盤最近的比賽",
+                desc:"放慢腳步，分析自己的失誤與決策。",
+                reward:"理解養成點 +5～8｜LP 小幅變化",
+                action:"review"
+            },
+            {
+                title:"⚔️ 專項訓練",
+                desc:"集中突破目前最明顯的短板。",
+                reward:"專項養成點 +6～10",
+                action:"training"
+            }
+        ]
+    });
+
+    /*
+       低機率出現特殊事件
+    */
+
+    if(Math.random()<0.18){
+
+        events.push({
+            type:"SPECIAL",
+            title:"📩 職業選手找上門",
+            story:
+            "你最近的 Rank 表現被一名職業選手注意到了。"+
+            "對方沒有直接談合約，只是問了一句：「要不要一起打幾場？」",
+            choices:[
+                {
+                    title:"🤝 接受邀請",
+                    desc:"跟職業選手一起訓練。",
+                    reward:"高額實戰養成點 +8～13",
+                    action:"pro_duo"
+                },
+                {
+                    title:"🎮 繼續自己爬",
+                    desc:"你覺得現在最重要的是把自己的 Rank 再往上打。",
+                    reward:"Rank + 實戰養成點",
+                    action:"rank"
+                }
+            ]
+        });
+
     }
+
+    if(Math.random()<0.12){
+
+        events.push({
+            type:"SPECIAL",
+            title:"📉 排位低潮",
+            story:
+            "你突然陷入一段很長的連敗。"+
+            "有些局其實不是你打得差，但你開始懷疑自己是不是一直用錯方法。",
+            choices:[
+                {
+                    title:"🔥 硬著頭皮繼續打",
+                    desc:"不管怎樣，先把 LP 打回來。",
+                    reward:"可能大量 LP｜也可能損失養成點",
+                    action:"hardrank"
+                },
+                {
+                    title:"🔍 徹底復盤",
+                    desc:"把最近的失敗全部整理一次。",
+                    reward:"理解 +7～11｜穩定 +2～4",
+                    action:"deepreview"
+                }
+            ]
+        });
+    }
+
+    game.currentEvent=events[rand(0,events.length-1)];
+}
+
+
+/* =========================================================
+   PRO
+========================================================= */
+
+function generateProEvent(){
+
+    game.currentEvent={
+        type:"PRO",
+        title:"職業體系的新季度",
+        story:
+        `你已經加入 ${game.club.name}。`+
+        "現在你面對的問題不再只是「能不能爬分」，"+
+        "而是能不能把 Rank 裡的能力帶進真正的團隊環境。",
+        choices:[
+            {
+                title:"🏢 參加隊內賽訓",
+                desc:"跟正式隊員一起進行訓練賽。",
+                reward:"職業養成點 +8～14",
+                action:"scrim"
+            },
+            {
+                title:"🎮 自己維持 Rank",
+                desc:"保持個人競技狀態。",
+                reward:"實戰養成點 +5～9｜LP",
+                action:"rank"
+            },
+            {
+                title:"🔍 復盤隊伍比賽",
+                desc:"研究比賽錄像與團隊決策。",
+                reward:"理解養成點 +7～12",
+                action:"review"
+            }
+        ]
+    };
+}
+
+
+/* =========================================================
+   ACTION
+========================================================= */
+
+function choose(action){
 
     savePrevious();
 
-    let gain = rand(3, 5);
+    let text="";
+    let gained=0;
 
-    if (type === "mechanic") {
-        game.points.mechanic += gain;
-        game.lastEvent =
-            `你進行了高強度單人線訓練。這段時間大量練習補刀、換血與技能細節。`;
+    if(action==="rank"){
+
+        const result=doRank();
+
+        gained=rand(5,9);
+
+        game.points+=gained;
+
+        text=
+        `你把這一季的大部分時間投入 Rank。`+
+        `最終 ${result.wins}勝${result.losses}敗，`+
+        `${result.lp>=0?"+":""}${result.lp} LP。`;
+
     }
 
-    if (type === "macro") {
-        game.points.macro += gain;
-        game.lastEvent =
-            `你花時間研究高端局錄像，開始思考兵線、資源交換與地圖節奏。`;
+    else if(action==="review"){
+
+        gained=rand(5,8);
+
+        game.points+=gained;
+
+        game.stats.macro=Math.min(
+            game.limits.macro,
+            game.stats.macro+1
+        );
+
+        text=
+        "你把最近幾場比賽重新看了一遍。"+
+        "有些以前覺得「隊友問題」的死亡，現在看起來其實有自己的選擇空間。";
+
     }
 
-    if (type === "champion") {
-        game.points.champion += gain;
-        game.lastEvent =
-            `你開始大量練習不同英雄。你的英雄池正在慢慢變得完整。`;
+    else if(action==="training"){
+
+        gained=rand(6,10);
+
+        game.points+=gained;
+
+        const weak=getWeakest();
+
+        game.points+=2;
+
+        text=
+        `你決定針對「${statNames[weak]}」進行專項訓練。`+
+        "這次訓練沒有華麗的結果，但你開始知道自己真正缺什麼。";
+
     }
 
-    if (type === "mental") {
-        game.points.stability += gain;
-        game.lastEvent =
-            `你沒有繼續無腦排位，而是調整狀態、檢討失誤，讓自己的表現更加穩定。`;
+    else if(action==="pro_duo"){
+
+        gained=rand(8,13);
+
+        game.points+=gained;
+
+        game.stats.macro=Math.min(
+            game.limits.macro,
+            game.stats.macro+rand(0,2)
+        );
+
+        game.stats.stability=Math.min(
+            game.limits.stability,
+            game.stats.stability+rand(0,1)
+        );
+
+        text=
+        "你跟職業選手打了幾場。"+
+        "最讓你意外的不是他的操作，而是他幾乎每一分鐘都知道自己下一步要做什麼。";
+
     }
 
-    game.totalPoints += gain;
+    else if(action==="hardrank"){
 
-    advanceTime(1);
+        const roll=Math.random();
 
-    openPointModal();
+        if(roll<.55){
+
+            gained=rand(7,12);
+
+            game.points+=gained;
+
+            game.lp+=rand(30,80);
+
+            text=
+            "你硬是把連敗打了回來。"+
+            "這段時間讓你真正理解了什麼叫做逆風局管理。";
+
+        }else{
+
+            gained=rand(1,3);
+
+            game.points=Math.max(0,game.points-gained);
+
+            game.lp=Math.max(0,game.lp-rand(30,70));
+
+            text=
+            "你選擇硬打，但狀態沒有改善。"+
+            `這次連敗讓你損失了 ${gained} 點養成資源。`;
+
+        }
+
+    }
+
+    else if(action==="deepreview"){
+
+        gained=rand(7,11);
+
+        game.points+=gained;
+
+        game.stats.macro=Math.min(
+            game.limits.macro,
+            game.stats.macro+2
+        );
+
+        game.stats.stability=Math.min(
+            game.limits.stability,
+            game.stats.stability+rand(2,4)
+        );
+
+        text=
+        "你沒有繼續排位，而是把連敗拆成一個個問題。"+
+        "你發現真正需要修正的不是手速，而是自己開始急躁的時間點。";
+
+    }
+
+    else if(action==="scrim"){
+
+        gained=rand(8,14);
+
+        game.points+=gained;
+
+        /*
+           正式賽訓會同時帶來多方面經驗，
+           但不直接塞大量屬性。
+        */
+
+        game.stats.stability=Math.min(
+            game.limits.stability,
+            game.stats.stability+rand(1,3)
+        );
+
+        text=
+        "第一次真正跟職業選手一起賽訓。"+
+        "你發現 Rank 裡看似簡單的決策，到了五個人同步行動時完全是另一回事。";
+
+    }
+
+    advanceQuarter(text);
+
+    checkScout();
 
     render();
 }
 
 
 /* =========================================================
-   點數成本
+   RANK
 ========================================================= */
 
-function getCost(statKey) {
+function doRank(){
 
-    const value = game.stats[statKey];
-    const limit = game.limits[statKey];
+    const performance=
+        game.stats.mechanic*.30+
+        game.stats.macro*.30+
+        game.stats.stability*.22+
+        game.stats.champion*.18+
+        rand(-15,15);
 
-    const ratio = value / limit;
+    let lp;
 
-    if (ratio < 0.60) return 1;
-    if (ratio < 0.72) return 2;
-    if (ratio < 0.82) return 3;
-    if (ratio < 0.90) return 5;
-    if (ratio < 0.96) return 8;
+    if(performance>=82){
+        lp=rand(55,90);
+    }else if(performance>=72){
+        lp=rand(30,60);
+    }else if(performance>=62){
+        lp=rand(5,35);
+    }else if(performance>=52){
+        lp=rand(-20,15);
+    }else{
+        lp=rand(-60,5);
+    }
+
+    game.lp=Math.max(0,game.lp+lp);
+
+    const total=20;
+
+    let wins;
+
+    if(lp>60) wins=rand(14,17);
+    else if(lp>20) wins=rand(11,14);
+    else if(lp>=0) wins=rand(9,12);
+    else wins=rand(6,10);
+
+    return {
+        lp,
+        wins,
+        losses:total-wins
+    };
+}
+
+
+/* =========================================================
+   SCOUT
+========================================================= */
+
+function checkScout(){
+
+    if(game.club) return;
+
+    /*
+       800：開始有機會被注意
+       1000：明顯提高
+       1200：高強度 Scout
+    */
+
+    if(game.lp<800) return;
+
+    let chance=.12;
+
+    if(game.lp>=1000) chance=.25;
+    if(game.lp>=1100) chance=.40;
+    if(game.lp>=1200) chance=.60;
+    if(game.lp>=1300) chance=.80;
+
+    if(Math.random()>chance) return;
+
+    let stars;
+
+    if(game.lp>=1250) stars=5;
+    else if(game.lp>=1100) stars=4;
+    else stars=3;
+
+    game.pendingClub={
+        name:
+        stars===5
+        ?"頂級俱樂部青訓"
+        :stars===4
+        ?"一線職業俱樂部青訓"
+        :"職業俱樂部青訓",
+
+        stars
+    };
+
+    showScoutEvent();
+}
+
+
+/* =========================================================
+   SCOUT EVENT
+========================================================= */
+
+function showScoutEvent(){
+
+    const c=game.pendingClub;
+
+    game.currentEvent={
+        type:"SCOUT",
+        title:"📩 Scout 的邀請",
+        story:
+        `你的 Rank 已經達到 ${game.lp} LP。`+
+        `最近幾週，有俱樂部開始詢問你的資料。`+
+        `現在，一支 ${c.name} 主動邀請你參加試訓。`,
+        choices:[
+            {
+                title:"🏢 接受試訓",
+                desc:"進入職業體系，接受真正的團隊考驗。",
+                reward:"試訓養成點 +10～16｜可能加入俱樂部",
+                action:"accept_trial"
+            },
+            {
+                title:"🎮 暫時拒絕，繼續爬分",
+                desc:"你還不想太早進入職業環境。",
+                reward:"Rank 實戰養成點 +6～10",
+                action:"rank"
+            },
+            {
+                title:"🔍 先復盤，再決定",
+                desc:"你想先確認自己是否真的準備好了。",
+                reward:"理解養成點 +7～10",
+                action:"review"
+            }
+        ]
+    };
+}
+
+
+/* =========================================================
+   ACCEPT TRIAL
+========================================================= */
+
+function acceptTrial(){
+
+    savePrevious();
+
+    const c=game.pendingClub;
+
+    const gained=rand(10,16);
+
+    game.points+=gained;
+
+    /*
+       試訓不是保證加入。
+    */
+
+    const successChance=
+        .40+
+        game.stats.stability*.003+
+        game.stats.macro*.002;
+
+    if(Math.random()<successChance){
+
+        game.club=c;
+
+        game.pendingClub=null;
+
+        advanceQuarter(
+            `你接受了試訓。經過幾週的觀察後，教練決定把你留下。`+
+            `你正式進入 ${c.name}。`
+        );
+
+        toast("🎉 你加入職業體系了！");
+
+    }else{
+
+        game.pendingClub=null;
+
+        advanceQuarter(
+            "你完成了試訓，但教練最後仍然認為你需要更多時間。"+
+            `你獲得了 ${gained} 點高價值訓練經驗。`
+        );
+    }
+
+    render();
+}
+
+
+/* =========================================================
+   QUARTER
+========================================================= */
+
+function advanceQuarter(text){
+
+    game.history.push({
+        year:game.year,
+        quarter:game.quarter,
+        text
+    });
+
+    if(game.history.length>8){
+        game.history.shift();
+    }
+
+    game.quarter++;
+
+    if(game.quarter>4){
+
+        game.quarter=1;
+        game.year++;
+        game.age++;
+    }
+
+    game.lastText=text;
+
+    generateQuarterEvent();
+}
+
+
+/* =========================================================
+   RANDOM EVENT
+========================================================= */
+
+function randomEvent(){
+
+    /*
+       這個按鈕目前沒有直接暴露。
+       隨機事件會混入季度事件。
+    */
+
+}
+
+
+/* =========================================================
+   ALLOCATION
+========================================================= */
+
+function weakestCost(key){
+
+    const value=game.stats[key];
+    const limit=game.limits[key];
+
+    const ratio=value/limit;
+
+    if(ratio<.60) return 1;
+    if(ratio<.72) return 2;
+    if(ratio<.82) return 3;
+    if(ratio<.90) return 5;
+    if(ratio<.96) return 8;
 
     return 12;
 }
 
+function spend(key){
 
-/* =========================================================
-   分配點數
-========================================================= */
+    const cost=weakestCost(key);
 
-function spendPoint(statKey) {
-
-    if (game.points[statKey] <= 0) {
-        alert("這個類型沒有可用點數。");
+    if(game.points<cost){
+        toast("養成點不足。");
         return;
     }
 
-    const cost = getCost(statKey);
-
-    if (game.totalPoints < cost) {
-        alert(`需要 ${cost} 點養成點，目前只有 ${game.totalPoints} 點。`);
+    if(game.stats[key]>=game.limits[key]){
+        toast("已經達到軟上限。");
         return;
     }
 
-    if (game.stats[statKey] >= game.limits[statKey]) {
-        alert("已經達到這名選手的軟上限。");
-        return;
-    }
+    game.points-=cost;
+    game.stats[key]++;
 
-    game.totalPoints -= cost;
-    game.points[statKey]--;
-
-    game.stats[statKey]++;
-
-    renderPointModal();
+    renderAllocation();
     render();
 }
 
+function openAllocation(){
 
-/* =========================================================
-   點數視窗
-========================================================= */
+    if(!game.started)return;
 
-function openPointModal() {
-    document.getElementById("pointModal").classList.add("show");
-    renderPointModal();
+    document.getElementById("allocationOverlay").style.display="flex";
+
+    renderAllocation();
 }
 
-function closePoints() {
-    document.getElementById("pointModal").classList.remove("show");
-    render();
+function closeAllocation(){
+    document.getElementById("allocationOverlay").style.display="none";
 }
 
-function renderPointModal() {
+function renderAllocation(){
 
-    const names = {
-        mechanic: "⚔️ 操作",
-        macro: "🗺️ 遊戲理解",
-        stability: "🧘 穩定度",
-        champion: "📚 英雄池"
-    };
+    const box=document.getElementById("allocation");
 
-    let html = `
-        <div class="story" style="margin-bottom:12px;">
-            可用養成點：<strong>${game.totalPoints}</strong>
-        </div>
-    `;
+    let html="";
 
-    Object.keys(names).forEach(key => {
+    Object.keys(statNames).forEach(key=>{
 
-        const cost = getCost(key);
+        const cost=weakestCost(key);
 
-        html += `
-            <div class="card">
-                <div class="card-title">${names[key]}</div>
+        html+=`
+        <div style="
+            padding:12px 0;
+            border-bottom:1px solid var(--line);
+        ">
 
-                <div>
-                    ${game.stats[key]}
-                    / ${game.limits[key]}
-                </div>
+            <div style="
+                display:flex;
+                justify-content:space-between;
+                align-items:center;
+            ">
 
-                <div class="small">
-                    下一點需要 ${cost} 養成點
-                </div>
+                <strong>${statNames[key]}</strong>
 
-                <div style="margin-top:8px;">
-                    <button
-                        class="btn"
-                        onclick="spendPoint('${key}')"
-                        ${game.points[key] <= 0 ||
-                          game.totalPoints < cost ||
-                          game.stats[key] >= game.limits[key]
-                          ? "disabled" : ""}
-                    >
-                        +1
-                    </button>
+                <span style="color:var(--green);font-weight:900">
+                    ${game.stats[key]} / ${game.limits[key]}
+                </span>
 
-                    <span class="small">
-                       　該類型可用：${game.points[key]}
-                    </span>
-                </div>
             </div>
+
+            <div style="
+                display:flex;
+                justify-content:space-between;
+                align-items:center;
+                margin-top:7px;
+            ">
+
+                <span style="
+                    color:var(--muted);
+                    font-size:11px;
+                ">
+                    下一點需要 ${cost} AP
+                </span>
+
+                <button
+                    class="icon-btn"
+                    onclick="spend('${key}')"
+                    ${game.points<cost ||
+                      game.stats[key]>=game.limits[key]
+                      ?"disabled":""}
+                >
+                    +1
+                </button>
+
+            </div>
+
+        </div>
         `;
     });
 
-    document.getElementById("pointList").innerHTML = html;
+    box.innerHTML=html;
 }
 
 
 /* =========================================================
-   打 Rank
+   STYLE
 ========================================================= */
 
-function playRank() {
+function getWeakest(){
 
-    if (!game.started) {
-        alert("請先建立選手。");
-        return;
-    }
+    let key="mechanic";
 
-    savePrevious();
-
-    /*
-       Rank結果主要由四項能力共同決定。
-       但不直接告訴玩家公式。
-    */
-
-    let base =
-        game.stats.mechanic * 0.30 +
-        game.stats.macro * 0.30 +
-        game.stats.stability * 0.22 +
-        game.stats.champion * 0.18;
-
-    let variance = rand(-18, 18);
-
-    let performance = base + variance;
-
-    let lpGain;
-
-    if (performance >= 85) {
-        lpGain = rand(55, 85);
-    } else if (performance >= 75) {
-        lpGain = rand(35, 60);
-    } else if (performance >= 65) {
-        lpGain = rand(15, 40);
-    } else if (performance >= 55) {
-        lpGain = rand(-5, 25);
-    } else {
-        lpGain = rand(-25, 10);
-    }
-
-    game.lp = Math.max(0, game.lp + lpGain);
-
-    let grade;
-
-    if (performance >= 85) grade = "S";
-    else if (performance >= 75) grade = "A";
-    else if (performance >= 65) grade = "B";
-    else if (performance >= 55) grade = "C";
-    else grade = "D";
-
-    let wins = lpGain >= 0 ? rand(11, 16) : rand(7, 11);
-    let losses = 20 - wins;
-
-    let eventText = getRankText(performance, lpGain);
-
-    game.history.unshift({
-        year: game.year,
-        month: game.month,
-        lp: lpGain,
-        grade: grade,
-        wins: wins,
-        losses: losses,
-        text: eventText
+    Object.keys(game.stats).forEach(k=>{
+        if(game.stats[k]<game.stats[key]){
+            key=k;
+        }
     });
 
-    if (game.history.length > 5) {
-        game.history.pop();
-    }
+    return key;
+}
+
+function getStyle(){
+
+    const values=Object.entries(game.stats)
+        .sort((a,b)=>b[1]-a[1]);
+
+    const first=values[0];
+    const second=values[1];
 
     /*
-       Rank 也會給少量實戰點。
+       如果四項太平均，就會得到「平均型」，
+       並不是免費的全能型。
     */
 
-    let practical = rand(2, 5);
-
-    if (performance >= 80) {
-        practical += 2;
+    if(first[1]-second[1]<5){
+        return "平均型";
     }
 
-    /*
-       根據實戰表現分配到最符合的類型，
-       但玩家仍然可以自行決定之後怎麼花。
-    */
+    if(first[0]==="mechanic"){
+        return "操作型";
+    }
 
-    const dominant = getDominantStat();
+    if(first[0]==="macro"){
+        return "大局觀型";
+    }
 
-    game.points[dominant] += practical;
-    game.totalPoints += practical;
+    if(first[0]==="stability"){
+        return "穩定型";
+    }
 
-    game.lastEvent =
-        `${eventText} 本段 Rank 結束後，你獲得了 ${practical} 點實戰養成資源。`;
+    return "英雄池型";
+}
 
-    advanceTime(1);
+function getStyleDesc(){
 
-    checkClubOffer();
+    const style=getStyle();
 
-    render();
+    if(style==="操作型")
+        return "個人操作明顯突出，容易在對線與團戰打出高光。";
+
+    if(style==="大局觀型")
+        return "更擅長理解兵線、資源、地圖與團隊決策。";
+
+    if(style==="穩定型")
+        return "失誤率較低，逆風與高壓環境下比較不容易崩盤。";
+
+    if(style==="英雄池型")
+        return "能適應更多英雄與版本變化，BP 限制較小。";
+
+    return "能力分布相當平均。沒有明顯短板，但也缺乏非常突出的招牌能力。";
 }
 
 
 /* =========================================================
-   Rank 文本
+   RENDER
 ========================================================= */
 
-function getRankText(performance, lpGain) {
+function render(){
 
-    if (performance >= 85) {
-        return "這一段 Rank 你打出了非常亮眼的表現。幾場關鍵團戰幾乎靠你一個人撐住。";
-    }
+    document.getElementById("playerName").innerText=
+        game.name||"未命名選手";
 
-    if (performance >= 75) {
-        return "你的整體表現相當穩定。雖然不是每場都 Carry，但你很少成為隊伍的破口。";
-    }
+    document.getElementById("playerId").innerText=
+        game.id?"@"+game.id:"@PLAYER";
 
-    if (performance >= 65) {
-        return "你有幾場打得很好，但也出現一些可以避免的失誤。";
-    }
+    document.getElementById("regionTag").innerText=
+        game.region;
 
-    if (performance >= 55) {
-        return "這段 Rank 有點起伏。你能看見自己的優勢，也開始發現自己的短板。";
-    }
+    document.getElementById("roleTag").innerText=
+        roleNames[game.role];
 
-    return "這段 Rank 打得不太順。連敗與失誤讓你開始懷疑自己的打法。";
-}
+    document.getElementById("ageTag").innerText=
+        game.age+"歲";
 
-
-/* =========================================================
-   主要風格
-========================================================= */
-
-function getDominantStat() {
-
-    let keys = [
-        "mechanic",
-        "macro",
-        "stability",
-        "champion"
-    ];
-
-    keys.sort((a, b) => game.stats[b] - game.stats[a]);
-
-    return keys[0];
-}
-
-
-function getStyle() {
-
-    const s = game.stats;
-
-    let highest = getDominantStat();
-
-    if (
-        highest === "mechanic" &&
-        s.mechanic - Math.max(s.macro, s.stability, s.champion) >= 8
-    ) {
-        return "操作型選手";
-    }
-
-    if (
-        highest === "macro" &&
-        s.macro - Math.max(s.mechanic, s.stability, s.champion) >= 8
-    ) {
-        return "大局觀型選手";
-    }
-
-    if (
-        highest === "stability" &&
-        s.stability - Math.max(s.mechanic, s.macro, s.champion) >= 8
-    ) {
-        return "穩定型選手";
-    }
-
-    if (
-        highest === "champion" &&
-        s.champion - Math.max(s.mechanic, s.macro, s.stability) >= 8
-    ) {
-        return "英雄池型選手";
-    }
-
-    return "平均型選手";
-}
-
-
-/* =========================================================
-   俱樂部邀請
-========================================================= */
-
-function checkClubOffer() {
-
-    if (game.club) return;
-
-    /*
-       不到門檻不會出現職業邀請。
-    */
-
-    if (game.lp < 800) return;
-
-    let chance = 0;
-
-    if (game.lp >= 800) chance = 0.12;
-    if (game.lp >= 900) chance = 0.22;
-    if (game.lp >= 1000) chance = 0.35;
-    if (game.lp >= 1100) chance = 0.48;
-    if (game.lp >= 1200) chance = 0.65;
-    if (game.lp >= 1300) chance = 0.82;
-
-    if (Math.random() > chance) return;
-
-    let club;
-
-    if (game.lp >= 1250) {
-
-        club = {
-            name: "頂級俱樂部青訓",
-            stars: 5,
-            level: "強隊",
-            note: "陣容競爭激烈，但資源與教練團完整。"
-        };
-
-    } else if (game.lp >= 1050) {
-
-        club = {
-            name: "職業俱樂部青訓",
-            stars: 4,
-            level: "中上",
-            note: "有機會快速進入職業體系。"
-        };
-
-    } else {
-
-        club = {
-            name: "職業俱樂部青訓",
-            stars: 3,
-            level: "發展型",
-            note: "比較願意培養新人，但資源相對有限。"
-        };
-    }
-
-    game.pendingOffer = club;
-
-    game.lastEvent =
-        `📩 Scout 注意到了你！${club.name}正在詢問你是否願意接受試訓。`;
-
-    showClubOffer();
-}
-
-
-/* =========================================================
-   邀請視窗
-========================================================= */
-
-function showClubOffer() {
-
-    const c = game.pendingOffer;
-
-    const html = `
-        <div class="modal-bg show" id="offerModal">
-            <div class="modal">
-
-                <div class="card-title">📩 俱樂部邀請</div>
-
-                <div class="card offer">
-
-                    <div class="club-name">
-                        ${c.name}
-                    </div>
-
-                    <div class="club-star">
-                        ${"★".repeat(c.stars)}
-                        ${"☆".repeat(5 - c.stars)}
-                    </div>
-
-                    <p>${c.note}</p>
-
-                    <div class="story">
-                        Scout：
-                        「我們注意你一段時間了。
-                        你的 Rank 表現已經達到我們的招募標準。
-                        有興趣來參加試訓嗎？」
-                    </div>
-
-                </div>
-
-                <div class="button-row">
-
-                    <button class="btn" onclick="acceptClub()">
-                        接受試訓
-                    </button>
-
-                    <button class="btn secondary" onclick="rejectClub()">
-                        暫時拒絕
-                    </button>
-
-                </div>
-
-            </div>
-        </div>
-    `;
-
-    document.body.insertAdjacentHTML("beforeend", html);
-}
-
-
-function acceptClub() {
-
-    game.club = game.pendingOffer;
-    game.pendingOffer = null;
-
-    document.getElementById("offerModal")?.remove();
-
-    game.lastEvent =
-        `你接受了俱樂部邀請。從今天開始，你不再只是單純的路人玩家。`;
-
-    render();
-}
-
-
-function rejectClub() {
-
-    game.pendingOffer = null;
-
-    document.getElementById("offerModal")?.remove();
-
-    game.lastEvent =
-        `你拒絕了這次邀請。你決定再打高一點，看看是否能吸引更好的隊伍。`;
-
-    render();
-}
-
-
-/* =========================================================
-   時間
-========================================================= */
-
-function advanceTime(months) {
-
-    game.month += months;
-
-    if (game.month > 12) {
-        game.month = 1;
-        game.year++;
-        game.age++;
-    }
-}
-
-
-/* =========================================================
-   上一步
-========================================================= */
-
-function savePrevious() {
-
-    game.previous = JSON.parse(JSON.stringify(game));
-}
-
-function previousState() {
-
-    if (!game.previous) {
-        alert("目前沒有可以返回的步驟。");
-        return;
-    }
-
-    const temp = JSON.parse(JSON.stringify(game.previous));
-
-    temp.previous = null;
-
-    game = temp;
-
-    render();
-
-    document.getElementById("saveStatus").innerText =
-        "已返回上一個操作。";
-}
-
-
-/* =========================================================
-   存檔
-========================================================= */
-
-function saveGame() {
-
-    const save = JSON.stringify(game);
-
-    localStorage.setItem(
-        "lol_life_save",
-        save
-    );
-
-    document.getElementById("saveStatus").innerText =
-        "✓ 生涯已儲存。下次開啟遊戲可以手動讀取。";
-}
-
-
-function loadGame() {
-
-    const save = localStorage.getItem("lol_life_save");
-
-    if (!save) {
-        alert("目前沒有存檔。");
-        return;
-    }
-
-    game = JSON.parse(save);
-
-    document.getElementById("saveStatus").innerText =
-        "✓ 已讀取存檔。";
-
-    render();
-}
-
-
-function newGame() {
-
-    if (!confirm("確定要開始新的生涯嗎？未儲存的進度會消失。")) {
-        return;
-    }
-
-    localStorage.removeItem("lol_life_save");
-
-    location.reload();
-}
-
-
-/* =========================================================
-   Render
-========================================================= */
-
-function render() {
-
-    document.getElementById("yearText").innerText =
+    document.getElementById("quarterText").innerText=
         game.started
-        ? `${game.age}歲・${game.club ? "俱樂部選手" : "路人玩家"}`
-        : "尚未建立選手";
+        ?`${game.year}・Q${game.quarter}`
+        :"尚未開始";
 
-    document.getElementById("homeName").innerText =
-        game.name || "尚未建立選手";
+    document.getElementById("seasonLabel").innerText=
+        `${game.year}・第${game.quarter}季度`;
 
-    document.getElementById("homeId").innerText =
-        game.id ? "@" + game.id : "@PLAYER";
+    document.getElementById("lp").innerText=
+        game.lp;
 
-    document.getElementById("homeLP").innerText =
-        `${game.lp} LP`;
-
-    document.getElementById("storyText").innerText =
-        game.lastEvent;
+    document.getElementById("points").innerText=
+        game.points;
 
     renderStats();
-    renderStyle();
-    renderTraining();
-    renderRank();
+
+    document.getElementById("style").innerText=
+        getStyle();
+
+    document.getElementById("styleDesc").innerText=
+        getStyleDesc();
+
+    renderEvent();
+
+    renderTimeline();
+
     renderClub();
 }
 
 
 /* =========================================================
-   Render Stats
+   STATS
 ========================================================= */
 
-function renderStats() {
+function renderStats(){
 
-    const names = {
-        mechanic: "⚔️ 操作",
-        macro: "🗺️ 遊戲理解",
-        stability: "🧘 穩定度",
-        champion: "📚 英雄池"
-    };
+    let html="";
 
-    let html = "";
+    Object.keys(statNames).forEach(key=>{
 
-    Object.keys(names).forEach(key => {
+        const value=game.stats[key];
+        const limit=game.limits[key];
 
-        let value = game.stats[key];
-        let limit = game.limits[key];
+        const percent=Math.min(100,value/limit*100);
 
-        let percent =
-            Math.round(value / limit * 100);
+        html+=`
+        <div class="stat">
 
-        html += `
-            <div class="stat">
+            <div class="stat-head">
 
-                <div class="stat-name">
-                    ${names[key]}
-                </div>
+                <span>${statNames[key]}</span>
 
-                <div class="stat-number">
-                    ${value}
-                </div>
-
-                <div class="stat-limit">
-                    軟上限 ${limit}
-                </div>
-
-                <div class="progress">
-                    <div style="width:${percent}%"></div>
-                </div>
-
-                <div class="cost">
-                    下一點：${getCost(key)} 點
-                </div>
-
-            </div>
-        `;
-    });
-
-    document.getElementById("stats").innerHTML = html;
-}
-
-
-/* =========================================================
-   Render Style
-========================================================= */
-
-function renderStyle() {
-
-    const style = getStyle();
-
-    let description = "";
-
-    if (style === "操作型選手") {
-        description =
-            "你的能力明顯偏向操作。這種玩家在高壓對線與團戰中容易打出亮眼操作，但也可能過度依賴個人能力。";
-    }
-
-    else if (style === "大局觀型選手") {
-        description =
-            "你更擅長理解地圖與資源交換。你的操作不一定最華麗，但很容易知道下一步該做什麼。";
-    }
-
-    else if (style === "穩定型選手") {
-        description =
-            "你的最大特色是穩定。即使局勢不好，也比較不容易突然失控。";
-    }
-
-    else if (style === "英雄池型選手") {
-        description =
-            "你的英雄池發展速度較快。你可能不一定是某一隻英雄的絕活哥，但版本與 BP 對你的限制較小。";
-    }
-
-    else {
-        description =
-            "你的各項能力目前比較平均。這讓你沒有明顯短板，但也缺乏非常突出的招牌能力。";
-    }
-
-    document.getElementById("styleText").innerHTML =
-        `<strong>${style}</strong><br>${description}`;
-}
-
-
-/* =========================================================
-   Render Training
-========================================================= */
-
-function renderTraining() {
-
-    document.getElementById("points").innerText =
-        game.totalPoints;
-
-    let text = `
-        技術點：${game.points.mechanic}<br>
-        理解點：${game.points.macro}<br>
-        穩定點：${game.points.stability}<br>
-        英雄池點：${game.points.champion}
-    `;
-
-    document.getElementById("trainingPoints").innerHTML =
-        text;
-}
-
-
-/* =========================================================
-   Render Rank
-========================================================= */
-
-function renderRank() {
-
-    let target;
-
-    if (game.lp < 500) target = 500;
-    else if (game.lp < 800) target = 800;
-    else if (game.lp < 1000) target = 1000;
-    else if (game.lp < 1200) target = 1200;
-    else if (game.lp < 1300) target = 1300;
-    else target = 1500;
-
-    let currentStart;
-
-    if (target === 500) currentStart = 0;
-    else if (target === 800) currentStart = 500;
-    else if (target === 1000) currentStart = 800;
-    else if (target === 1200) currentStart = 1000;
-    else if (target === 1300) currentStart = 1200;
-    else currentStart = 1300;
-
-    let percent =
-        ((game.lp - currentStart) /
-        (target - currentStart)) * 100;
-
-    percent = clamp(percent, 0, 100);
-
-    document.getElementById("rankGoal").innerText =
-        `${game.lp} / ${target} LP`;
-
-    document.getElementById("rankProgress").style.width =
-        percent + "%";
-
-    if (game.history.length === 0) {
-
-        document.getElementById("matchHistory").innerHTML =
-            "尚未進行積分。";
-
-        return;
-    }
-
-    let html = "";
-
-    game.history.forEach(h => {
-
-        let sign = h.lp >= 0 ? "+" : "";
-
-        html += `
-            <div class="card" style="margin-bottom:8px;">
-
-                <strong>
-                    ${h.year}/${h.month}
-                </strong>
-
-                <span style="margin-left:8px;">
-                    ${h.wins}勝 ${h.losses}敗
+                <span class="stat-value">
+                    ${value}/${limit}
                 </span>
 
-                <span style="margin-left:8px;">
-                    ${h.grade}
-                </span>
-
-                <span style="
-                    float:right;
-                    font-weight:900;
-                    color:${h.lp >= 0 ? "#23723b" : "#9a3c3c"};
-                ">
-                    ${sign}${h.lp} LP
-                </span>
-
-                <div class="small" style="margin-top:6px;">
-                    ${h.text}
-                </div>
-
-            </div>
-        `;
-    });
-
-    document.getElementById("matchHistory").innerHTML =
-        html;
-}
-
-
-/* =========================================================
-   Render Club
-========================================================= */
-
-function renderClub() {
-
-    const box =
-        document.getElementById("clubContent");
-
-    if (!game.club) {
-
-        let requirement;
-
-        if (game.lp < 800) {
-            requirement =
-                `目前 LP：${game.lp}<br>
-                 Scout 初步門檻：約 800 LP`;
-        } else if (game.lp < 1000) {
-            requirement =
-                `你已經開始進入 Scout 視野。<br>
-                 繼續保持 Rank 表現。`;
-        } else {
-            requirement =
-                `你的 LP 已經足以吸引部分俱樂部。<br>
-                 是否收到邀請仍取決於近期表現。`;
-        }
-
-        box.innerHTML = `
-            <div class="story">
-                🕵️ Scout 狀態<br><br>
-                ${requirement}
-            </div>
-        `;
-
-        return;
-    }
-
-    box.innerHTML = `
-        <div class="card offer">
-
-            <div class="club-name">
-                ${game.club.name}
             </div>
 
-            <div class="club-star">
-                ${"★".repeat(game.club.stars)}
-                ${"☆".repeat(5-game.club.stars)}
+            <div class="bar">
+                <div
+                    class="bar-fill"
+                    style="width:${percent}%"
+                ></div>
             </div>
 
-            <p>
-                ${game.club.note}
-            </p>
-
-            <div class="story">
-                你已經從純粹的路人玩家，
-                正式踏入職業體系。
-                接下來才會開始出現真正的賽訓、隊伍競爭與職業賽事。
+            <div class="stat-foot">
+                <span>距軟上限 ${limit-value}</span>
+                <span>下一點 ${weakestCost(key)} AP</span>
             </div>
 
         </div>
+        `;
+    });
+
+    document.getElementById("stats").innerHTML=html;
+}
+
+
+/* =========================================================
+   EVENT
+========================================================= */
+
+function renderEvent(){
+
+    const e=game.currentEvent;
+
+    if(!e)return;
+
+    document.getElementById("eventType").innerText=e.type;
+
+    document.getElementById("eventTitle").innerText=e.title;
+
+    document.getElementById("eventStory").innerText=e.story;
+
+    let html="";
+
+    e.choices.forEach(c=>{
+
+        html+=`
+        <button
+            class="choice"
+            onclick="handleChoice('${c.action}')"
+        >
+
+            <div class="choice-title">
+                ${c.title}
+            </div>
+
+            <div class="choice-desc">
+                ${c.desc}
+            </div>
+
+            <div class="choice-reward">
+                ${c.reward}
+            </div>
+
+        </button>
+        `;
+    });
+
+    document.getElementById("choices").innerHTML=html;
+}
+
+
+/* =========================================================
+   CHOICE ROUTER
+========================================================= */
+
+function handleChoice(action){
+
+    if(action==="accept_trial"){
+        acceptTrial();
+        return;
+    }
+
+    choose(action);
+}
+
+
+/* =========================================================
+   TIMELINE
+========================================================= */
+
+function renderTimeline(){
+
+    const box=document.getElementById("timeline");
+
+    if(game.history.length===0){
+        box.innerHTML=
+            `<div class="timeline-item">生涯尚未開始。</div>`;
+        return;
+    }
+
+    box.innerHTML=game.history.slice().reverse().map(h=>`
+
+        <div class="timeline-item">
+            <strong>${h.year} Q${h.quarter}</strong><br>
+            ${h.text}
+        </div>
+
+    `).join("");
+}
+
+
+/* =========================================================
+   CLUB
+========================================================= */
+
+function renderClub(){
+
+    const box=document.getElementById("clubStatus");
+
+    if(!game.club){
+
+        if(game.lp<800){
+
+            box.innerHTML=
+                "目前還沒有俱樂部。<br><br>"+
+                "先把 Rank 打上去。";
+
+        }else{
+
+            box.innerHTML=
+                "👀 你已經進入 Scout 的觀察範圍。<br><br>"+
+                "繼續維持表現，俱樂部可能主動聯絡你。";
+        }
+
+        return;
+    }
+
+    box.innerHTML=`
+        <strong>${game.club.name}</strong><br>
+        <span style="color:var(--gold)">
+            ${"★".repeat(game.club.stars)}
+            ${"☆".repeat(5-game.club.stars)}
+        </span>
+        <br><br>
+        你已進入職業體系。
     `;
 }
+
+
+/* =========================================================
+   UNDO
+========================================================= */
+
+function undo(){
+
+    if(!game.previous){
+        toast("目前沒有可以返回的操作。");
+        return;
+    }
+
+    game=JSON.parse(JSON.stringify(game.previous));
+    game.previous=null;
+
+    render();
+
+    toast("已返回上一個季度。");
+}
+
+
+/* =========================================================
+   SAVE
+========================================================= */
+
+function saveGame(){
+
+    localStorage.setItem(
+        "lol_life_save",
+        JSON.stringify(game)
+    );
+
+    toast("生涯已儲存。");
+}
+
+
+/* =========================================================
+   LOAD
+========================================================= */
+
+function loadGame(){
+
+    const data=localStorage.getItem("lol_life_save");
+
+    if(!data){
+        toast("沒有找到存檔。");
+        return;
+    }
+
+    game=JSON.parse(data);
+
+    document.getElementById("createOverlay").style.display="none";
+
+    render();
+
+    toast("已讀取存檔。");
+}
+
+
+/* =========================================================
+   LOAD BUTTON
+   按住 Logo 會讀取存檔
+========================================================= */
+
+let logoTimer=null;
+
+document.querySelector(".logo").addEventListener("dblclick",()=>{
+    loadGame();
+});
+
+
+/* =========================================================
+   NEW GAME
+========================================================= */
+
+function newGame(){
+
+    if(confirm("確定要重新開始？未儲存進度將消失。")){
+        localStorage.removeItem("lol_life_save");
+        location.reload();
+    }
+}
+
+
+/* =========================================================
+   INIT
+========================================================= */
+
+render();
 
 </script>
 
