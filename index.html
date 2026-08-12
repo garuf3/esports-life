@@ -3,781 +3,406 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
 <title>電競人生模擬器</title>
 
 <style>
+    body {
+        margin: 0;
+        font-family: Arial, "Microsoft JhengHei", sans-serif;
+        background: #f2f2f2;
+        color: #222;
+    }
 
-* {
-    box-sizing: border-box;
-}
+    .game {
+        width: 900px;
+        max-width: 94%;
+        margin: 30px auto;
+        background: white;
+        border-radius: 14px;
+        padding: 25px;
+        box-sizing: border-box;
+        box-shadow: 0 4px 18px rgba(0,0,0,0.12);
+    }
 
-body {
-    margin: 0;
-    background: #10141c;
-    color: #eeeeee;
-    font-family: Arial, "Microsoft JhengHei", sans-serif;
-}
+    h1 {
+        text-align: center;
+        margin-top: 0;
+    }
 
-.game {
-    width: 950px;
-    max-width: 94%;
-    margin: 30px auto;
-    background: #1a202b;
-    border-radius: 14px;
-    padding: 28px;
-    box-shadow: 0 8px 30px rgba(0,0,0,.35);
-}
-
-h1 {
-    text-align: center;
-}
-
-h2 {
-    margin-top: 0;
-}
-
-.subtitle {
-    color: #9da7b8;
-    text-align: center;
-}
-
-.screen {
-    display: none;
-}
-
-.screen.active {
-    display: block;
-}
-
-.grid {
-    display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    gap: 12px;
-    margin: 20px 0;
-}
-
-.grid.five {
-    grid-template-columns: repeat(5, 1fr);
-}
-
-.card {
-    background: #242b38;
-    border: 1px solid #394352;
-    border-radius: 10px;
-    padding: 18px;
-    cursor: pointer;
-    transition: .15s;
-}
-
-.card:hover {
-    border-color: #668cff;
-    transform: translateY(-2px);
-}
-
-.card.selected {
-    background: #293654;
-    border-color: #668cff;
-}
-
-.card-title {
-    font-size: 18px;
-    font-weight: bold;
-    margin-bottom: 8px;
-}
-
-.card-desc {
-    color: #aeb7c7;
-    font-size: 13px;
-    line-height: 1.6;
-}
-
-button {
-    width: 100%;
-    padding: 14px;
-    border: 0;
-    border-radius: 9px;
-    background: #4269df;
-    color: white;
-    font-size: 16px;
-    cursor: pointer;
-}
-
-button:hover {
-    filter: brightness(1.15);
-}
-
-button:disabled {
-    opacity: .4;
-    cursor: not-allowed;
-}
-
-.stats {
-    display: grid;
-    grid-template-columns: repeat(6, 1fr);
-    gap: 8px;
-    margin: 20px 0;
-}
-
-.stat {
-    background: #242b38;
-    border-radius: 9px;
-    padding: 12px;
-    text-align: center;
-}
-
-.stat-name {
-    color: #9da7b8;
-    font-size: 13px;
-}
-
-.stat-value {
-    font-size: 24px;
-    font-weight: bold;
-    margin-top: 5px;
-}
-
-.event {
-    background: #242b38;
-    border-radius: 12px;
-    padding: 22px;
-    margin-top: 18px;
-}
-
-.event-text {
-    line-height: 1.8;
-}
-
-.choices {
-    display: flex;
-    flex-direction: column;
-    gap: 10px;
-}
-
-.result {
-    margin-top: 18px;
-    min-height: 25px;
-    font-weight: bold;
-}
-
-.profile {
-    margin-top: 18px;
-    background: #11161f;
-    padding: 16px;
-    border-radius: 9px;
-    line-height: 1.8;
-}
-
-.log {
-    margin-top: 15px;
-    background: #11161f;
-    padding: 12px;
-    border-radius: 9px;
-    max-height: 180px;
-    overflow-y: auto;
-    font-size: 13px;
-    line-height: 1.7;
-}
-
-.badge {
-    display: inline-block;
-    background: #343d4d;
-    padding: 5px 10px;
-    border-radius: 20px;
-    margin: 3px;
-    font-size: 13px;
-}
-
-.game-over {
-    text-align: center;
-    padding: 50px 20px;
-}
-
-.game-over h1 {
-    font-size: 42px;
-}
-
-.warning {
-    color: #ff7373;
-    font-size: 22px;
-}
-
-@media(max-width:700px) {
-
-    .stats {
+    /* 玩家基本資料 */
+    .info {
+        display: grid;
         grid-template-columns: repeat(3, 1fr);
+        gap: 10px;
+        margin-bottom: 20px;
     }
 
-    .grid,
-    .grid.five {
-        grid-template-columns: 1fr;
+    .stat {
+        background: #f5f5f5;
+        padding: 14px;
+        border-radius: 8px;
+        text-align: center;
     }
 
-}
+    .stat strong {
+        display: block;
+        font-size: 24px;
+        margin-top: 5px;
+    }
 
+    /* 英雄池 */
+    .hero-pool {
+        background: #f7f7f7;
+        border-radius: 10px;
+        padding: 18px;
+        margin-bottom: 20px;
+    }
+
+    .hero-pool h2 {
+        margin-top: 0;
+    }
+
+    .pool-style {
+        font-size: 18px;
+        font-weight: bold;
+        margin-bottom: 15px;
+    }
+
+    .hero-stat {
+        margin: 12px 0;
+    }
+
+    .hero-name {
+        display: flex;
+        justify-content: space-between;
+        margin-bottom: 5px;
+    }
+
+    .bar {
+        width: 100%;
+        height: 14px;
+        background: #ddd;
+        border-radius: 10px;
+        overflow: hidden;
+    }
+
+    .bar-inner {
+        height: 100%;
+        background: #333;
+        transition: width 0.3s;
+    }
+
+    /* 事件 */
+    .event {
+        border-top: 1px solid #ddd;
+        padding-top: 20px;
+    }
+
+    .event h2 {
+        margin-top: 0;
+    }
+
+    .choices {
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+        margin-top: 20px;
+    }
+
+    button {
+        padding: 14px;
+        border: none;
+        border-radius: 8px;
+        background: #222;
+        color: white;
+        font-size: 16px;
+        cursor: pointer;
+        text-align: left;
+    }
+
+    button:hover {
+        opacity: 0.82;
+    }
+
+    button small {
+        display: block;
+        margin-top: 5px;
+        color: #ccc;
+        font-size: 13px;
+    }
+
+    #result {
+        margin-top: 20px;
+        min-height: 30px;
+        font-weight: bold;
+    }
+
+    @media (max-width: 600px) {
+        .info {
+            grid-template-columns: repeat(2, 1fr);
+        }
+
+        .game {
+            padding: 18px;
+        }
+    }
 </style>
 </head>
-
 
 <body>
 
 <div class="game">
 
+    <h1>🎮 電競人生模擬器</h1>
 
-<!-- ========================= -->
-<!-- 出身地 -->
-<!-- ========================= -->
+    <!-- 玩家基本狀況 -->
+    <div class="info">
 
-<div id="regionScreen" class="screen active">
+        <div class="stat">
+            年齡
+            <strong id="age">16</strong>
+        </div>
 
-<h1>🎮 電競人生模擬器</h1>
+        <div class="stat">
+            操作
+            <strong id="skill">50</strong>
+        </div>
 
-<p class="subtitle">
-你的人生，從16歲開始。
-</p>
+        <div class="stat">
+            遊戲理解
+            <strong id="gameSense">50</strong>
+        </div>
 
-<h2>① 選擇你的出身地</h2>
+        <div class="stat">
+            心態
+            <strong id="mental">50</strong>
+        </div>
 
-<p>
-你的出身地會影響：
-本土青訓機會、初始語言、未來跨賽區難度。
-</p>
+        <div class="stat">
+            體力
+            <strong id="stamina">50</strong>
+        </div>
 
-<div class="grid" id="regionList"></div>
+        <div class="stat">
+            人氣
+            <strong id="fame">0</strong>
+        </div>
 
-<button id="regionButton" disabled onclick="goToRole()">
-下一步
-</button>
+    </div>
 
-</div>
 
+    <!-- 英雄池 -->
+    <div class="hero-pool">
 
-<!-- ========================= -->
-<!-- 位置 -->
-<!-- ========================= -->
+        <h2>🎮 英雄池</h2>
 
-<div id="roleScreen" class="screen">
+        <div class="pool-style" id="poolStyle">
+            ⚖️ 標準型
+        </div>
 
-<h1>② 選擇你的主位置</h1>
 
-<p class="subtitle">
-你可以在職業生涯中轉換位置，但這會是你的起點。
-</p>
+        <div class="hero-stat">
 
-<div class="grid five" id="roleList"></div>
+            <div class="hero-name">
+                <span>🗡️ 刺客型</span>
+                <span id="assassin">50</span>
+            </div>
 
-<button id="roleButton" disabled onclick="startGame()">
-開始電競人生
-</button>
+            <div class="bar">
+                <div
+                    class="bar-inner"
+                    id="assassinBar"
+                    style="width:50%">
+                </div>
+            </div>
 
-</div>
+        </div>
 
 
-<!-- ========================= -->
-<!-- 遊戲 -->
-<!-- ========================= -->
+        <div class="hero-stat">
 
-<div id="gameScreen" class="screen">
+            <div class="hero-name">
+                <span>🔮 大法師型</span>
+                <span id="mage">50</span>
+            </div>
 
-<h1>🎮 電競人生模擬器</h1>
+            <div class="bar">
+                <div
+                    class="bar-inner"
+                    id="mageBar"
+                    style="width:50%">
+                </div>
+            </div>
 
-<div id="identity"></div>
+        </div>
 
 
-<div class="stats">
+        <div class="hero-stat">
 
-<div class="stat">
-<div class="stat-name">年齡</div>
-<div class="stat-value" id="age">16</div>
-</div>
+            <div class="hero-name">
+                <span>🎯 Poke型</span>
+                <span id="poke">50</span>
+            </div>
 
-<div class="stat">
-<div class="stat-name">操作</div>
-<div class="stat-value" id="skill">50</div>
-</div>
+            <div class="bar">
+                <div
+                    class="bar-inner"
+                    id="pokeBar"
+                    style="width:50%">
+                </div>
+            </div>
 
-<div class="stat">
-<div class="stat-name">遊戲理解</div>
-<div class="stat-value" id="sense">50</div>
-</div>
+        </div>
 
-<div class="stat">
-<div class="stat-name">心態</div>
-<div class="stat-value" id="mental">50</div>
-</div>
 
-<div class="stat">
-<div class="stat-name">體力</div>
-<div class="stat-value" id="stamina">50</div>
-</div>
+        <div class="hero-stat">
 
-<div class="stat">
-<div class="stat-name">人氣</div>
-<div class="stat-value" id="fame">0</div>
-</div>
+            <div class="hero-name">
+                <span>🧭 支援型</span>
+                <span id="support">50</span>
+            </div>
 
-</div>
+            <div class="bar">
+                <div
+                    class="bar-inner"
+                    id="supportBar"
+                    style="width:50%">
+                </div>
+            </div>
 
+        </div>
 
-<div class="event">
+    </div>
 
-<h2 id="eventTitle"></h2>
 
-<p class="event-text" id="eventText"></p>
+    <!-- 事件 -->
+    <div class="event">
 
-<div class="choices" id="choices"></div>
+        <h2 id="eventTitle">
+            你的英雄池開始形成
+        </h2>
 
-<div class="result" id="result"></div>
+        <p id="eventText">
+            你開始發現自己有特別擅長的英雄類型。
+            現在，你可以決定自己的英雄池往哪個方向發展。
+        </p>
 
-</div>
 
+        <div class="choices">
 
-<div class="profile">
+            <button onclick="choose(1)">
+                🗡️ 專精刺客型
+                <small>刺客型 +10</small>
+            </button>
 
-<b>選手資料</b>
 
-<br>
+            <button onclick="choose(2)">
+                🔮 專精大法師型
+                <small>大法師型 +10</small>
+            </button>
 
-位置：
-<span id="profileRole"></span>
 
-<br>
+            <button onclick="choose(3)">
+                🎯 專精 Poke 型
+                <small>Poke 型 +10</small>
+            </button>
 
-英雄池：
-<span id="poolType"></span>
 
-<br>
+            <button onclick="choose(4)">
+                🧭 專精支援型
+                <small>支援型 +10</small>
+            </button>
 
-選手風格：
-<span id="styleType"></span>
+        </div>
 
-<br>
 
-大賽經驗：
-<span id="tournament"></span>
+        <div id="result"></div>
 
-<br>
-
-主要語言：
-<span id="language"></span>
-
-<br>
-
-所屬隊伍：
-<span id="team"></span>
-
-</div>
-
-
-<div class="log" id="log"></div>
-
-</div>
-
-
-<!-- ========================= -->
-<!-- GAME OVER -->
-<!-- ========================= -->
-
-<div id="gameOver" class="screen">
-
-<div class="game-over">
-
-<div class="warning">
-⚠️ 世界線異常
-</div>
-
-<h1>GAME OVER</h1>
-
-<p>
-一次極其罕見的意外，
-改變了英雄聯盟電競的歷史。
-</p>
-
-<p>
-你只是想正常打一場比賽。
-</p>
-
-<p>
-但你的隊友因此提前結束職業生涯。
-</p>
-
-<hr>
-
-<h2>
-英雄聯盟職業電競正式結束。
-</h2>
-
-<p>
-沒有人知道事情為什麼會發展成這樣。
-</p>
-
-<button onclick="location.reload()">
-重新開始
-</button>
-
-</div>
-
-</div>
-
+    </div>
 
 </div>
 
 
 <script>
 
-
-/* ==========================================
-   出身地
-========================================== */
-
-const regions = [
-
-{
-    id: "KOREA",
-    name: "🇰🇷 韓國",
-    description: "韓國本土人才體系。",
-    language: "韓文"
-},
-
-{
-    id: "CHINA",
-    name: "🇨🇳 中國",
-    description: "中國本土人才體系。",
-    language: "中文"
-},
-
-{
-    id: "APAC",
-    name: "🌏 亞太",
-    description: "台港澳、日本、越南、澳洲、東南亞等。",
-    language: "依地區而定"
-},
-
-{
-    id: "EUROPE",
-    name: "🇪🇺 歐洲",
-    description: "歐洲本土人才體系。",
-    language: "英文／歐洲語言"
-},
-
-{
-    id: "NORTH_AMERICA",
-    name: "🇺🇸 北美",
-    description: "北美本土人才體系。",
-    language: "英文"
-},
-
-{
-    id: "BRAZIL",
-    name: "🇧🇷 巴西",
-    description: "巴西本土人才體系。",
-    language: "葡萄牙語"
-}
-
-];
-
-
-let selectedRegion = null;
-let selectedRole = null;
-
-
-/* ==========================================
-   位置
-========================================== */
-
-const roles = [
-
-{
-    id: "TOP",
-    name: "🗡️ Top",
-    description: "對線、單帶、抗壓"
-},
-
-{
-    id: "JUNGLE",
-    name: "🌲 Jungle",
-    description: "節奏、地圖、資源"
-},
-
-{
-    id: "MID",
-    name: "⚔️ Mid",
-    description: "操作、對線、支援"
-},
-
-{
-    id: "ADC",
-    name: "🏹 ADC",
-    description: "輸出、團戰、穩定"
-},
-
-{
-    id: "SUPPORT",
-    name: "🛡️ Support",
-    description: "視野、開戰、團隊"
-}
-
-];
-
-
-/* ==========================================
-   玩家
-========================================== */
-
 let player = {
 
     age: 16,
 
     skill: 50,
-
-    sense: 50,
-
+    gameSense: 50,
     mental: 50,
-
     stamina: 50,
-
     fame: 0,
 
-    tournament: 0,
-
-    language: 0,
-
-    team: "尚未加入職業隊",
-
-    heroPool: 50
+    assassin: 50,
+    mage: 50,
+    poke: 50,
+    support: 50
 
 };
 
 
-/* ==========================================
-   位置能力權重
-========================================== */
+/* 限制數值 0～100 */
+function clamp(value) {
 
-const roleWeights = {
-
-TOP: {
-    skill: 0.30,
-    sense: 0.30,
-    mental: 0.25,
-    stamina: 0.15
-},
-
-JUNGLE: {
-    skill: 0.20,
-    sense: 0.40,
-    mental: 0.25,
-    stamina: 0.15
-},
-
-MID: {
-    skill: 0.35,
-    sense: 0.35,
-    mental: 0.20,
-    stamina: 0.10
-},
-
-ADC: {
-    skill: 0.40,
-    sense: 0.20,
-    mental: 0.30,
-    stamina: 0.10
-},
-
-SUPPORT: {
-    skill: 0.15,
-    sense: 0.40,
-    mental: 0.35,
-    stamina: 0.10
-}
-
-};
-
-
-/* ==========================================
-   建立出身地選單
-========================================== */
-
-const regionList =
-document.getElementById("regionList");
-
-
-regions.forEach(region => {
-
-    const card =
-    document.createElement("div");
-
-    card.className = "card";
-
-    card.innerHTML = `
-
-        <div class="card-title">
-            ${region.name}
-        </div>
-
-        <div class="card-desc">
-            ${region.description}
-            <br>
-            主要語言：${region.language}
-        </div>
-
-    `;
-
-    card.onclick = function() {
-
-        selectedRegion = region;
-
-        document
-        .querySelectorAll("#regionList .card")
-        .forEach(c =>
-            c.classList.remove("selected")
-        );
-
-        card.classList.add("selected");
-
-        document
-        .getElementById("regionButton")
-        .disabled = false;
-
-    };
-
-    regionList.appendChild(card);
-
-});
-
-
-/* ==========================================
-   進入位置選擇
-========================================== */
-
-function goToRole() {
-
-    showScreen("roleScreen");
+    return Math.max(0, Math.min(100, value));
 
 }
 
 
-/* ==========================================
-   建立位置選單
-========================================== */
+/* 判定目前英雄池風格 */
+function getPoolStyle() {
 
-const roleList =
-document.getElementById("roleList");
+    let values = [
+        player.assassin,
+        player.mage,
+        player.poke,
+        player.support
+    ];
 
-
-roles.forEach(role => {
-
-    const card =
-    document.createElement("div");
-
-    card.className = "card";
-
-    card.innerHTML = `
-
-        <div class="card-title">
-            ${role.name}
-        </div>
-
-        <div class="card-desc">
-            ${role.description}
-        </div>
-
-    `;
-
-    card.onclick = function() {
-
-        selectedRole = role;
-
-        document
-        .querySelectorAll("#roleList .card")
-        .forEach(c =>
-            c.classList.remove("selected")
-        );
-
-        card.classList.add("selected");
-
-        document
-        .getElementById("roleButton")
-        .disabled = false;
-
-    };
-
-    roleList.appendChild(card);
-
-});
+    let max = Math.max(...values);
+    let min = Math.min(...values);
 
 
-/* ==========================================
-   開始遊戲
-========================================== */
+    /* 全能型 */
+    if (
+        player.assassin >= 85 &&
+        player.mage >= 85 &&
+        player.poke >= 85 &&
+        player.support >= 85
+    ) {
+        return "👑 全能型";
+    }
 
-function startGame() {
 
-    player.language =
-        getStartingLanguage();
+    /* 專精型 */
+    if (max >= 80 && max - min >= 20) {
 
-    document
-    .getElementById("profileRole")
-    .textContent =
-        selectedRole.name;
+        if (max === player.assassin) {
+            return "🗡️ 刺客專精型";
+        }
 
-    updateScreen();
+        if (max === player.mage) {
+            return "🔮 大法師專精型";
+        }
 
-    showScreen("gameScreen");
+        if (max === player.poke) {
+            return "🎯 Poke 專精型";
+        }
 
-    nextEvent();
+        if (max === player.support) {
+            return "🧭 支援專精型";
+        }
+    }
 
+
+    /* 預設 */
+    return "⚖️ 標準型";
 }
 
 
-/* ==========================================
-   初始語言
-========================================== */
-
-function getStartingLanguage() {
-
-    if (selectedRegion.id === "KOREA")
-        return 90;
-
-    if (selectedRegion.id === "CHINA")
-        return 90;
-
-    if (selectedRegion.id === "BRAZIL")
-        return 90;
-
-    if (selectedRegion.id === "NORTH_AMERICA")
-        return 85;
-
-    if (selectedRegion.id === "EUROPE")
-        return 80;
-
-    return 80;
-
-}
-
-
-/* ==========================================
-   畫面切換
-========================================== */
-
-function showScreen(id) {
-
-    document
-    .querySelectorAll(".screen")
-    .forEach(screen =>
-        screen.classList.remove("active")
-    );
-
-    document
-    .getElementById(id)
-    .classList.add("active");
-
-}
-
-
-/* ==========================================
-   更新畫面
-========================================== */
-
+/* 更新畫面 */
 function updateScreen() {
 
     document.getElementById("age").textContent =
@@ -786,8 +411,8 @@ function updateScreen() {
     document.getElementById("skill").textContent =
         player.skill;
 
-    document.getElementById("sense").textContent =
-        player.sense;
+    document.getElementById("gameSense").textContent =
+        player.gameSense;
 
     document.getElementById("mental").textContent =
         player.mental;
@@ -798,680 +423,103 @@ function updateScreen() {
     document.getElementById("fame").textContent =
         player.fame;
 
-    document.getElementById("tournament").textContent =
-        player.tournament;
 
-    document.getElementById("language").textContent =
-        player.language;
+    document.getElementById("assassin").textContent =
+        player.assassin;
 
-    document.getElementById("team").textContent =
-        player.team;
-
-    document.getElementById("poolType").textContent =
-        getHeroPoolType();
-
-    document.getElementById("styleType").textContent =
-        getStyle();
-
-}
+    document.getElementById("assassinBar").style.width =
+        player.assassin + "%";
 
 
-/* ==========================================
-   英雄池類型
-========================================== */
+    document.getElementById("mage").textContent =
+        player.mage;
 
-function getHeroPoolType() {
+    document.getElementById("mageBar").style.width =
+        player.mage + "%";
 
-    if (player.heroPool < 20)
-        return "One-Trick";
 
-    if (player.heroPool < 40)
-        return "單刀型";
+    document.getElementById("poke").textContent =
+        player.poke;
 
-    if (player.heroPool < 65)
-        return "一般型";
+    document.getElementById("pokeBar").style.width =
+        player.poke + "%";
 
-    if (player.heroPool < 85)
-        return "廣而專精";
 
-    return "完整型";
+    document.getElementById("support").textContent =
+        player.support;
+
+    document.getElementById("supportBar").style.width =
+        player.support + "%";
+
+
+    document.getElementById("poolStyle").textContent =
+        getPoolStyle();
 
 }
 
 
-/* ==========================================
-   選手風格
-========================================== */
-
-function getStyle() {
-
-    if (
-        player.skill >=
-        player.sense + 12
-    ) {
-
-        return "操作型";
-
-    }
-
-    if (
-        player.sense >=
-        player.skill + 12
-    ) {
-
-        return "理解型";
-
-    }
-
-    if (
-        player.sense >= 70 &&
-        player.mental >= 80
-    ) {
-
-        return "工具人型";
-
-    }
-
-    return "混合型";
-
-}
-
-
-/* ==========================================
-   事件
-========================================== */
-
-const events = [
-
-{
-
-title:
-"你的電競人生開始了",
-
-text:
-"你是一名16歲的高中生，最近開始認真打英雄聯盟。你發現自己的天賦似乎不錯。",
-
-choices: [
-
-{
-
-text:
-"🎮 狂打排位",
-
-effect: function() {
-
-    player.skill += 5;
-
-    player.sense += 2;
-
-    player.stamina -= 3;
-
-    player.mental -= 2;
-
-},
-
-result:
-"你瘋狂打了一整晚排位。操作變強了，但人快沒了。"
-
-},
-
-{
-
-text:
-"📚 先把課業顧好",
-
-effect: function() {
-
-    player.sense += 1;
-
-    player.mental += 3;
-
-},
-
-result:
-"你先把功課完成，晚上才有時間打遊戲。"
-
-},
-
-{
-
-text:
-"😴 今天休息",
-
-effect: function() {
-
-    player.mental += 5;
-
-    player.stamina += 5;
-
-},
-
-result:
-"你今天什麼都沒做，舒服。"
-
-}
-
-]
-
-},
-
-
-{
-
-title:
-"你的英雄池開始形成",
-
-text:
-"你開始發現自己有特別習慣的打法。你可以選擇把少數選擇練到極致，也可以開始擴充自己的英雄池。",
-
-choices: [
-
-{
-
-text:
-"🔪 專精少數選擇",
-
-effect: function() {
-
-    player.skill += 4;
-
-    player.heroPool -= 15;
-
-},
-
-result:
-"你把大量時間投入少數選擇。你的招牌能力開始變得非常突出。"
-
-},
-
-{
-
-text:
-"📚 擴充英雄池",
-
-effect: function() {
-
-    player.heroPool += 15;
-
-    player.sense += 2;
-
-},
-
-result:
-"你開始刻意練習不同類型的英雄。"
-
-},
-
-{
-
-text:
-"⚖️ 保持平衡",
-
-effect: function() {
-
-    player.heroPool += 4;
-
-    player.skill += 2;
-
-},
-
-result:
-"你沒有特別偏科，慢慢建立起自己的常規英雄池。"
-
-}
-
-]
-
-},
-
-
-{
-
-title:
-"第一次正式比賽",
-
-text:
-"你第一次站上正式比賽舞台。觀眾不多，但你第一次真正感受到比賽壓力。",
-
-choices: [
-
-{
-
-text:
-"🔥 打出自己的風格",
-
-effect: function() {
-
-    player.skill += 3;
-
-    player.fame += 2;
-
-    player.mental -= 1;
-
-},
-
-result:
-"你打得非常有侵略性，開始有人記住你的名字。"
-
-},
-
-{
-
-text:
-"🧠 完成團隊要求",
-
-effect: function() {
-
-    player.sense += 3;
-
-    player.mental += 2;
-
-},
-
-result:
-"你沒有追求華麗操作，而是把團隊需要的事情做好。"
-
-},
-
-{
-
-text:
-"😰 緊張到失常",
-
-effect: function() {
-
-    player.mental -= 5;
-
-},
-
-result:
-"第一次舞台讓你明顯緊張。你知道自己還需要適應。"
-
-}
-
-]
-
-},
-
-
-{
-
-title:
-"青訓機會",
-
-text:
-"你的本土賽區開始有人注意到你。你收到一份青訓試訓邀請。",
-
-choices: [
-
-{
-
-text:
-"✍️ 接受試訓",
-
-effect: function() {
-
-    player.team =
-        "本土青訓隊";
-
-    player.fame += 4;
-
-    player.sense += 3;
-
-},
-
-result:
-"你正式進入青訓體系。職業生涯開始有了方向。"
-
-},
-
-{
-
-text:
-"🎮 繼續打排位",
-
-effect: function() {
-
-    player.skill += 4;
-
-    player.heroPool += 2;
-
-},
-
-result:
-"你暫時拒絕青訓，決定先把自己練得更強。"
-
-},
-
-{
-
-text:
-"🌏 開始學習外語",
-
-effect: function() {
-
-    player.language += 10;
-
-    player.mental += 2;
-
-},
-
-result:
-"你開始為未來跨賽區的可能性做準備。"
-
-}
-
-]
-
-},
-
-
-{
-
-title:
-"你第一次打大賽",
-
-text:
-"這一次的舞台與平常完全不同。觀眾、媒體與壓力都放大了。",
-
-choices: [
-
-{
-
-text:
-"🏆 放手一搏",
-
-effect: function() {
-
-    let bonus =
-        player.mental >= 70
-        ? 5
-        : -5;
-
-    player.skill += bonus;
-
-    player.fame += 5;
-
-    player.tournament++;
-
-},
-
-result:
-"你選擇相信自己的訓練。"
-
-},
-
-{
-
-text:
-"🧘 穩住心態",
-
-effect: function() {
-
-    player.mental += 6;
-
-    player.tournament++;
-
-},
-
-result:
-"你把注意力放在一場一場比賽，大賽經驗開始累積。"
-
-},
-
-{
-
-text:
-"🧩 依賴最熟悉的打法",
-
-effect: function() {
-
-    player.tournament++;
-
-    if (player.heroPool < 40) {
-
-        player.mental -= 5;
-
-    }
-
-},
-
-result:
-"你選擇自己最熟悉的打法，但英雄池較窄的風險開始出現。"
-
-}
-
-]
-
-}
-
-];
-
-
-let currentEvent = 0;
-
-
-/* ==========================================
-   下一事件
-========================================== */
-
-function nextEvent() {
-
-    const event =
-        events[
-            currentEvent %
-            events.length
-        ];
-
-    currentEvent++;
-
-    document
-    .getElementById("eventTitle")
-    .textContent =
-        event.title;
-
-    document
-    .getElementById("eventText")
-    .textContent =
-        event.text;
-
-    const choices =
-        document.getElementById("choices");
-
-    choices.innerHTML = "";
-
-    event.choices.forEach(choice => {
-
-        const button =
-            document.createElement("button");
-
-        button.textContent =
-            choice.text;
-
-        button.onclick =
-            function() {
-
-                choose(choice);
-
-            };
-
-        choices.appendChild(button);
-
-    });
-
-    document
-    .getElementById("result")
-    .textContent = "";
-
-}
-
-
-/* ==========================================
-   選擇事件
-========================================== */
-
+/* 選擇事件 */
 function choose(choice) {
 
-    choice.effect();
+    let result = "";
 
-    clampStats();
 
-    const result =
-        choice.result;
+    if (choice === 1) {
 
-    document
-    .getElementById("result")
-    .textContent =
-        result;
+        player.assassin += 10;
 
-    addLog(
-        player.age +
-        "歲｜" +
-        result
-    );
+        result =
+            "你開始專注研究刺客型英雄。";
+
+    }
+
+
+    if (choice === 2) {
+
+        player.mage += 10;
+
+        result =
+            "你開始專注研究大法師型英雄。";
+
+    }
+
+
+    if (choice === 3) {
+
+        player.poke += 10;
+
+        result =
+            "你開始專注研究 Poke 型英雄。";
+
+    }
+
+
+    if (choice === 4) {
+
+        player.support += 10;
+
+        result =
+            "你開始專注研究支援型英雄。";
+
+    }
+
 
     player.age++;
 
-    ageEffect();
+
+    player.assassin = clamp(player.assassin);
+    player.mage = clamp(player.mage);
+    player.poke = clamp(player.poke);
+    player.support = clamp(player.support);
+
 
     updateScreen();
 
-
-    /*
-       極低機率黑色幽默彩蛋
-
-       0.05%
-
-       只有已經加入隊伍後
-       才有機會觸發。
-    */
-
-    if (
-        player.team !==
-        "尚未加入職業隊" &&
-        Math.random() < 0.0005
-    ) {
-
-        showScreen("gameOver");
-
-        return;
-
-    }
-
-
-    setTimeout(
-        nextEvent,
-        450
-    );
+    document.getElementById("result").textContent =
+        result;
 
 }
 
-
-/* ==========================================
-   年齡效果
-========================================== */
-
-function ageEffect() {
-
-    /*
-       24歲後開始緩慢失去操作巔峰
-
-       不是所有能力一起下降。
-    */
-
-    if (player.age >= 24) {
-
-        player.skill -= 1;
-
-    }
-
-    if (player.age >= 27) {
-
-        player.stamina -= 2;
-
-    }
-
-    /*
-       遊戲理解不直接因年齡下降。
-    */
-
-    clampStats();
-
-}
-
-
-/* ==========================================
-   數值限制
-========================================== */
-
-function clampStats() {
-
-    player.skill =
-        Math.max(
-            0,
-            Math.min(100, player.skill)
-        );
-
-    player.sense =
-        Math.max(
-            0,
-            Math.min(100, player.sense)
-        );
-
-    player.mental =
-        Math.max(
-            0,
-            Math.min(100, player.mental)
-        );
-
-    player.stamina =
-        Math.max(
-            0,
-            Math.min(100, player.stamina)
-        );
-
-    player.fame =
-        Math.max(
-            0,
-            Math.min(100, player.fame)
-        );
-
-    player.heroPool =
-        Math.max(
-            0,
-            Math.min(100, player.heroPool)
-        );
-
-    player.language =
-        Math.max(
-            0,
-            Math.min(100, player.language)
-        );
-
-}
-
-
-/* ==========================================
-   紀錄
-========================================== */
-
-function addLog(text) {
-
-    const log =
-        document.getElementById("log");
-
-    log.innerHTML =
-        "<div>• " +
-        text +
-        "</div>" +
-        log.innerHTML;
-
-}
-
-
-/* ==========================================
-   初始化
-========================================== */
 
 updateScreen();
 
