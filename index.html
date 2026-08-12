@@ -3,417 +3,461 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
 <title>🎮 電競人生模擬器</title>
 
 <style>
-* {
-    box-sizing: border-box;
+
+*{
+    box-sizing:border-box;
 }
 
-body {
-    margin: 0;
-    background: #111318;
-    color: #eee;
-    font-family: Arial, "Microsoft JhengHei", sans-serif;
+body{
+    margin:0;
+    background:#111318;
+    color:#eeeeee;
+    font-family:Arial,"Microsoft JhengHei",sans-serif;
 }
 
-#app {
-    width: 94%;
-    max-width: 1000px;
-    margin: 25px auto 50px;
+button,input{
+    font-family:inherit;
 }
 
-.panel {
-    background: #20232a;
-    border: 1px solid #343841;
-    border-radius: 14px;
-    padding: 20px;
-    margin-bottom: 12px;
-}
-
-button {
-    font-family: inherit;
-    cursor: pointer;
+#app{
+    width:94%;
+    max-width:1000px;
+    margin:25px auto 60px;
 }
 
 /* =========================
-   開始畫面
+   共用
 ========================= */
 
-.setup h1 {
-    margin-top: 0;
+.panel{
+    background:#20232a;
+    border:1px solid #343841;
+    border-radius:14px;
+    padding:22px;
+    margin-bottom:14px;
 }
 
-.desc {
-    color: #aaa;
-    line-height: 1.8;
+button{
+    cursor:pointer;
 }
 
-.section-title {
-    margin: 24px 0 10px;
-    font-size: 18px;
-    font-weight: bold;
+h1,h2,h3{
+    margin-top:0;
 }
 
-.option-grid {
-    display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    gap: 10px;
+.muted{
+    color:#999;
 }
 
-.option {
-    padding: 15px;
-    border-radius: 10px;
-    border: 1px solid #414650;
-    background: #2a2e36;
-    color: white;
-    text-align: left;
+.small{
+    font-size:13px;
+    color:#999;
 }
 
-.option:hover {
-    background: #353a44;
+/* =========================
+   主選單
+========================= */
+
+.menu{
+    text-align:center;
+    padding:40px 25px;
 }
 
-.option.selected {
-    border-color: #fff;
-    background: #3b404b;
+.menu h1{
+    font-size:34px;
+    margin-bottom:10px;
 }
 
-.option strong {
-    display: block;
-    margin-bottom: 5px;
+.menu-sub{
+    color:#999;
+    margin-bottom:35px;
 }
 
-.option small {
-    color: #aaa;
+.menu-button{
+    display:block;
+    width:100%;
+    max-width:500px;
+    margin:12px auto;
+    padding:16px;
+    border-radius:10px;
+    border:1px solid #444952;
+    background:#2a2e36;
+    color:white;
+    font-size:17px;
 }
 
-.start-btn {
-    width: 100%;
-    padding: 15px;
-    margin-top: 25px;
-    border: none;
-    border-radius: 10px;
-    background: #eee;
-    color: #111;
-    font-size: 17px;
-    font-weight: bold;
+.menu-button:hover{
+    background:#383d47;
 }
 
-.start-btn:disabled {
-    opacity: .3;
-    cursor: not-allowed;
+.menu-button.primary{
+    background:#eeeeee;
+    color:#111;
+}
+
+.menu-button.danger{
+    color:#ff8d8d;
+}
+
+/* =========================
+   建立角色
+========================= */
+
+.input{
+    width:100%;
+    padding:13px;
+    margin-top:7px;
+    border-radius:8px;
+    border:1px solid #414650;
+    background:#181a1f;
+    color:white;
+    font-size:16px;
+}
+
+.field{
+    margin-bottom:20px;
+}
+
+.option-grid{
+    display:grid;
+    grid-template-columns:repeat(2,1fr);
+    gap:10px;
+}
+
+.option{
+    padding:15px;
+    border-radius:10px;
+    border:1px solid #414650;
+    background:#292d35;
+    color:white;
+    text-align:left;
+}
+
+.option:hover{
+    background:#363b45;
+}
+
+.option.selected{
+    border-color:white;
+    background:#3b404b;
+}
+
+.option strong{
+    display:block;
+    margin-bottom:5px;
+}
+
+.option small{
+    color:#999;
+}
+
+.start{
+    width:100%;
+    margin-top:25px;
+    padding:16px;
+    border:none;
+    border-radius:10px;
+    background:#eeeeee;
+    color:#111;
+    font-size:17px;
+    font-weight:bold;
 }
 
 /* =========================
    頭部
 ========================= */
 
-.header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
+.header{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
 }
 
-.title {
-    font-size: 25px;
-    font-weight: bold;
+.player-name{
+    font-size:24px;
+    font-weight:bold;
 }
 
-.year {
-    text-align: right;
-    color: #aaa;
+.player-id{
+    color:#999;
+    margin-top:3px;
 }
 
-.year strong {
-    display: block;
-    color: white;
-    font-size: 21px;
+.year{
+    text-align:right;
+}
+
+.year strong{
+    display:block;
+    font-size:22px;
 }
 
 /* =========================
-   數值
+   能力
 ========================= */
 
-.stats {
-    display: grid;
-    grid-template-columns: repeat(6, 1fr);
-    gap: 8px;
+.stats{
+    display:grid;
+    grid-template-columns:repeat(6,1fr);
+    gap:8px;
 }
 
-.stat {
-    background: #20232a;
-    border: 1px solid #343841;
-    border-radius: 10px;
-    padding: 11px;
-    text-align: center;
+.stat{
+    background:#20232a;
+    border:1px solid #343841;
+    border-radius:10px;
+    padding:12px;
+    text-align:center;
 }
 
-.stat-name {
-    color: #999;
-    font-size: 12px;
+.stat-name{
+    color:#999;
+    font-size:12px;
 }
 
-.stat-value {
-    font-size: 21px;
-    font-weight: bold;
-    margin-top: 5px;
+.stat-value{
+    font-size:21px;
+    font-weight:bold;
+    margin-top:5px;
 }
 
 /* =========================
    身分
 ========================= */
 
-.tags {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 7px;
+.tags{
+    display:flex;
+    flex-wrap:wrap;
+    gap:7px;
 }
 
-.tag {
-    background: #30343c;
-    border-radius: 20px;
-    padding: 6px 11px;
-    font-size: 13px;
+.tag{
+    background:#30343c;
+    border-radius:20px;
+    padding:7px 12px;
+    font-size:13px;
 }
 
 /* =========================
    時間軸
 ========================= */
 
-.timeline {
-    display: grid;
-    grid-template-columns: repeat(4, 1fr);
-    gap: 5px;
-    margin-bottom: 12px;
+.timeline{
+    display:grid;
+    grid-template-columns:repeat(4,1fr);
+    gap:5px;
+    margin-bottom:14px;
 }
 
-.timeline div {
-    padding: 9px 4px;
-    text-align: center;
-    border-radius: 7px;
-    background: #24272e;
-    color: #666;
-    font-size: 12px;
+.timeline div{
+    padding:9px 4px;
+    text-align:center;
+    border-radius:7px;
+    background:#24272e;
+    color:#666;
+    font-size:12px;
 }
 
-.timeline .active {
-    background: #454a55;
-    color: white;
+.timeline .active{
+    background:#454a55;
+    color:white;
 }
 
 /* =========================
    事件
 ========================= */
 
-.event-date {
-    color: #888;
-    font-size: 13px;
-    margin-bottom: 7px;
+.event-date{
+    color:#888;
+    font-size:13px;
+    margin-bottom:7px;
 }
 
-.event-title {
-    font-size: 27px;
-    font-weight: bold;
-    margin-bottom: 15px;
+.event-title{
+    font-size:27px;
+    font-weight:bold;
+    margin-bottom:15px;
 }
 
-.event-text {
-    line-height: 1.9;
-    color: #d4d4d4;
-    white-space: pre-line;
-    margin-bottom: 20px;
+.event-text{
+    color:#d4d4d4;
+    line-height:1.9;
+    white-space:pre-line;
+    margin-bottom:22px;
 }
 
-.choices {
-    display: flex;
-    flex-direction: column;
-    gap: 10px;
+.choices{
+    display:flex;
+    flex-direction:column;
+    gap:10px;
 }
 
-.choice {
-    width: 100%;
-    padding: 14px;
-    border-radius: 10px;
-    border: 1px solid #414650;
-    background: #2b2f37;
-    color: white;
-    text-align: left;
+.choice{
+    width:100%;
+    padding:15px;
+    border-radius:10px;
+    border:1px solid #414650;
+    background:#2b2f37;
+    color:white;
+    text-align:left;
 }
 
-.choice:hover {
-    background: #383d47;
+.choice:hover{
+    background:#383d47;
 }
 
-.choice-title {
-    font-size: 16px;
-    font-weight: bold;
+.choice-title{
+    font-size:16px;
+    font-weight:bold;
 }
 
-.choice-effect {
-    margin-top: 5px;
-    color: #999;
-    font-size: 13px;
+.choice-effect{
+    color:#999;
+    font-size:13px;
+    margin-top:6px;
 }
 
 /* =========================
    結果
 ========================= */
 
-.result {
-    padding: 17px;
-    background: #181a1f;
-    border: 1px solid #383c45;
-    border-radius: 10px;
-    line-height: 1.9;
-    white-space: pre-line;
+.result{
+    padding:18px;
+    background:#181a1f;
+    border:1px solid #383c45;
+    border-radius:10px;
+    line-height:1.9;
+    white-space:pre-line;
 }
 
-.continue {
-    width: 100%;
-    margin-top: 14px;
-    padding: 14px;
-    border: none;
-    border-radius: 9px;
-    background: #eee;
-    color: #111;
-    font-size: 16px;
-    font-weight: bold;
-}
-
-/* =========================
-   英雄池
-========================= */
-
-.hero-grid {
-    display: grid;
-    grid-template-columns: repeat(4, 1fr);
-    gap: 8px;
-    margin-top: 12px;
-}
-
-.hero {
-    padding: 11px;
-    border-radius: 8px;
-    background: #181a1f;
-    text-align: center;
-}
-
-.hero-name {
-    color: #999;
-    font-size: 12px;
-}
-
-.hero-value {
-    margin-top: 5px;
-    font-size: 19px;
+.continue{
+    width:100%;
+    margin-top:14px;
+    padding:14px;
+    border:none;
+    border-radius:9px;
+    background:#eeeeee;
+    color:#111;
+    font-size:16px;
+    font-weight:bold;
 }
 
 /* =========================
-   語言
+   英雄池調查
 ========================= */
 
-.language-list {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 8px;
-    margin-top: 12px;
+.diagnosis{
+    margin-top:12px;
+    padding:13px;
+    border-radius:8px;
+    background:#181a1f;
 }
 
-.language {
-    padding: 10px;
-    background: #181a1f;
-    border-radius: 8px;
-    text-align: center;
+.diagnosis-title{
+    color:#999;
+    font-size:12px;
 }
 
-.language-name {
-    color: #999;
-    font-size: 12px;
+.diagnosis-value{
+    font-size:19px;
+    margin-top:4px;
 }
 
-.language-value {
-    margin-top: 4px;
-    font-size: 18px;
+/* =========================
+   紀錄
+========================= */
+
+.history{
+    max-height:240px;
+    overflow-y:auto;
+}
+
+.history-item{
+    padding:9px 0;
+    border-bottom:1px solid #343841;
+    color:#ccc;
+    line-height:1.6;
 }
 
 /* =========================
    底部
 ========================= */
 
-.bottom {
-    display: grid;
-    grid-template-columns: repeat(4, 1fr);
-    gap: 8px;
+.bottom{
+    display:grid;
+    grid-template-columns:repeat(4,1fr);
+    gap:8px;
 }
 
-.bottom button {
-    padding: 10px;
-    border-radius: 8px;
-    border: 1px solid #363a44;
-    background: #20232a;
-    color: #ccc;
+.bottom button{
+    padding:11px;
+    border-radius:8px;
+    border:1px solid #363a44;
+    background:#20232a;
+    color:#ccc;
+}
+
+.bottom button:hover{
+    background:#30343c;
 }
 
 /* =========================
    年度結算
 ========================= */
 
-.summary-line {
-    display: flex;
-    justify-content: space-between;
-    padding: 11px 0;
-    border-bottom: 1px solid #343841;
+.summary-line{
+    display:flex;
+    justify-content:space-between;
+    padding:12px 0;
+    border-bottom:1px solid #343841;
 }
 
-.next-year {
-    width: 100%;
-    padding: 14px;
-    margin-top: 20px;
-    border: none;
-    border-radius: 9px;
-    background: #eee;
-    color: #111;
-    font-weight: bold;
-    font-size: 16px;
+.next-year{
+    width:100%;
+    margin-top:20px;
+    padding:15px;
+    border:none;
+    border-radius:9px;
+    background:#eeeeee;
+    color:#111;
+    font-weight:bold;
+    font-size:16px;
 }
 
 /* =========================
    RWD
 ========================= */
 
-@media(max-width:700px) {
+@media(max-width:700px){
 
-    .stats {
-        grid-template-columns: repeat(2, 1fr);
+    .stats{
+        grid-template-columns:repeat(2,1fr);
     }
 
-    .option-grid {
-        grid-template-columns: 1fr;
+    .option-grid{
+        grid-template-columns:1fr;
     }
 
-    .hero-grid {
-        grid-template-columns: repeat(2, 1fr);
+    .bottom{
+        grid-template-columns:repeat(2,1fr);
     }
 
-    .language-list {
-        grid-template-columns: repeat(2, 1fr);
+    .header{
+        flex-direction:column;
+        align-items:flex-start;
+        gap:10px;
     }
 
-    .bottom {
-        grid-template-columns: repeat(2, 1fr);
+    .year{
+        text-align:left;
     }
 
-    .header {
-        flex-direction: column;
-        align-items: flex-start;
-        gap: 10px;
-    }
-
-    .year {
-        text-align: left;
-    }
 }
+
 </style>
 </head>
 
@@ -423,343 +467,529 @@ button {
 
 <script>
 
-/* =========================================================
-   玩家資料
-========================================================= */
+/* =====================================================
+   初始資料
+===================================================== */
 
-let player = {
+function newPlayer(){
 
-    age: 16,
-    year: 2026,
+    return {
 
-    /* 出身 */
-    region: "",
-    position: "",
+        name:"",
+        id:"",
 
-    /* 職涯 */
-    career: "高中生",
-    club: "",
+        age:16,
+        year:2026,
 
-    /* 基礎能力 */
-    skill: 50,
-    sense: 50,
-    mental: 50,
-    stamina: 50,
-    fame: 0,
+        region:"",
+        position:"",
 
-    /* 經驗 */
-    experience: 0,
+        career:"高中生",
+        club:"",
 
-    /* 英雄池隱藏傾向 */
-    heroStyle: {
-        assassin: 50,
-        mage: 50,
-        poke: 50,
-        utility: 50
-    },
+        skill:50,
+        sense:50,
+        mental:50,
+        stamina:50,
+        fame:0,
+        experience:0,
 
-    /* 英雄池實際熟練 */
-    heroPool: {
-        assassin: 50,
-        mage: 50,
-        poke: 50,
-        utility: 50
-    },
+        /*
+            英雄池真正數值
+            玩家不直接看到
+        */
 
-    /* 單一英雄專精 */
-    oneTrick: 0,
+        heroStyle:{
+            assassin:50,
+            mage:50,
+            poke:50,
+            utility:50
+        },
 
-    /* 語言 */
-    languages: {
-        native: 80,
-        korean: 0,
-        chinese: 0,
-        english: 0,
-        vietnamese: 0,
-        japanese: 0
-    },
+        heroPool:{
+            assassin:50,
+            mage:50,
+            poke:50,
+            utility:50
+        },
 
-    /* 目前主要語言 */
-    localLanguage: "native",
+        heroDiagnosis:"尚未調查",
+        heroPenalty:0,
 
-    /* 英雄池調查結果 */
-    heroDiagnosis: "尚未調查",
+        /*
+            語言完全隱藏
+        */
 
-    /* 平庸懲罰 */
-    heroPenalty: 0,
+        languages:{
+            native:80,
+            korean:0,
+            chinese:0,
+            english:0,
+            vietnamese:0,
+            japanese:0
+        },
 
-    /* 一年階段 */
-    phase: 0,
+        localLanguage:"native",
 
-    seasonResult: "",
+        phase:0,
 
-    history: [],
+        seasonResult:"",
 
-    savedBeforeChoice: null
-};
+        history:[],
+
+        /*
+            上一步專用
+        */
+
+        undoState:null
+
+    };
+
+}
 
 
-/* =========================================================
-   開局選擇
-========================================================= */
+/* =====================================================
+   當前玩家
+===================================================== */
+
+let player = newPlayer();
+
 
 let setup = {
-    region: "",
-    position: ""
+
+    name:"",
+    id:"",
+    region:"",
+    position:""
+
 };
 
 
-function renderSetup() {
+/* =====================================================
+   主選單
+===================================================== */
+
+function renderMenu(){
+
+    let hasSave =
+        localStorage.getItem(
+            "esportsLifeSave"
+        );
+
+    document.getElementById("app").innerHTML = `
+
+    <div class="panel menu">
+
+        <h1>
+            🎮 電競人生模擬器
+        </h1>
+
+        <div class="menu-sub">
+            從16歲開始，看看你能不能走上職業舞台。
+        </div>
+
+        ${
+            hasSave
+            ?
+            `
+            <button
+                class="menu-button primary"
+                onclick="loadGame()"
+            >
+                ▶ 讀取上次存檔
+            </button>
+            `
+            :
+            ""
+        }
+
+        <button
+            class="menu-button"
+            onclick="renderCreate()"
+        >
+            🆕 開始新人生
+        </button>
+
+        ${
+            hasSave
+            ?
+            `
+            <button
+                class="menu-button danger"
+                onclick="deleteSave()"
+            >
+                🗑️ 刪除存檔
+            </button>
+            `
+            :
+            ""
+        }
+
+    </div>
+
+    `;
+
+}
+
+
+/* =====================================================
+   建立角色
+===================================================== */
+
+function renderCreate(){
 
     document.getElementById("app").innerHTML = `
 
     <div class="panel">
 
-        <h1>🎮 電競人生模擬器</h1>
+        <h1>
+            建立你的選手
+        </h1>
 
-        <div class="desc">
-            你將從16歲開始自己的電競人生。
-            <br>
-            先決定你的出身與位置。
-            <br><br>
-            <b>語言能力與英雄池風格不會在這裡直接決定。</b>
-            它們會在你的人生中逐漸形成。
-        </div>
+        <div class="field">
 
+            <label>
+                選手姓名
+            </label>
 
-        <div class="section-title">
-            🌏 出身賽區
-        </div>
-
-        <div class="option-grid">
-
-            ${setupOption(
-                "region",
-                "LCK",
-                "🇰🇷 LCK",
-                "韓國出身"
-            )}
-
-            ${setupOption(
-                "region",
-                "LPL",
-                "🇨🇳 LPL",
-                "中國出身"
-            )}
-
-            ${setupOption(
-                "region",
-                "LEC",
-                "🇪🇺 LEC",
-                "歐洲出身"
-            )}
-
-            ${setupOption(
-                "region",
-                "LCS",
-                "🇺🇸 LCS",
-                "北美出身"
-            )}
-
-            ${setupOption(
-                "region",
-                "LCP",
-                "🌏 LCP",
-                "亞太出身"
-            )}
-
-            ${setupOption(
-                "region",
-                "CBLOL",
-                "🇧🇷 CBLOL",
-                "巴西出身"
-            )}
+            <input
+                id="playerName"
+                class="input"
+                placeholder="例如：李相赫"
+                maxlength="20"
+            >
 
         </div>
 
 
-        <div class="section-title">
-            🛣️ 登記位置
+        <div class="field">
+
+            <label>
+                遊戲 ID
+            </label>
+
+            <input
+                id="playerID"
+                class="input"
+                placeholder="例如：Faker"
+                maxlength="20"
+            >
+
         </div>
 
-        <div class="option-grid">
 
-            ${setupOption(
-                "position",
-                "TOP",
-                "🛡️ TOP",
-                "上路"
-            )}
+        <div class="field">
 
-            ${setupOption(
-                "position",
-                "JUNGLE",
-                "🌲 JUNGLE",
-                "打野"
-            )}
+            <strong>
+                🌏 出身賽區
+            </strong>
 
-            ${setupOption(
-                "position",
-                "MID",
-                "⚔️ MID",
-                "中路"
-            )}
+            <div
+                class="option-grid"
+                style="margin-top:10px"
+            >
 
-            ${setupOption(
-                "position",
-                "ADC",
-                "🎯 ADC",
-                "下路"
-            )}
+                ${createOption(
+                    "region",
+                    "LCK",
+                    "🇰🇷 LCK",
+                    "韓國"
+                )}
 
-            ${setupOption(
-                "position",
-                "SUPPORT",
-                "🧭 SUPPORT",
-                "輔助"
-            )}
+                ${createOption(
+                    "region",
+                    "LPL",
+                    "🇨🇳 LPL",
+                    "中國"
+                )}
+
+                ${createOption(
+                    "region",
+                    "LEC",
+                    "🇪🇺 LEC",
+                    "歐洲"
+                )}
+
+                ${createOption(
+                    "region",
+                    "LCS",
+                    "🇺🇸 LCS",
+                    "北美"
+                )}
+
+                ${createOption(
+                    "region",
+                    "LCP",
+                    "🌏 LCP",
+                    "亞太"
+                )}
+
+                ${createOption(
+                    "region",
+                    "CBLOL",
+                    "🇧🇷 CBLOL",
+                    "巴西"
+                )}
+
+            </div>
+
+        </div>
+
+
+        <div class="field">
+
+            <strong>
+                🛣️ 登記位置
+            </strong>
+
+            <div
+                class="option-grid"
+                style="margin-top:10px"
+            >
+
+                ${createOption(
+                    "position",
+                    "TOP",
+                    "🛡️ TOP",
+                    "上路"
+                )}
+
+                ${createOption(
+                    "position",
+                    "JUNGLE",
+                    "🌲 JUNGLE",
+                    "打野"
+                )}
+
+                ${createOption(
+                    "position",
+                    "MID",
+                    "⚔️ MID",
+                    "中路"
+                )}
+
+                ${createOption(
+                    "position",
+                    "ADC",
+                    "🎯 ADC",
+                    "下路"
+                )}
+
+                ${createOption(
+                    "position",
+                    "SUPPORT",
+                    "🧭 SUPPORT",
+                    "輔助"
+                )}
+
+            </div>
 
         </div>
 
 
         <button
-            class="start-btn"
-            id="startBtn"
-            onclick="startGame()"
-            disabled
+            class="start"
+            onclick="startNewGame()"
         >
-            開始人生
+            🎮 開始電競人生
         </button>
 
     </div>
+
     `;
+
 }
 
 
-function setupOption(type,value,title,desc) {
-
-    let selected =
-        setup[type] === value
-        ? "selected"
-        : "";
+function createOption(
+    type,
+    value,
+    title,
+    description
+){
 
     return `
 
     <button
-        class="option ${selected}"
-        onclick="selectSetup('${type}','${value}')"
+        class="option ${
+            setup[type] === value
+            ? "selected"
+            : ""
+        }"
+        onclick="selectSetup(
+            '${type}',
+            '${value}'
+        )"
     >
 
-        <strong>${title}</strong>
+        <strong>
+            ${title}
+        </strong>
 
         <small>
-            ${desc}
+            ${description}
         </small>
 
     </button>
 
     `;
+
 }
 
 
-function selectSetup(type,value) {
+function selectSetup(
+    type,
+    value
+){
 
     setup[type] = value;
 
-    renderSetup();
+    renderCreate();
 
-    if (
-        setup.region &&
-        setup.position
-    ) {
-
-        document.getElementById(
-            "startBtn"
-        ).disabled = false;
-
-    }
 }
 
 
-/* =========================================================
-   開始遊戲
-========================================================= */
+/* =====================================================
+   開始新遊戲
+===================================================== */
 
-function startGame() {
+function startNewGame(){
 
-    player.region = setup.region;
-    player.position = setup.position;
+    let name =
+        document.getElementById(
+            "playerName"
+        ).value.trim();
+
+    let id =
+        document.getElementById(
+            "playerID"
+        ).value.trim();
+
+
+    if(!name || !id){
+
+        alert(
+            "請輸入選手姓名與遊戲 ID。"
+        );
+
+        return;
+
+    }
+
+
+    if(
+        !setup.region ||
+        !setup.position
+    ){
+
+        alert(
+            "請選擇出身賽區與位置。"
+        );
+
+        return;
+
+    }
+
+
+    player = newPlayer();
+
+    player.name = name;
+    player.id = id;
+
+    player.region =
+        setup.region;
+
+    player.position =
+        setup.position;
+
 
     /*
-       出身賽區決定本土語言
+        設定本土語言
     */
 
-    if (player.region === "LCK") {
+    if(
+        player.region === "LCK"
+    ){
 
         player.languages.korean = 80;
-        player.localLanguage = "korean";
+        player.localLanguage =
+            "korean";
 
     }
 
-    else if (player.region === "LPL") {
+    else if(
+        player.region === "LPL"
+    ){
 
         player.languages.chinese = 80;
-        player.localLanguage = "chinese";
+        player.localLanguage =
+            "chinese";
 
     }
 
-    else if (player.region === "LEC") {
-
-        player.languages.english = 70;
-        player.localLanguage = "english";
-
-    }
-
-    else if (player.region === "LCS") {
+    else if(
+        player.region === "LEC" ||
+        player.region === "LCS"
+    ){
 
         player.languages.english = 80;
-        player.localLanguage = "english";
+        player.localLanguage =
+            "english";
 
     }
 
-    else if (player.region === "LCP") {
-
-        /*
-           LCP 本身跨多個地區，
-           因此先以英文作為共同溝通基礎。
-        */
+    else if(
+        player.region === "LCP"
+    ){
 
         player.languages.english = 50;
-        player.localLanguage = "english";
+        player.localLanguage =
+            "english";
 
     }
 
-    else if (player.region === "CBLOL") {
+    else{
 
-        player.languages.english = 20;
-        player.localLanguage = "native";
+        player.localLanguage =
+            "native";
 
     }
+
+
+    player.history.push(
+        `${player.year}年：${player.name}（${player.id}）開始了電競人生。`
+    );
+
 
     renderGame();
 
     showPhase();
+
 }
 
 
-/* =========================================================
-   主畫面
-========================================================= */
+/* =====================================================
+   主遊戲畫面
+===================================================== */
 
-function renderGame() {
+function renderGame(){
 
     document.getElementById("app").innerHTML = `
 
     <div class="panel header">
 
-        <div class="title">
-            🎮 電競人生模擬器
+        <div>
+
+            <div class="player-name">
+                ${escapeHTML(player.name)}
+            </div>
+
+            <div class="player-id">
+                ID：${escapeHTML(player.id)}
+            </div>
+
         </div>
+
 
         <div class="year">
 
@@ -777,10 +1007,15 @@ function renderGame() {
     <div class="stats">
 
         ${stat("操作","skill")}
+
         ${stat("遊戲理解","sense")}
+
         ${stat("心態","mental")}
+
         ${stat("體力","stamina")}
+
         ${stat("人氣","fame")}
+
         ${stat("經驗","experience")}
 
     </div>
@@ -844,89 +1079,53 @@ function renderGame() {
     ></div>
 
 
-    <div class="panel">
+    ${
+        player.heroDiagnosis !== "尚未調查"
+        ?
+        `
+        <div class="panel">
 
-        <strong>
-            🎮 英雄池
-        </strong>
+            <div class="diagnosis">
 
-        <div class="hero-grid">
+                <div class="diagnosis-title">
+                    🎮 最近一次英雄池調查
+                </div>
 
-            ${hero(
-                "刺客型",
-                "assassin"
-            )}
+                <div class="diagnosis-value">
+                    ${player.heroDiagnosis}
+                </div>
 
-            ${hero(
-                "大法師型",
-                "mage"
-            )}
-
-            ${hero(
-                "Poke型",
-                "poke"
-            )}
-
-            ${hero(
-                "功能型",
-                "utility"
-            )}
+            </div>
 
         </div>
-
-        <div style="
-            margin-top:12px;
-            color:#999;
-            font-size:13px;
-        ">
-
-            目前風格：
-            <b style="color:#eee">
-                ${player.heroDiagnosis}
-            </b>
-
-        </div>
-
-    </div>
+        `
+        :
+        ""
+    }
 
 
     <div class="panel">
 
-        <strong>
-            🗣️ 語言能力
-        </strong>
+        <h3>
+            📜 人生紀錄
+        </h3>
 
-        <div class="language-list">
+        <div class="history">
 
-            ${language(
-                "韓語",
-                "korean"
-            )}
-
-            ${language(
-                "中文",
-                "chinese"
-            )}
-
-            ${language(
-                "英語",
-                "english"
-            )}
-
-            ${language(
-                "越南語",
-                "vietnamese"
-            )}
-
-            ${language(
-                "日語",
-                "japanese"
-            )}
-
-            ${language(
-                "本土語言",
-                "native"
-            )}
+            ${
+                player.history
+                .slice()
+                .reverse()
+                .map(
+                    item =>
+                    `
+                    <div class="history-item">
+                        ${item}
+                    </div>
+                    `
+                )
+                .join("")
+            }
 
         </div>
 
@@ -939,25 +1138,33 @@ function renderGame() {
             💾 儲存
         </button>
 
-        <button onclick="loadGame()">
-            📂 讀取
-        </button>
-
         <button onclick="goBack()">
             ⬅️ 上一步
         </button>
 
-        <button onclick="restart()">
-            🔄 重開
+        <button onclick="renderMenu()">
+            🏠 主選單
+        </button>
+
+        <button onclick="restartConfirm()">
+            🔄 新人生
         </button>
 
     </div>
 
     `;
+
 }
 
 
-function stat(name,key) {
+/* =====================================================
+   數值
+===================================================== */
+
+function stat(
+    name,
+    key
+){
 
     return `
 
@@ -968,86 +1175,54 @@ function stat(name,key) {
         </div>
 
         <div class="stat-value">
-            ${Math.round(player[key])}
-        </div>
-
-    </div>
-
-    `;
-}
-
-
-function hero(name,key) {
-
-    return `
-
-    <div class="hero">
-
-        <div class="hero-name">
-            ${name}
-        </div>
-
-        <div class="hero-value">
             ${Math.round(
-                player.heroPool[key]
+                player[key]
             )}
         </div>
 
     </div>
 
     `;
+
 }
 
 
-function language(name,key) {
-
-    return `
-
-    <div class="language">
-
-        <div class="language-name">
-            ${name}
-        </div>
-
-        <div class="language-value">
-            ${Math.round(
-                player.languages[key]
-            )}
-        </div>
-
-    </div>
-
-    `;
-}
-
-
-/* =========================================================
+/* =====================================================
    階段
-========================================================= */
+===================================================== */
 
-function showPhase() {
+function showPhase(){
 
     updateTimeline();
 
-    if (player.phase === 0) {
+
+    if(
+        player.phase === 0
+    ){
 
         showStartOfYear();
 
     }
 
-    else if (player.phase === 1) {
+    else if(
+        player.phase === 1
+    ){
 
         showTraining();
 
     }
 
-    else if (player.phase === 2) {
+    else if(
+        player.phase === 2
+    ){
 
         runCompetition();
 
     }
 
-    else if (player.phase === 3) {
+    else if(
+        player.phase === 3
+    ){
 
         showOffSeason();
 
@@ -1056,16 +1231,24 @@ function showPhase() {
 }
 
 
-function updateTimeline() {
+/* =====================================================
+   時間軸
+===================================================== */
 
-    for (let i = 0; i < 4; i++) {
+function updateTimeline(){
+
+    for(
+        let i=0;
+        i<4;
+        i++
+    ){
 
         let el =
             document.getElementById(
-                "phase" + i
+                "phase"+i
             );
 
-        if (el) {
+        if(el){
 
             el.classList.toggle(
                 "active",
@@ -1079,42 +1262,45 @@ function updateTimeline() {
 }
 
 
-/* =========================================================
+/* =====================================================
    年初
-========================================================= */
+===================================================== */
 
-function showStartOfYear() {
+function showStartOfYear(){
 
-    let text = "";
+    let text;
 
-    if (player.age === 16) {
+
+    if(
+        player.age === 16
+    ){
 
         text =
 `你是一名16歲的高中生。
 
-最近，你開始認真投入英雄聯盟。
+放學之後，你開始比以前更加認真地打英雄聯盟。
 
-原本只是放學後的遊戲，
-現在你開始思考：
+原本只是遊戲。
 
-「如果我真的往職業方向走呢？」
+但最近，你第一次產生了一個念頭：
 
-你還不知道自己會成為什麼樣的選手。
+「如果我真的可以成為職業選手呢？」
 
-甚至連自己的英雄池風格，
-現在都還沒有真正形成。`;
+你的電競人生，正式開始。`;
 
     }
 
-    else {
+    else{
 
         text =
 `新的一年開始。
 
-你回頭看著去年的自己，
-發現自己的打法正在逐漸成形。
+你回頭看著過去一年的自己。
 
-但你還需要做出今年的重要決定。`;
+你已經和剛開始時不同。
+
+但職業電競的道路，
+仍然遠遠沒有結束。`;
 
     }
 
@@ -1128,8 +1314,10 @@ function showStartOfYear() {
                 title:
                     "🎮 大量排位",
                 effect:
-                    "操作 +4、體力 -3、刺客傾向 +2",
+                    "操作 +4　體力 -3",
                 action:()=>{
+
+                    saveUndo();
 
                     player.skill += 4;
                     player.stamina -= 3;
@@ -1138,14 +1326,17 @@ function showStartOfYear() {
                     player.heroPool.assassin += 2;
 
                 }
+
             },
 
             {
                 title:
                     "🧠 研究比賽",
                 effect:
-                    "遊戲理解 +4、大法師傾向 +2",
+                    "遊戲理解 +4",
                 action:()=>{
+
+                    saveUndo();
 
                     player.sense += 4;
 
@@ -1153,39 +1344,52 @@ function showStartOfYear() {
                     player.heroPool.mage += 2;
 
                 }
+
             },
 
             {
                 title:
                     "🎯 嘗試不同打法",
                 effect:
-                    "英雄池各類 +2，但沒有明顯專精",
+                    "各類英雄池小幅成長",
                 action:()=>{
 
-                    player.heroStyle.assassin += 2;
-                    player.heroStyle.mage += 2;
-                    player.heroStyle.poke += 2;
-                    player.heroStyle.utility += 2;
+                    saveUndo();
 
-                    player.heroPool.assassin += 2;
-                    player.heroPool.mage += 2;
-                    player.heroPool.poke += 2;
-                    player.heroPool.utility += 2;
+                    let keys=[
+                        "assassin",
+                        "mage",
+                        "poke",
+                        "utility"
+                    ];
+
+                    keys.forEach(
+                        key=>{
+
+                            player.heroStyle[key]+=2;
+                            player.heroPool[key]+=2;
+
+                        }
+                    );
 
                 }
+
             },
 
             {
                 title:
                     "🧘 保持狀態",
                 effect:
-                    "心態 +4、體力 +4",
+                    "心態 +4　體力 +4",
                 action:()=>{
+
+                    saveUndo();
 
                     player.mental += 4;
                     player.stamina += 4;
 
                 }
+
             }
 
         ]
@@ -1194,76 +1398,84 @@ function showStartOfYear() {
 }
 
 
-/* =========================================================
+/* =====================================================
    賽訓
-========================================================= */
+===================================================== */
 
-function showTraining() {
+function showTraining(){
 
     showChoices(
         "賽季前賽訓",
-`現在正式進入賽季前訓練。
+`新賽季即將開始。
 
-這段時間不是比賽。
+現在進入真正的賽訓階段。
 
-你會和隊友、教練或自己
-針對今年的問題進行訓練。
-
-訓練結束後，
-系統才會進入正式比賽。`,
+這裡不是正式比賽，
+你的選擇會影響接下來的狀態。`,
         [
 
             {
                 title:
                     "🏋️ 強化操作",
                 effect:
-                    "操作 +5、體力 -4",
+                    "操作 +5　體力 -4",
                 action:()=>{
 
-                    player.skill += 5;
-                    player.stamina -= 4;
+                    saveUndo();
+
+                    player.skill+=5;
+                    player.stamina-=4;
 
                 }
+
             },
 
             {
                 title:
                     "🧠 戰術訓練",
                 effect:
-                    "遊戲理解 +5、功能型傾向 +2",
+                    "遊戲理解 +5",
                 action:()=>{
 
-                    player.sense += 5;
+                    saveUndo();
 
-                    player.heroStyle.utility += 2;
-                    player.heroPool.utility += 2;
+                    player.sense+=5;
+                    player.heroStyle.utility+=2;
+                    player.heroPool.utility+=2;
 
                 }
+
             },
 
             {
                 title:
                     "🎮 英雄池訓練",
                 effect:
-                    "選擇一種打法方向 +5",
+                    "進一步形成自己的打法",
                 action:()=>{
+
+                    saveUndo();
 
                     showHeroTraining();
 
                 }
+
             },
 
             {
                 title:
-                    "🧘 體能與心理訓練",
+                    "🧘 心理與體能",
                 effect:
-                    "心態 +4、體力 +5",
+                    "心態 +4　體力 +5",
                 action:()=>{
 
-                    player.mental += 4;
-                    player.stamina += 5;
+                    saveUndo();
+
+                    player.mental+=4;
+                    player.stamina+=5;
 
                 }
+
             }
 
         ]
@@ -1272,76 +1484,80 @@ function showTraining() {
 }
 
 
-/* =========================================================
-   英雄池方向
-========================================================= */
+/* =====================================================
+   英雄池
+===================================================== */
 
-function showHeroTraining() {
+function showHeroTraining(){
 
     showChoices(
         "英雄池訓練",
 `教練問你：
 
-「你接下來想把哪種打法練得更深？」
+「今年你想把哪種打法再往前推？」
 
-你並不是直接決定自己是什麼型選手。
+你不是在選擇自己的最終類型。
 
-這只是一次訓練選擇。
+你只是選擇這次訓練的方向。
 
-長期累積下來，
-系統才會調查出你的真正風格。`,
+長期累積後，
+系統才會判斷你真正的英雄池風格。`,
         [
 
             {
                 title:
                     "🔪 進攻與單殺",
                 effect:
-                    "刺客傾向 +6、刺客英雄池 +5",
+                    "刺客傾向 +6",
                 action:()=>{
 
-                    player.heroStyle.assassin += 6;
-                    player.heroPool.assassin += 5;
+                    player.heroStyle.assassin+=6;
+                    player.heroPool.assassin+=5;
 
                 }
+
             },
 
             {
                 title:
                     "🔮 技能與團戰輸出",
                 effect:
-                    "大法師傾向 +6、大法師英雄池 +5",
+                    "大法師傾向 +6",
                 action:()=>{
 
-                    player.heroStyle.mage += 6;
-                    player.heroPool.mage += 5;
+                    player.heroStyle.mage+=6;
+                    player.heroPool.mage+=5;
 
                 }
+
             },
 
             {
                 title:
                     "🎯 遠程消耗",
                 effect:
-                    "Poke傾向 +6、Poke英雄池 +5",
+                    "Poke傾向 +6",
                 action:()=>{
 
-                    player.heroStyle.poke += 6;
-                    player.heroPool.poke += 5;
+                    player.heroStyle.poke+=6;
+                    player.heroPool.poke+=5;
 
                 }
+
             },
 
             {
                 title:
                     "🧭 團隊功能",
                 effect:
-                    "功能傾向 +6、功能英雄池 +5",
+                    "功能傾向 +6",
                 action:()=>{
 
-                    player.heroStyle.utility += 6;
-                    player.heroPool.utility += 5;
+                    player.heroStyle.utility+=6;
+                    player.heroPool.utility+=5;
 
                 }
+
             }
 
         ]
@@ -1350,129 +1566,139 @@ function showHeroTraining() {
 }
 
 
-/* =========================================================
+/* =====================================================
    比賽
-========================================================= */
+===================================================== */
 
-function runCompetition() {
-
-    /*
-       比賽階段不再提供訓練選項。
-       直接依照能力判定。
-    */
+function runCompetition(){
 
     diagnoseHeroPool();
 
 
     let heroAverage =
         (
-            player.heroPool.assassin +
-            player.heroPool.mage +
-            player.heroPool.poke +
+            player.heroPool.assassin+
+            player.heroPool.mage+
+            player.heroPool.poke+
             player.heroPool.utility
-        ) / 4;
+        )/4;
 
 
     let language =
-        getCurrentLanguage();
+        getLanguage();
 
 
-    let languageEffect =
-        language >= 70
-        ? 5
-        : language >= 45
-        ? 0
-        : -5;
+    let languageBonus=0;
+
+
+    if(language>=70){
+
+        languageBonus=5;
+
+    }
+
+    else if(language<30){
+
+        languageBonus=-5;
+
+    }
 
 
     let power =
-        player.skill * .30 +
-        player.sense * .30 +
-        player.mental * .15 +
-        player.stamina * .10 +
-        heroAverage * .15;
-
-
-    power += languageEffect;
-
-    power -= player.heroPenalty;
+        player.skill*.30+
+        player.sense*.30+
+        player.mental*.15+
+        player.stamina*.10+
+        heroAverage*.15+
+        languageBonus-
+        player.heroPenalty;
 
 
     let random =
-        Math.random() * 16 - 8;
+        Math.random()*16-8;
 
 
     let finalPower =
-        power + random;
+        power+random;
 
 
     let result;
 
 
-    if (finalPower >= 75) {
+    if(
+        finalPower>=75
+    ){
 
         result =
 `🏆 你打出了非常亮眼的賽季。
 
-你的個人表現成為隊伍的重要支柱。
+你的表現開始受到更多人的注意。
 
 人氣 +8
 心態 +3`;
 
-        player.fame += 8;
-        player.mental += 3;
-        player.experience += 6;
+        player.fame+=8;
+        player.mental+=3;
+        player.experience+=6;
 
-        player.seasonResult = "頂尖";
+        player.seasonResult="頂尖";
 
     }
 
-    else if (finalPower >= 60) {
+    else if(
+        finalPower>=60
+    ){
 
         result =
 `⚔️ 你完成了一個不錯的賽季。
 
-你的表現獲得了教練與隊友肯定。
+你的表現獲得教練與隊友肯定。
 
 人氣 +4`;
 
-        player.fame += 4;
-        player.experience += 4;
+        player.fame+=4;
+        player.experience+=4;
 
-        player.seasonResult = "良好";
+        player.seasonResult="良好";
 
     }
 
-    else if (finalPower >= 45) {
+    else if(
+        finalPower>=45
+    ){
 
         result =
 `😐 你的賽季表現普通。
 
 你沒有犯下太多錯誤，
-但也沒有成為最受矚目的選手。
+但也沒有成為最受矚目的選手。`;
 
-人氣沒有明顯變化。`;
+        player.experience+=2;
 
-        player.experience += 2;
-
-        player.seasonResult = "普通";
+        player.seasonResult="普通";
 
     }
 
-    else {
+    else{
 
         result =
 `😓 這個賽季並不順利。
 
-你在幾場關鍵比賽中出現失誤。
+幾場關鍵比賽的失誤，
+讓你的評價下降。
 
 心態 -3`;
 
-        player.mental -= 3;
+        player.mental-=3;
 
-        player.seasonResult = "失利";
+        player.seasonResult="失利";
 
     }
+
+
+    player.history.push(
+        `${player.year}年：完成賽季，成績為「${player.seasonResult}」。`
+    );
 
 
     showResult(
@@ -1485,19 +1711,17 @@ function runCompetition() {
 英雄池調查：
 ${player.heroDiagnosis}
 
-${player.heroPenalty > 0
-    ? "⚠️ 英雄池平庸懲罰：-" +
-      player.heroPenalty +
-      " 綜合競爭力"
-    : ""
+${
+    player.heroPenalty>0
+    ?
+    "⚠️ 英雄池缺乏明確武器，競爭力受到影響。"
+    :
+    "你的英雄池沒有產生額外懲罰。"
 }
-
-語言適應：
-${languageNameForValue(language)}
 
 ${result}
 
-最終綜合競爭力：
+綜合競爭力：
 ${Math.round(finalPower)}`,
         "進入休賽期"
     );
@@ -1505,27 +1729,18 @@ ${Math.round(finalPower)}`,
 }
 
 
-/* =========================================================
+/* =====================================================
    英雄池調查
-========================================================= */
+===================================================== */
 
-function diagnoseHeroPool() {
+function diagnoseHeroPool(){
 
-    let values = Object.values(
-        player.heroStyle
-    );
-
-    let max =
-        Math.max(...values);
-
-    let min =
-        Math.min(...values);
-
-    let average =
-        values.reduce(
-            (a,b)=>a+b,
-            0
-        ) / values.length;
+    let values=[
+        player.heroStyle.assassin,
+        player.heroStyle.mage,
+        player.heroStyle.poke,
+        player.heroStyle.utility
+    ];
 
 
     let sorted =
@@ -1534,59 +1749,67 @@ function diagnoseHeroPool() {
         );
 
 
-    let gap =
-        sorted[0] - sorted[1];
+    let max=sorted[0];
+    let second=sorted[1];
+    let min=sorted[3];
+
+    let average =
+        values.reduce(
+            (a,b)=>a+b,
+            0
+        )/4;
 
 
-    player.heroPenalty = 0;
+    player.heroPenalty=0;
 
 
     /*
-       極端專精
+       絕活型
     */
 
-    if (sorted[0] >= 75 && gap >= 12) {
+    if(
+        max>=75 &&
+        max-second>=12
+    ){
 
-        player.heroDiagnosis =
+        player.heroDiagnosis=
             "🔪 絕活型";
 
-        player.heroPenalty = 0;
-
         return;
 
     }
 
 
     /*
-       明顯專精
+       專精型
     */
 
-    if (gap >= 8) {
+    if(
+        max-second>=8
+    ){
 
-        player.heroDiagnosis =
+        player.heroDiagnosis=
             "🎯 專精型";
 
-        player.heroPenalty = 0;
-
         return;
 
     }
 
 
     /*
-       所有都很普通且非常接近
-       → 平庸懲罰
+       所有都不高且很接近
+       → 平庸
     */
 
-    if (
-        max < 65 &&
-        (max - min) <= 6
-    ) {
+    if(
+        max<65 &&
+        max-min<=6
+    ){
 
-        player.heroDiagnosis =
+        player.heroDiagnosis=
             "😐 平庸型";
 
-        player.heroPenalty = 8;
+        player.heroPenalty=8;
 
         return;
 
@@ -1594,25 +1817,21 @@ function diagnoseHeroPool() {
 
 
     /*
-       均衡但能力還可以
+       均衡
     */
 
-    if (
-        (max - min) <= 8
-    ) {
+    if(
+        max-min<=8
+    ){
 
-        player.heroDiagnosis =
+        player.heroDiagnosis=
             "⚖️ 均衡型";
 
-        /*
-           均衡型本身不一定是壞事，
-           但如果所有數值都不高，
-           仍然給輕微處罰。
-        */
+        if(
+            average<60
+        ){
 
-        if (average < 60) {
-
-            player.heroPenalty = 4;
+            player.heroPenalty=4;
 
         }
 
@@ -1621,65 +1840,49 @@ function diagnoseHeroPool() {
     }
 
 
-    /*
-       剩餘
-    */
-
-    player.heroDiagnosis =
+    player.heroDiagnosis=
         "🎲 偏科型";
 
-    player.heroPenalty = 2;
+    player.heroPenalty=2;
 
 }
 
 
-/* =========================================================
+/* =====================================================
    休賽期
-========================================================= */
+===================================================== */
 
-function showOffSeason() {
+function showOffSeason(){
 
-    let text =
-`賽季結束。
-
-你終於有時間休息，
-也可以重新檢視自己。
-
-${player.seasonResult === "頂尖"
-    ? "你的出色表現讓俱樂部開始注意到你。"
-    : player.seasonResult === "失利"
-    ? "這次失利讓你開始思考自己的問題。"
-    : "你開始整理這一年累積的經驗。"
-}
-
-這時候也可能發生一些
-與隊友、語言、青訓或轉隊有關的事件。`;
-
-
-    let choices = [
+    let choices=[
 
         {
             title:
-                "🔥 下一季繼續衝刺",
+                "🔥 繼續衝刺",
             effect:
-                "操作 +3、遊戲理解 +2、體力 -3",
+                "操作 +3　遊戲理解 +2　體力 -3",
             action:()=>{
 
-                player.skill += 3;
-                player.sense += 2;
-                player.stamina -= 3;
+                saveUndo();
+
+                player.skill+=3;
+                player.sense+=2;
+                player.stamina-=3;
 
             }
+
         },
 
         {
             title:
-                "📚 修正自己的弱點",
+                "📚 修正弱點",
             effect:
                 "目前最低能力 +5",
             action:()=>{
 
-                let keys = [
+                saveUndo();
+
+                let keys=[
                     "skill",
                     "sense",
                     "mental",
@@ -1687,78 +1890,59 @@ ${player.seasonResult === "頂尖"
                 ];
 
                 keys.sort(
-                    (a,b)=>player[a]-player[b]
+                    (a,b)=>
+                    player[a]-player[b]
                 );
 
-                player[keys[0]] += 5;
+                player[keys[0]]+=5;
 
             }
+
         },
 
         {
             title:
                 "😴 好好休息",
             effect:
-                "體力 +8、心態 +5",
+                "體力 +8　心態 +5",
             action:()=>{
 
-                player.stamina += 8;
-                player.mental += 5;
+                saveUndo();
+
+                player.stamina+=8;
+                player.mental+=5;
 
             }
+
         }
 
     ];
 
 
     /*
-       如果正在海外，
-       有機率出現語言事件
+       海外語言事件
     */
 
-    if (
-        player.career !== "高中生" &&
+    if(
         player.club &&
-        Math.random() < 0.6
-    ) {
+        player.localLanguage!=="native"
+    ){
 
         choices.push({
 
             title:
-                "🗣️ 學習當地語言",
+                "🗣️ 主動學習當地語言",
             effect:
-                "當地語言 +8、心態 -1",
+                "隱藏語言能力提升",
             action:()=>{
 
-                trainLocalLanguage();
+                saveUndo();
 
-                player.mental -= 1;
+                trainLanguage();
 
-            }
-
-        });
-
-    }
-
-
-    /*
-       Scout
-    */
-
-    if (
-        player.fame >= 5 &&
-        !player.club
-    ) {
-
-        choices.push({
-
-            title:
-                "📩 接受青訓試訓",
-            effect:
-                "嘗試進入職業體系",
-            action:()=>{
-
-                scoutCheck();
+                player.history.push(
+                    `${player.year}年：主動學習隊伍所在地語言。`
+                );
 
             }
 
@@ -1769,159 +1953,89 @@ ${player.seasonResult === "頂尖"
 
     showChoices(
         "休賽期",
-        text,
+`賽季結束。
+
+你終於有時間重新檢視自己。
+
+這段時間的選擇，
+會影響下一個賽季的狀態。`,
         choices
     );
 
 }
 
 
-/* =========================================================
-   語言事件
-========================================================= */
+/* =====================================================
+   語言
+===================================================== */
 
-function trainLocalLanguage() {
+function trainLanguage(){
 
-    let key =
+    let key=
         player.localLanguage;
 
-    /*
-       如果本土語言，
-       不需要特別訓練。
-    */
+    if(
+        key==="native"
+    ){
 
-    if (key === "native")
         return;
 
+    }
 
-    player.languages[key] += 8;
+    player.languages[key]+=8;
 
 }
 
 
-/* =========================================================
-   語言自動成長
-========================================================= */
+function getLanguage(){
 
-function yearlyLanguageGrowth() {
+    return (
+        player.languages[
+            player.localLanguage
+        ] || 0
+    );
 
-    let key =
+}
+
+
+/* =====================================================
+   語言年度自然成長
+===================================================== */
+
+function yearlyLanguageGrowth(){
+
+    let key=
         player.localLanguage;
 
-    if (key === "native")
+
+    if(
+        key==="native"
+    ){
+
         return;
 
+    }
 
-    /*
-       在該賽區生活，
-       即使沒有主動學，
-       也會自然增加。
 
-       但速度很慢。
-    */
-
-    player.languages[key] += 3;
+    player.languages[key]+=3;
 
 }
 
 
-/* =========================================================
-   青訓
-========================================================= */
-
-function scoutCheck() {
-
-    let power =
-        player.skill * .35 +
-        player.sense * .30 +
-        player.mental * .15 +
-        heroAverage() * .20;
-
-
-    /*
-       本土青訓容易度
-    */
-
-    let threshold = 62;
-
-
-    if (
-        player.region ===
-        player.clubRegion
-    ) {
-
-        threshold -= 5;
-
-    }
-
-
-    if (power >= threshold) {
-
-        player.club =
-            player.region + " 青訓";
-
-        player.career =
-            "青訓選手";
-
-        player.fame += 3;
-
-        player.history.push(
-            "成功加入 " +
-            player.club
-        );
-
-
-        showResult(
-            "🌱 青訓邀請",
-`Scout 看過你的資料。
-
-經過試訓後，
-
-你成功加入：
-
-${player.club}
-
-你現在還不是正式職業選手。
-
-但你已經進入職業電競體系。`,
-            "繼續"
-        );
-
-    }
-
-    else {
-
-        showResult(
-            "📩 青訓試訓",
-`你參加了青訓試訓。
-
-但是教練認為你目前仍有不足。
-
-你沒有被淘汰。
-
-只是還需要更多時間。`,
-            "繼續"
-        );
-
-    }
-
-}
-
-
-/* =========================================================
-   選項
-========================================================= */
+/* =====================================================
+   選項系統
+===================================================== */
 
 function showChoices(
     title,
     text,
     choices
-) {
+){
 
     updateTimeline();
 
 
-    let html = `
+    let html=`
 
     <div class="event-date">
         ${phaseName()}
@@ -1943,7 +2057,7 @@ function showChoices(
     choices.forEach(
         (choice,index)=>{
 
-            html += `
+            html+=`
 
             <button
                 class="choice"
@@ -1966,37 +2080,31 @@ function showChoices(
     );
 
 
-    html += `
-        </div>
+    html+=`
+
+    </div>
+
     `;
 
 
     document.getElementById(
         "eventArea"
-    ).innerHTML = html;
+    ).innerHTML=html;
 
 
-    window.currentChoices =
+    window.currentChoices=
         choices;
 
 }
 
 
-/* =========================================================
-   做選擇
-========================================================= */
+/* =====================================================
+   選擇
+===================================================== */
 
-function choose(index) {
+function choose(index){
 
-    /*
-       保存狀態
-    */
-
-    player.savedBeforeChoice =
-        JSON.stringify(player);
-
-
-    let choice =
+    let choice=
         window.currentChoices[index];
 
 
@@ -2007,15 +2115,14 @@ function choose(index) {
 
 
     /*
-       如果選擇是英雄池事件，
-       action 本身會重新產生選項。
+       英雄池訓練選單不立即推進
     */
 
-    if (
+    if(
         choice.title.includes(
             "英雄池訓練"
         )
-    ) {
+    ){
 
         return;
 
@@ -2023,22 +2130,8 @@ function choose(index) {
 
 
     /*
-       Scout 自己處理結果
-    */
-
-    if (
-        choice.title.includes(
-            "青訓試訓"
-        )
-    ) {
-
-        return;
-
-    }
-
-
-    /*
-       一般選項
+       所有正常選項完成後
+       才進入下一階段提示
     */
 
     showResult(
@@ -2048,25 +2141,25 @@ function choose(index) {
 ${choice.title}
 
 ${choice.effect}`,
-        getNextButtonText()
+        nextButtonText()
     );
 
 }
 
 
-/* =========================================================
+/* =====================================================
    結果
-========================================================= */
+===================================================== */
 
 function showResult(
     title,
     text,
     nextText
-) {
+){
 
     document.getElementById(
         "eventArea"
-    ).innerHTML = `
+    ).innerHTML=`
 
     <div class="event-date">
         ${phaseName()}
@@ -2092,19 +2185,17 @@ function showResult(
 }
 
 
-/* =========================================================
+/* =====================================================
    下一階段
-========================================================= */
+===================================================== */
 
-function nextPhase() {
+function nextPhase(){
 
-    /*
-       年初 → 賽訓
-    */
+    if(
+        player.phase===0
+    ){
 
-    if (player.phase === 0) {
-
-        player.phase = 1;
+        player.phase=1;
 
         renderGame();
         showPhase();
@@ -2114,19 +2205,17 @@ function nextPhase() {
     }
 
 
-    /*
-       賽訓 → 比賽
-    */
+    if(
+        player.phase===1
+    ){
 
-    if (player.phase === 1) {
-
-        player.phase = 2;
+        player.phase=2;
 
         renderGame();
 
         setTimeout(
             showPhase,
-            200
+            100
         );
 
         return;
@@ -2134,13 +2223,11 @@ function nextPhase() {
     }
 
 
-    /*
-       比賽 → 休賽期
-    */
+    if(
+        player.phase===2
+    ){
 
-    if (player.phase === 2) {
-
-        player.phase = 3;
+        player.phase=3;
 
         renderGame();
         showPhase();
@@ -2150,11 +2237,9 @@ function nextPhase() {
     }
 
 
-    /*
-       休賽期 → 年度結算
-    */
-
-    if (player.phase === 3) {
+    if(
+        player.phase===3
+    ){
 
         yearlyLanguageGrowth();
 
@@ -2165,33 +2250,50 @@ function nextPhase() {
 }
 
 
-/* =========================================================
+/* =====================================================
    年度結算
-========================================================= */
+===================================================== */
 
-function showYearSummary() {
+function showYearSummary(){
 
     document.getElementById(
         "app"
-    ).innerHTML = `
+    ).innerHTML=`
 
     <div class="panel">
 
-        <h2>
+        <h1>
             📅 ${player.year} 年度結算
-        </h2>
+        </h1>
 
-        <p>
-            今年結束了。
+        <p class="muted">
+            這一年結束了。
         </p>
+
+
+        <div class="summary-line">
+            <span>選手</span>
+            <strong>
+                ${escapeHTML(player.id)}
+            </strong>
+        </div>
 
 
         <div class="summary-line">
             <span>年齡</span>
             <strong>
-                ${player.age} → ${player.age + 1}
+                ${player.age} 歲
             </strong>
         </div>
+
+
+        <div class="summary-line">
+            <span>年度成績</span>
+            <strong>
+                ${player.seasonResult}
+            </strong>
+        </div>
+
 
         <div class="summary-line">
             <span>操作</span>
@@ -2200,12 +2302,14 @@ function showYearSummary() {
             </strong>
         </div>
 
+
         <div class="summary-line">
             <span>遊戲理解</span>
             <strong>
                 ${Math.round(player.sense)}
             </strong>
         </div>
+
 
         <div class="summary-line">
             <span>心態</span>
@@ -2214,12 +2318,14 @@ function showYearSummary() {
             </strong>
         </div>
 
+
         <div class="summary-line">
             <span>體力</span>
             <strong>
                 ${Math.round(player.stamina)}
             </strong>
         </div>
+
 
         <div class="summary-line">
             <span>人氣</span>
@@ -2228,99 +2334,67 @@ function showYearSummary() {
             </strong>
         </div>
 
-        <div class="summary-line">
-            <span>年度賽事</span>
-            <strong>
-                ${player.seasonResult}
-            </strong>
-        </div>
 
-
-        <h3>
+        <h3 style="margin-top:25px">
             🎮 英雄池調查
         </h3>
 
-        <p>
-            ${player.heroDiagnosis}
-        </p>
+        <div class="diagnosis">
 
-        ${
-            player.heroPenalty > 0
-            ?
-            `<p style="color:#aaa">
-                ⚠️ 英雄池缺乏明確武器，
-                綜合競爭力 -${player.heroPenalty}
-            </p>`
-            :
-            `<p style="color:#aaa">
-                沒有英雄池額外懲罰。
-            </p>`
-        }
+            <div class="diagnosis-value">
+                ${player.heroDiagnosis}
+            </div>
 
-
-        <h3>
-            🗣️ 語言能力
-        </h3>
-
-        <div class="language-list">
-
-            ${language(
-                "韓語",
-                "korean"
-            )}
-
-            ${language(
-                "中文",
-                "chinese"
-            )}
-
-            ${language(
-                "英語",
-                "english"
-            )}
-
-            ${language(
-                "越南語",
-                "vietnamese"
-            )}
-
-            ${language(
-                "日語",
-                "japanese"
-            )}
-
-            ${language(
-                "本土語言",
-                "native"
-            )}
+            ${
+                player.heroPenalty>0
+                ?
+                `
+                <div class="small">
+                    ⚠️ 目前缺乏明確武器，
+                    下賽季競爭力受到影響。
+                </div>
+                `
+                :
+                `
+                <div class="small">
+                    目前沒有英雄池額外懲罰。
+                </div>
+                `
+            }
 
         </div>
 
 
-        <h3>
+        <h3 style="margin-top:25px">
             📜 年度紀錄
         </h3>
 
-        ${
-            player.history.length
-            ?
-            player.history
-                .slice(-5)
+        <div class="history">
+
+            ${
+                player.history
+                .slice()
+                .reverse()
+                .slice(0,8)
                 .map(
-                    x =>
-                    `・${x}`
+                    x=>
+                    `
+                    <div class="history-item">
+                        ${x}
+                    </div>
+                    `
                 )
-                .join("<br>")
-            :
-            "今年還沒有特殊紀錄。"
-        }
+                .join("")
+            }
+
+        </div>
 
 
         <button
             class="next-year"
             onclick="nextYear()"
         >
-            ▶ 進入 ${player.year + 1} 年
+            ▶ 進入 ${player.year+1} 年
         </button>
 
     </div>
@@ -2330,35 +2404,33 @@ function showYearSummary() {
 }
 
 
-/* =========================================================
+/* =====================================================
    下一年
-========================================================= */
+===================================================== */
 
-function nextYear() {
+function nextYear(){
 
     player.age++;
     player.year++;
 
-    player.phase = 0;
+    player.phase=0;
 
-    player.seasonResult = "";
+    player.seasonResult="";
 
-    /*
-       年輕選手自然恢復
-    */
-
-    player.stamina += 8;
 
     /*
-       18歲後
+       年度恢復
     */
 
-    if (
-        player.age >= 18 &&
+    player.stamina+=8;
+
+
+    if(
+        player.age>=18 &&
         !player.club
-    ) {
+    ){
 
-        player.career =
+        player.career=
             "業餘選手";
 
     }
@@ -2366,47 +2438,204 @@ function nextYear() {
 
     normalize();
 
+
     renderGame();
     showPhase();
 
 }
 
 
-/* =========================================================
-   語言
-========================================================= */
+/* =====================================================
+   上一步
+===================================================== */
 
-function getCurrentLanguage() {
+function saveUndo(){
 
-    let key =
-        player.localLanguage;
+    /*
+       只保存真正做選擇前的狀態。
+       因此可以退回上一個決策。
+    */
 
-    return player.languages[key] || 0;
-
-}
-
-
-function languageNameForValue(value) {
-
-    if (value >= 70)
-        return "流利";
-
-    if (value >= 45)
-        return "可以正常溝通";
-
-    if (value >= 25)
-        return "基礎溝通";
-
-    return "幾乎不會";
+    player.undoState=
+        JSON.stringify(
+            player
+        );
 
 }
 
 
-/* =========================================================
+function goBack(){
+
+    if(
+        !player.undoState
+    ){
+
+        alert(
+            "目前沒有可以返回的決策。"
+        );
+
+        return;
+
+    }
+
+
+    let restored=
+        JSON.parse(
+            player.undoState
+        );
+
+
+    /*
+       保留 undoState，
+       讓使用者不會因為返回後立刻失去返回能力。
+    */
+
+    player=restored;
+
+
+    renderGame();
+    showPhase();
+
+}
+
+
+/* =====================================================
+   存檔
+===================================================== */
+
+function saveGame(){
+
+    /*
+       存檔本身不包含暫時的 undo 狀態，
+       避免存檔後產生奇怪的回退。
+    */
+
+    let save=
+        JSON.parse(
+            JSON.stringify(player)
+        );
+
+
+    localStorage.setItem(
+        "esportsLifeSave",
+        JSON.stringify(save)
+    );
+
+
+    alert(
+        "💾 人生已儲存。"
+    );
+
+}
+
+
+/* =====================================================
+   讀檔
+===================================================== */
+
+function loadGame(){
+
+    let save=
+        localStorage.getItem(
+            "esportsLifeSave"
+        );
+
+
+    if(!save){
+
+        alert(
+            "目前沒有存檔。"
+        );
+
+        return;
+
+    }
+
+
+    player=
+        JSON.parse(save);
+
+
+    /*
+       每次從存檔讀取後，
+       上一步重新清空。
+    */
+
+    player.undoState=null;
+
+
+    renderGame();
+    showPhase();
+
+}
+
+
+/* =====================================================
+   刪除存檔
+===================================================== */
+
+function deleteSave(){
+
+    if(
+        !confirm(
+            "確定要刪除存檔嗎？"
+        )
+    ){
+
+        return;
+
+    }
+
+
+    localStorage.removeItem(
+        "esportsLifeSave"
+    );
+
+
+    renderMenu();
+
+}
+
+
+/* =====================================================
+   重開
+===================================================== */
+
+function restartConfirm(){
+
+    if(
+        !confirm(
+            "確定要放棄目前人生並開始新遊戲嗎？"
+        )
+    ){
+
+        return;
+
+    }
+
+
+    player=
+        newPlayer();
+
+
+    setup={
+        name:"",
+        id:"",
+        region:"",
+        position:""
+    };
+
+
+    renderCreate();
+
+}
+
+
+/* =====================================================
    名稱
-========================================================= */
+===================================================== */
 
-function regionName() {
+function regionName(){
 
     return {
 
@@ -2422,7 +2651,7 @@ function regionName() {
 }
 
 
-function positionName() {
+function positionName(){
 
     return {
 
@@ -2437,7 +2666,7 @@ function positionName() {
 }
 
 
-function phaseName() {
+function phaseName(){
 
     return [
 
@@ -2451,49 +2680,27 @@ function phaseName() {
 }
 
 
-/* =========================================================
-   英雄池
-========================================================= */
+function nextButtonText(){
 
-function heroAverage() {
+    return [
 
-    return (
-        player.heroPool.assassin +
-        player.heroPool.mage +
-        player.heroPool.poke +
-        player.heroPool.utility
-    ) / 4;
+        "進入賽訓期",
+        "進入正式比賽",
+        "進入休賽期",
+        "進入年度結算"
+
+    ][player.phase];
 
 }
 
 
-/* =========================================================
-   下一階段文字
-========================================================= */
+/* =====================================================
+   限制數值
+===================================================== */
 
-function getNextButtonText() {
+function normalize(){
 
-    if (player.phase === 0)
-        return "進入賽訓期";
-
-    if (player.phase === 1)
-        return "進入正式比賽";
-
-    if (player.phase === 2)
-        return "進入休賽期";
-
-    return "進入年度結算";
-
-}
-
-
-/* =========================================================
-   數值限制
-========================================================= */
-
-function normalize() {
-
-    let keys = [
+    let keys=[
         "skill",
         "sense",
         "mental",
@@ -2504,9 +2711,9 @@ function normalize() {
 
 
     keys.forEach(
-        key => {
+        key=>{
 
-            player[key] =
+            player[key]=
                 Math.max(
                     0,
                     Math.min(
@@ -2522,9 +2729,9 @@ function normalize() {
     Object.keys(
         player.heroPool
     ).forEach(
-        key => {
+        key=>{
 
-            player.heroPool[key] =
+            player.heroPool[key]=
                 Math.max(
                     0,
                     Math.min(
@@ -2540,9 +2747,9 @@ function normalize() {
     Object.keys(
         player.heroStyle
     ).forEach(
-        key => {
+        key=>{
 
-            player.heroStyle[key] =
+            player.heroStyle[key]=
                 Math.max(
                     0,
                     Math.min(
@@ -2558,9 +2765,9 @@ function normalize() {
     Object.keys(
         player.languages
     ).forEach(
-        key => {
+        key=>{
 
-            player.languages[key] =
+            player.languages[key]=
                 Math.max(
                     0,
                     Math.min(
@@ -2575,116 +2782,42 @@ function normalize() {
 }
 
 
-/* =========================================================
-   存檔
-========================================================= */
+/* =====================================================
+   HTML 安全
+===================================================== */
 
-function saveGame() {
+function escapeHTML(text){
 
-    localStorage.setItem(
-        "esportsLifeSave",
-        JSON.stringify(player)
-    );
-
-    alert(
-        "💾 存檔成功！"
-    );
-
-}
-
-
-/* =========================================================
-   讀檔
-========================================================= */
-
-function loadGame() {
-
-    let save =
-        localStorage.getItem(
-            "esportsLifeSave"
-        );
-
-
-    if (!save) {
-
-        alert(
-            "目前沒有存檔。"
-        );
-
-        return;
-
-    }
-
-
-    player =
-        JSON.parse(save);
-
-    renderGame();
-    showPhase();
-
-}
-
-
-/* =========================================================
-   上一步
-========================================================= */
-
-function goBack() {
-
-    if (
-        !player.savedBeforeChoice
-    ) {
-
-        alert(
-            "目前沒有可以返回的操作。"
-        );
-
-        return;
-
-    }
-
-
-    player =
-        JSON.parse(
-            player.savedBeforeChoice
-        );
-
-    player.savedBeforeChoice =
-        null;
-
-    renderGame();
-    showPhase();
-
-}
-
-
-/* =========================================================
-   重開
-========================================================= */
-
-function restart() {
-
-    if (
-        !confirm(
-            "確定要重新開始嗎？"
+    return String(text)
+        .replace(
+            /&/g,
+            "&amp;"
         )
-    ) {
-
-        return;
-
-    }
-
-
-    location.reload();
+        .replace(
+            /</g,
+            "&lt;"
+        )
+        .replace(
+            />/g,
+            "&gt;"
+        )
+        .replace(
+            /"/g,
+            "&quot;"
+        )
+        .replace(
+            /'/g,
+            "&#039;"
+        );
 
 }
 
 
-/* =========================================================
+/* =====================================================
    初始化
-========================================================= */
+===================================================== */
 
-renderSetup();
+renderMenu();
 
 </script>
 
