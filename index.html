@@ -49,6 +49,13 @@
             margin-top: 5px;
         }
 
+        .career {
+            text-align: center;
+            margin-bottom: 15px;
+            font-weight: bold;
+            color: #555;
+        }
+
         .event {
             border-top: 1px solid #ddd;
             padding-top: 25px;
@@ -80,10 +87,21 @@
             opacity: 0.8;
         }
 
+        button:disabled {
+            background: #999;
+            cursor: not-allowed;
+        }
+
         #result {
             margin-top: 20px;
             min-height: 30px;
             font-weight: bold;
+            line-height: 1.6;
+        }
+
+        .restart {
+            margin-top: 20px;
+            background: #555;
         }
 
         @media (max-width: 600px) {
@@ -103,6 +121,10 @@
 <div class="game">
 
     <h1>🎮 電競人生模擬器</h1>
+
+    <div class="career" id="career">
+        高中生
+    </div>
 
     <div class="info">
 
@@ -147,21 +169,7 @@
             你發現自己的天賦似乎不錯。
         </p>
 
-        <div class="choices">
-
-            <button onclick="choose(1)">
-                🎮 狂打排位
-            </button>
-
-            <button onclick="choose(2)">
-                📚 先把課業顧好
-            </button>
-
-            <button onclick="choose(3)">
-                😴 今天休息
-            </button>
-
-        </div>
+        <div class="choices" id="choices"></div>
 
         <div id="result"></div>
 
@@ -177,8 +185,26 @@ let player = {
     gameSense: 50,
     mental: 50,
     stamina: 50,
-    fame: 0
+    fame: 0,
+    career: "高中生",
+    retired: false
 };
+
+
+/* =========================
+   基本功能
+========================= */
+
+function clampStats() {
+
+    player.skill = Math.max(0, Math.min(100, player.skill));
+    player.gameSense = Math.max(0, Math.min(100, player.gameSense));
+    player.mental = Math.max(0, Math.min(100, player.mental));
+    player.stamina = Math.max(0, Math.min(100, player.stamina));
+    player.fame = Math.max(0, player.fame);
+
+}
+
 
 function updateScreen() {
 
@@ -189,58 +215,836 @@ function updateScreen() {
     document.getElementById("stamina").textContent = player.stamina;
     document.getElementById("fame").textContent = player.fame;
 
+    document.getElementById("career").textContent =
+        player.career;
+
 }
+
+
+function setEvent(title, text, choices) {
+
+    document.getElementById("eventTitle").textContent = title;
+    document.getElementById("eventText").textContent = text;
+    document.getElementById("result").textContent = "";
+
+    const container = document.getElementById("choices");
+
+    container.innerHTML = "";
+
+    choices.forEach((choice, index) => {
+
+        const button = document.createElement("button");
+
+        button.textContent = choice.text;
+
+        button.onclick = function() {
+            choose(choice);
+        };
+
+        container.appendChild(button);
+
+    });
+
+}
+
+
+function applyEffect(effect) {
+
+    if (effect.skill)
+        player.skill += effect.skill;
+
+    if (effect.gameSense)
+        player.gameSense += effect.gameSense;
+
+    if (effect.mental)
+        player.mental += effect.mental;
+
+    if (effect.stamina)
+        player.stamina += effect.stamina;
+
+    if (effect.fame)
+        player.fame += effect.fame;
+
+    clampStats();
+
+}
+
 
 function choose(choice) {
 
-    let result = "";
+    const buttons = document.querySelectorAll("#choices button");
 
-    if (choice === 1) {
+    buttons.forEach(button => {
+        button.disabled = true;
+    });
 
-        player.skill += 5;
-        player.gameSense += 2;
-        player.stamina -= 3;
-        player.mental -= 2;
+    applyEffect(choice.effect || {});
 
-        result = "你瘋狂打了一整晚排位。操作變強了，但人快沒了。";
-
-    }
-
-    if (choice === 2) {
-
-        player.gameSense += 1;
-        player.mental += 3;
-
-        result = "你先把功課完成，晚上才有時間打遊戲。";
-
-    }
-
-    if (choice === 3) {
-
-        player.mental += 5;
-        player.stamina += 5;
-
-        result = "你今天什麼都沒做，舒服。";
-
-    }
-
-    player.age++;
+    document.getElementById("result").textContent =
+        choice.result || "";
 
     updateScreen();
 
-    document.getElementById("result").textContent = result;
+    setTimeout(() => {
 
-    if (player.age >= 18) {
+        player.age++;
 
-        document.getElementById("eventTitle").textContent =
-            "你高中畢業了";
+        updateScreen();
 
-        document.getElementById("eventText").textContent =
-            "你的電競能力逐漸成形。接下來，你必須決定是否踏上職業道路。";
+        nextEvent();
+
+    }, 900);
+
+}
+
+
+/* =========================
+   下一個事件
+========================= */
+
+function nextEvent() {
+
+    clampStats();
+
+    /*
+       35歲以前正常進行
+    */
+
+    if (player.age >= 35 && !player.retired) {
+
+        retirementEvent();
+
+        return;
+
+    }
+
+
+    /*
+       高中
+    */
+
+    if (player.age <= 17) {
+
+        highSchoolEvent();
+
+        return;
+
+    }
+
+
+    /*
+       18歲
+    */
+
+    if (player.age === 18) {
+
+        professionalDecision();
+
+        return;
+
+    }
+
+
+    /*
+       職業生涯
+    */
+
+    if (player.age >= 19 && player.age <= 24) {
+
+        professionalEvent();
+
+        return;
+
+    }
+
+
+    /*
+       25～29歲
+    */
+
+    if (player.age >= 25 && player.age <= 29) {
+
+        lateCareerEvent();
+
+        return;
+
+    }
+
+
+    /*
+       30～34歲
+    */
+
+    if (player.age >= 30 && player.age <= 34) {
+
+        veteranEvent();
+
+        return;
 
     }
 
 }
+
+
+/* =========================
+   高中事件
+========================= */
+
+function highSchoolEvent() {
+
+    const events = [
+
+        {
+            title: "排位狂人",
+            text:
+                "你最近瘋狂打排位，排名開始快速上升。朋友都覺得你可能有職業選手的天分。",
+            choices: [
+                {
+                    text: "🎮 繼續狂打",
+                    effect: {
+                        skill: 6,
+                        gameSense: 2,
+                        stamina: -4,
+                        mental: -2
+                    },
+                    result:
+                        "你打到凌晨三點。操作變強了，但隔天上課差點睡著。"
+                },
+                {
+                    text: "🧠 研究比賽",
+                    effect: {
+                        gameSense: 6,
+                        mental: 2
+                    },
+                    result:
+                        "你開始研究職業選手的比賽，遊戲理解明顯提升。"
+                },
+                {
+                    text: "😴 今天休息",
+                    effect: {
+                        mental: 4,
+                        stamina: 5
+                    },
+                    result:
+                        "你決定休息一天。雖然沒變強，但精神好多了。"
+                }
+            ]
+        },
+
+        {
+            title: "校隊邀請",
+            text:
+                "學校有人找你加入校隊，準備參加學生電競比賽。",
+            choices: [
+                {
+                    text: "接受",
+                    effect: {
+                        skill: 3,
+                        gameSense: 4,
+                        fame: 3,
+                        mental: -1
+                    },
+                    result:
+                        "你開始正式參加比賽，第一次感受到團隊合作。"
+                },
+                {
+                    text: "拒絕",
+                    effect: {
+                        mental: 3,
+                        stamina: 2
+                    },
+                    result:
+                        "你選擇自由打遊戲，不想被比賽束縛。"
+                }
+            ]
+        },
+
+        {
+            title: "第一次直播",
+            text:
+                "你的朋友建議你開直播，看看有沒有機會累積人氣。",
+            choices: [
+                {
+                    text: "📺 開始直播",
+                    effect: {
+                        fame: 8,
+                        mental: -2
+                    },
+                    result:
+                        "你第一次直播居然有不少人觀看。"
+                },
+                {
+                    text: "🎮 專心練習",
+                    effect: {
+                        skill: 4,
+                        gameSense: 3
+                    },
+                    result:
+                        "你沒有直播，而是把時間拿來提升實力。"
+                }
+            ]
+        }
+
+    ];
+
+    randomEvent(events);
+
+}
+
+
+/* =========================
+   18歲：職業決定
+========================= */
+
+function professionalDecision() {
+
+    setEvent(
+        "18歲：人生的選擇",
+        "你高中畢業了。你的實力已經受到一些戰隊注意。現在，你必須決定是否正式踏上職業電競之路。",
+        [
+            {
+                text: "🏆 接受職業戰隊邀請",
+                effect: {
+                    fame: 10,
+                    mental: -3
+                },
+                result:
+                    "你正式成為職業選手！你的電競人生進入新的階段。",
+                action: function() {
+                    player.career = "職業選手";
+                }
+            },
+            {
+                text: "📺 當實況主",
+                effect: {
+                    fame: 15,
+                    mental: 3
+                },
+                result:
+                    "你選擇成為實況主，開始經營自己的頻道。",
+                action: function() {
+                    player.career = "實況主";
+                }
+            },
+            {
+                text: "🎓 繼續升學",
+                effect: {
+                    gameSense: 2,
+                    mental: 5
+                },
+                result:
+                    "你決定先完成學業，同時繼續打電競。",
+                action: function() {
+                    player.career = "大學生";
+                }
+            }
+        ]
+    );
+
+}
+
+
+/* =========================
+   職業選手
+========================= */
+
+function professionalEvent() {
+
+    if (player.career !== "職業選手") {
+
+        normalLifeEvent();
+
+        return;
+
+    }
+
+
+    const events = [
+
+        {
+            title: "職業聯賽首秀",
+            text:
+                "你第一次登上正式職業舞台。觀眾席坐滿了人。",
+            choices: [
+                {
+                    text: "🔥 積極操作",
+                    effect: {
+                        skill: 5,
+                        fame: 6,
+                        mental: -4,
+                        stamina: -3
+                    },
+                    result:
+                        "你打出精彩操作！現場觀眾開始記住你的名字。"
+                },
+                {
+                    text: "🧠 穩定發揮",
+                    effect: {
+                        gameSense: 5,
+                        mental: 3
+                    },
+                    result:
+                        "你沒有追求華麗操作，但成功穩穩拿下比賽。"
+                }
+            ]
+        },
+
+        {
+            title: "隊內訓練",
+            text:
+                "教練認為你的操作很好，但遊戲理解還可以再提升。",
+            choices: [
+                {
+                    text: "研究戰術",
+                    effect: {
+                        gameSense: 8,
+                        stamina: -2
+                    },
+                    result:
+                        "你開始理解比賽背後的戰術。"
+                },
+                {
+                    text: "練操作",
+                    effect: {
+                        skill: 8,
+                        stamina: -4
+                    },
+                    result:
+                        "你的操作變得更加銳利。"
+                }
+            ]
+        },
+
+        {
+            title: "突然爆紅",
+            text:
+                "你在一場比賽中打出精彩操作，影片突然在網路上爆紅。",
+            choices: [
+                {
+                    text: "接受採訪",
+                    effect: {
+                        fame: 15,
+                        mental: -3
+                    },
+                    result:
+                        "你的人氣暴增，開始有粉絲認識你。"
+                },
+                {
+                    text: "低調訓練",
+                    effect: {
+                        skill: 5,
+                        gameSense: 4
+                    },
+                    result:
+                        "你選擇不被人氣影響，繼續努力提升自己。"
+                }
+            ]
+        },
+
+        {
+            title: "連敗低潮",
+            text:
+                "戰隊最近連續輸掉幾場比賽，你開始懷疑自己的能力。",
+            choices: [
+                {
+                    text: "繼續苦練",
+                    effect: {
+                        skill: 4,
+                        gameSense: 4,
+                        mental: -7,
+                        stamina: -5
+                    },
+                    result:
+                        "你努力訓練，但精神壓力也越來越大。"
+                },
+                {
+                    text: "休息調整",
+                    effect: {
+                        mental: 8,
+                        stamina: 6
+                    },
+                    result:
+                        "你休息幾天後，狀態逐漸恢復。"
+                }
+            ]
+        }
+
+    ];
+
+    randomEvent(events);
+
+}
+
+
+/* =========================
+   25～29歲
+========================= */
+
+function lateCareerEvent() {
+
+    if (player.career !== "職業選手") {
+
+        normalLifeEvent();
+
+        return;
+
+    }
+
+
+    const events = [
+
+        {
+            title: "新人加入",
+            text:
+                "戰隊簽下了一名17歲的天才新人。教練開始讓他和你競爭位置。",
+            choices: [
+                {
+                    text: "🔥 證明自己",
+                    effect: {
+                        skill: 4,
+                        mental: -6,
+                        stamina: -4
+                    },
+                    result:
+                        "你拼命訓練，暫時守住了自己的位置。"
+                },
+                {
+                    text: "🧑‍🏫 指導新人",
+                    effect: {
+                        gameSense: 5,
+                        mental: 4,
+                        fame: 3
+                    },
+                    result:
+                        "你開始扮演隊伍老將的角色。"
+                }
+            ]
+        },
+
+        {
+            title: "轉隊機會",
+            text:
+                "另一支戰隊開出更好的合約，希望你加入。",
+            choices: [
+                {
+                    text: "接受轉隊",
+                    effect: {
+                        fame: 8,
+                        mental: -3
+                    },
+                    result:
+                        "你決定挑戰新的環境。"
+                },
+                {
+                    text: "留在原隊",
+                    effect: {
+                        mental: 5,
+                        gameSense: 3
+                    },
+                    result:
+                        "你選擇留在熟悉的隊伍。"
+                }
+            ]
+        },
+
+        {
+            title: "狀態開始下滑",
+            text:
+                "你發現自己的反應速度不像年輕時那麼快了。",
+            choices: [
+                {
+                    text: "瘋狂訓練",
+                    effect: {
+                        skill: 2,
+                        stamina: -8,
+                        mental: -4
+                    },
+                    result:
+                        "你努力維持巔峰狀態，但身體開始吃不消。"
+                },
+                {
+                    text: "改變打法",
+                    effect: {
+                        gameSense: 8,
+                        skill: -1
+                    },
+                    result:
+                        "你開始靠經驗和判斷取代單純的反應速度。"
+                }
+            ]
+        }
+
+    ];
+
+    randomEvent(events);
+
+}
+
+
+/* =========================
+   30～34歲
+========================= */
+
+function veteranEvent() {
+
+    if (player.career !== "職業選手") {
+
+        normalLifeEvent();
+
+        return;
+
+    }
+
+
+    const events = [
+
+        {
+            title: "你還能打多久？",
+            text:
+                "你已經30歲了。新人越來越多，外界開始討論你的退役時間。",
+            choices: [
+                {
+                    text: "繼續拼",
+                    effect: {
+                        skill: 2,
+                        mental: -5,
+                        stamina: -7,
+                        fame: 3
+                    },
+                    result:
+                        "你決定再拼幾年。"
+                },
+                {
+                    text: "準備轉型",
+                    effect: {
+                        gameSense: 6,
+                        mental: 5
+                    },
+                    result:
+                        "你開始學習教練與分析師的工作。"
+                }
+            ]
+        },
+
+        {
+            title: "最後的冠軍機會",
+            text:
+                "你的隊伍意外打進季後賽。這可能是你最後一次爭奪冠軍。",
+            choices: [
+                {
+                    text: "拼盡全力",
+                    effect: {
+                        fame: 15,
+                        mental: -8,
+                        stamina: -8
+                    },
+                    result:
+                        "你把所有經驗都拿了出來，打出了職業生涯最精彩的一段時間。"
+                },
+                {
+                    text: "享受比賽",
+                    effect: {
+                        mental: 10,
+                        fame: 5
+                    },
+                    result:
+                        "你不再執著結果，而是享受最後的職業舞台。"
+                }
+            ]
+        },
+
+        {
+            title: "退役邀請",
+            text:
+                "戰隊希望你退役後留下來擔任教練。",
+            choices: [
+                {
+                    text: "接受",
+                    effect: {
+                        gameSense: 10,
+                        fame: 5
+                    },
+                    result:
+                        "你開始為自己的下一個人生階段做準備。",
+                    action: function() {
+                        player.career = "教練候選人";
+                    }
+                },
+                {
+                    text: "拒絕",
+                    effect: {
+                        mental: 3
+                    },
+                    result:
+                        "你還不想這麼快離開賽場。"
+                }
+            ]
+        }
+
+    ];
+
+    randomEvent(events);
+
+}
+
+
+/* =========================
+   非職業人生
+========================= */
+
+function normalLifeEvent() {
+
+    const events = [
+
+        {
+            title: "平凡的一天",
+            text:
+                "你繼續過著普通生活，同時偶爾打打遊戲。",
+            choices: [
+                {
+                    text: "打遊戲",
+                    effect: {
+                        skill: 2,
+                        mental: 1
+                    },
+                    result:
+                        "你打了幾場遊戲，心情不錯。"
+                },
+                {
+                    text: "休息",
+                    effect: {
+                        mental: 4,
+                        stamina: 4
+                    },
+                    result:
+                        "你決定好好休息。"
+                }
+            ]
+        },
+
+        {
+            title: "小小的機會",
+            text:
+                "有人注意到你過去的電競經驗，邀請你做遊戲相關工作。",
+            choices: [
+                {
+                    text: "接受",
+                    effect: {
+                        fame: 5,
+                        gameSense: 3
+                    },
+                    result:
+                        "你開始接觸電競產業的其他工作。"
+                },
+                {
+                    text: "拒絕",
+                    effect: {
+                        mental: 3
+                    },
+                    result:
+                        "你決定繼續自己的生活。"
+                }
+            ]
+        }
+
+    ];
+
+    randomEvent(events);
+
+}
+
+
+/* =========================
+   事件隨機選擇
+========================= */
+
+function randomEvent(events) {
+
+    const event =
+        events[Math.floor(Math.random() * events.length)];
+
+    setEvent(
+        event.title,
+        event.text,
+        event.choices.map(choice => {
+
+            return {
+
+                text: choice.text,
+
+                effect: choice.effect,
+
+                result: choice.result,
+
+                action: choice.action
+
+            };
+
+        })
+    );
+
+}
+
+
+/* =========================
+   退休
+========================= */
+
+function retirementEvent() {
+
+    player.retired = true;
+
+    player.career = "退役";
+
+    setEvent(
+        "35歲：職業生涯結束",
+        "35歲的你正式結束職業選手生涯。你的反應力已經不再是年輕時的水準，但你累積了大量經驗。現在，你要決定人生下一步。",
+        [
+            {
+                text: "🧑‍🏫 成為教練",
+                effect: {
+                    gameSense: 10,
+                    fame: 5
+                },
+                result:
+                    "你成為了一名教練，把自己的經驗傳授給下一代。",
+                action: function() {
+                    player.career = "電競教練";
+                }
+            },
+            {
+                text: "📺 成為實況主",
+                effect: {
+                    fame: 20,
+                    mental: 5
+                },
+                result:
+                    "你開始直播自己的遊戲與職業故事，累積了大量觀眾。",
+                action: function() {
+                    player.career = "實況主";
+                }
+            },
+            {
+                text: "💼 離開電競圈",
+                effect: {
+                    mental: 15,
+                    stamina: 10
+                },
+                result:
+                    "你離開了電競圈，開始一段全新的人生。",
+                action: function() {
+                    player.career = "一般工作";
+                }
+            }
+        ]
+    );
+
+}
+
+
+/* =========================
+   啟動遊戲
+========================= */
 
 updateScreen();
 
