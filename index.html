@@ -1,4 +1,3 @@
-```html
 <!DOCTYPE html>
 <html lang="zh-Hant">
 <head>
@@ -26,6 +25,7 @@
     --gold:#e9c86a;
     --red:#ff8585;
     --blue:#8fc8ff;
+    --purple:#c3a7ff;
     --shadow:0 18px 45px rgba(0,0,0,.28);
 }
 
@@ -59,10 +59,6 @@ button{
 input{
     outline:none;
 }
-
-/* =========================
-   App
-========================= */
 
 .app{
     width:100%;
@@ -110,10 +106,6 @@ input{
 .page.active{
     display:block;
 }
-
-/* =========================
-   Typography
-========================= */
 
 .kicker{
     color:var(--green);
@@ -374,6 +366,7 @@ h3{
     display:flex;
     justify-content:space-between;
     align-items:end;
+    gap:12px;
 }
 
 .resource strong{
@@ -384,6 +377,65 @@ h3{
 .resource span{
     color:var(--muted);
     font-size:11px;
+}
+
+/* =========================
+   OVR
+========================= */
+
+.ovr-card{
+    position:relative;
+    overflow:hidden;
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    gap:16px;
+    padding:17px;
+    background:
+        radial-gradient(circle at 90% 50%,rgba(120,230,160,.13),transparent 45%),
+        linear-gradient(145deg,#122b1d,#0b1a12);
+    border:1px solid #31573d;
+}
+
+.ovr-left{
+    min-width:0;
+}
+
+.ovr-label{
+    color:var(--green);
+    font-size:11px;
+    font-weight:950;
+    letter-spacing:1.4px;
+}
+
+.ovr-value{
+    margin-top:1px;
+    font-size:42px;
+    line-height:1;
+    font-weight:950;
+    letter-spacing:-2px;
+}
+
+.ovr-desc{
+    margin-top:6px;
+    color:var(--body);
+    font-size:11px;
+}
+
+.ovr-right{
+    text-align:right;
+}
+
+.ovr-tier{
+    color:var(--gold);
+    font-size:15px;
+    font-weight:950;
+}
+
+.ovr-formula{
+    margin-top:4px;
+    color:var(--muted);
+    font-size:10px;
 }
 
 .progress{
@@ -576,9 +628,31 @@ h3{
     line-height:1.5;
 }
 
+.club-condition{
+    display:flex;
+    flex-wrap:wrap;
+    gap:5px;
+    margin-top:10px;
+}
+
+.condition{
+    padding:5px 7px;
+    border-radius:7px;
+    background:#08130d;
+    color:var(--muted);
+    border:1px solid #1d3427;
+    font-size:9px;
+    font-weight:800;
+}
+
+.condition.pass{
+    color:var(--green);
+    border-color:rgba(120,230,160,.25);
+}
+
 .club-offer{
     margin-top:11px;
-    padding:8px;
+    padding:9px;
     border-radius:9px;
     background:#08130d;
     color:var(--green);
@@ -931,6 +1005,14 @@ h3{
     .stats{
         grid-template-columns:1fr 1fr;
     }
+
+    .ovr-card{
+        align-items:flex-start;
+    }
+
+    .ovr-value{
+        font-size:36px;
+    }
 }
 </style>
 </head>
@@ -1029,9 +1111,7 @@ h3{
     </header>
 
 
-    <!-- =========================
-         HOME
-    ========================== -->
+    <!-- HOME -->
 
     <main class="page active" id="page-home">
 
@@ -1069,6 +1149,10 @@ h3{
                                 業餘
                             </span>
 
+                            <span class="badge" id="playerOvrBadge">
+                                OVR 0
+                            </span>
+
                         </div>
 
                     </div>
@@ -1104,16 +1188,55 @@ h3{
         </div>
 
 
+        <!-- OVR -->
+
+        <div class="section">
+
+            <div class="ovr-card">
+
+                <div class="ovr-left">
+
+                    <div class="ovr-label">
+                        OVERALL RATING
+                    </div>
+
+                    <div class="ovr-value" id="overallValue">
+                        30
+                    </div>
+
+                    <div class="ovr-desc" id="overallDesc">
+                        新人階段
+                    </div>
+
+                </div>
+
+                <div class="ovr-right">
+
+                    <div class="ovr-tier" id="overallTier">
+                        Rookie
+                    </div>
+
+                    <div class="ovr-formula">
+                        四項能力平均
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+
         <div class="section">
 
             <div class="section-head">
 
                 <div class="section-title">
-                    玩家狀態
+                    玩家能力
                 </div>
 
                 <div class="section-note">
-                    養成核心
+                    OVR 的四項基礎
                 </div>
 
             </div>
@@ -1178,6 +1301,7 @@ h3{
             <div class="card">
 
                 <div class="resource">
+
                     <div>
                         <span>養成點</span>
                         <strong id="points">0</strong>
@@ -1192,6 +1316,7 @@ h3{
                         <span>名聲</span>
                         <strong id="reputation">0</strong>
                     </div>
+
                 </div>
 
             </div>
@@ -1241,9 +1366,7 @@ h3{
     </main>
 
 
-    <!-- =========================
-         CLUBS
-    ========================== -->
+    <!-- CLUBS -->
 
     <main class="page" id="page-clubs">
 
@@ -1258,6 +1381,33 @@ h3{
             直到 Rank、能力或名聲達到條件後，
             由俱樂部主動發出邀請。
         </p>
+
+        <div class="section">
+
+            <div class="card">
+
+                <div class="resource">
+
+                    <div>
+                        <span>你的 OVR</span>
+                        <strong id="clubOvr">0</strong>
+                    </div>
+
+                    <div style="text-align:right;">
+                        <span>你的 Rank</span>
+                        <strong id="clubLp">0</strong>
+                    </div>
+
+                    <div style="text-align:right;">
+                        <span>名聲</span>
+                        <strong id="clubRep">0</strong>
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
 
 
         <div class="section">
@@ -1287,10 +1437,10 @@ h3{
                 </h2>
 
                 <p class="body">
-                    弱隊通常更看重即戰力、Rank 與基本能力；
-                    強隊二隊則可能更重視英雄池、成長潛力與團隊能力。
-                    因此同一時間可能出現「弱隊一隊」與「強隊二隊」
-                    同時向你提出 Offer。
+                    不同俱樂部看重的東西不一樣。
+                    弱隊一隊可能比較在乎 Rank 與即戰力；
+                    強隊二隊則可能更看重 OVR、英雄池與成長潛力。
+                    因此同一個季度，完全可能同時出現兩種不同路線的 Offer。
                 </p>
 
             </div>
@@ -1300,9 +1450,7 @@ h3{
     </main>
 
 
-    <!-- =========================
-         SAVE
-    ========================== -->
+    <!-- SAVE -->
 
     <main class="page" id="page-save">
 
@@ -1363,10 +1511,6 @@ h3{
     </main>
 
 
-    <!-- =========================
-         NAV
-    ========================== -->
-
     <nav class="bottom-nav">
 
         <button
@@ -1398,9 +1542,7 @@ h3{
 </div>
 
 
-<!-- =========================
-     RANDOM EVENT
-========================= -->
+<!-- RANDOM EVENT -->
 
 <div class="overlay" id="randomOverlay">
 
@@ -1428,9 +1570,7 @@ h3{
 </div>
 
 
-<!-- =========================
-     RESULT
-========================= -->
+<!-- RESULT -->
 
 <div class="overlay" id="resultOverlay">
 
@@ -1464,10 +1604,6 @@ h3{
 
 </div>
 
-
-<!-- =========================
-     TOAST
-========================= -->
 
 <div class="toast" id="toast">
 </div>
@@ -1503,12 +1639,12 @@ function clamp(v,min,max){
    玩家設定
 ========================================================= */
 
-let selectedRegion = "";
-let selectedRole = "";
+let selectedRegion="";
+let selectedRole="";
 
 function selectRegion(region,button){
 
-    selectedRegion = region;
+    selectedRegion=region;
 
     document
         .querySelectorAll("#regionButtons button")
@@ -1519,7 +1655,7 @@ function selectRegion(region,button){
 
 function selectRole(role,button){
 
-    selectedRole = role;
+    selectedRole=role;
 
     document
         .querySelectorAll("#roleButtons button")
@@ -1533,9 +1669,9 @@ function selectRole(role,button){
    遊戲資料
 ========================================================= */
 
-let game = null;
+let game=null;
 
-const defaultLimits = {
+const defaultLimits={
     mechanic:100,
     macro:100,
     champion:100,
@@ -1547,48 +1683,66 @@ const defaultLimits = {
    俱樂部資料
 ========================================================= */
 
-const clubs = [
+const clubs=[
 
     {
         name:"地方強隊",
         league:"業餘／半職業",
         need:"Rank、基本能力、即戰力",
-        requirement:"Rank 1400"
+        requirement:"Rank 1400",
+        rank:1400,
+        ovr:0,
+        rep:0
     },
 
     {
         name:"一隊競爭者",
         league:"地區聯賽",
         need:"Rank、操作、穩定度",
-        requirement:"Rank 1600 + 綜合能力"
+        requirement:"Rank 1600＋OVR 45",
+        rank:1600,
+        ovr:45,
+        rep:0
     },
 
     {
         name:"菁英二隊",
         league:"職業體系",
         need:"英雄池、理解、成長潛力",
-        requirement:"綜合能力 55"
+        requirement:"OVR 55",
+        rank:0,
+        ovr:55,
+        rep:0
     },
 
     {
         name:"職業一隊",
         league:"頂級聯賽",
         need:"成熟度、穩定度、比賽能力",
-        requirement:"綜合能力 72"
+        requirement:"OVR 72",
+        rank:0,
+        ovr:72,
+        rep:0
     },
 
     {
         name:"明星強隊",
         league:"頂級聯賽",
         need:"高 Rank、英雄池、比賽履歷",
-        requirement:"綜合能力 82"
+        requirement:"OVR 82＋Rank 1800",
+        rank:1800,
+        ovr:82,
+        rep:0
     },
 
     {
         name:"海外戰隊",
         league:"國際賽區",
         need:"Rank、英雄池、名聲",
-        requirement:"綜合能力 78 + 名聲"
+        requirement:"OVR 78＋名聲 5",
+        rank:0,
+        ovr:78,
+        rep:5
     }
 
 ];
@@ -1598,7 +1752,7 @@ const clubs = [
    隨機事件
 ========================================================= */
 
-const RANDOM_EVENTS = [
+const RANDOM_EVENTS=[
 
     {
         title:"突然爆紅",
@@ -1719,18 +1873,18 @@ const RANDOM_EVENTS = [
 
 
 /* =========================================================
-   建立新遊戲
+   建立遊戲
 ========================================================= */
 
 function startGame(){
 
-    const name =
+    const name=
         document
         .getElementById("nameInput")
         .value
         .trim();
 
-    const id =
+    const id=
         document
         .getElementById("idInput")
         .value
@@ -1743,7 +1897,7 @@ function startGame(){
         return;
     }
 
-    game = {
+    game={
 
         name:name,
         id:id,
@@ -1754,11 +1908,20 @@ function startGame(){
         quarter:1,
 
         points:18,
+
+        /* 業餘 Rank */
         lp:1000,
+
+        /* 名聲 */
         reputation:0,
 
+        /* 職業狀態 */
         pro:false,
+
+        /* 校隊 */
         school:false,
+
+        /* 目前隊伍 */
         team:null,
 
         stats:{
@@ -1780,6 +1943,10 @@ function startGame(){
 
     addHistory(
         `你以 ${selectedRole} 身份開始自己的英雄聯盟人生。`
+    );
+
+    addHistory(
+        `目前 OVR ${overall()}，Rank ${game.lp}。你還沒有俱樂部，只能靠自己的成績與比賽讓 Scout 注意到你。`
     );
 
     showGame();
@@ -1836,19 +2003,89 @@ function goPage(page,button){
 
 
 /* =========================================================
-   綜合能力
+   OVR
 ========================================================= */
 
 function overall(){
 
+    if(!game)
+        return 0;
+
     const s=game.stats;
 
+    /*
+       現階段先使用四項能力平均。
+       這讓玩家很容易理解：
+       OVR 就是「目前這個人的基本能力」。
+
+       後續如果加入位置權重，
+       可以在這裡再加入 TOP/MID/BOT 等不同權重。
+    */
+
     return Math.round(
-        (s.mechanic+
-         s.macro+
-         s.champion+
-         s.stability)/4
+        (
+            s.mechanic+
+            s.macro+
+            s.champion+
+            s.stability
+        )/4
     );
+
+}
+
+
+function getOverallTier(value){
+
+    if(value>=90)
+        return "Superstar";
+
+    if(value>=82)
+        return "Elite";
+
+    if(value>=72)
+        return "Pro";
+
+    if(value>=65)
+        return "Contender";
+
+    if(value>=55)
+        return "Academy";
+
+    if(value>=45)
+        return "Semi-Pro";
+
+    if(value>=35)
+        return "Rising";
+
+    return "Rookie";
+
+}
+
+
+function getOverallDescription(value){
+
+    if(value>=90)
+        return "頂尖職業選手等級";
+
+    if(value>=82)
+        return "已經具備明星級潛力";
+
+    if(value>=72)
+        return "達到職業一隊基本能力區間";
+
+    if(value>=65)
+        return "接近職業競爭者";
+
+    if(value>=55)
+        return "具備職業體系培養價值";
+
+    if(value>=45)
+        return "開始具備半職業競爭力";
+
+    if(value>=35)
+        return "正在脫離普通路人階段";
+
+    return "還在建立自己的基本能力";
 
 }
 
@@ -1861,17 +2098,17 @@ function rankGame(){
 
     const s=game.stats;
 
-    const ability =
+    const ability=
         s.mechanic*.30+
         s.macro*.25+
         s.champion*.15+
         s.stability*.30;
 
-    const target =
+    const target=
         35+
         game.lp/45;
 
-    const chance =
+    const chance=
         clamp(
             .45+
             (ability-target)/80,
@@ -1879,28 +2116,28 @@ function rankGame(){
             .85
         );
 
-    const win =
+    const win=
         Math.random()<chance;
 
-    const delta =
+    const delta=
         win
         ? random(45,85)
         : -random(35,70);
 
-    const points =
+    const points=
         win
         ? random(5,9)
         : random(2,5);
 
-    game.lp =
+    game.lp=
         Math.max(
             0,
             game.lp+delta
         );
 
-    game.points += points;
+    game.points+=points;
 
-    return {
+    return{
         delta,
         points
     };
@@ -1909,25 +2146,30 @@ function rankGame(){
 
 
 /* =========================================================
-   養成點：軟上限＋遞增成本
+   養成點
 ========================================================= */
 
 function spendPoint(stat){
 
     if(game.points<=0){
+
         showToast("沒有足夠的養成點");
+
         return;
     }
 
     const value=game.stats[stat];
+
     const limit=game.limits[stat];
 
     if(value>=limit){
+
         showToast("已達目前軟上限");
+
         return;
     }
 
-    const cost =
+    const cost=
         Math.max(
             1,
             Math.floor(
@@ -1939,13 +2181,14 @@ function spendPoint(stat){
     if(game.points<cost){
 
         showToast(
-            `提升 ${stat} 需要 ${cost} 點`
+            `提升需要 ${cost} 點，目前只有 ${game.points} 點`
         );
 
         return;
     }
 
     game.points-=cost;
+
     game.stats[stat]++;
 
     render();
@@ -2137,7 +2380,9 @@ function chooseAction(action){
 
     if(action==="passTime"){
 
-        game.points+=random(2,5);
+        const points=random(2,5);
+
+        game.points+=points;
 
         showResult({
 
@@ -2147,7 +2392,7 @@ function chooseAction(action){
                 "這一季沒有什麼轟轟烈烈的事情。你依然打遊戲、看比賽、觀察其他玩家。有時候人生並不會每一季都往前衝，但你仍然沒有離開這條路。",
 
             reward:[
-                "養成點 +2～5"
+                `養成點 +${points}`
             ]
 
         });
@@ -2220,13 +2465,12 @@ function advanceQuarter(){
     }
 
     /*
-       職業後 Rank 轉成衰退／評分概念
-       不再作為業餘時期的主要加點工具。
+       職業後 Rank 轉成衰退值概念。
     */
 
     if(game.pro){
 
-        const decay =
+        const decay=
             Math.max(
                 0,
                 8-
@@ -2243,11 +2487,9 @@ function advanceQuarter(){
 
     }
 
-
     addHistory(
         `${game.year} Q${game.quarter} 開始了。`
     );
-
 
     render();
 
@@ -2275,7 +2517,7 @@ function advanceQuarter(){
 
 function createAndShowRandomEvent(){
 
-    const event =
+    const event=
         clone(
             RANDOM_EVENTS[
                 random(
@@ -2376,14 +2618,18 @@ function resolveRandomEvent(index){
 
         case"viralRank":{
 
+            /*
+               修正原版 bug：
+               原本 rankGame() 已經加一次 Rank，
+               後面又額外 game.lp +=70，
+               造成實際增加兩次。
+            */
+
             const r=rankGame();
 
-            game.lp+=70;
-            game.points+=3;
-
             rewards=[
-                `Rank +${r.delta+70}`,
-                "養成點 +3"
+                `Rank ${r.delta>=0?"+":""}${r.delta}`,
+                `養成點 +${r.points}`
             ];
 
             break;
@@ -2463,11 +2709,9 @@ function resolveRandomEvent(index){
 
             const r=rankGame();
 
-            game.points+=3;
-
             rewards=[
                 `Rank ${r.delta>=0?"+":""}${r.delta}`,
-                "養成點 +3"
+                `養成點 +${r.points}`
             ];
 
             break;
@@ -2655,7 +2899,7 @@ function renderActions(){
 
 
 /* =========================================================
-   歷史紀錄
+   歷史
 ========================================================= */
 
 function addHistory(text){
@@ -2686,6 +2930,7 @@ function render(){
     if(!game)
         return;
 
+    const ovr=overall();
 
     document
         .getElementById("playerName")
@@ -2712,6 +2957,10 @@ function render(){
         ? "校隊"
         : "路人王";
 
+    document
+        .getElementById("playerOvrBadge")
+        .textContent="OVR "+ovr;
+
 
     document
         .getElementById("yearText")
@@ -2725,6 +2974,21 @@ function render(){
         .getElementById("topSeason")
         .textContent=
         `${game.year} Q${game.quarter}`;
+
+
+    document
+        .getElementById("overallValue")
+        .textContent=ovr;
+
+    document
+        .getElementById("overallTier")
+        .textContent=
+        getOverallTier(ovr);
+
+    document
+        .getElementById("overallDesc")
+        .textContent=
+        getOverallDescription(ovr);
 
 
     document
@@ -2763,34 +3027,6 @@ function render(){
 
     renderActions();
 
-
-    document
-        .getElementById("history")
-        .innerHTML=
-        game.history.length
-        ?
-        game.history
-        .map(
-            h=>`
-
-            <div class="history-item">
-
-                <div class="history-time">
-                    ${h.year} Q${h.quarter}
-                </div>
-
-                <div class="history-text">
-                    ${h.text}
-                </div>
-
-            </div>
-
-            `
-        )
-        .join("")
-        :
-        `<div class="muted">還沒有故事。</div>`;
-
 }
 
 
@@ -2821,31 +3057,64 @@ function renderStat(name,value){
 
 function renderClubs(){
 
+    if(!game)
+        return;
+
+    const ovr=overall();
+
+    document
+        .getElementById("clubOvr")
+        .textContent=ovr;
+
+    document
+        .getElementById("clubLp")
+        .textContent=game.lp;
+
+    document
+        .getElementById("clubRep")
+        .textContent=game.reputation;
+
+
     document
         .getElementById("clubGrid")
         .innerHTML=
         clubs
         .map(c=>{
 
-            let qualified=false;
+            const rankPass=
+                c.rank===0 ||
+                game.lp>=c.rank;
 
-            if(c.requirement.includes("Rank 1400"))
-                qualified=game.lp>=1400;
+            const ovrPass=
+                c.ovr===0 ||
+                ovr>=c.ovr;
 
-            if(c.requirement.includes("Rank 1600"))
-                qualified=game.lp>=1600 && overall()>=45;
+            const repPass=
+                c.rep===0 ||
+                game.reputation>=c.rep;
 
-            if(c.requirement.includes("55"))
-                qualified=overall()>=55;
+            const qualified=
+                rankPass &&
+                ovrPass &&
+                repPass;
 
-            if(c.requirement.includes("72"))
-                qualified=overall()>=72;
 
-            if(c.requirement.includes("82"))
-                qualified=overall()>=82;
+            let status="";
 
-            if(c.requirement.includes("78"))
-                qualified=overall()>=78 && game.reputation>=5;
+            if(qualified){
+
+                status=
+                    c.rank>0 &&
+                    c.ovr>0 &&
+                    c.rep>0
+                    ? "已符合招募條件"
+                    : "Scout 可能開始注意你";
+
+            }else{
+
+                status="目前尚未達到完整條件";
+
+            }
 
 
             return `
@@ -2867,15 +3136,44 @@ function renderClubs(){
                     ${c.need}
                 </div>
 
-                <div class="club-offer"
-                     style="
-                     color:${qualified?"var(--green)":"var(--muted)"};
-                     ">
+                <div class="club-condition">
 
-                    ${qualified
-                        ?"目前已符合基本條件"
-                        :"目前尚未達到條件"}
+                    ${
+                        c.rank>0
+                        ?
+                        `<span class="condition ${rankPass?"pass":""}">
+                            Rank ${c.rank}
+                        </span>`
+                        :""
+                    }
 
+                    ${
+                        c.ovr>0
+                        ?
+                        `<span class="condition ${ovrPass?"pass":""}">
+                            OVR ${c.ovr}
+                        </span>`
+                        :""
+                    }
+
+                    ${
+                        c.rep>0
+                        ?
+                        `<span class="condition ${repPass?"pass":""}">
+                            名聲 ${c.rep}
+                        </span>`
+                        :""
+                    }
+
+                </div>
+
+                <div
+                    class="club-offer"
+                    style="
+                    color:${qualified?"var(--green)":"var(--muted)"};
+                    "
+                >
+                    ${status}
                 </div>
 
             </div>
@@ -2931,6 +3229,50 @@ function loadGame(){
 
         game=JSON.parse(raw);
 
+        /*
+           兼容舊存檔。
+           如果舊版沒有某些欄位，
+           這裡會補回來。
+        */
+
+        game.limits=
+            game.limits ||
+            clone(defaultLimits);
+
+        game.stats=
+            game.stats ||
+            {
+                mechanic:35,
+                macro:30,
+                champion:25,
+                stability:30
+            };
+
+        game.history=
+            game.history ||
+            [];
+
+        game.points=
+            typeof game.points==="number"
+            ? game.points
+            : 0;
+
+        game.lp=
+            typeof game.lp==="number"
+            ? game.lp
+            : 1000;
+
+        game.reputation=
+            typeof game.reputation==="number"
+            ? game.reputation
+            : 0;
+
+        game.school=
+            !!game.school;
+
+        game.pro=
+            !!game.pro;
+
         showGame();
 
         render();
@@ -2970,6 +3312,9 @@ function renderSave(){
         document
         .getElementById("saveInfo");
 
+    if(!info)
+        return;
+
     if(!raw){
 
         info.textContent=
@@ -2982,8 +3327,18 @@ function renderSave(){
 
         const s=JSON.parse(raw);
 
+        const ovr=
+            Math.round(
+                (
+                    s.stats.mechanic+
+                    s.stats.macro+
+                    s.stats.champion+
+                    s.stats.stability
+                )/4
+            );
+
         info.textContent=
-            `${s.name}｜${s.year} Q${s.quarter}｜Rank ${s.lp}`;
+            `${s.name}｜${s.year} Q${s.quarter}｜OVR ${ovr}｜Rank ${s.lp}`;
 
     }catch(e){
 
@@ -3028,17 +3383,9 @@ function showToast(text){
    啟動
 ========================================================= */
 
-/*
-   故意不自動載入存檔。
-   使用者重新打開 HTML 時，
-   如果沒有主動按「載入存檔」，
-   就不會把舊進度帶進來。
-*/
-
 renderSave();
 
 </script>
 
 </body>
 </html>
-```
