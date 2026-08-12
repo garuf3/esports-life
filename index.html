@@ -3,27 +3,29 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-<title>電競人生模擬器</title>
+<title>🎮 電競人生模擬器</title>
 
 <style>
+
+* {
+    box-sizing: border-box;
+}
 
 body {
     margin: 0;
     font-family: Arial, "Microsoft JhengHei", sans-serif;
-    background: #f2f2f2;
+    background: #eeeeee;
     color: #222;
 }
 
 .game {
-    width: 1000px;
+    width: 1050px;
     max-width: 94%;
-    margin: 30px auto;
+    margin: 25px auto;
     background: white;
     border-radius: 14px;
     padding: 25px;
-    box-sizing: border-box;
-    box-shadow: 0 4px 18px rgba(0,0,0,0.12);
+    box-shadow: 0 5px 20px rgba(0,0,0,0.12);
 }
 
 h1 {
@@ -31,20 +33,49 @@ h1 {
     margin-top: 0;
 }
 
+h2 {
+    margin-top: 0;
+}
 
-/* ================= 基本資料 ================= */
+.hidden {
+    display: none;
+}
+
+
+/* =========================
+   頂部按鈕
+========================= */
+
+.top-buttons {
+    display: flex;
+    gap: 8px;
+    justify-content: center;
+    margin-bottom: 20px;
+    flex-wrap: wrap;
+}
+
+.top-buttons button {
+    text-align: center;
+    padding: 9px 14px;
+    font-size: 14px;
+}
+
+
+/* =========================
+   基本資料
+========================= */
 
 .info {
     display: grid;
-    grid-template-columns: repeat(3, 1fr);
+    grid-template-columns: repeat(4, 1fr);
     gap: 10px;
     margin-bottom: 20px;
 }
 
 .stat {
-    background: #f5f5f5;
+    background: #f4f4f4;
     padding: 13px;
-    border-radius: 8px;
+    border-radius: 9px;
     text-align: center;
 }
 
@@ -55,142 +86,36 @@ h1 {
 }
 
 
-/* ================= 通用區塊 ================= */
+/* =========================
+   面板
+========================= */
 
 .panel {
-    background: #f7f7f7;
-    border-radius: 10px;
-    padding: 18px;
-    margin-bottom: 20px;
-}
-
-.panel h2 {
-    margin-top: 0;
-}
-
-
-/* ================= 英雄池 ================= */
-
-.hero-stat {
-    margin: 12px 0;
-}
-
-.hero-name {
-    display: flex;
-    justify-content: space-between;
-    margin-bottom: 5px;
-}
-
-.bar {
-    width: 100%;
-    height: 13px;
-    background: #ddd;
-    border-radius: 10px;
-    overflow: hidden;
-}
-
-.bar-inner {
-    height: 100%;
-    background: #333;
-}
-
-
-/* ================= 賽訓 ================= */
-
-.training-info {
-    display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    gap: 10px;
-}
-
-.training-box {
-    background: white;
-    padding: 15px;
-    border-radius: 8px;
-}
-
-
-/* ================= 俱樂部 ================= */
-
-.club-card {
-    background: white;
-    padding: 18px;
-    border-radius: 10px;
-    margin-top: 10px;
-}
-
-.club-header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-}
-
-.club-name {
-    font-size: 22px;
-    font-weight: bold;
-}
-
-.club-stars {
-    font-size: 20px;
-}
-
-.club-grid {
-    display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    gap: 8px;
-    margin-top: 15px;
-}
-
-.club-info {
     background: #f5f5f5;
-    padding: 10px;
-    border-radius: 7px;
-}
-
-.history {
-    margin-top: 15px;
-}
-
-.history p {
-    margin: 5px 0;
-}
-
-.warning {
-    margin-top: 15px;
-    padding: 12px;
-    background: #fff4d6;
-    border-radius: 8px;
+    border-radius: 10px;
+    padding: 18px;
+    margin-bottom: 18px;
 }
 
 
-/* ================= 賽事 ================= */
-
-.match {
-    background: white;
-    padding: 15px;
-    border-radius: 8px;
-    margin-top: 10px;
-}
-
-
-/* ================= 選項 ================= */
+/* =========================
+   選擇按鈕
+========================= */
 
 .choices {
     display: flex;
     flex-direction: column;
     gap: 10px;
-    margin-top: 15px;
 }
 
 button {
-    padding: 14px;
     border: none;
     border-radius: 8px;
     background: #222;
     color: white;
+    padding: 14px;
     font-size: 16px;
     cursor: pointer;
-    text-align: left;
 }
 
 button:hover {
@@ -200,35 +125,152 @@ button:hover {
 button small {
     display: block;
     margin-top: 5px;
-    color: #ccc;
+    color: #cccccc;
     font-size: 13px;
 }
 
 
-/* ================= 結果 ================= */
+/* =========================
+   流程
+========================= */
 
-#result {
-    margin-top: 20px;
-    min-height: 30px;
-    font-weight: bold;
+.step {
+    color: #777;
+    text-align: center;
+    margin-bottom: 15px;
+    font-size: 14px;
 }
 
 
-/* ================= 手機 ================= */
+/* =========================
+   英雄池
+========================= */
 
-@media (max-width: 600px) {
+.hero-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 10px;
+}
+
+.hero-box {
+    background: white;
+    border-radius: 8px;
+    padding: 12px;
+}
+
+.hero-title {
+    display: flex;
+    justify-content: space-between;
+}
+
+.bar {
+    width: 100%;
+    height: 12px;
+    background: #ddd;
+    border-radius: 8px;
+    overflow: hidden;
+    margin-top: 7px;
+}
+
+.bar-inner {
+    height: 100%;
+    background: #333;
+}
+
+
+/* =========================
+   俱樂部
+========================= */
+
+.club-card {
+    background: white;
+    border-radius: 10px;
+    padding: 18px;
+}
+
+.club-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.club-name {
+    font-size: 23px;
+    font-weight: bold;
+}
+
+.stars {
+    font-size: 20px;
+}
+
+.club-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 9px;
+    margin-top: 15px;
+}
+
+.club-info {
+    background: #f4f4f4;
+    border-radius: 7px;
+    padding: 10px;
+}
+
+.club-history {
+    margin-top: 15px;
+    line-height: 1.7;
+}
+
+.club-warning {
+    margin-top: 15px;
+    background: #fff1c9;
+    padding: 12px;
+    border-radius: 8px;
+}
+
+
+/* =========================
+   事件
+========================= */
+
+.event {
+    background: white;
+    border-radius: 10px;
+    padding: 20px;
+}
+
+#result {
+    margin-top: 15px;
+    font-weight: bold;
+    min-height: 25px;
+}
+
+
+/* =========================
+   賽事
+========================= */
+
+.match {
+    background: white;
+    border-radius: 8px;
+    padding: 15px;
+    margin-bottom: 10px;
+}
+
+
+/* =========================
+   響應式
+========================= */
+
+@media(max-width:700px) {
 
     .info {
-        grid-template-columns: repeat(2, 1fr);
+        grid-template-columns: repeat(2,1fr);
     }
 
-    .training-info,
+    .hero-grid,
     .club-grid {
         grid-template-columns: 1fr;
-    }
-
-    .game {
-        padding: 18px;
     }
 
 }
@@ -244,7 +286,251 @@ button small {
 <h1>🎮 電競人生模擬器</h1>
 
 
-<!-- ================= 基本資料 ================= -->
+<!-- =========================
+     頂部操作
+========================= -->
+
+<div class="top-buttons">
+
+<button onclick="newGame()">
+🔄 重新開始
+</button>
+
+<button onclick="saveGame()">
+💾 儲存
+</button>
+
+<button onclick="loadGame()">
+📂 讀取
+</button>
+
+<button onclick="goBack()">
+⬅️ 上一步
+</button>
+
+</div>
+
+
+<!-- =========================
+     建立人物
+========================= -->
+
+<div id="setupScreen">
+
+<div class="step">
+STEP 1 / 4
+</div>
+
+<div class="panel">
+
+<h2>🌏 選擇你的出身賽區</h2>
+
+<p>
+你的出身會影響最容易接觸到的青訓體系、
+語言環境以及未來跨賽區發展難度。
+</p>
+
+
+<div class="choices">
+
+<button onclick="selectRegion('LCK')">
+🇰🇷 韓國 / LCK
+<small>本土競爭極高，但職業體系成熟。</small>
+</button>
+
+<button onclick="selectRegion('LPL')">
+🇨🇳 中國 / LPL
+<small>龐大的聯賽與青訓體系。</small>
+</button>
+
+<button onclick="selectRegion('LEC')">
+🇪🇺 歐洲 / LEC
+<small>歐洲本土選手與多國環境。</small>
+</button>
+
+<button onclick="selectRegion('LCS')">
+🇺🇸 北美 / LCS
+<small>海外選手比例較高。</small>
+</button>
+
+<button onclick="selectRegion('LCP')">
+🌏 亞太 / LCP
+<small>包含台港澳、日本、越南、太平洋等地區。</small>
+</button>
+
+<button onclick="selectRegion('CBLOL')">
+🇧🇷 巴西 / CBLOL
+<small>南美主要職業賽區。</small>
+</button>
+
+</div>
+
+</div>
+
+</div>
+
+
+<!-- =========================
+     位置
+========================= -->
+
+<div id="positionScreen" class="hidden">
+
+<div class="step">
+STEP 2 / 4
+</div>
+
+<div class="panel">
+
+<h2>🛣️ 選擇你的主要位置</h2>
+
+<p>
+不同位置對操作、遊戲理解、心態與英雄池的需求不同。
+</p>
+
+
+<div class="choices">
+
+<button onclick="selectPosition('TOP')">
+🛡️ TOP
+<small>重視對線、單帶、團戰與抗壓能力。</small>
+</button>
+
+<button onclick="selectPosition('JUNGLE')">
+🌲 JUNGLE
+<small>重視遊戲理解、節奏、判斷與地圖控制。</small>
+</button>
+
+<button onclick="selectPosition('MID')">
+⚔️ MID
+<small>需要操作、遊戲理解與英雄池。</small>
+</button>
+
+<button onclick="selectPosition('ADC')">
+🎯 ADC
+<small>重視操作、團戰輸出與穩定性。</small>
+</button>
+
+<button onclick="selectPosition('SUPPORT')">
+🧭 SUPPORT
+<small>重視遊戲理解、視野、開戰與團隊功能。</small>
+</button>
+
+</div>
+
+</div>
+
+</div>
+
+
+<!-- =========================
+     英雄池方向
+========================= -->
+
+<div id="styleScreen" class="hidden">
+
+<div class="step">
+STEP 3 / 4
+</div>
+
+<div class="panel">
+
+<h2>🎮 選擇英雄池發展方向</h2>
+
+<p>
+這不是「你現在會什麼」，而是決定你的英雄池往哪個方向成長。
+</p>
+
+
+<div class="choices">
+
+<button onclick="selectStyle('specialist')">
+🔪 專精型
+<small>
+指定類型成長較快，容易形成招牌打法，
+但其他類型成長較慢。
+</small>
+</button>
+
+<button onclick="selectStyle('wide')">
+📚 廣泛型
+<small>
+各種類型平均成長，長期比較容易形成完整英雄池。
+</small>
+</button>
+
+<button onclick="selectStyle('balanced')">
+⚖️ 平衡型
+<small>
+沒有特別偏向，所有類型正常成長。
+</small>
+</button>
+
+</div>
+
+</div>
+
+</div>
+
+
+<!-- =========================
+     語言
+========================= -->
+
+<div id="languageScreen" class="hidden">
+
+<div class="step">
+STEP 4 / 4
+</div>
+
+<div class="panel">
+
+<h2>🗣️ 選擇你的語言能力</h2>
+
+<p>
+語言會影響你進入海外隊伍以及與隊友溝通的難度。
+</p>
+
+
+<div class="choices">
+
+<button onclick="selectLanguage('native')">
+🗣️ 主要使用本土語言
+<small>本土交流容易，海外發展需要學習語言。</small>
+</button>
+
+<button onclick="selectLanguage('english')">
+🌎 英語能力良好
+<small>前往歐美與部分國際環境較容易。</small>
+</button>
+
+<button onclick="selectLanguage('korean')">
+🇰🇷 韓語能力良好
+<small>前往韓國或與韓籍隊友合作較容易。</small>
+</button>
+
+<button onclick="selectLanguage('multilingual')">
+🌐 多語言能力
+<small>海外適應能力較強，但初期其他能力成長稍慢。</small>
+</button>
+
+</div>
+
+</div>
+
+</div>
+
+
+<!-- =========================
+     主遊戲
+========================= -->
+
+<div id="gameScreen" class="hidden">
+
+
+<!-- =========================
+     基本資料
+========================= -->
 
 <div class="info">
 
@@ -255,12 +541,17 @@ button small {
 
 <div class="stat">
 賽區
-<strong id="region">台港澳</strong>
+<strong id="region">LCP</strong>
 </div>
 
 <div class="stat">
 位置
 <strong id="position">MID</strong>
+</div>
+
+<div class="stat">
+職業狀態
+<strong id="career">高中生</strong>
 </div>
 
 <div class="stat">
@@ -289,32 +580,43 @@ button small {
 </div>
 
 <div class="stat">
-職業身分
-<strong id="career">高中生</strong>
+賽事履歷
+<strong id="record">0</strong>
+</div>
+
+<div class="stat">
+語言
+<strong id="language">本土語言</strong>
+</div>
+
+<div class="stat">
+英雄池風格
+<strong id="style">平衡型</strong>
 </div>
 
 </div>
 
 
-<!-- ================= 英雄池 ================= -->
+<!-- =========================
+     英雄池
+========================= -->
 
 <div class="panel">
 
 <h2>🎮 英雄池</h2>
 
-<p id="poolStyle">⚖️ 標準型</p>
+<div class="hero-grid">
 
+<div class="hero-box">
 
-<div class="hero-stat">
-
-<div class="hero-name">
+<div class="hero-title">
 <span>🗡️ 刺客型</span>
-<span id="assassin">50</span>
+<strong id="assassin">50</strong>
 </div>
 
 <div class="bar">
-<div class="bar-inner"
-id="assassinBar"
+<div id="assassinBar"
+class="bar-inner"
 style="width:50%">
 </div>
 </div>
@@ -322,16 +624,16 @@ style="width:50%">
 </div>
 
 
-<div class="hero-stat">
+<div class="hero-box">
 
-<div class="hero-name">
+<div class="hero-title">
 <span>🔮 大法師型</span>
-<span id="mage">50</span>
+<strong id="mage">50</strong>
 </div>
 
 <div class="bar">
-<div class="bar-inner"
-id="mageBar"
+<div id="mageBar"
+class="bar-inner"
 style="width:50%">
 </div>
 </div>
@@ -339,16 +641,16 @@ style="width:50%">
 </div>
 
 
-<div class="hero-stat">
+<div class="hero-box">
 
-<div class="hero-name">
+<div class="hero-title">
 <span>🎯 Poke型</span>
-<span id="poke">50</span>
+<strong id="poke">50</strong>
 </div>
 
 <div class="bar">
-<div class="bar-inner"
-id="pokeBar"
+<div id="pokeBar"
+class="bar-inner"
 style="width:50%">
 </div>
 </div>
@@ -356,16 +658,16 @@ style="width:50%">
 </div>
 
 
-<div class="hero-stat">
+<div class="hero-box">
 
-<div class="hero-name">
+<div class="hero-title">
 <span>🧭 支援型</span>
-<span id="support">50</span>
+<strong id="support">50</strong>
 </div>
 
 <div class="bar">
-<div class="bar-inner"
-id="supportBar"
+<div id="supportBar"
+class="bar-inner"
 style="width:50%">
 </div>
 </div>
@@ -374,59 +676,51 @@ style="width:50%">
 
 </div>
 
+</div>
 
-<!-- ================= 賽訓 ================= -->
+
+<!-- =========================
+     賽訓
+========================= -->
 
 <div class="panel">
 
 <h2>🏋️ 賽訓</h2>
 
-<div class="training-info">
-
-<div class="training-box">
-
-<strong>訓練狀態</strong>
-
-<p id="trainingStatus">
-尚未進入職業訓練
+<p>
+本週訓練次數：
+<strong id="trainingCount">0</strong>
 </p>
-
-</div>
-
-
-<div class="training-box">
-
-<strong>本週訓練量</strong>
-
-<p id="trainingCount">
-0
-</p>
-
-</div>
-
-</div>
 
 
 <div class="choices">
 
-<button onclick="train(1)">
-🎮 個人訓練
-<small>操作 +3　英雄池 +3</small>
+<button onclick="training(1)">
+🎮 個人操作訓練
+<small>
+操作 +3　指定英雄池 +3　體力 -2
+</small>
 </button>
 
-<button onclick="train(2)">
+<button onclick="training(2)">
 🧠 比賽研究
-<small>遊戲理解 +3</small>
+<small>
+遊戲理解 +3　心態 +1
+</small>
 </button>
 
-<button onclick="train(3)">
+<button onclick="training(3)">
 👥 團隊訓練
-<small>遊戲理解 +2　心態 +1</small>
+<small>
+遊戲理解 +2　心態 +2　體力 -2
+</small>
 </button>
 
-<button onclick="train(4)">
+<button onclick="training(4)">
 😴 休息
-<small>體力 +5　心態 +2</small>
+<small>
+心態 +3　體力 +5
+</small>
 </button>
 
 </div>
@@ -434,7 +728,9 @@ style="width:50%">
 </div>
 
 
-<!-- ================= 俱樂部 ================= -->
+<!-- =========================
+     俱樂部
+========================= -->
 
 <div class="panel">
 
@@ -444,11 +740,13 @@ style="width:50%">
 
 <div class="club-header">
 
-<div class="club-name" id="clubName">
+<div class="club-name"
+id="clubName">
 尚未加入俱樂部
 </div>
 
-<div class="club-stars" id="clubStars">
+<div class="stars"
+id="clubStars">
 ☆☆☆☆☆
 </div>
 
@@ -458,56 +756,60 @@ style="width:50%">
 <div class="club-grid">
 
 <div class="club-info">
-賽區：
+賽區<br>
 <strong id="clubRegion">—</strong>
 </div>
 
 <div class="club-info">
-青訓實力：
-<strong id="academyPower">—</strong>
+青訓實力<br>
+<strong id="academy">—</strong>
 </div>
 
 <div class="club-info">
-目前陣容：
-<strong id="rosterPower">—</strong>
+目前陣容<br>
+<strong id="roster">—</strong>
 </div>
 
 <div class="club-info">
-本季奪冠機率：
-<strong id="champChance">—</strong>
+本季奪冠機率<br>
+<strong id="champion">—</strong>
 </div>
 
 <div class="club-info">
-位置競爭：
+位置競爭<br>
 <strong id="competition">—</strong>
 </div>
 
 <div class="club-info">
-上一隊機會：
+上一隊機會<br>
 <strong id="promotion">—</strong>
 </div>
 
 </div>
 
 
-<div class="history">
+<div class="club-history">
 
 <strong>🏆 歷史冠軍</strong>
 
-<p id="history">
+<div id="history">
 —
-</p>
+</div>
+
+<br>
 
 <strong>📈 近三年成績</strong>
 
-<p id="recentResults">
+<div id="recent">
 —
-</p>
+</div>
 
 </div>
 
 
-<div class="warning" id="clubWarning">
+<div class="club-warning"
+id="clubWarning">
+
 目前沒有俱樂部。
 </div>
 
@@ -516,7 +818,9 @@ style="width:50%">
 </div>
 
 
-<!-- ================= 賽事 ================= -->
+<!-- =========================
+     賽事
+========================= -->
 
 <div class="panel">
 
@@ -528,18 +832,19 @@ style="width:50%">
 尚未參加正式賽事
 </strong>
 
-<p id="matchStatus">
-你目前仍是高中生。
+<p id="matchText">
+你目前仍處於高中階段。
 </p>
 
 </div>
 
+
 <div class="choices">
 
-<button onclick="playMatch()">
+<button onclick="playTournament()">
 🏆 參加比賽
 <small>
-根據你的能力、英雄池與比賽經驗決定結果
+比賽結果會受到你的能力、心態、英雄池與賽事經驗影響。
 </small>
 </button>
 
@@ -548,9 +853,11 @@ style="width:50%">
 </div>
 
 
-<!-- ================= 事件 ================= -->
+<!-- =========================
+     事件
+========================= -->
 
-<div class="panel">
+<div class="event">
 
 <h2 id="eventTitle">
 你的電競人生開始了
@@ -565,12 +872,12 @@ style="width:50%">
 
 </div>
 
+</div>
 
 </div>
 
 
 <script>
-
 
 /* =====================================================
    玩家
@@ -580,9 +887,13 @@ let player = {
 
 age: 16,
 
-region: "台港澳",
+region: "",
 
-position: "MID",
+position: "",
+
+style: "",
+
+language: "",
 
 skill: 50,
 
@@ -593,6 +904,8 @@ mental: 50,
 stamina: 50,
 
 fame: 0,
+
+record: 0,
 
 career: "高中生",
 
@@ -612,211 +925,32 @@ club: null
 
 
 /* =====================================================
-   俱樂部資料
+   歷史狀態
 ===================================================== */
 
-const clubs = [
-
-{
-
-name: "T1 Academy",
-
-region: "LCK",
-
-stars: 5,
-
-academy: 5,
-
-roster: 5,
-
-champion: "極高",
-
-competition: "極高",
-
-promotion: "低",
-
-history: "LCK × 6　｜　MSI × 2　｜　Worlds × 3",
-
-recent: "2025：冠軍　｜　2024：四強　｜　2023：冠軍"
-
-},
-
-{
-
-name: "Gen.G Global Academy",
-
-region: "LCK",
-
-stars: 5,
-
-academy: 5,
-
-roster: 5,
-
-champion: "極高",
-
-competition: "極高",
-
-promotion: "低",
-
-history: "LCK × 4　｜　MSI × 1　｜　Worlds × 1",
-
-recent: "2025：冠軍　｜　2024：冠軍　｜　2023：亞軍"
-
-},
-
-{
-
-name: "LCP Academy",
-
-region: "LCP",
-
-stars: 3,
-
-academy: 3,
-
-roster: 3,
-
-champion: "中",
-
-competition: "中",
-
-promotion: "高",
-
-history: "LCP × 1",
-
-recent: "2025：四強　｜　2024：亞軍　｜　2023：八強"
-
-}
-
-];
+let historyStack = [];
 
 
 /* =====================================================
    工具
 ===================================================== */
 
-function clamp(value) {
+function clamp(x) {
 
-return Math.max(0, Math.min(100, value));
-
-}
-
-
-/* =====================================================
-   英雄池
-===================================================== */
-
-function getPoolStyle() {
-
-let values = [
-
-player.assassin,
-player.mage,
-player.poke,
-player.support
-
-];
-
-let max = Math.max(...values);
-
-let min = Math.min(...values);
-
-
-if (
-
-player.assassin >= 85 &&
-player.mage >= 85 &&
-player.poke >= 85 &&
-player.support >= 85
-
-) {
-
-return "👑 全能型";
+return Math.max(0, Math.min(100, x));
 
 }
 
 
-if (max >= 80 && max - min >= 20) {
+function snapshot() {
 
-if (max === player.assassin)
-return "🗡️ 刺客專精型";
+historyStack.push(
+JSON.stringify(player)
+);
 
-if (max === player.mage)
-return "🔮 大法師專精型";
+if (historyStack.length > 10) {
 
-if (max === player.poke)
-return "🎯 Poke 專精型";
-
-if (max === player.support)
-return "🧭 支援專精型";
-
-}
-
-
-return "⚖️ 標準型";
-
-}
-
-
-/* =====================================================
-   顯示俱樂部
-===================================================== */
-
-function showClub(club) {
-
-document.getElementById("clubName").textContent =
-club.name;
-
-document.getElementById("clubStars").textContent =
-"★".repeat(club.stars) +
-"☆".repeat(5 - club.stars);
-
-document.getElementById("clubRegion").textContent =
-club.region;
-
-document.getElementById("academyPower").textContent =
-"★".repeat(club.academy);
-
-document.getElementById("rosterPower").textContent =
-"★".repeat(club.roster);
-
-document.getElementById("champChance").textContent =
-club.champion;
-
-document.getElementById("competition").textContent =
-club.competition;
-
-document.getElementById("promotion").textContent =
-club.promotion;
-
-document.getElementById("history").textContent =
-club.history;
-
-document.getElementById("recentResults").textContent =
-club.recent;
-
-
-/* 判斷提示 */
-
-if (club.competition === "極高") {
-
-document.getElementById("clubWarning").textContent =
-"⚠️ 隊伍陣容非常強大，但同位置競爭激烈，你可能需要等待先發機會。";
-
-}
-
-else if (club.promotion === "高") {
-
-document.getElementById("clubWarning").textContent =
-"✅ 目前位置競爭較低，你有機會較快成為主力。";
-
-}
-
-else {
-
-document.getElementById("clubWarning").textContent =
-"這是一支中等強度的隊伍，你需要靠表現爭取位置。";
+historyStack.shift();
 
 }
 
@@ -824,60 +958,222 @@ document.getElementById("clubWarning").textContent =
 
 
 /* =====================================================
-   青訓邀請
+   開始新遊戲
 ===================================================== */
 
-function scoutInvite() {
+function newGame() {
 
-if (player.age < 16)
-return;
+localStorage.removeItem("esportsLifeSave");
 
-
-/* 簡單根據玩家實力決定 */
-
-let power =
-player.skill +
-player.gameSense;
-
-
-/* 本土俱樂部優先 */
-
-let club;
-
-
-if (power >= 115) {
-
-club = clubs[0];
+location.reload();
 
 }
 
-else if (power >= 100) {
 
-club = clubs[2];
+/* =====================================================
+   存檔
+===================================================== */
+
+function saveGame() {
+
+localStorage.setItem(
+"esportsLifeSave",
+JSON.stringify(player)
+);
+
+alert("💾 存檔成功！");
 
 }
 
-else {
+
+/* =====================================================
+   讀檔
+===================================================== */
+
+function loadGame() {
+
+let save =
+localStorage.getItem("esportsLifeSave");
+
+if (!save) {
+
+alert("目前沒有存檔。");
 
 return;
 
 }
 
+player =
+JSON.parse(save);
 
-player.club = club;
+document.getElementById("setupScreen")
+.classList.add("hidden");
+
+document.getElementById("positionScreen")
+.classList.add("hidden");
+
+document.getElementById("styleScreen")
+.classList.add("hidden");
+
+document.getElementById("languageScreen")
+.classList.add("hidden");
+
+document.getElementById("gameScreen")
+.classList.remove("hidden");
+
+updateScreen();
+
+alert("📂 讀檔成功！");
+
+}
 
 
-document.getElementById("eventTitle").textContent =
-"🕵️ 俱樂部 Scout 注意到了你";
+/* =====================================================
+   上一步
+===================================================== */
 
-document.getElementById("eventText").textContent =
+function goBack() {
 
-club.name +
-" 的 Scout 最近觀察了你的排位與比賽表現。"
-+
-" 他們希望邀請你加入青訓體系。";
+if (historyStack.length === 0) {
 
-showClub(club);
+alert("目前沒有可以返回的步驟。");
+
+return;
+
+}
+
+player =
+JSON.parse(historyStack.pop());
+
+showGame();
+
+}
+
+
+/* =====================================================
+   選擇賽區
+===================================================== */
+
+function selectRegion(region) {
+
+snapshot();
+
+player.region = region;
+
+document.getElementById("setupScreen")
+.classList.add("hidden");
+
+document.getElementById("positionScreen")
+.classList.remove("hidden");
+
+}
+
+
+/* =====================================================
+   選擇位置
+===================================================== */
+
+function selectPosition(position) {
+
+snapshot();
+
+player.position = position;
+
+document.getElementById("positionScreen")
+.classList.add("hidden");
+
+document.getElementById("styleScreen")
+.classList.remove("hidden");
+
+}
+
+
+/* =====================================================
+   選擇英雄池
+===================================================== */
+
+function selectStyle(style) {
+
+snapshot();
+
+player.style = style;
+
+if (style === "specialist") {
+
+player.assassin += 10;
+
+}
+
+if (style === "wide") {
+
+player.assassin += 3;
+player.mage += 3;
+player.poke += 3;
+player.support += 3;
+
+}
+
+if (style === "balanced") {
+
+player.assassin += 5;
+player.mage += 5;
+player.poke += 5;
+player.support += 5;
+
+}
+
+document.getElementById("styleScreen")
+.classList.add("hidden");
+
+document.getElementById("languageScreen")
+.classList.remove("hidden");
+
+}
+
+
+/* =====================================================
+   選擇語言
+===================================================== */
+
+function selectLanguage(language) {
+
+snapshot();
+
+player.language = language;
+
+if (language === "multilingual") {
+
+player.gameSense -= 2;
+
+}
+
+showGame();
+
+}
+
+
+/* =====================================================
+   顯示主遊戲
+===================================================== */
+
+function showGame() {
+
+document.getElementById("setupScreen")
+.classList.add("hidden");
+
+document.getElementById("positionScreen")
+.classList.add("hidden");
+
+document.getElementById("styleScreen")
+.classList.add("hidden");
+
+document.getElementById("languageScreen")
+.classList.add("hidden");
+
+document.getElementById("gameScreen")
+.classList.remove("hidden");
+
+updateScreen();
 
 }
 
@@ -886,19 +1182,29 @@ showClub(club);
    賽訓
 ===================================================== */
 
-function train(type) {
+function training(type) {
 
-let result = "";
+snapshot();
 
+let text = "";
 
 if (type === 1) {
 
 player.skill += 3;
+player.stamina -= 2;
+
+if (player.style === "specialist") {
 
 player.assassin += 3;
 
-result =
-"你進行個人訓練，操作與英雄熟練度提升。";
+} else {
+
+player.assassin += 2;
+
+}
+
+text =
+"🎮 你進行了高強度個人訓練。";
 
 }
 
@@ -906,9 +1212,10 @@ result =
 if (type === 2) {
 
 player.gameSense += 3;
+player.mental += 1;
 
-result =
-"你研究比賽與戰術，遊戲理解提升。";
+text =
+"🧠 你研究了大量比賽，遊戲理解提升。";
 
 }
 
@@ -916,48 +1223,193 @@ result =
 if (type === 3) {
 
 player.gameSense += 2;
+player.mental += 2;
+player.stamina -= 2;
 
-player.mental += 1;
-
-result =
-"你進行團隊訓練，開始學習職業比賽節奏。";
+text =
+"👥 你進行團隊訓練，開始理解職業隊伍的節奏。";
 
 }
 
 
 if (type === 4) {
 
+player.mental += 3;
 player.stamina += 5;
 
-player.mental += 2;
-
-result =
-"你選擇休息，體力與心態得到恢復。";
+text =
+"😴 你今天選擇休息，讓身體與精神恢復。";
 
 }
 
 
+player.skill = clamp(player.skill);
+player.gameSense = clamp(player.gameSense);
+player.mental = clamp(player.mental);
+player.stamina = clamp(player.stamina);
+
+player.assassin = clamp(player.assassin);
+player.mage = clamp(player.mage);
+player.poke = clamp(player.poke);
+player.support = clamp(player.support);
+
 player.trainingCount++;
 
-
-player.skill =
-clamp(player.skill);
-
-player.gameSense =
-clamp(player.gameSense);
-
-player.mental =
-clamp(player.mental);
-
-player.stamina =
-clamp(player.stamina);
-
-
 document.getElementById("result").textContent =
-result;
-
+text;
 
 updateScreen();
+
+}
+
+
+/* =====================================================
+   青訓邀請
+===================================================== */
+
+function scoutCheck() {
+
+let power =
+player.skill + player.gameSense;
+
+
+/*
+   本土優先
+*/
+
+if (power >= 105 && !player.club) {
+
+let club = {
+
+name:
+player.region === "LCK"
+? "LCK Academy"
+: player.region + " Academy",
+
+stars:
+power >= 125 ? 5 : 3,
+
+academy:
+power >= 120 ? 5 : 3,
+
+roster:
+power >= 125 ? 5 : 3,
+
+champion:
+power >= 125 ? "極高"
+: power >= 110 ? "高"
+: "中",
+
+competition:
+power >= 125 ? "極高"
+: power >= 115 ? "高"
+: "中",
+
+promotion:
+power >= 125 ? "低"
+: power >= 115 ? "中"
+: "高",
+
+history:
+player.region + " 聯賽 × 2　｜　國際賽 × 1",
+
+recent:
+"2026：四強　｜　2025：亞軍　｜　2024：四強"
+
+};
+
+player.club = club;
+
+showClub();
+
+document.getElementById("eventTitle").textContent =
+"🕵️ Scout 注意到了你";
+
+document.getElementById("eventText").textContent =
+club.name +
+" 的 Scout 注意到你的排位與訓練表現，"
++
+"希望邀請你加入青訓。";
+
+}
+
+}
+
+
+/* =====================================================
+   顯示俱樂部
+===================================================== */
+
+function showClub() {
+
+if (!player.club) return;
+
+let club = player.club;
+
+document.getElementById("clubName")
+.textContent = club.name;
+
+document.getElementById("clubStars")
+.textContent =
+"★".repeat(club.stars)
++
+"☆".repeat(5-club.stars);
+
+document.getElementById("clubRegion")
+.textContent = player.region;
+
+document.getElementById("academy")
+.textContent =
+"★".repeat(club.academy);
+
+document.getElementById("roster")
+.textContent =
+"★".repeat(club.roster);
+
+document.getElementById("champion")
+.textContent =
+club.champion;
+
+document.getElementById("competition")
+.textContent =
+club.competition;
+
+document.getElementById("promotion")
+.textContent =
+club.promotion;
+
+document.getElementById("history")
+.textContent =
+club.history;
+
+document.getElementById("recent")
+.textContent =
+club.recent;
+
+
+if (club.competition === "極高") {
+
+document.getElementById("clubWarning")
+.textContent =
+"⚠️ 這支隊伍陣容非常強大，但同位置競爭激烈，你可能需要長時間競爭先發。";
+
+}
+
+else if (club.promotion === "高") {
+
+document.getElementById("clubWarning")
+.textContent =
+"✅ 目前位置競爭較低，你有機會較快成為主力。";
+
+}
+
+else {
+
+document.getElementById("clubWarning")
+.textContent =
+"這是一支中等強度的隊伍，你需要靠表現爭取位置。";
+
+}
 
 }
 
@@ -966,52 +1418,70 @@ updateScreen();
    賽事
 ===================================================== */
 
-function playMatch() {
+function playTournament() {
+
+snapshot();
 
 if (player.age < 18) {
 
-document.getElementById("result").textContent =
-"你目前還是高中生，暫時沒有正式職業賽事資格。";
+document.getElementById("result")
+.textContent =
+"📚 你目前仍是高中生，還沒有正式職業賽事資格。";
 
 return;
 
 }
 
 
-let power =
-
-player.skill +
-player.gameSense +
-player.mental;
-
-
-let random =
-Math.floor(Math.random() * 60);
+let heroPower =
+(
+player.assassin +
+player.mage +
+player.poke +
+player.support
+) / 4;
 
 
 let total =
-power + random;
+player.skill +
+player.gameSense +
+player.mental +
+heroPower;
 
 
-if (total >= 210) {
+let random =
+Math.floor(Math.random() * 50);
+
+
+let score =
+total + random;
+
+
+if (score >= 270) {
 
 player.fame += 10;
 
+player.record += 1;
+
 player.mental += 5;
 
-document.getElementById("result").textContent =
-"🏆 你在比賽中打出了非常亮眼的表現！";
+document.getElementById("result")
+.textContent =
+"🏆 你打出了非常亮眼的比賽，成功取得優異成績！";
 
 }
 
-else if (total >= 170) {
+else if (score >= 220) {
 
 player.fame += 5;
 
+player.record += 1;
+
 player.mental += 2;
 
-document.getElementById("result").textContent =
-"你打出了一場穩定的比賽，累積了寶貴經驗。";
+document.getElementById("result")
+.textContent =
+"⚔️ 你打出了一場穩定的比賽，累積了不少經驗。";
 
 }
 
@@ -1019,27 +1489,71 @@ else {
 
 player.mental -= 3;
 
-document.getElementById("result").textContent =
-"這場比賽打得不太理想，你需要檢討自己的問題。";
+document.getElementById("result")
+.textContent =
+"😓 這場比賽表現不理想，你需要重新檢討。";
 
 }
 
 
-player.mental =
-clamp(player.mental);
-
 player.fame =
 clamp(player.fame);
 
+player.mental =
+clamp(player.mental);
 
-document.getElementById("tournament").textContent =
-"地方聯賽";
 
-document.getElementById("matchStatus").textContent =
-"比賽已結束。";
+document.getElementById("tournament")
+.textContent =
+"區域聯賽";
+
+document.getElementById("matchText")
+.textContent =
+"比賽已結束。你的表現將影響未來是否被更多俱樂部注意。";
 
 
 updateScreen();
+
+}
+
+
+/* =====================================================
+   年齡
+===================================================== */
+
+function nextYear() {
+
+snapshot();
+
+player.age++;
+
+player.trainingCount = 0;
+
+if (player.age >= 18) {
+
+player.career =
+"業餘／青訓選手";
+
+}
+
+if (player.age >= 20 && player.club) {
+
+player.career =
+"職業選手";
+
+}
+
+player.stamina =
+clamp(player.stamina + 3);
+
+
+scoutCheck();
+
+updateScreen();
+
+document.getElementById("result")
+.textContent =
+"📅 新的一年開始了。";
 
 }
 
@@ -1050,80 +1564,96 @@ updateScreen();
 
 function updateScreen() {
 
-document.getElementById("age").textContent =
-player.age;
+document.getElementById("age")
+.textContent = player.age;
 
-document.getElementById("region").textContent =
-player.region;
+document.getElementById("region")
+.textContent =
+player.region || "—";
 
-document.getElementById("position").textContent =
-player.position;
+document.getElementById("position")
+.textContent =
+player.position || "—";
 
-document.getElementById("skill").textContent =
-player.skill;
-
-document.getElementById("gameSense").textContent =
-player.gameSense;
-
-document.getElementById("mental").textContent =
-player.mental;
-
-document.getElementById("stamina").textContent =
-player.stamina;
-
-document.getElementById("fame").textContent =
-player.fame;
-
-document.getElementById("career").textContent =
+document.getElementById("career")
+.textContent =
 player.career;
 
+document.getElementById("skill")
+.textContent =
+Math.round(player.skill);
 
-document.getElementById("assassin").textContent =
-player.assassin;
+document.getElementById("gameSense")
+.textContent =
+Math.round(player.gameSense);
 
-document.getElementById("assassinBar").style.width =
+document.getElementById("mental")
+.textContent =
+Math.round(player.mental);
+
+document.getElementById("stamina")
+.textContent =
+Math.round(player.stamina);
+
+document.getElementById("fame")
+.textContent =
+Math.round(player.fame);
+
+document.getElementById("record")
+.textContent =
+player.record;
+
+document.getElementById("language")
+.textContent =
+getLanguageName();
+
+document.getElementById("style")
+.textContent =
+getStyleName();
+
+
+document.getElementById("assassin")
+.textContent =
+Math.round(player.assassin);
+
+document.getElementById("mage")
+.textContent =
+Math.round(player.mage);
+
+document.getElementById("poke")
+.textContent =
+Math.round(player.poke);
+
+document.getElementById("support")
+.textContent =
+Math.round(player.support);
+
+
+document.getElementById("assassinBar")
+.style.width =
 player.assassin + "%";
 
-
-document.getElementById("mage").textContent =
-player.mage;
-
-document.getElementById("mageBar").style.width =
+document.getElementById("mageBar")
+.style.width =
 player.mage + "%";
 
-
-document.getElementById("poke").textContent =
-player.poke;
-
-document.getElementById("pokeBar").style.width =
+document.getElementById("pokeBar")
+.style.width =
 player.poke + "%";
 
-
-document.getElementById("support").textContent =
-player.support;
-
-document.getElementById("supportBar").style.width =
+document.getElementById("supportBar")
+.style.width =
 player.support + "%";
 
 
-document.getElementById("poolStyle").textContent =
-getPoolStyle();
-
-
-document.getElementById("trainingCount").textContent =
+document.getElementById("trainingCount")
+.textContent =
 player.trainingCount;
 
 
-if (player.age >= 18) {
+if (player.club) {
 
-player.career =
-"業餘／青訓階段";
-
-document.getElementById("trainingStatus").textContent =
-"可以開始接受正式賽訓";
-
-document.getElementById("matchStatus").textContent =
-"你已達到正式賽事年齡。";
+showClub();
 
 }
 
@@ -1131,19 +1661,49 @@ document.getElementById("matchStatus").textContent =
 
 
 /* =====================================================
-   初始
+   名稱
+===================================================== */
+
+function getLanguageName() {
+
+if (player.language === "native")
+return "本土語言";
+
+if (player.language === "english")
+return "英語";
+
+if (player.language === "korean")
+return "韓語";
+
+if (player.language === "multilingual")
+return "多語言";
+
+return "—";
+
+}
+
+
+function getStyleName() {
+
+if (player.style === "specialist")
+return "專精型";
+
+if (player.style === "wide")
+return "廣泛型";
+
+if (player.style === "balanced")
+return "平衡型";
+
+return "—";
+
+}
+
+
+/* =====================================================
+   初始化
 ===================================================== */
 
 updateScreen();
-
-
-/*
-  測試：
-  如果想一開始就看到俱樂部，
-  可以取消下面這行前面的 //
-*/
-
-// scoutInvite();
 
 </script>
 
