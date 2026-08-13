@@ -1,3 +1,4 @@
+```html
 <!DOCTYPE html>
 <html lang="zh-Hant">
 <head>
@@ -8,85 +9,224 @@
 *{box-sizing:border-box}
 body{margin:0;background:#eef0f3;color:#20242a;font-family:system-ui,-apple-system,"Noto Sans TC",sans-serif}
 button{font:inherit;cursor:pointer}
-.app{max-width:720px;margin:auto;min-height:100vh;background:#fff}
-.top{padding:16px 18px;border-bottom:1px solid #e4e6e8}
+.app{max-width:760px;margin:auto;min-height:100vh;background:#fff}
+.top{padding:15px 17px;border-bottom:1px solid #e4e6e8;position:sticky;top:0;background:#fff;z-index:5}
 .row{display:flex;justify-content:space-between;align-items:center;gap:10px}
-.name{font-size:20px;font-weight:800}
-.muted{font-size:13px;color:#777d84}
+.name{font-size:20px;font-weight:850}
+.muted{font-size:12px;color:#777d84}
 .badges{display:flex;flex-wrap:wrap;gap:6px;margin-top:9px}
-.badge{padding:5px 9px;background:#eef0f2;border-radius:999px;font-size:12px;font-weight:700}
+.badge{padding:5px 9px;background:#eef0f2;border-radius:999px;font-size:12px;font-weight:750}
 .good{background:#e6f5eb;color:#247344}
 .warn{background:#fff1d8;color:#966000}
-.stats{display:grid;grid-template-columns:repeat(4,1fr);gap:7px;margin-top:12px}
+.blue{background:#e8f1ff;color:#315d9b}
+.stats{display:grid;grid-template-columns:repeat(4,1fr);gap:7px;margin-top:11px}
 .stat{background:#f6f7f8;border-radius:10px;padding:8px;text-align:center}
-.stat b{display:block;font-size:19px}
-.stat span{font-size:11px;color:#777}
-.timeline{display:flex;gap:5px;margin-top:13px}
+.stat b{display:block;font-size:18px}
+.stat span{font-size:10px;color:#777}
+.timeline{display:flex;gap:5px;margin-top:12px}
 .timeline i{height:4px;flex:1;background:#ddd;border-radius:4px}
 .timeline i.on{background:#222}
 
-.main{padding:17px}
-.card{border:1px solid #e1e4e7;border-radius:15px;padding:16px;margin-bottom:12px}
+.main{padding:15px}
+.card{border:1px solid #e1e4e7;border-radius:15px;padding:15px;margin-bottom:11px}
 h1,h2,h3,p{margin-top:0}
-h1{font-size:22px;margin-bottom:4px}
-h2{font-size:18px;margin-bottom:5px}
+h1{font-size:21px;margin-bottom:4px}
+h2{font-size:17px;margin-bottom:6px}
 h3{font-size:14px;margin-bottom:8px}
-.version{font-size:13px;color:#6f757c}
-
-.scores{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:15px}
-.score{background:#f6f7f8;border-radius:11px;padding:11px}
-.score span{font-size:12px;color:#777}
-.score b{display:block;font-size:25px;margin-top:2px}
-
-.tip{background:#f7f7f7;border-left:4px solid #444;border-radius:9px;padding:11px;font-size:13px;line-height:1.6}
+.version{font-size:12px;color:#6f757c}
+.hidden{display:none}
 
 .primary,.secondary{
-width:100%;padding:13px;border-radius:11px;font-weight:800;margin-top:12px
+width:100%;padding:13px;border-radius:11px;font-weight:800;margin-top:10px
 }
 .primary{border:0;background:#222;color:white}
 .secondary{border:1px solid #ddd;background:white}
 
+.tip{background:#f7f7f7;border-left:4px solid #555;border-radius:9px;padding:10px;font-size:12px;line-height:1.65}
+.tip b{font-weight:800}
+
+.section-label{font-size:11px;font-weight:800;color:#8a9096;text-transform:uppercase;letter-spacing:.04em;margin-bottom:6px}
+
+.setup{
+min-height:100vh;padding:22px 16px;
+display:flex;align-items:center
+}
+.setup-inner{width:100%}
+.setup-title{font-size:28px;font-weight:900;margin-bottom:5px}
+.setup-sub{color:#70767d;font-size:13px;line-height:1.6;margin-bottom:18px}
+
+.input{
+width:100%;padding:12px;border:1px solid #d9dde1;border-radius:10px;
+font-size:16px;background:#fff
+}
+
+.random-row{display:flex;gap:8px;margin-top:9px}
+.random-row button{flex:1}
+
+.ability{margin:12px 0}
+.ability-head{display:flex;justify-content:space-between;align-items:center;font-size:13px;font-weight:750}
+.ability-num{font-weight:850}
+.bar{height:8px;background:#e7e9eb;border-radius:99px;overflow:hidden;margin:6px 0}
+.bar i{display:block;height:100%;background:#333;border-radius:99px}
+.ability-meta{font-size:10px;color:#777;display:flex;justify-content:space-between}
+
+.position-grid{display:grid;grid-template-columns:repeat(5,1fr);gap:6px;margin-top:9px}
+.position-btn{
+border:1px solid #ddd;background:white;border-radius:10px;padding:10px 4px;
+font-size:12px;font-weight:800
+}
+.position-btn.selected{background:#222;color:white;border-color:#222}
+.position-btn small{display:block;font-weight:500;font-size:9px;margin-top:3px;opacity:.7}
+
+.fit-grid{display:grid;grid-template-columns:1fr 1fr;gap:7px;margin-top:9px}
+.fit-box{background:#f6f7f8;border-radius:10px;padding:9px}
+.fit-box b{font-size:16px}
+.fit-box span{display:block;font-size:10px;color:#777;margin-top:2px}
+
 .choice{
 border:1px solid #ddd;border-radius:13px;
-padding:15px;margin:9px 0;background:white;
-text-align:left;width:100%
+padding:13px;margin:8px 0;background:white;
+text-align:left;width:100%;transition:.15s
 }
-.choice b{display:block;font-size:15px;margin-bottom:5px}
-.choice span{font-size:12px;color:#777}
 .choice:hover{background:#f7f8f9}
+.choice:active{transform:scale(.99)}
+.choice b{display:block;font-size:14px;margin-bottom:4px}
+.choice span{font-size:11px;color:#777;line-height:1.5}
+.choice .effect{display:block;color:#333;font-size:11px;margin-top:6px;font-weight:650}
 
-.result{
-text-align:center;
-padding:10px 0 4px
+.invite{
+border:1px solid #ddd;border-radius:14px;padding:13px;margin:9px 0;
+background:#fff;position:relative
 }
-.result .big{font-size:34px;font-weight:900;margin:8px 0}
+.invite.selected{border:2px solid #222;padding:12px}
+.team-line{display:flex;align-items:center;gap:9px}
+.team-color{width:12px;height:38px;border-radius:5px;flex:none}
+.team-name{font-size:15px;font-weight:900}
+.team-sub{font-size:10px;color:#777;margin-top:2px}
+.team-score{margin-left:auto;text-align:right}
+.team-score b{font-size:20px}
+.team-score small{display:block;color:#777;font-size:9px}
+.team-tags{display:flex;flex-wrap:wrap;gap:5px;margin-top:9px}
+.team-tag{font-size:10px;padding:4px 7px;border-radius:999px;background:#f0f1f2;font-weight:700}
+.team-tag.good{background:#e6f5eb;color:#247344}
+.team-tag.special{background:#f0e8ff;color:#6940a0}
+.team-tip{margin-top:9px;background:#f7f7f7;border-radius:8px;padding:8px;font-size:11px;line-height:1.5}
 
-.hidden{display:none}
+.scores{display:grid;grid-template-columns:1fr 1fr;gap:7px;margin-top:12px}
+.score{background:#f6f7f8;border-radius:11px;padding:10px}
+.score span{font-size:10px;color:#777}
+.score b{display:block;font-size:23px;margin-top:2px}
 
-@media(max-width:480px){
+.result{text-align:center;padding:9px 0 3px}
+.result .big{font-size:31px;font-weight:900;margin:8px 0}
+
+.action-head{display:flex;justify-content:space-between;align-items:center;margin-bottom:9px}
+.cost{font-size:10px;color:#777}
+
+.empty{color:#777;font-size:12px;padding:8px 0}
+
+@media(max-width:520px){
+.app{width:100%}
 .stats{grid-template-columns:repeat(2,1fr)}
-.scores{grid-template-columns:1fr}
+.scores{grid-template-columns:1fr 1fr}
+.position-grid{gap:4px}
+.position-btn{font-size:11px;padding:9px 2px}
+.setup-title{font-size:25px}
 }
 </style>
 </head>
 
 <body>
-
 <div class="app">
+
+<!-- ==================== 創角頁 ==================== -->
+<section id="setupScreen" class="setup">
+<div class="setup-inner">
+
+  <div class="muted">英雄聯盟職業人生模擬器</div>
+  <div class="setup-title">建立你的選手</div>
+  <div class="setup-sub">
+    隨機生成你的初始能力與天賦。<br>
+    你不能決定天賦，只能決定如何利用它。
+  </div>
+
+  <div class="card">
+    <h3>基本資料</h3>
+    <input id="nameInput" class="input" maxlength="12" placeholder="選手名稱">
+
+    <div class="random-row">
+      <button class="secondary" onclick="randomPlayer()">🎲 重新隨機</button>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="action-head">
+      <h3 style="margin:0">初始能力</h3>
+      <span class="cost">軟上限會影響後期成長成本</span>
+    </div>
+    <div id="setupAbilities"></div>
+  </div>
+
+  <div class="card">
+    <h3>選擇初始位置</h3>
+    <div class="position-grid" id="positionChoices"></div>
+    <div class="tip" style="margin-top:10px" id="positionTip"></div>
+  </div>
+
+  <div class="card">
+    <h3>你的初始風格</h3>
+    <div class="badges">
+      <span class="badge" id="setupStyle">進攻型</span>
+      <span class="badge" id="setupSpecialty">專門：戰士</span>
+    </div>
+    <div class="tip" style="margin-top:10px">
+      💡 風格由你的能力組合與英雄類型決定，不需要另外選擇。
+    </div>
+  </div>
+
+  <button class="primary" onclick="finishSetup()">確認選手 →</button>
+
+</div>
+</section>
+
+
+<!-- ==================== 邀約頁 ==================== -->
+<section id="inviteScreen" class="hidden">
+<header class="top">
+  <div class="name">訓練生邀約</div>
+  <div class="muted">你剛在業餘賽場嶄露頭角，幾支隊伍向你發出邀約。</div>
+</header>
+<main class="main">
+
+  <div class="card">
+    <div class="section-label">你的狀態</div>
+    <h1 id="inviteHeadline">有人注意到你了</h1>
+    <div class="tip" id="inviteTip"></div>
+  </div>
+
+  <div id="inviteChoices"></div>
+
+  <button class="secondary" onclick="showSetup()">← 修改選手</button>
+</main>
+</section>
+
+
+<!-- ==================== 遊戲主介面 ==================== -->
+<section id="gameScreen" class="hidden">
 
 <header class="top">
   <div class="row">
     <div>
-      <div class="name">無名選手</div>
-      <div class="muted" id="identity">18歲｜業餘選手｜AP-A</div>
+      <div class="name" id="playerName">無名選手</div>
+      <div class="muted" id="identity">18歲｜訓練生｜AP-T</div>
     </div>
     <div class="muted" id="resource">資源 30</div>
   </div>
 
   <div class="badges">
     <span class="badge" id="position">MID｜適性 84</span>
-    <span class="badge">進攻型</span>
-    <span class="badge">專門：戰士</span>
+    <span class="badge" id="styleBadge">進攻型</span>
+    <span class="badge" id="specialtyBadge">專門：戰士</span>
     <span class="badge good" id="versionState">版本受益</span>
   </div>
 
@@ -98,32 +238,25 @@ padding:10px 0 4px
   </div>
 
   <div class="timeline">
-    <i class="on"></i>
-    <i></i>
-    <i></i>
-    <i></i>
+    <i class="on"></i><i></i><i></i><i></i>
   </div>
 </header>
 
-
 <main class="main">
 
-<!-- 第一層：人生節點 -->
+<!-- 第一層 -->
 <section id="stageScreen">
 
   <div class="card">
     <div class="muted">目前人生階段</div>
-    <h1 id="stageTitle">業餘賽季・春季</h1>
-    <div class="version" id="versionText">
-      本季版本：操作與主動進攻
-    </div>
+    <h1 id="stageTitle">訓練生・春季訓練期</h1>
+    <div class="version" id="versionText"></div>
 
     <div class="scores">
       <div class="score">
         <span>隊伍評分</span>
         <b id="teamScore">63</b>
       </div>
-
       <div class="score">
         <span>隊伍版本適合度</span>
         <b id="fit">78</b>
@@ -133,219 +266,490 @@ padding:10px 0 4px
 
   <div class="card">
     <h3>💡 現況</h3>
-    <div class="tip" id="summary">
-      你目前的操作能力較突出，但觀念仍有成長空間。
-    </div>
+    <div class="tip" id="summary"></div>
   </div>
 
-  <button class="primary" onclick="goDecision()">
-    繼續 →
-  </button>
+  <button class="primary" onclick="goDecision()">查看本階段選擇 →</button>
 
 </section>
 
 
-<!-- 第二層：唯一決策 -->
+<!-- 第二層 -->
 <section id="decisionScreen" class="hidden">
 
   <div class="card">
-    <div class="muted">春季訓練期</div>
+    <div class="muted">本階段決策</div>
     <h1>你要怎麼安排這段時間？</h1>
-
-    <div class="tip" id="decisionTip">
-      目前版本與你的打法相性不錯。
-    </div>
+    <div class="tip" id="decisionTip"></div>
 
     <button class="choice" onclick="choose('game')">
       <b>🎮 遊戲訓練</b>
-      <span>提升比賽能力，直接影響賽場表現。</span>
+      <span>提升比賽能力。</span>
+      <span class="effect">會影響：比賽表現、位置適性、版本適合度</span>
     </button>
 
     <button class="choice" onclick="choose('health')">
       <b>❤️ 健康訓練</b>
-      <span>維持狀態，降低長期生涯風險。</span>
+      <span>維持長期身體狀態。</span>
+      <span class="effect">會影響：生涯穩定度與長期風險</span>
     </button>
 
     <button class="choice" onclick="choose('pr')">
-      <b>📣 公關訓練</b>
-      <span>提升人氣與商業價值。</span>
+      <b>📣 公關活動</b>
+      <span>經營人氣與商業價值。</span>
+      <span class="effect">會影響：資源收入與特殊人氣事件</span>
     </button>
   </div>
 
-  <button class="secondary" onclick="backToStage()">← 回上一層</button>
+  <button class="secondary" onclick="show('stageScreen')">← 回上一層</button>
 
 </section>
 
 
-<!-- 第三層：遊戲能力選擇 -->
+<!-- 第三層 -->
 <section id="trainingScreen" class="hidden">
 
   <div class="card">
     <div class="muted">遊戲訓練</div>
-    <h1>你想提升什麼？</h1>
-
+    <h1>選擇要投資的能力</h1>
     <div class="tip" id="trainingTip"></div>
-
     <div id="trainingChoices"></div>
   </div>
 
-  <button class="secondary" onclick="backToDecision()">
-    ← 回上一層
-  </button>
+  <button class="secondary" onclick="backToDecision()">← 回上一層</button>
 
 </section>
 
 
-<!-- 第四層：結果 -->
+<!-- 第四層 -->
 <section id="resultScreen" class="hidden">
 
   <div class="card result">
-
     <div class="muted">本階段結果</div>
-
-    <div class="big" id="resultTitle">
-      訓練完成
-    </div>
-
-    <p id="resultText">
-      你的能力有所提升。
-    </p>
+    <div class="big" id="resultTitle">訓練完成</div>
+    <p id="resultText">你的能力有所提升。</p>
 
     <div class="scores">
       <div class="score">
         <span>隊伍評分</span>
         <b id="resultTeam">63</b>
       </div>
-
       <div class="score">
         <span>版本適合度</span>
         <b id="resultFit">78</b>
       </div>
     </div>
-
   </div>
 
-  <button class="primary" onclick="showEvent()">
-    繼續 →
-  </button>
+  <button class="primary" onclick="showEvent()">繼續 →</button>
 
 </section>
 
 
-<!-- 第五層：突發事件 -->
+<!-- 第五層 -->
 <section id="eventScreen" class="hidden">
 
   <div class="card">
-
     <div class="muted">突發事件</div>
     <h1 id="eventTitle">⚡ 社群討論</h1>
+    <p id="eventText"></p>
 
-    <p id="eventText">
-      你的比賽片段突然被大量轉發。
-    </p>
+    <div class="tip" id="eventTip" style="margin-bottom:10px"></div>
 
     <button class="choice" onclick="finishEvent()">
-      <b id="eventChoice">接受採訪</b>
-      <span id="eventChoiceText">
-        把握這次增加曝光的機會。
-      </span>
+      <b id="eventChoice"></b>
+      <span id="eventChoiceText"></span>
     </button>
-
   </div>
 
 </section>
 
 
-<!-- 第六層：賽季結果 -->
+<!-- 第六層 -->
 <section id="matchScreen" class="hidden">
 
   <div class="card result">
-
     <div class="muted">賽季結果</div>
-
-    <div class="big" id="seasonResult">
-      晉級季後賽
-    </div>
-
-    <p id="seasonText">
-      你的隊伍成功延續本季競爭力。
-    </p>
-
+    <div class="big" id="seasonResult">晉級季後賽</div>
+    <p id="seasonText"></p>
   </div>
 
-  <button class="primary" onclick="newPhase()">
-    進入下一階段 →
-  </button>
+  <button class="primary" onclick="newPhase()">進入下一階段 →</button>
 
 </section>
 
 </main>
+</section>
+
 </div>
 
 
 <script>
+const positions=["TOP","JG","MID","ADC","SUP"];
 
-const game={
+const teamData={
+  KR:[
+    ["KR-T","韓國 T 隊","進攻型",91,"#e53935"],
+    ["KR-K","韓國 K 隊","支援型",87,"#c62828"],
+    ["KR-G","韓國 G 隊","營運型",93,"#c8a43b"],
+    ["KR-H","韓國 H 隊","團戰型",88,"#f28c28"],
+    ["KR-D","韓國 D 隊","發育型",84,"#2864a8"],
+    ["KR-B","韓國 B 隊","進攻型",78,"#d6aa18"],
+    ["KR-N","韓國 N 隊","單帶型",76,"#c62828"],
+    ["KR-DR","韓國 DR 隊","發育型",73,"#3979bd"],
+    ["KR-ST","韓國實況主特邀隊","人氣型",70,"#8e5ac7","ST"],
+    ["KR-RE","韓國退役選手特邀隊","老將型",75,"#b18a2c","RE"]
+  ],
+  CN:[
+    ["CN-B","中國 B 隊","進攻型",92,"#2876b9"],
+    ["CN-J","中國 J 隊","團戰型",89,"#244e8d"],
+    ["CN-W","中國 W 隊","營運型",84,"#d94747"],
+    ["CN-T","中國 T 隊","進攻型",88,"#3478b8"],
+    ["CN-E","中國 E 隊","營運型",80,"#d94141"],
+    ["CN-L","中國 L 隊","發育型",83,"#f08a30"],
+    ["CN-R","中國 R 隊","團戰型",78,"#d2a72c"],
+    ["CN-I","中國 I 隊","進攻型",74,"#4c78ad"],
+    ["CN-ST","中國實況主特邀隊","人氣型",70,"#8e5ac7","ST"],
+    ["CN-RE","中國退役選手特邀隊","老將型",75,"#b18a2c","RE"]
+  ],
+  EU:[
+    ["EU-G","歐洲 G 隊","支援型",90,"#242424"],
+    ["EU-F","歐洲 F 隊","進攻型",87,"#e8792f"],
+    ["EU-K","歐洲 K 隊","進攻型",86,"#26344a"],
+    ["EU-GI","歐洲 GI 隊","支援型",76,"#d9b24a"],
+    ["EU-M","歐洲 M 隊","團戰型",80,"#2d5f9d"],
+    ["EU-S","歐洲 S 隊","發育型",74,"#d8b52b"],
+    ["EU-B","歐洲 B 隊","營運型",79,"#4777b4"],
+    ["EU-R","歐洲 R 隊","發育型",72,"#526ca5"],
+    ["EU-ST","歐洲實況主特邀隊","人氣型",70,"#8e5ac7","ST"],
+    ["EU-RE","歐洲退役選手特邀隊","老將型",75,"#b18a2c","RE"]
+  ],
+  AP:[
+    ["AP-C","亞太 C 隊","營運型",84,"#287bb5"],
+    ["AP-D","亞太 D 隊","進攻型",82,"#d32f2f"],
+    ["AP-R","亞太 R 隊","團戰型",79,"#4b65a0"],
+    ["AP-G","亞太 G 隊","進攻型",86,"#e05b35"],
+    ["AP-GR","亞太 GR 隊","發育型",73,"#4d9b58"],
+    ["AP-M","亞太 M 隊","支援型",75,"#694e9d"],
+    ["AP-F","亞太 F 隊","團戰型",78,"#159447"],
+    ["AP-S","亞太 S 隊","進攻型",80,"#2c5598"],
+    ["AP-ST","亞太實況主特邀隊","人氣型",70,"#8e5ac7","ST"],
+    ["AP-RE","亞太退役選手特邀隊","老將型",75,"#b18a2c","RE"]
+  ],
+  AM:[
+    ["AM-C","美洲 C 隊","營運型",84,"#2878b8"],
+    ["AM-T","美洲 T 隊","團戰型",87,"#3c6eaa"],
+    ["AM-F","美洲 F 隊","進攻型",82,"#4d9d67"],
+    ["AM-L","美洲 L 隊","進攻型",77,"#d84a42"],
+    ["AM-D","美洲 D 隊","發育型",73,"#4775aa"],
+    ["AM-S","美洲 S 隊","支援型",76,"#d56c35"],
+    ["AM-N","美洲 N 隊","團戰型",79,"#3479a8"],
+    ["AM-100","美洲 100 隊","營運型",75,"#d04747"],
+    ["AM-ST","美洲實況主特邀隊","人氣型",70,"#8e5ac7","ST"],
+    ["AM-RE","美洲退役選手特邀隊","老將型",75,"#b18a2c","RE"]
+  ],
+  CB:[
+    ["CB-L","巴西 L 隊","進攻型",84,"#58a45b"],
+    ["CB-F","巴西 F 隊","進攻型",82,"#242424"],
+    ["CB-K","巴西 K 隊","團戰型",78,"#111"],
+    ["CB-R","巴西 R 隊","營運型",81,"#d94141"],
+    ["CB-P","巴西 P 隊","團戰型",86,"#d7b328"],
+    ["CB-V","巴西 V 隊","支援型",77,"#e85c45"],
+    ["CB-I","巴西 I 隊","發育型",72,"#2c5e9c"],
+    ["CB-LV","巴西 LV 隊","單帶型",75,"#4e75b4"],
+    ["CB-ST","巴西實況主特邀隊","人氣型",70,"#8e5ac7","ST"],
+    ["CB-RE","巴西退役選手特邀隊","老將型",75,"#b18a2c","RE"]
+  ]
+};
+
+const versions=[
+  {name:"操作與主動進攻",fav:"op",style:"進攻型"},
+  {name:"觀念與團隊協作",fav:"iq",style:"營運型"},
+  {name:"發育與資源管理",fav:"team",style:"發育型"},
+  {name:"前期打架與支援",fav:"team",style:"進攻型"}
+];
+
+let game={
+  name:"無名選手",
   age:18,
   season:1,
   resource:30,
-
-  op:82,
-  iq:74,
-  team:69,
-  exp:38,
-
-  soft:{
-    op:91,
-    iq:88,
-    team:83,
-    exp:95
-  },
-
+  op:0,iq:0,team:0,exp:0,
+  soft:{op:0,iq:0,team:0,exp:0},
   position:"MID",
   style:"進攻型",
   specialty:"戰士",
-
-  teamScore:63,
-  fit:78,
-
-  version:"操作與主動進攻",
-  versionState:"版本受益"
+  region:"AP",
+  currentTeam:null,
+  teamScore:70,
+  fit:75,
+  version:"",
+  versionState:"正常",
+  health:75,
+  popularity:10
 };
 
-
-const versions=[
-  "操作與主動進攻",
-  "觀念與團隊協作",
-  "發育與資源管理",
-  "前期打架與支援"
-];
-
+let currentInvites=[];
+let currentEvent=null;
 
 function show(id){
+  document.querySelectorAll(
+    "#setupScreen,#inviteScreen,#gameScreen"
+  ).forEach(x=>x.classList.add("hidden"));
+
   document.querySelectorAll(
     "#stageScreen,#decisionScreen,#trainingScreen,#resultScreen,#eventScreen,#matchScreen"
   ).forEach(x=>x.classList.add("hidden"));
 
+  if(id==="stageScreen"||id==="decisionScreen"||
+     id==="trainingScreen"||id==="resultScreen"||
+     id==="eventScreen"||id==="matchScreen"){
+    document.getElementById("gameScreen").classList.remove("hidden");
+  }
+
   document.getElementById(id).classList.remove("hidden");
 }
 
-
-function positionFit(){
-
-  return Math.round(
-    game.op*.35+
-    game.iq*.30+
-    game.team*.20+
-    game.exp*.15
-  );
+function randomInt(a,b){
+  return Math.floor(Math.random()*(b-a+1))+a;
 }
 
+function randomPlayer(){
+  game.op=randomInt(55,88);
+  game.iq=randomInt(55,88);
+  game.team=randomInt(55,88);
+  game.exp=randomInt(25,50);
+
+  game.soft={
+    op:randomInt(78,96),
+    iq:randomInt(78,96),
+    team:randomInt(76,94),
+    exp:randomInt(85,98)
+  };
+
+  positions.forEach(()=>{});
+  game.position=positions[randomInt(0,4)];
+
+  updateStyle();
+  renderSetup();
+}
+
+function updateStyle(){
+  const avg=(game.op+game.iq+game.team)/3;
+
+  if(game.op>=game.iq+7){
+    game.style="進攻型";
+    game.specialty="戰士";
+  }else if(game.iq>=game.op+7){
+    game.style="營運型";
+    game.specialty="法師";
+  }else if(game.team>=game.op+5){
+    game.style="團戰型";
+    game.specialty="坦克";
+  }else{
+    game.style=avg>=75?"全面型":"發育型";
+    game.specialty=game.op>=game.iq?"刺客":"射手";
+  }
+}
+
+function abilityBar(key){
+  const v=game[key], soft=game.soft[key];
+  const pct=Math.min(100,v);
+  return `
+    <div class="ability">
+      <div class="ability-head">
+        <span>${abilityName(key)}</span>
+        <span class="ability-num">${v} / 100</span>
+      </div>
+      <div class="bar"><i style="width:${pct}%"></i></div>
+      <div class="ability-meta">
+        <span>軟上限 ${soft}</span>
+        <span>硬上限 100</span>
+      </div>
+    </div>`;
+}
+
+function abilityName(key){
+  return {op:"操作",iq:"觀念",team:"團隊",exp:"經驗"}[key];
+}
+
+function renderSetup(){
+  document.getElementById("setupAbilities").innerHTML=
+    ["op","iq","team","exp"].map(abilityBar).join("");
+
+  document.getElementById("setupStyle").textContent=game.style;
+  document.getElementById("setupSpecialty").textContent=
+    "專門："+game.specialty;
+
+  document.getElementById("nameInput").value=
+    game.name==="無名選手"?"":game.name;
+
+  let html="";
+  positions.forEach(p=>{
+    const selected=p===game.position?"selected":"";
+    html+=`
+      <button class="position-btn ${selected}"
+        onclick="selectPosition('${p}')">
+        ${p}
+        <small>適性 ${positionFit(p)}</small>
+      </button>`;
+  });
+  document.getElementById("positionChoices").innerHTML=html;
+
+  document.getElementById("positionTip").innerHTML=
+    `💡 目前最適合 <b>${bestPosition()}</b>。
+    適性不是能力本身，而是你的能力組合與位置需求的匹配程度。`;
+}
+
+function selectPosition(p){
+  game.position=p;
+  renderSetup();
+}
+
+function positionFit(p=game.position){
+  const base={
+    TOP:.34, JG:.30, MID:.35, ADC:.36, SUP:.28
+  }[p];
+
+  const value=
+    game.op*(p==="ADC"?.38:base)+
+    game.iq*(p==="SUP"?.38:.30)+
+    game.team*(p==="SUP"?.32:p==="JG"?.25:.20)+
+    game.exp*.15;
+
+  return Math.max(50,Math.min(99,Math.round(value)));
+}
+
+function bestPosition(){
+  return positions.sort((a,b)=>positionFit(b)-positionFit(a))[0];
+}
+
+function finishSetup(){
+  game.name=
+    document.getElementById("nameInput").value.trim()||"無名選手";
+
+  game.position=game.position||bestPosition();
+  updateStyle();
+  makeInvites();
+  renderInvite();
+  show("inviteScreen");
+}
+
+function makeInvites(){
+  const pool=teamData[game.region];
+  const normal=pool.slice(0,8);
+  const shuffled=[...normal].sort(()=>Math.random()-.5);
+
+  currentInvites=[
+    shuffled[0],
+    shuffled[1],
+    pool[8],
+    pool[9]
+  ];
+}
+
+function inviteFit(team){
+  const styleBonus=team[2]===game.style?8:0;
+  const f=Math.round(
+    positionFit(game.position)*.7+
+    game.team*.12+
+    game.iq*.08+
+    styleBonus
+  );
+  return Math.max(50,Math.min(98,f));
+}
+
+function renderInvite(){
+  document.getElementById("inviteHeadline").textContent=
+    `${game.name}，你收到 ${currentInvites.length} 份邀約`;
+
+  document.getElementById("inviteTip").innerHTML=
+    `💡 不一定要選評分最高的隊伍。<b>隊伍風格、你的適性與版本</b>
+    都會影響你能不能在這裡走得更遠。`;
+
+  let html="";
+  currentInvites.forEach((t,i)=>{
+    const fit=inviteFit(t);
+    const special=t[5];
+    const good=fit>=82;
+
+    html+=`
+      <div class="invite">
+        <div class="team-line">
+          <div class="team-color" style="background:${t[4]}"></div>
+          <div>
+            <div class="team-name">${t[0]}</div>
+            <div class="team-sub">${t[1]}</div>
+          </div>
+          <div class="team-score">
+            <b>${t[3]}</b>
+            <small>隊伍評分</small>
+          </div>
+        </div>
+
+        <div class="team-tags">
+          <span class="team-tag">${t[2]}</span>
+          <span class="team-tag ${good?"good":""}">
+            你的適性 ${fit}
+          </span>
+          ${special?
+            `<span class="team-tag special">
+              ${special==="ST"?"實況主特邀":"退役選手特邀"}
+            </span>`:""}
+        </div>
+
+        <div class="team-tip">
+          💡 ${inviteReason(t,fit)}
+        </div>
+
+        <button class="primary" onclick="acceptInvite(${i})">
+          接受邀約
+        </button>
+      </div>`;
+  });
+
+  document.getElementById("inviteChoices").innerHTML=html;
+}
+
+function inviteReason(t,fit){
+  if(t[5]==="ST")
+    return "人氣與曝光較高，適合想發展商業價值的選手。";
+  if(t[5]==="RE")
+    return "老將經驗與特殊環境，適合累積職業經驗。";
+  if(t[2]===game.style)
+    return `隊伍風格與你的${game.style}打法相合，適性 ${fit}。`;
+  if(fit>=85)
+    return `你的能力組合很適合這支隊伍，適性 ${fit}。`;
+  return `隊伍實力不錯，但你的打法與體系仍需要磨合。`;
+}
+
+function acceptInvite(index){
+  const t=currentInvites[index];
+  game.currentTeam=t;
+  game.region=t[0].split("-")[0];
+  game.teamScore=t[3];
+  game.fit=inviteFit(t);
+  game.age=18;
+  game.season=1;
+  game.version=versions[0].name;
+  game.versionState=
+    t[2]===versions[0].style?"版本受益":"正常";
+
+  render();
+  show("stageScreen");
+}
+
+function showSetup(){
+  renderSetup();
+  show("setupScreen");
+}
 
 function render(){
+  const t=game.currentTeam;
 
+  document.getElementById("playerName").textContent=game.name;
   document.getElementById("identity").textContent=
-    `${game.age}歲｜${game.age<19?"業餘選手":"職業選手"}｜AP-${String.fromCharCode(65+(game.season%4))}`;
+    `${game.age}歲｜${game.age<19?"訓練生":"職業選手"}｜${t?t[0]:"-"}`;
 
   document.getElementById("resource").textContent=
     `資源 ${game.resource}`;
@@ -353,24 +757,22 @@ function render(){
   document.getElementById("position").textContent=
     `${game.position}｜適性 ${positionFit()}`;
 
-  document.getElementById("op").textContent=game.op;
-  document.getElementById("iq").textContent=game.iq;
-  document.getElementById("team").textContent=game.team;
-  document.getElementById("exp").textContent=game.exp;
+  document.getElementById("styleBadge").textContent=game.style;
+  document.getElementById("specialtyBadge").textContent=
+    "專門："+game.specialty;
+
+  ["op","iq","team","exp"].forEach(k=>{
+    document.getElementById(k).textContent=game[k];
+  });
 
   document.getElementById("versionState").textContent=
     game.versionState;
-
   document.getElementById("versionState").className=
-    "badge "+(
-      game.versionState==="逆版本"
-      ?"warn"
-      :"good"
-    );
+    "badge "+(game.versionState==="逆版本"?"warn":"good");
 
   document.getElementById("stageTitle").textContent=
     game.age<19
-    ?"業餘賽季・春季"
+    ?"訓練生・春季訓練期"
     :"職業賽季・春季";
 
   document.getElementById("versionText").textContent=
@@ -385,354 +787,271 @@ function render(){
   updateTips();
 }
 
+function trainingCost(key){
+  const v=game[key],soft=game.soft[key];
 
-function updateTips(){
+  if(v>=soft) return Math.max(5,Math.round(8+(v-soft+1)*2));
 
-  const values={
-    op:game.op,
-    iq:game.iq,
-    team:game.team,
-    exp:game.exp
-  };
-
-  const labels={
-    op:"操作",
-    iq:"觀念",
-    team:"團隊",
-    exp:"經驗"
-  };
-
-  const key=Object.keys(values).sort(
-    (a,b)=>
-      values[a]/game.soft[a]-
-      values[b]/game.soft[b]
-  )[0];
-
-  const ratio=
-    Math.max(
-      0,
-      (values[key]-60)/
-      (game.soft[key]-60)
-    );
-
-  const cost=
-    Math.max(
-      1,
-      Math.round(1+ratio*ratio*9)
-    );
-
-  document.getElementById("summary").textContent=
-    `目前最值得投資的是${labels[key]}。`+
-    `你的${labels[key]}為 ${values[key]}，`+
-    `軟上限約 ${game.soft[key]}，`+
-    `下一點成長成本約 ${cost}。`;
-
-  document.getElementById("decisionTip").textContent=
-    game.versionState==="逆版本"
-    ?"目前版本對你的風格較不利。可以考慮補足版本需要的能力。"
-    :"目前版本與你的打法相性不錯。可以把資源投入最值得成長的能力。";
+  const ratio=Math.max(0,(v-60)/(soft-60));
+  return Math.max(1,Math.round(1+ratio*ratio*9));
 }
 
+function updateTips(){
+  const keys=["op","iq","team"];
+  const best=keys.sort(
+    (a,b)=>game[b]/game.soft[b]-game[a]/game.soft[a]
+  )[0];
+
+  const cost=trainingCost(best);
+
+  document.getElementById("summary").innerHTML=
+    `目前最值得投資的是<b>${abilityName(best)}</b>。
+    ${abilityName(best)} ${game[best]} / 100，
+    軟上限 ${game.soft[best]}，
+    下一點成長成本約 ${cost}。`;
+
+  document.getElementById("decisionTip").innerHTML=
+    game.versionState==="逆版本"
+    ?`💡 本季版本對你的打法較不利。
+      不代表你一定要改打法，但可以考慮補強版本需要的能力。`
+    :`💡 本季版本與你的打法${game.versionState==="版本受益"?"相性不錯":"沒有明顯衝突"}。
+      可以把資源投資在最有成長空間的能力。`;
+}
 
 function goDecision(){
   show("decisionScreen");
 }
 
-
-function backToStage(){
-  show("stageScreen");
-}
-
-
 function backToDecision(){
   show("decisionScreen");
 }
 
-
 function choose(type){
-
   if(type==="game"){
     openGameTraining();
     return;
   }
 
   if(type==="health"){
-
-    game.resource=
-      Math.max(0,game.resource-2);
+    game.resource=Math.max(0,game.resource-2);
+    game.health=Math.min(100,game.health+5);
 
     showResult(
       "健康訓練完成",
-      "你維持了良好的身體狀態，長期生涯風險下降。"
+      "你的身體狀態有所改善，降低了長期生涯風險。"
     );
-
     return;
   }
 
-  if(type==="pr"){
+  game.resource+=3;
+  game.popularity+=5;
 
-    game.resource+=3;
-
-    showResult(
-      "公關活動完成",
-      "你的曝光度提升，商業價值也有所增加。"
-    );
-
-  }
-}
-
-
-function openGameTraining(){
-
-  const keys=[
-    ["op","操作"],
-    ["iq","觀念"],
-    ["team","團隊"]
-  ];
-
-  let html="";
-
-  keys.forEach(([key,label])=>{
-
-    html+=`
-      <button class="choice"
-        onclick="train('${key}')">
-
-        <b>${label} ${game[key]}</b>
-
-        <span>
-          軟上限 ${game.soft[key]}｜
-          成長成本 ${trainingCost(key)}
-        </span>
-
-      </button>
-    `;
-
-  });
-
-  document.getElementById(
-    "trainingChoices"
-  ).innerHTML=html;
-
-  show("trainingScreen");
-}
-
-
-function trainingCost(key){
-
-  const ratio=
-    Math.max(
-      0,
-      (game[key]-60)/
-      (game.soft[key]-60)
-    );
-
-  return Math.max(
-    1,
-    Math.round(1+ratio*ratio*9)
+  showResult(
+    "公關活動完成",
+    "你的曝光度提升，商業價值也有所增加。"
   );
 }
 
+function openGameTraining(){
+  const keys=["op","iq","team"];
+  let html="";
+
+  const best=keys.sort(
+    (a,b)=>game[b]/game.soft[b]-game[a]/game.soft[a]
+  )[0];
+
+  document.getElementById("trainingTip").innerHTML=
+    `💡 你目前最有成長空間的是<b>${abilityName(best)}</b>。
+    但你也可以選擇投資其他能力，沒有唯一正確答案。`;
+
+  keys.forEach(key=>{
+    const cost=trainingCost(key);
+    const v=game[key],soft=game.soft[key];
+
+    let warning="";
+    if(v>=soft)
+      warning="⚠️ 已超過軟上限，成長成本明顯增加";
+    else if(v>=soft-3)
+      warning="⚠️ 接近軟上限，下一階段成長會變慢";
+
+    html+=`
+      <button class="choice" onclick="train('${key}')">
+        <b>${abilityName(key)} ${v} / 100</b>
+        <span>
+          軟上限 ${soft}｜硬上限 100｜下一點成本 ${cost}
+        </span>
+        <span class="effect">
+          ${trainingAdvice(key)}
+        </span>
+        ${warning?
+          `<span class="effect" style="color:#966000">${warning}</span>`:""}
+      </button>`;
+  });
+
+  document.getElementById("trainingChoices").innerHTML=html;
+  show("trainingScreen");
+}
+
+function trainingAdvice(key){
+  const need=versions[game.season%versions.length].fav;
+  if(key===need)
+    return "💡 本季版本需要這項能力，提升後可能增加版本適合度。";
+  if(game[key]>=game.soft[key])
+    return "💡 這項能力已接近天賦軟上限，資源效率較低。";
+  return "💡 提升這項能力可以改善你的整體比賽能力。";
+}
 
 function train(key){
-
   const cost=trainingCost(key);
 
-  if(game[key]>=game.soft[key]){
-
-    alert("這項能力已接近軟上限。");
-    return;
-
-  }
-
   if(game.resource<cost){
-
-    alert("資源不足。");
+    alert(`資源不足。需要 ${cost}，目前只有 ${game.resource}。`);
     return;
-
   }
 
   game.resource-=cost;
   game[key]++;
 
-  if(
-    key==="iq" &&
-    game.versionState==="逆版本"
-  ){
-    game.fit=Math.min(
-      99,
-      game.fit+2
-    );
+  const currentVersion=versions[game.season%versions.length];
+
+  if(key===currentVersion.fav){
+    game.fit=Math.min(99,game.fit+2);
   }
 
   showResult(
-    `${key==="op"?"操作":key==="iq"?"觀念":"團隊"}提升`,
-    `這段訓練讓你的${key==="op"?"操作":key==="iq"?"觀念":"團隊"}能力提升了。`
+    `${abilityName(key)}提升`,
+    `你的${abilityName(key)}提升至 ${game[key]}。
+    本次消耗 ${cost} 資源。`
   );
 }
 
-
 function showResult(title,text){
-
   render();
 
-  document.getElementById("resultTitle").textContent=
-    title;
-
-  document.getElementById("resultText").textContent=
-    text;
-
-  document.getElementById("resultTeam").textContent=
-    game.teamScore;
-
-  document.getElementById("resultFit").textContent=
-    game.fit;
+  document.getElementById("resultTitle").textContent=title;
+  document.getElementById("resultText").textContent=text;
+  document.getElementById("resultTeam").textContent=game.teamScore;
+  document.getElementById("resultFit").textContent=game.fit;
 
   show("resultScreen");
 }
 
-
 function showEvent(){
-
-  document.getElementById("eventTitle").textContent=
-    "⚡ 突發事件";
-
   const events=[
-    [
-      "你的精彩片段被大量轉發。",
-      "接受採訪",
-      "增加曝光度與商業價值。",
-      ()=>game.resource+=5
-    ],
-    [
-      "隊伍希望你參加賽後採訪。",
-      "接受採訪",
-      "建立正面形象。",
-      ()=>{
-        game.resource+=2;
-        game.team++;
-      }
-    ],
-    [
-      "版本更新後，你的打法受到質疑。",
-      "維持原打法",
-      "可能承受版本壓力，但保留原本風格。",
-      ()=>{
+    {
+      title:"⚡ 精彩片段爆紅",
+      text:"你的比賽片段突然被大量轉發。",
+      choice:"接受採訪",
+      desc:"增加曝光與資源。",
+      tip:"💡 如果你想累積人氣，這是一個低成本的機會。",
+      fn:()=>{game.resource+=5;game.popularity+=8}
+    },
+    {
+      title:"⚡ 隊伍採訪",
+      text:"隊伍希望你參加賽後採訪。",
+      choice:"接受採訪",
+      desc:"增加人氣，同時改善團隊關係。",
+      tip:"💡 你的團隊能力較低，這次互動可能有額外價值。",
+      fn:()=>{game.resource+=2;game.team++}
+    },
+    {
+      title:"⚡ 版本更新",
+      text:"版本更新後，你原本的打法受到質疑。",
+      choice:"維持原打法",
+      desc:"保留自己的特色，但可能承受版本壓力。",
+      tip:"💡 你不一定要迎合版本；代價是短期版本適合度下降。",
+      fn:()=>{
         game.versionState="逆版本";
-        game.fit=Math.max(
-          55,
-          game.fit-8
-        );
+        game.fit=Math.max(55,game.fit-8);
       }
-    ]
+    }
   ];
 
-  const e=
-    events[game.season%events.length];
+  const e=events[game.season%events.length];
+  currentEvent=e.fn;
 
-  document.getElementById("eventText").textContent=
-    e[0];
-
-  document.getElementById("eventChoice").textContent=
-    e[1];
-
-  document.getElementById("eventChoiceText").textContent=
-    e[2];
-
-  window.currentEvent=e[3];
+  document.getElementById("eventTitle").textContent=e.title;
+  document.getElementById("eventText").textContent=e.text;
+  document.getElementById("eventChoice").textContent=e.choice;
+  document.getElementById("eventChoiceText").textContent=e.desc;
+  document.getElementById("eventTip").textContent=e.tip;
 
   show("eventScreen");
 }
 
-
 function finishEvent(){
-
-  if(window.currentEvent){
-    window.currentEvent();
-  }
+  if(currentEvent) currentEvent();
 
   render();
 
   const performance=
     Math.round(
-      game.teamScore*.45+
-      positionFit()*.35+
-      game.fit*.20
+      game.teamScore*.42+
+      positionFit()*.33+
+      game.fit*.25
     );
 
-  if(performance>=82){
-
-    document.getElementById("seasonResult").textContent=
-      "打進決賽";
-
+  if(performance>=84){
+    document.getElementById("seasonResult").textContent="打進決賽";
     document.getElementById("seasonText").textContent=
-      "你的個人能力與隊伍體系配合良好，本季成功走得更遠。";
-
-  }else if(performance>=70){
-
-    document.getElementById("seasonResult").textContent=
-      "晉級季後賽";
-
+      "你的個人能力與隊伍體系高度契合，本季成功走得更遠。";
+  }else if(performance>=71){
+    document.getElementById("seasonResult").textContent="晉級季後賽";
     document.getElementById("seasonText").textContent=
       "隊伍維持競爭力，你也累積了更多職業經驗。";
-
   }else{
-
-    document.getElementById("seasonResult").textContent=
-      "止步例行賽";
-
+    document.getElementById("seasonResult").textContent="止步例行賽";
     document.getElementById("seasonText").textContent=
-      "隊伍整體競爭力不足，下季需要重新調整。";
-
+      "隊伍整體競爭力不足。下一階段可以考慮調整能力投資或尋找更適合的環境。";
   }
 
   show("matchScreen");
 }
 
-
 function newPhase(){
-
   game.season++;
   game.age++;
   game.exp+=2;
 
-  game.teamScore=
-    Math.min(
-      95,
-      game.teamScore+
-      Math.round(Math.random()*8-2)
-    );
-
-  game.version=
-    versions[
-      game.season%versions.length
-    ];
-
-  game.versionState=
-    game.season%3===0
-    ?"逆版本"
-    :game.season%3===1
-    ?"版本受益"
-    :"正常";
-
-  game.fit=
-    Math.min(
-      98,
-      Math.max(
-        55,
-        game.fit+
-        Math.round(Math.random()*10-5)
+  if(game.currentTeam){
+    const base=game.currentTeam[3];
+    game.teamScore=Math.max(
+      50,
+      Math.min(98,
+        base+
+        Math.round(Math.random()*14-7)
       )
     );
+  }
+
+  const v=versions[game.season%versions.length];
+  game.version=v.name;
+
+  const styleMatch=
+    v.style===game.style;
+
+  game.versionState=
+    styleMatch?"版本受益":
+    Math.random()<.35?"逆版本":"正常";
+
+  game.fit=Math.max(
+    55,
+    Math.min(
+      98,
+      game.fit+
+      (styleMatch?3:Math.round(Math.random()*6-3))
+    )
+  );
 
   render();
   show("stageScreen");
 }
 
 
-render();
-
+/* 初始建立玩家 */
+randomPlayer();
 </script>
 
 </body>
 </html>
+```
