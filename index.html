@@ -1,86 +1,424 @@
-```html
 <!DOCTYPE html>
 <html lang="zh-Hant">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1.0">
 <title>英雄聯盟職業人生模擬器</title>
+
 <style>
 *{box-sizing:border-box}
-body{margin:0;background:#eef0f3;color:#20242a;font-family:system-ui,-apple-system,"Noto Sans TC",sans-serif}
+
+body{
+  margin:0;
+  background:#eef0f3;
+  color:#20242a;
+  font-family:system-ui,-apple-system,"Noto Sans TC",sans-serif
+}
+
 button,input,select{font:inherit}
 button{cursor:pointer}
-.app{max-width:760px;margin:auto;min-height:100vh;background:#fff}
-.top{padding:16px 18px;border-bottom:1px solid #e4e6e8}
-.row{display:flex;justify-content:space-between;align-items:center;gap:10px}
-.name{font-size:21px;font-weight:900}
-.yearAge{display:flex;align-items:end;gap:16px;margin:10px 0 4px}
-.yearAge .year{font-size:28px;font-weight:900;line-height:1}
-.yearAge .age{font-size:30px;font-weight:900;line-height:1}
-.muted{font-size:13px;color:#777d84}
-.badges{display:flex;flex-wrap:wrap;gap:6px;margin-top:10px}
-.badge{padding:5px 9px;background:#eef0f2;border-radius:999px;font-size:12px;font-weight:700}
-.good{background:#e6f5eb;color:#247344}
-.warn{background:#fff1d8;color:#966000}
-.stats{display:grid;grid-template-columns:repeat(4,1fr);gap:7px;margin-top:12px}
-.stat{background:#f6f7f8;border-radius:10px;padding:8px;text-align:center}
-.stat b{display:block;font-size:19px}
-.stat span{font-size:11px;color:#777}
-.timeline{display:flex;gap:5px;margin-top:13px}
-.timeline i{height:4px;flex:1;background:#ddd;border-radius:4px}
-.timeline i.on{background:#222}
-.main{padding:17px}
-.card{border:1px solid #e1e4e7;border-radius:15px;padding:16px;margin-bottom:12px}
+
+.app{
+  max-width:760px;
+  margin:auto;
+  min-height:100vh;
+  background:#fff
+}
+
+.top{
+  padding:16px 18px;
+  border-bottom:1px solid #e4e6e8
+}
+
+.row{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  gap:10px
+}
+
+.name{
+  font-size:21px;
+  font-weight:900
+}
+
+.yearAge{
+  display:flex;
+  align-items:end;
+  gap:16px;
+  margin:10px 0 4px
+}
+
+.yearAge .year{
+  font-size:28px;
+  font-weight:900;
+  line-height:1
+}
+
+.yearAge .age{
+  font-size:30px;
+  font-weight:900;
+  line-height:1
+}
+
+.muted{
+  font-size:13px;
+  color:#777d84
+}
+
+.badges{
+  display:flex;
+  flex-wrap:wrap;
+  gap:6px;
+  margin-top:10px
+}
+
+.badge{
+  padding:5px 9px;
+  background:#eef0f2;
+  border-radius:999px;
+  font-size:12px;
+  font-weight:700
+}
+
+.good{
+  background:#e6f5eb;
+  color:#247344
+}
+
+.warn{
+  background:#fff1d8;
+  color:#966000
+}
+
+.bad{
+  background:#fde7e7;
+  color:#a52d2d
+}
+
+.stats{
+  display:grid;
+  grid-template-columns:repeat(6,1fr);
+  gap:7px;
+  margin-top:12px
+}
+
+.stat{
+  background:#f6f7f8;
+  border-radius:10px;
+  padding:8px;
+  text-align:center
+}
+
+.stat b{
+  display:block;
+  font-size:19px
+}
+
+.stat span{
+  font-size:11px;
+  color:#777
+}
+
+.timeline{
+  display:flex;
+  gap:5px;
+  margin-top:13px
+}
+
+.timeline i{
+  height:4px;
+  flex:1;
+  background:#ddd;
+  border-radius:4px
+}
+
+.timeline i.on{
+  background:#222
+}
+
+.main{
+  padding:17px
+}
+
+.card{
+  border:1px solid #e1e4e7;
+  border-radius:15px;
+  padding:16px;
+  margin-bottom:12px
+}
+
 h1,h2,h3,p{margin-top:0}
-h1{font-size:22px;margin-bottom:4px}
-h2{font-size:18px;margin-bottom:5px}
-h3{font-size:14px;margin-bottom:8px}
-.version{font-size:13px;color:#6f757c}
-.scores{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:15px}
-.score{background:#f6f7f8;border-radius:11px;padding:11px}
-.score span{font-size:12px;color:#777}
-.score b{display:block;font-size:25px;margin-top:2px}
-.tip{background:#f7f7f7;border-left:4px solid #444;border-radius:9px;padding:11px;font-size:13px;line-height:1.6}
-.primary,.secondary{width:100%;padding:13px;border-radius:11px;font-weight:800;margin-top:12px}
-.primary{border:0;background:#222;color:white}
-.secondary{border:1px solid #ddd;background:white}
-.choice{border:1px solid #ddd;border-radius:13px;padding:15px;margin:9px 0;background:white;text-align:left;width:100%}
-.choice b{display:block;font-size:15px;margin-bottom:5px}
-.choice span{font-size:12px;color:#777}
-.choice:hover{background:#f7f8f9}
-.choice.selected{border:2px solid #222;background:#f7f7f7}
-.locked{display:inline-block;margin-left:6px;font-size:11px;padding:3px 6px;border-radius:999px;background:#222;color:#fff}
-.advice{margin-top:8px;padding-top:8px;border-top:1px solid #eee;font-size:12px;line-height:1.55;color:#50555b}
-.fitScore{font-size:19px;font-weight:900}
+
+h1{
+  font-size:22px;
+  margin-bottom:4px
+}
+
+h2{
+  font-size:18px;
+  margin-bottom:5px
+}
+
+h3{
+  font-size:14px;
+  margin-bottom:8px
+}
+
+.version{
+  font-size:13px;
+  color:#6f757c
+}
+
+.scores{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:8px;
+  margin-top:15px
+}
+
+.score{
+  background:#f6f7f8;
+  border-radius:11px;
+  padding:11px
+}
+
+.score span{
+  font-size:12px;
+  color:#777
+}
+
+.score b{
+  display:block;
+  font-size:25px;
+  margin-top:2px
+}
+
+.tip{
+  background:#f7f7f7;
+  border-left:4px solid #444;
+  border-radius:9px;
+  padding:11px;
+  font-size:13px;
+  line-height:1.6
+}
+
+.primary,.secondary{
+  width:100%;
+  padding:13px;
+  border-radius:11px;
+  font-weight:800;
+  margin-top:12px
+}
+
+.primary{
+  border:0;
+  background:#222;
+  color:white
+}
+
+.secondary{
+  border:1px solid #ddd;
+  background:white
+}
+
+button:disabled{
+  opacity:.45;
+  cursor:not-allowed
+}
+
+.choice{
+  border:1px solid #ddd;
+  border-radius:13px;
+  padding:15px;
+  margin:9px 0;
+  background:white;
+  text-align:left;
+  width:100%
+}
+
+.choice b{
+  display:block;
+  font-size:15px;
+  margin-bottom:5px
+}
+
+.choice span{
+  font-size:12px;
+  color:#777
+}
+
+.choice:hover:not(:disabled){
+  background:#f7f8f9
+}
+
+.choice.selected{
+  border:2px solid #222;
+  background:#f7f7f7
+}
+
+.locked{
+  display:inline-block;
+  margin-left:6px;
+  font-size:11px;
+  padding:3px 6px;
+  border-radius:999px;
+  background:#222;
+  color:#fff
+}
+
+.advice{
+  margin-top:8px;
+  padding-top:8px;
+  border-top:1px solid #eee;
+  font-size:12px;
+  line-height:1.55;
+  color:#50555b
+}
+
+.fitScore{
+  font-size:19px;
+  font-weight:900
+}
+
 .fitHigh{color:#247344}
 .fitMid{color:#966000}
 .fitLow{color:#b33a3a}
-.fitText{font-weight:700}
-.valueLine{margin-top:5px;font-size:12px;color:#666}
-.progress{height:6px;background:#e8eaec;border-radius:99px;margin-top:7px;overflow:hidden}
-.progress i{display:block;height:100%;background:#333}
-.customGrid{display:grid;grid-template-columns:1fr 1fr;gap:10px}
-.field{margin-bottom:10px}
-.field label{display:block;font-size:12px;font-weight:800;margin-bottom:5px}
-.field input,.field select{width:100%;border:1px solid #d7dade;border-radius:10px;padding:10px;background:#fff}
-.result{text-align:center;padding:10px 0 4px}
-.result .big{font-size:34px;font-weight:900;margin:8px 0}
-.nextAction{margin-top:16px;padding:14px;border:1px solid #ddd;border-radius:13px;background:#fafafa}
-.nextActionTitle{font-size:12px;color:#777;margin-bottom:3px}
-.hidden{display:none}
+
+.fitText{
+  font-weight:700
+}
+
+.valueLine{
+  margin-top:5px;
+  font-size:12px;
+  color:#666
+}
+
+.progress{
+  height:6px;
+  background:#e8eaec;
+  border-radius:99px;
+  margin-top:7px;
+  overflow:hidden
+}
+
+.progress i{
+  display:block;
+  height:100%;
+  background:#333
+}
+
+.customGrid{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:10px
+}
+
+.field{
+  margin-bottom:10px
+}
+
+.field label{
+  display:block;
+  font-size:12px;
+  font-weight:800;
+  margin-bottom:5px
+}
+
+.field input,
+.field select{
+  width:100%;
+  border:1px solid #d7dade;
+  border-radius:10px;
+  padding:10px;
+  background:#fff
+}
+
+.result{
+  text-align:center;
+  padding:10px 0 4px
+}
+
+.result .big{
+  font-size:34px;
+  font-weight:900;
+  margin:8px 0
+}
+
+.nextAction{
+  margin-top:16px;
+  padding:14px;
+  border:1px solid #ddd;
+  border-radius:13px;
+  background:#fafafa
+}
+
+.nextActionTitle{
+  font-size:12px;
+  color:#777;
+  margin-bottom:3px
+}
+
+.hidden{
+  display:none
+}
+
+.statusGrid{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:8px;
+  margin-top:10px
+}
+
+.statusBox{
+  padding:10px;
+  border-radius:10px;
+  background:#f6f7f8
+}
+
+.statusBox b{
+  display:block;
+  font-size:18px
+}
+
+.statusBox span{
+  font-size:11px;
+  color:#777
+}
+
+.smallNote{
+  font-size:11px;
+  color:#777;
+  margin-top:8px
+}
+
+@media(max-width:560px){
+  .stats{
+    grid-template-columns:repeat(3,1fr)
+  }
+}
+
 @media(max-width:480px){
-.stats{grid-template-columns:repeat(2,1fr)}
-.scores{grid-template-columns:1fr}
-.customGrid{grid-template-columns:1fr}
+  .scores{
+    grid-template-columns:1fr
+  }
+
+  .customGrid{
+    grid-template-columns:1fr
+  }
 }
 </style>
 </head>
 
 <body>
+
 <div class="app">
 
 <header class="top">
+
 <div class="row">
+
 <div>
 
 <div class="yearAge">
@@ -94,211 +432,494 @@ h3{font-size:14px;margin-bottom:8px}
 </div>
 
 <div class="muted" id="resource">資源 30</div>
+
 </div>
 
 <div class="badges">
-<span class="badge" id="position">未選位置</span>
-<span class="badge" id="regionBadge">出身賽區：APAC</span>
-<span class="badge" id="versionState">版本受益</span>
+
+<span class="badge" id="position">
+未選位置
+</span>
+
+<span class="badge" id="regionBadge">
+出身賽區：APAC
+</span>
+
+<span class="badge good" id="versionState">
+版本受益
+</span>
+
 </div>
 
 <div class="stats">
-<div class="stat"><b id="op">82</b><span>操作</span></div>
-<div class="stat"><b id="iq">74</b><span>觀念</span></div>
-<div class="stat"><b id="team">69</b><span>團隊</span></div>
-<div class="stat"><b id="exp">38</b><span>經驗</span></div>
+
+<div class="stat">
+<b id="op">82</b>
+<span>操作</span>
+</div>
+
+<div class="stat">
+<b id="iq">74</b>
+<span>觀念</span>
+</div>
+
+<div class="stat">
+<b id="team">69</b>
+<span>團隊</span>
+</div>
+
+<div class="stat">
+<b id="exp">38</b>
+<span>經驗</span>
+</div>
+
+<div class="stat">
+<b id="health">70</b>
+<span>健康</span>
+</div>
+
+<div class="stat">
+<b id="popularity">30</b>
+<span>人氣</span>
+</div>
+
 </div>
 
 <div class="timeline">
-<i class="on"></i><i></i><i></i><i></i>
+<i class="on"></i>
+<i></i>
+<i></i>
+<i></i>
 </div>
+
 </header>
 
+
 <main class="main">
+
+
+<!-- 建立角色 -->
 
 <section id="customScreen">
 
 <div class="card">
+
 <div class="muted">角色建立</div>
+
 <h1>建立你的職業人生</h1>
 
 <div class="customGrid">
 
 <div class="field">
+
 <label>本名</label>
-<input id="realNameInput" value="王小明">
+
+<input
+id="realNameInput"
+value="王小明"
+maxlength="20"
+>
+
 </div>
 
 <div class="field">
+
 <label>職業 ID</label>
-<input id="idInput" value="Nova">
+
+<input
+id="idInput"
+value="Nova"
+maxlength="20"
+>
+
 </div>
 
 </div>
+
 
 <div class="field">
+
 <label>國家／地區代表</label>
 
 <select id="countryInput" onchange="countryChanged()">
 
-<option value="Chinese Taipei">Chinese Taipei（中國台北）</option>
-<option value="Republic of Korea">Republic of Korea（韓國）</option>
-<option value="People's Republic of China">People's Republic of China（中國）</option>
-<option value="Vietnam">Vietnam（越南）</option>
-<option value="Japan">Japan（日本）</option>
-<option value="United States">United States（美國）</option>
-<option value="Canada">Canada（加拿大）</option>
-<option value="France">France（法國）</option>
-<option value="Denmark">Denmark（丹麥）</option>
-<option value="Türkiye">Türkiye（土耳其）</option>
-<option value="Greece">Greece（希臘）</option>
-<option value="Poland">Poland（波蘭）</option>
-<option value="Spain">Spain（西班牙）</option>
-<option value="Sweden">Sweden（瑞典）</option>
-<option value="Czech Republic">Czech Republic（捷克）</option>
-<option value="Brazil">Brazil（巴西）</option>
-<option value="Argentina">Argentina（阿根廷）</option>
-<option value="Chile">Chile（智利）</option>
-<option value="Peru">Peru（秘魯）</option>
-<option value="Mexico">Mexico（墨西哥）</option>
-<option value="Germany">Germany（德國）</option>
-<option value="Belgium">Belgium（比利時）</option>
-<option value="Romania">Romania（羅馬尼亞）</option>
-<option value="Lithuania">Lithuania（立陶宛）</option>
-<option value="Saudi Arabia">Saudi Arabia（沙烏地阿拉伯）</option>
-<option value="Algeria">Algeria（阿爾及利亞）</option>
-<option value="Tunisia">Tunisia（突尼西亞）</option>
-<option value="Philippines">Philippines（菲律賓）</option>
-<option value="New Zealand">New Zealand（紐西蘭）</option>
-<option value="Mongolia">Mongolia（蒙古）</option>
-<option value="Hong Kong">Hong Kong, China（香港）</option>
+<option value="Chinese Taipei">
+Chinese Taipei（中國台北）
+</option>
+
+<option value="Republic of Korea">
+Republic of Korea（韓國）
+</option>
+
+<option value="People's Republic of China">
+People's Republic of China（中國）
+</option>
+
+<option value="Vietnam">
+Vietnam（越南）
+</option>
+
+<option value="Japan">
+Japan（日本）
+</option>
+
+<option value="United States">
+United States（美國）
+</option>
+
+<option value="Canada">
+Canada（加拿大）
+</option>
+
+<option value="France">
+France（法國）
+</option>
+
+<option value="Denmark">
+Denmark（丹麥）
+</option>
+
+<option value="Türkiye">
+Türkiye（土耳其）
+</option>
+
+<option value="Greece">
+Greece（希臘）
+</option>
+
+<option value="Poland">
+Poland（波蘭）
+</option>
+
+<option value="Spain">
+Spain（西班牙）
+</option>
+
+<option value="Sweden">
+Sweden（瑞典）
+</option>
+
+<option value="Czech Republic">
+Czech Republic（捷克）
+</option>
+
+<option value="Brazil">
+Brazil（巴西）
+</option>
+
+<option value="Argentina">
+Argentina（阿根廷）
+</option>
+
+<option value="Chile">
+Chile（智利）
+</option>
+
+<option value="Peru">
+Peru（秘魯）
+</option>
+
+<option value="Mexico">
+Mexico（墨西哥）
+</option>
+
+<option value="Germany">
+Germany（德國）
+</option>
+
+<option value="Belgium">
+Belgium（比利時）
+</option>
+
+<option value="Romania">
+Romania（羅馬尼亞）
+</option>
+
+<option value="Lithuania">
+Lithuania（立陶宛）
+</option>
+
+<option value="Saudi Arabia">
+Saudi Arabia（沙烏地阿拉伯）
+</option>
+
+<option value="Algeria">
+Algeria（阿爾及利亞）
+</option>
+
+<option value="Tunisia">
+Tunisia（突尼西亞）
+</option>
+
+<option value="Philippines">
+Philippines（菲律賓）
+</option>
+
+<option value="New Zealand">
+New Zealand（紐西蘭）
+</option>
+
+<option value="Mongolia">
+Mongolia（蒙古）
+</option>
+
+<option value="Hong Kong">
+Hong Kong, China（香港）
+</option>
 
 </select>
+
 </div>
+
 
 <div class="tip">
-<b>出身賽區</b><br>
-<span id="originRegionText">APAC</span>
+
+<b>出身賽區</b>
+
+<br>
+
+<span id="originRegionText">
+APAC
+</span>
+
 <br><br>
+
 國家／地區會自動綁定出身賽區。
-這一階段不能手動修改，旅外將在後續職業生涯中處理。
+旅外、轉隊與國際賽資格會在後續系統處理。
+
 </div>
 
-<button class="primary" onclick="saveCustom()">確認角色 →</button>
+
+<button
+class="primary"
+onclick="saveCustom()"
+>
+確認角色 →
+</button>
+
 </div>
 
 </section>
 
 
+<!-- 選位置 -->
+
 <section id="positionScreen" class="hidden">
 
 <div class="card">
+
 <div class="muted">職業定位</div>
+
 <h1>選擇你的主要位置</h1>
 
 <div class="tip">
-選定後會鎖定。你可以在進入下一回合前解鎖並重新選擇。
+
+每個賽季開始前可以重新選擇主要位置。
+一旦進入賽季，位置會鎖定。
+
 </div>
 
 <div id="positionChoices"></div>
+
 </div>
 
-<button id="positionConfirm" class="primary hidden" onclick="confirmPosition()">
+<button
+id="positionConfirm"
+class="primary hidden"
+onclick="confirmPosition()"
+>
 鎖定位置 →
 </button>
 
 </section>
 
 
+<!-- 階段 -->
+
 <section id="stageScreen" class="hidden">
 
 <div class="card">
+
 <div class="muted">目前人生階段</div>
-<h1 id="stageTitle">業餘賽季・春季</h1>
+
+<h1 id="stageTitle">
+業餘賽季・春季
+</h1>
 
 <div class="version" id="versionText">
 本季版本：操作與主動進攻
 </div>
 
+
 <div class="scores">
+
 <div class="score">
+
 <span>隊伍評分</span>
+
 <b id="teamScore">63</b>
+
 </div>
+
 
 <div class="score">
-<span>隊伍版本適合度</span>
+
+<span>版本適合度</span>
+
 <b id="fit">78</b>
-</div>
-</div>
+
 </div>
 
+</div>
+
+
+<div class="statusGrid">
+
+<div class="statusBox">
+
+<b id="stageHealth">
+70
+</b>
+
+<span>
+健康狀態
+</span>
+
+</div>
+
+
+<div class="statusBox">
+
+<b id="stagePopularity">
+30
+</b>
+
+<span>
+人氣
+</span>
+
+</div>
+
+</div>
+
+</div>
+
+
 <div class="card">
+
 <h3>💡 現況</h3>
-<div class="tip" id="summary"></div>
+
+<div
+class="tip"
+id="summary"
+></div>
+
 </div>
+
 
 <div class="card">
-<h3>目前可能注意你的隊伍</h3>
+
+<h3>
+目前可能注意你的隊伍
+</h3>
+
 <div id="teamInterest"></div>
+
 </div>
 
-<button class="primary" onclick="goDecision()">
+
+<button
+class="primary"
+onclick="goDecision()"
+>
 進入本回合 →
 </button>
 
 </section>
 
 
+<!-- 行動 -->
+
 <section id="decisionScreen" class="hidden">
 
 <div class="card">
 
-<div class="muted">本回合唯一動作</div>
-<h1>你要怎麼安排這段時間？</h1>
+<div class="muted">
+本回合唯一動作
+</div>
 
-<div class="tip" id="decisionTip"></div>
+<h1>
+你要怎麼安排這段時間？
+</h1>
+
+<div
+class="tip"
+id="decisionTip"
+></div>
 
 <div id="routeChoices"></div>
 
 </div>
 
-<button class="secondary" onclick="backToStage()">
+<button
+class="secondary"
+onclick="backToStage()"
+>
 ← 回上一層
 </button>
 
 </section>
 
 
+<!-- 訓練 -->
+
 <section id="trainingScreen" class="hidden">
 
 <div class="card">
 
-<div class="muted">遊戲訓練</div>
-<h1>你想提升什麼？</h1>
+<div class="muted">
+遊戲訓練
+</div>
+
+<h1>
+你想提升什麼？
+</h1>
 
 <div class="tip">
-本回合只能選擇一項能力。
+
+本回合只能提升一項能力。
+能力越接近軟上限，訓練成本越高。
+
 </div>
 
 <div id="trainingChoices"></div>
 
 </div>
 
-<button class="secondary" onclick="backToDecision()">
+<button
+class="secondary"
+onclick="backToDecision()"
+>
 ← 回上一層
 </button>
 
 </section>
 
 
+<!-- 結果 -->
+
 <section id="resultScreen" class="hidden">
 
 <div class="card result">
 
-<div class="muted">本回合結果</div>
+<div class="muted">
+本回合結果
+</div>
 
-<div class="big" id="resultTitle">
+<div
+class="big"
+id="resultTitle"
+>
 訓練完成
 </div>
 
@@ -306,45 +927,86 @@ h3{font-size:14px;margin-bottom:8px}
 你的能力有所提升。
 </p>
 
+
 <div class="scores">
 
 <div class="score">
-<span>隊伍評分</span>
-<b id="resultTeam">63</b>
+
+<span>
+隊伍評分
+</span>
+
+<b id="resultTeam">
+63
+</b>
+
 </div>
+
 
 <div class="score">
-<span>版本適合度</span>
-<b id="resultFit">78</b>
+
+<span>
+版本適合度
+</span>
+
+<b id="resultFit">
+78
+</b>
+
 </div>
 
 </div>
+
 </div>
+
 
 <div class="nextAction">
-<div class="nextActionTitle">下一個動作</div>
-<b>結束本回合並查看事件</b>
+
+<div class="nextActionTitle">
+下一個動作
 </div>
 
-<button class="primary" onclick="showEvent()">
+<b>
+結束本回合並查看事件
+</b>
+
+</div>
+
+
+<button
+class="primary"
+onclick="showEvent()"
+>
 繼續 →
 </button>
 
 </section>
 
 
+<!-- 事件 -->
+
 <section id="eventScreen" class="hidden">
 
 <div class="card">
 
-<div class="muted">突發事件</div>
-<h1 id="eventTitle">⚡ 突發事件</h1>
+<div class="muted">
+突發事件
+</div>
+
+<h1 id="eventTitle">
+⚡ 突發事件
+</h1>
 
 <p id="eventText"></p>
 
-<button class="choice" onclick="finishEvent()">
+
+<button
+class="choice"
+onclick="finishEvent()"
+>
 
 <b id="eventChoice"></b>
+
 <span id="eventChoiceText"></span>
 
 </button>
@@ -354,13 +1016,20 @@ h3{font-size:14px;margin-bottom:8px}
 </section>
 
 
+<!-- 賽季結果 -->
+
 <section id="matchScreen" class="hidden">
 
 <div class="card result">
 
-<div class="muted">賽季結果</div>
+<div class="muted">
+賽季結果
+</div>
 
-<div class="big" id="seasonResult">
+<div
+class="big"
+id="seasonResult"
+>
 晉級季後賽
 </div>
 
@@ -368,36 +1037,58 @@ h3{font-size:14px;margin-bottom:8px}
 
 </div>
 
-<button class="primary" onclick="newPhase()">
+
+<button
+class="primary"
+onclick="newPhase()"
+>
 進入下一回合 →
 </button>
 
 </section>
 
+
 </main>
+
 </div>
 
 
 <script>
 
-const game={
+
+/* =========================
+   遊戲資料
+========================= */
+
+const game = {
 
 year:2026,
+
 age:18,
+
 season:1,
 
 realName:"王小明",
+
 id:"Nova",
 
 country:"Chinese Taipei",
+
 region:"APAC",
 
 resource:30,
 
 op:82,
+
 iq:74,
+
 team:69,
+
 exp:38,
+
+health:70,
+
+popularity:30,
 
 soft:{
 op:91,
@@ -407,106 +1098,181 @@ exp:95
 },
 
 position:null,
+
 positionLocked:false,
 
+actionTaken:false,
+
 style:"進攻型",
-specialty:"戰士",
 
 teamScore:63,
+
 fit:78,
 
 version:"操作與主動進攻",
+
 versionState:"版本受益"
 
 };
 
 
-const countryRegion={
+/* =========================
+   國家 → 賽區
+========================= */
+
+const countryRegion = {
 
 "Chinese Taipei":"APAC",
+
 "Republic of Korea":"KR",
+
 "People's Republic of China":"CN",
 
 "Vietnam":"APAC",
+
 "Japan":"APAC",
+
 "Philippines":"APAC",
+
 "New Zealand":"APAC",
+
 "Mongolia":"APAC",
+
 "Hong Kong":"APAC",
 
 "United States":"NA",
+
 "Canada":"NA",
+
 "Mexico":"NA",
 
 "France":"EU",
+
 "Denmark":"EU",
+
 "Türkiye":"EU",
+
 "Greece":"EU",
+
 "Poland":"EU",
+
 "Spain":"EU",
+
 "Sweden":"EU",
+
 "Czech Republic":"EU",
+
 "Germany":"EU",
+
 "Belgium":"EU",
+
 "Romania":"EU",
+
 "Lithuania":"EU",
 
 "Brazil":"BR",
+
 "Argentina":"BR",
+
 "Chile":"BR",
+
 "Peru":"BR",
 
 "Saudi Arabia":"ME",
+
 "Algeria":"ME",
+
 "Tunisia":"ME"
 
 };
 
 
-const versions=[
+/* =========================
+   版本
+========================= */
+
+const versions = [
+
 "操作與主動進攻",
+
 "觀念與團隊協作",
+
 "發育與資源管理",
+
 "前期打架與支援"
+
 ];
 
 
-const positionData={
+/* =========================
+   位置
+========================= */
+
+const positionData = {
 
 TOP:{
 label:"TOP",
-weights:{op:.25,iq:.30,team:.20,exp:.25},
+weights:{
+op:.25,
+iq:.30,
+team:.20,
+exp:.25
+},
 style:"戰士／坦克"
 },
 
 JG:{
 label:"JG",
-weights:{op:.20,iq:.35,team:.30,exp:.15},
+weights:{
+op:.20,
+iq:.35,
+team:.30,
+exp:.15
+},
 style:"節奏／坦克"
 },
 
 MID:{
 label:"MID",
-weights:{op:.35,iq:.30,team:.20,exp:.15},
+weights:{
+op:.35,
+iq:.30,
+team:.20,
+exp:.15
+},
 style:"進攻／法師"
 },
 
 ADC:{
 label:"ADC",
-weights:{op:.40,iq:.20,team:.30,exp:.10},
+weights:{
+op:.40,
+iq:.20,
+team:.30,
+exp:.10
+},
 style:"射手"
 },
 
 SUP:{
 label:"SUP",
-weights:{op:.15,iq:.35,team:.35,exp:.15},
+weights:{
+op:.15,
+iq:.35,
+team:.35,
+exp:.15
+},
 style:"輔助／坦克"
 }
 
 };
 
 
-const teams={
+/* =========================
+   隊伍
+========================= */
+
+const teams = {
 
 APAC:[
 ["Solar Rebellion","SR",72],
@@ -553,16 +1319,52 @@ ME:[
 };
 
 
-function show(id){
+/* =========================
+   工具
+========================= */
 
-document.querySelectorAll(
-"#customScreen,#positionScreen,#stageScreen,#decisionScreen,#trainingScreen,#resultScreen,#eventScreen,#matchScreen"
-).forEach(x=>x.classList.add("hidden"));
+function clamp(value,min,max){
 
-document.getElementById(id).classList.remove("hidden");
+return Math.max(
+min,
+Math.min(max,value)
+);
 
 }
 
+
+function safeText(value){
+
+return String(value)
+.replace(/&/g,"&amp;")
+.replace(/</g,"&lt;")
+.replace(/>/g,"&gt;")
+.replace(/"/g,"&quot;")
+.replace(/'/g,"&#039;");
+
+}
+
+
+function show(id){
+
+document
+.querySelectorAll(
+"#customScreen,#positionScreen,#stageScreen,#decisionScreen,#trainingScreen,#resultScreen,#eventScreen,#matchScreen"
+)
+.forEach(
+x=>x.classList.add("hidden")
+);
+
+document
+.getElementById(id)
+.classList.remove("hidden");
+
+}
+
+
+/* =========================
+   位置適性
+========================= */
 
 function positionFit(position){
 
@@ -571,19 +1373,102 @@ const p=positionData[position];
 if(!p)return 0;
 
 return Math.round(
+
 game.op*p.weights.op+
+
 game.iq*p.weights.iq+
+
 game.team*p.weights.team+
+
 game.exp*p.weights.exp
+
 );
 
 }
 
 
+/* =========================
+   版本適性
+========================= */
+
+function versionFit(){
+
+let score=70;
+
+const v=game.version;
+
+if(v==="操作與主動進攻"){
+
+score += game.op*.18;
+score -= game.exp*.05;
+
+}
+
+else if(v==="觀念與團隊協作"){
+
+score += game.iq*.15;
+score += game.team*.12;
+
+}
+
+else if(v==="發育與資源管理"){
+
+score += game.iq*.10;
+score += game.exp*.15;
+
+}
+
+else if(v==="前期打架與支援"){
+
+score += game.op*.10;
+score += game.team*.10;
+
+}
+
+return clamp(
+Math.round(score-30),
+40,
+99
+);
+
+}
+
+
+/* =========================
+   版本狀態
+========================= */
+
+function calculateVersionState(){
+
+const score=versionFit();
+
+if(score>=82){
+
+return "版本受益";
+
+}
+
+if(score<=60){
+
+return "逆版本";
+
+}
+
+return "正常";
+
+}
+
+
+/* =========================
+   適性文字
+========================= */
+
 function fitClass(score){
 
 if(score>=80)return"fitHigh";
+
 if(score>=65)return"fitMid";
+
 return"fitLow";
 
 }
@@ -592,24 +1477,39 @@ return"fitLow";
 function fitText(score){
 
 if(score>=85)return"非常適合";
+
 if(score>=75)return"適合";
+
 if(score>=65)return"普通";
+
 if(score>=55)return"偏低";
+
 return"不推薦";
 
 }
 
 
+/* =========================
+   訓練成本
+========================= */
+
 function trainingCost(key){
 
-const gap=Math.max(1,game.soft[key]-60);
+const current=game[key];
 
-const ratio=Math.max(
+const soft=game.soft[key];
+
+if(current>=soft){
+
+return Infinity;
+
+}
+
+const ratio=clamp(
+(current-60)/
+Math.max(1,soft-60),
 0,
-Math.min(
-1,
-(game[key]-60)/gap
-)
+1
 );
 
 return Math.max(
@@ -620,10 +1520,16 @@ Math.round(1+ratio*ratio*9)
 }
 
 
+/* =========================
+   國家
+========================= */
+
 function countryChanged(){
 
 const country=
-document.getElementById("countryInput").value;
+document.getElementById(
+"countryInput"
+).value;
 
 const region=
 countryRegion[country]||"APAC";
@@ -635,26 +1541,44 @@ document.getElementById(
 }
 
 
+/* =========================
+   建立角色
+========================= */
+
 function saveCustom(){
 
 game.realName=
-document.getElementById("realNameInput").value.trim()
+document
+.getElementById("realNameInput")
+.value
+.trim()
+.substring(0,20)
 ||"無名選手";
 
 game.id=
-document.getElementById("idInput").value.trim()
+document
+.getElementById("idInput")
+.value
+.trim()
+.substring(0,20)
 ||"Nova";
 
 game.country=
-document.getElementById("countryInput").value;
+document
+.getElementById("countryInput")
+.value;
 
 game.region=
 countryRegion[game.country]||"APAC";
 
 game.position=null;
+
 game.positionLocked=false;
 
+game.actionTaken=false;
+
 render();
+
 buildPositionChoices();
 
 show("positionScreen");
@@ -662,54 +1586,76 @@ show("positionScreen");
 }
 
 
+/* =========================
+   位置選擇
+========================= */
+
 function buildPositionChoices(){
 
 let html="";
 
-Object.keys(positionData).forEach(key=>{
+Object.keys(positionData)
+.forEach(key=>{
 
 const p=positionData[key];
+
 const score=positionFit(key);
 
 html+=`
 
 <button
 class="choice ${game.position===key?"selected":""}"
-onclick="selectPosition('${key}')">
+onclick="selectPosition('${key}')"
+>
 
 <b>
+
 ${p.label}
-${game.position===key
+
+${
+game.position===key
 ?'<span class="locked">已選</span>'
-:""}
+:""
+}
+
 </b>
 
 <span>
+
 建議適性：
+
 <strong class="${fitClass(score)}">
+
 ${score}｜${fitText(score)}
+
 </strong>
+
 </span>
 
 <div class="valueLine">
+
 位置核心：${p.style}
+
 </div>
 
 <div class="advice">
+
 操作 ${game.op}｜
 觀念 ${game.iq}｜
 團隊 ${game.team}｜
 經驗 ${game.exp}
+
 </div>
 
 </button>
+
 `;
 
 });
 
-document.getElementById(
-"positionChoices"
-).innerHTML=html;
+document
+.getElementById("positionChoices")
+.innerHTML=html;
 
 }
 
@@ -722,9 +1668,10 @@ game.position=key;
 
 buildPositionChoices();
 
-document.getElementById(
-"positionConfirm"
-).classList.remove("hidden");
+document
+.getElementById("positionConfirm")
+.classList
+.remove("hidden");
 
 }
 
@@ -738,9 +1685,7 @@ game.positionLocked=true;
 game.style=
 positionData[game.position].style;
 
-document.getElementById(
-"positionConfirm"
-).classList.add("hidden");
+game.fit=calculatePersonalFit();
 
 render();
 
@@ -749,118 +1694,217 @@ show("stageScreen");
 }
 
 
-function unlockPosition(){
+/* =========================
+   個人版本綜合適性
+========================= */
 
-game.positionLocked=false;
+function calculatePersonalFit(){
 
-buildPositionChoices();
+const positionScore=
+positionFit(game.position)||70;
 
-document.getElementById(
-"positionConfirm"
-).classList.remove("hidden");
+const versionScore=
+versionFit();
 
-show("positionScreen");
+return clamp(
+Math.round(
+positionScore*.55+
+versionScore*.45
+),
+40,
+99
+);
 
 }
 
 
+/* =========================
+   Render
+========================= */
+
 function render(){
 
-document.getElementById("year").textContent=game.year;
-document.getElementById("age").textContent=`${game.age} 歲`;
+game.fit=calculatePersonalFit();
 
-document.getElementById("displayId").textContent=game.id;
-document.getElementById("realNameDisplay").textContent=game.realName;
+document.getElementById("year")
+.textContent=game.year;
 
-document.getElementById("resource").textContent=
-`資源 ${game.resource}`;
+document.getElementById("age")
+.textContent=`${game.age} 歲`;
 
-document.getElementById("position").textContent=
+document.getElementById("displayId")
+.textContent=safeText(game.id);
+
+document.getElementById("realNameDisplay")
+.textContent=safeText(game.realName);
+
+document.getElementById("resource")
+.textContent=`資源 ${game.resource}`;
+
+document.getElementById("position")
+.textContent=
 game.position
 ?`${game.position}｜適性 ${positionFit(game.position)}`
 :"未選位置";
 
-document.getElementById("regionBadge").textContent=
+document.getElementById("regionBadge")
+.textContent=
 `出身賽區：${game.region}`;
 
-document.getElementById("op").textContent=game.op;
-document.getElementById("iq").textContent=game.iq;
-document.getElementById("team").textContent=game.team;
-document.getElementById("exp").textContent=game.exp;
+document.getElementById("op")
+.textContent=game.op;
 
-document.getElementById("versionState").textContent=
-game.versionState;
+document.getElementById("iq")
+.textContent=game.iq;
 
-document.getElementById("versionState").className=
-"badge "+(
+document.getElementById("team")
+.textContent=game.team;
+
+document.getElementById("exp")
+.textContent=game.exp;
+
+document.getElementById("health")
+.textContent=game.health;
+
+document.getElementById("popularity")
+.textContent=game.popularity;
+
+document.getElementById("versionState")
+.textContent=game.versionState;
+
+document.getElementById("versionState")
+.className=
+"badge "+
+(
 game.versionState==="逆版本"
 ?"warn"
-:"good"
+:
+game.versionState==="版本受益"
+?"good"
+:""
 );
 
-document.getElementById("stageTitle").textContent=
+document.getElementById("stageTitle")
+.textContent=
 game.age<19
 ?"業餘賽季・春季"
-:"職業賽季・春季";
+:
+game.age<21
+?"次級聯賽・春季"
+:
+"職業賽季・春季";
 
-document.getElementById("versionText").textContent=
+document.getElementById("versionText")
+.textContent=
 `本季版本：${game.version}`;
 
-document.getElementById("teamScore").textContent=
-game.teamScore;
+document.getElementById("teamScore")
+.textContent=game.teamScore;
 
-document.getElementById("fit").textContent=
-game.fit;
+document.getElementById("fit")
+.textContent=game.fit;
+
+document.getElementById("stageHealth")
+.textContent=game.health;
+
+document.getElementById("stagePopularity")
+.textContent=game.popularity;
 
 updateTips();
+
 renderTeamInterest();
 
 }
 
 
+/* =========================
+   現況提示
+========================= */
+
 function updateTips(){
 
 const values={
+
 op:game.op,
+
 iq:game.iq,
+
 team:game.team,
+
 exp:game.exp
+
 };
 
 const labels={
+
 op:"操作",
+
 iq:"觀念",
+
 team:"團隊",
+
 exp:"經驗"
+
 };
 
 const key=
-Object.keys(values).sort(
+Object
+.keys(values)
+.sort(
 (a,b)=>
 values[a]/game.soft[a]-
 values[b]/game.soft[b]
 )[0];
 
-document.getElementById("summary").textContent=
-`目前最值得投資的是${labels[key]}。`+
-`目前 ${values[key]}／軟上限 ${game.soft[key]}。`+
-`下一點成長成本 ${trainingCost(key)}。`;
+const cost=
+trainingCost(key);
 
-document.getElementById("decisionTip").textContent=
+document.getElementById(
+"summary"
+).textContent=
+
+`目前最值得投資的是${labels[key]}。`+
+
+`目前 ${values[key]}／軟上限 ${game.soft[key]}。`+
+
+(
+cost===Infinity
+?" 已達目前訓練上限。"
+:`下一點成長成本 ${cost}。`
+);
+
+document.getElementById(
+"decisionTip"
+).textContent=
+
+game.actionTaken
+
+?"本回合已完成主要行動。"
+
+:
+
 game.versionState==="逆版本"
+
 ?"目前版本對你的打法較不利，可以補足版本需要的能力。"
+
 :"目前版本與你的打法相性不錯，可以把資源投入適性較高的路線。";
 
 }
 
 
+/* =========================
+   隊伍興趣
+========================= */
+
 function renderTeamInterest(){
 
-const list=teams[game.region]||[];
+const list=
+teams[game.region]||[];
 
 let html="";
 
-list.forEach(([name,code,power])=>{
+list.forEach(
+([name,code,power])=>{
 
 const personal=
 game.position
@@ -868,41 +1912,68 @@ game.position
 :70;
 
 const interest=
+clamp(
 Math.round(
-power*.55+
+power*.50+
 personal*.25+
-game.fit*.20
+game.fit*.15+
+game.popularity*.10
+),
+0,
+99
 );
 
 html+=`
 
 <div class="choice">
 
-<b>${name}</b>
+<b>${safeText(name)}</b>
 
 <span>
+
 隊伍評分 ${power}
-｜
-邀約適性
+
+｜邀約適性
+
 <strong class="${fitClass(interest)}">
+
 ${interest}
+
 </strong>
+
 </span>
 
 </div>
+
 `;
 
 });
 
-document.getElementById("teamInterest").innerHTML=
-html||"<div class='muted'>目前沒有可追蹤隊伍。</div>";
+document.getElementById(
+"teamInterest"
+).innerHTML=
+html||
+"<div class='muted'>目前沒有可追蹤隊伍。</div>";
 
 }
 
 
+/* =========================
+   行動
+========================= */
+
 function goDecision(){
 
+if(game.actionTaken){
+
+alert("本回合已完成行動，請繼續查看事件。");
+
+return;
+
+}
+
 buildRouteChoices();
+
 show("decisionScreen");
 
 }
@@ -913,36 +1984,58 @@ function buildRouteChoices(){
 const routes=[
 
 {
+
 key:"game",
+
 title:"🎮 遊戲訓練",
+
 desc:"提升比賽能力，直接影響賽場表現。",
+
 score:Math.round(
-game.op*.45+
+
+game.op*.35+
 game.iq*.25+
-game.exp*.30
+game.team*.20+
+game.exp*.20
+
 )
+
 },
 
 {
+
 key:"health",
+
 title:"❤️ 健康訓練",
-desc:"維持狀態，降低長期生涯風險。",
+
+desc:"維持狀態，降低疲勞與長期生涯風險。",
+
 score:Math.round(
-game.team*.30+
-game.exp*.45+
-70*.25
+
+game.health*.70+
+game.exp*.20+
+game.team*.10
+
 )
+
 },
 
 {
+
 key:"pr",
+
 title:"📣 公關訓練",
-desc:"提升人氣與商業價值。",
+
+desc:"提升人氣、曝光與未來商業價值。",
+
 score:Math.round(
-game.team*.35+
-game.iq*.25+
-60*.40
+
+game.popularity*.65+
+game.team*.20+
+game.iq*.15
+
 )
+
 }
 
 ];
@@ -955,7 +2048,9 @@ html+=`
 
 <button
 class="choice"
-onclick="choose('${r.key}')">
+onclick="choose('${r.key}')"
+${game.actionTaken?"disabled":""}
+>
 
 <b>${r.title}</b>
 
@@ -964,112 +2059,201 @@ onclick="choose('${r.key}')">
 <div class="advice">
 
 建議適性：
+
 <strong class="${fitClass(r.score)} fitScore">
+
 ${r.score}
+
 </strong>
-｜
-${fitText(r.score)}
+
+｜${fitText(r.score)}
 
 </div>
 
 </button>
+
 `;
 
 });
 
-document.getElementById("routeChoices").innerHTML=html;
+document.getElementById(
+"routeChoices"
+).innerHTML=html;
 
 }
 
 
 function backToStage(){
+
 show("stageScreen");
+
 }
 
+
+/* =========================
+   行動選擇
+========================= */
 
 function choose(type){
 
-if(type==="game"){
-openGameTraining();
+if(game.actionTaken){
+
+alert("本回合已完成主要行動。");
+
 return;
+
 }
+
+game.actionTaken=true;
+
+if(type==="game"){
+
+openGameTraining();
+
+return;
+
+}
+
 
 if(type==="health"){
 
-game.resource=Math.max(
+const gain=
+game.health<70
+?4
+:3;
+
+game.resource=
+Math.max(
 0,
 game.resource-2
 );
 
+game.health=
+clamp(
+game.health+gain,
+0,
+100
+);
+
 showResult(
+
 "健康訓練完成",
-"你維持了良好的身體狀態，長期生涯風險下降。"
+
+`你改善了身體狀態，健康 +${gain}。`
+
 );
 
 return;
 
 }
 
+
 if(type==="pr"){
 
-game.resource+=3;
+game.resource+=2;
+
+game.popularity=
+clamp(
+game.popularity+6,
+0,
+100
+);
 
 showResult(
+
 "公關活動完成",
-"你的曝光度提升，商業價值也有所增加。"
+
+"你的曝光度提升，人氣與未來商業價值增加。"
+
 );
 
 }
 
 }
 
+
+/* =========================
+   遊戲訓練
+========================= */
 
 function openGameTraining(){
 
 const keys=[
+
 ["op","操作"],
+
 ["iq","觀念"],
+
 ["team","團隊"]
+
 ];
 
 let html="";
 
-keys.forEach(([key,label])=>{
+keys.forEach(
+([key,label])=>{
 
-const cost=trainingCost(key);
+const cost=
+trainingCost(key);
 
-const score=Math.round(
+const score=
+Math.round(
 game[key]*.65+
 game.soft[key]*.35
 );
+
+const disabled=
+cost===Infinity||
+game.resource<cost;
 
 html+=`
 
 <button
 class="choice"
-onclick="train('${key}')">
+onclick="train('${key}')"
+${disabled?"disabled":""}
+>
 
-<b>${label} ${game[key]}</b>
+<b>
+
+${label} ${game[key]}
+
+</b>
 
 <span>
+
 建議適性
+
 <strong class="${fitClass(score)}">
+
 ${score}
+
 </strong>
+
+｜軟上限 ${game.soft[key]}
+
 ｜
-軟上限 ${game.soft[key]}
-｜
-成長成本 ${cost}
+
+${
+cost===Infinity
+?"已達軟上限"
+:`成長成本 ${cost}`
+}
+
 </span>
 
 <div class="progress">
-<i style="width:${Math.min(
-100,
-game[key]/game.soft[key]*100
+
+<i style="width:${clamp(
+game[key]/game.soft[key]*100,
+0,
+100
 )}%"></i>
+
 </div>
 
 </button>
+
 `;
 
 });
@@ -1084,18 +2268,31 @@ show("trainingScreen");
 
 
 function backToDecision(){
+
 show("decisionScreen");
+
 }
 
 
+/* =========================
+   訓練
+========================= */
+
 function train(key){
 
-const cost=trainingCost(key);
+if(!game.actionTaken){
 
-if(game[key]>=game.soft[key]){
+game.actionTaken=true;
+
+}
+
+const cost=
+trainingCost(key);
+
+if(cost===Infinity){
 
 alert(
-"這項能力已達軟上限，目前不能繼續用一般訓練提升。"
+"這項能力已達軟上限，目前不能用一般訓練提升。"
 );
 
 return;
@@ -1113,27 +2310,76 @@ return;
 }
 
 game.resource-=cost;
-game[key]++;
 
-if(
-key==="iq"&&
-game.versionState==="逆版本"
-){
+game[key]=
+clamp(
+game[key]+1,
+0,
+100
+);
 
-game.fit=Math.min(
-99,
-game.fit+2
+
+/* 訓練造成的次要效果 */
+
+if(key==="op"){
+
+game.team=
+clamp(
+game.team+0,
+0,
+100
 );
 
 }
+
+if(key==="iq"){
+
+game.fit=
+clamp(
+game.fit+1,
+40,
+99
+);
+
+}
+
+if(key==="team"){
+
+game.popularity=
+clamp(
+game.popularity+1,
+0,
+100
+);
+
+}
+
+render();
 
 showResult(
-`${key==="op"?"操作":key==="iq"?"觀念":"團隊"}提升`,
-`這次訓練讓你的${key==="op"?"操作":key==="iq"?"觀念":"團隊"}能力提升 1 點。`
+
+`${key==="op"
+?"操作"
+:key==="iq"
+?"觀念"
+:"團隊"}提升`,
+
+`這次訓練讓你的${
+key==="op"
+?"操作"
+:key==="iq"
+?"觀念"
+:"團隊"
+}能力提升 1 點。`
+
 );
 
 }
 
+
+/* =========================
+   結果
+========================= */
 
 function showResult(title,text){
 
@@ -1160,83 +2406,246 @@ show("resultScreen");
 }
 
 
+/* =========================
+   突發事件
+========================= */
+
 function showEvent(){
 
 document.getElementById(
 "eventTitle"
 ).textContent="⚡ 突發事件";
 
+
 const events=[
 
-[
-"你的精彩片段被大量轉發。",
-"接受採訪",
-"增加曝光度與商業價值。",
-()=>{
-game.resource+=5;
-}
-],
+{
 
-[
-"隊伍希望你參加賽後採訪。",
-"接受採訪",
-"建立正面形象。",
-()=>{
-game.resource+=2;
-game.team++;
-}
-],
+title:"你的精彩片段被大量轉發。",
 
-[
-"版本更新後，你的打法受到質疑。",
-"維持原打法",
-"可能承受版本壓力，但保留原本風格。",
-()=>{
-game.versionState="逆版本";
-game.fit=Math.max(
-55,
-game.fit-8
+choice:"接受採訪",
+
+desc:"人氣與商業價值提升。",
+
+effect:()=>{
+
+game.popularity=
+clamp(
+game.popularity+8,
+0,
+100
 );
+
+game.resource+=4;
+
 }
-]
+
+},
+
+{
+
+title:"隊伍希望你參加賽後採訪。",
+
+choice:"接受採訪",
+
+desc:"建立正面形象，團隊默契提升。",
+
+effect:()=>{
+
+game.popularity=
+clamp(
+game.popularity+4,
+0,
+100
+);
+
+game.team=
+clamp(
+game.team+1,
+0,
+100
+);
+
+}
+
+},
+
+{
+
+title:"版本更新後，你的打法受到質疑。",
+
+choice:"維持原打法",
+
+desc:"可能承受版本壓力，但保留原本風格。",
+
+effect:()=>{
+
+game.versionState="逆版本";
+
+game.fit=
+clamp(
+game.fit-8,
+40,
+99
+);
+
+}
+
+},
+
+{
+
+title:"你在訓練賽中表現亮眼。",
+
+choice:"持續維持訓練量",
+
+desc:"經驗與比賽信心提升。",
+
+effect:()=>{
+
+game.exp=
+clamp(
+game.exp+2,
+0,
+100
+);
+
+game.health=
+clamp(
+game.health-2,
+0,
+100
+);
+
+}
+
+}
 
 ];
+
+
+/*
+第一季從第一個事件開始。
+*/
+
+const index=
+(game.season-1)%
+events.length;
 
 const e=
-events[
-game.season%events.length
-];
+events[index];
 
-document.getElementById("eventText").textContent=e[0];
-document.getElementById("eventChoice").textContent=e[1];
-document.getElementById("eventChoiceText").textContent=e[2];
 
-window.currentEvent=e[3];
+document.getElementById(
+"eventText"
+).textContent=e.title;
+
+document.getElementById(
+"eventChoice"
+).textContent=e.choice;
+
+document.getElementById(
+"eventChoiceText"
+).textContent=e.desc;
+
+window.currentEvent=e.effect;
 
 show("eventScreen");
 
 }
 
 
+/* =========================
+   賽季結算
+========================= */
+
 function finishEvent(){
 
 if(window.currentEvent){
+
 window.currentEvent();
+
 }
 
 render();
 
-const performance=Math.round(
-game.teamScore*.45+
-(
+
+/*
+健康狀態影響賽季表現
+*/
+
+const healthFactor=
+game.health>=80
+?5
+:
+game.health>=60
+?0
+:
+game.health>=40
+?-5
+:-10;
+
+
+/*
+個人能力
+*/
+
+const individual=
+
+game.op*.25+
+game.iq*.20+
+game.team*.20+
+game.exp*.10;
+
+
+/*
+位置適性
+*/
+
+const positionScore=
 game.position
 ?positionFit(game.position)
-:70
-)*.35+
-game.fit*.20
+:60;
+
+
+/*
+版本
+*/
+
+const versionScore=
+game.fit;
+
+
+/*
+最終表現
+*/
+
+const performance=clamp(
+
+Math.round(
+
+game.teamScore*.30+
+
+individual*.20+
+
+positionScore*.25+
+
+versionScore*.15+
+
+game.popularity*.05+
+
+healthFactor*.05
+
+),
+
+0,
+
+100
+
 );
 
-if(performance>=82){
+
+if(performance>=85){
 
 document.getElementById(
 "seasonResult"
@@ -1245,9 +2654,12 @@ document.getElementById(
 document.getElementById(
 "seasonText"
 ).textContent=
-"你的個人能力與隊伍體系配合良好，本季成功走得更遠。";
 
-}else if(performance>=70){
+`本季表現 ${performance} 分。你的個人能力、位置適性與隊伍體系高度契合，本季成功走得更遠。`;
+
+}
+
+else if(performance>=72){
 
 document.getElementById(
 "seasonResult"
@@ -1256,9 +2668,26 @@ document.getElementById(
 document.getElementById(
 "seasonText"
 ).textContent=
-"隊伍維持競爭力，你也累積了更多職業經驗。";
 
-}else{
+`本季表現 ${performance} 分。隊伍維持競爭力，你也累積了更多職業經驗。`;
+
+}
+
+else if(performance>=58){
+
+document.getElementById(
+"seasonResult"
+).textContent="例行賽中段";
+
+document.getElementById(
+"seasonText"
+).textContent=
+
+`本季表現 ${performance} 分。你仍有競爭力，但距離頂級職業舞台還有一段距離。`;
+
+}
+
+else{
 
 document.getElementById(
 "seasonResult"
@@ -1267,71 +2696,180 @@ document.getElementById(
 document.getElementById(
 "seasonText"
 ).textContent=
-"隊伍整體競爭力不足，下季需要重新調整。";
+
+`本季表現 ${performance} 分。隊伍整體競爭力不足，下季需要重新調整。`;
 
 }
+
+
+/*
+賽季經驗成長
+*/
+
+game.exp=
+clamp(
+game.exp+2,
+0,
+100
+);
+
+
+/*
+健康自然消耗
+*/
+
+game.health=
+clamp(
+game.health-2,
+0,
+100
+);
+
+render();
 
 show("matchScreen");
 
 }
 
 
+/* =========================
+   下一季
+========================= */
+
 function newPhase(){
 
 game.season++;
-game.year++;
-game.age++;
-game.exp+=2;
 
-game.teamScore=Math.min(
-95,
-Math.max(
-40,
-game.teamScore+
-Math.round(Math.random()*8-2)
-)
+game.year++;
+
+game.age++;
+
+
+/*
+每季開始前：
+
+經驗自然成長
+*/
+
+game.exp=
+clamp(
+game.exp+2,
+0,
+100
 );
+
+
+/*
+隊伍評分根據玩家表現更新
+*/
+
+const playerPower=
+
+game.op*.20+
+game.iq*.20+
+game.team*.20+
+game.exp*.10+
+game.health*.10+
+game.fit*.20;
+
+
+const growth=
+Math.round(
+(playerPower-65)/8
+);
+
+game.teamScore=
+clamp(
+game.teamScore+
+growth+
+Math.round(Math.random()*6-3),
+40,
+95
+);
+
+
+/*
+版本更新
+*/
 
 game.version=
 versions[
-game.season%versions.length
+(game.season-1)%
+versions.length
 ];
 
-game.versionState=
-game.season%3===0
-?"逆版本"
-:game.season%3===1
-?"版本受益"
-:"正常";
-
-game.fit=Math.min(
-98,
-Math.max(
-55,
-game.fit+
-Math.round(Math.random()*10-5)
-)
-);
 
 /*
-新回合開始前，
-位置可以重新選擇。
+重新計算版本狀態
+*/
+
+game.versionState=
+calculateVersionState();
+
+
+/*
+重新計算適性
+*/
+
+game.fit=
+calculatePersonalFit();
+
+
+/*
+新賽季可以重新選位置
 */
 
 game.positionLocked=false;
 
-render();
-buildPositionChoices();
-show("stageScreen");
+game.actionTaken=false;
+
+game.position=null;
+
+
+/*
+健康自然恢復一點，
+但不超過 80
+*/
+
+game.health=
+clamp(
+game.health+3,
+0,
+80
+);
+
+
+/*
+人氣自然累積
+*/
+
+if(game.popularity>=60){
+
+game.resource+=2;
 
 }
 
 
 render();
+
+buildPositionChoices();
+
+show("positionScreen");
+
+}
+
+
+/* =========================
+   初始化
+========================= */
+
+render();
+
 countryChanged();
+
 show("customScreen");
 
 </script>
+
 </body>
 </html>
-```
