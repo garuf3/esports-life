@@ -1,4 +1,3 @@
-```html
 <!DOCTYPE html>
 <html lang="zh-Hant">
 <head>
@@ -37,8 +36,13 @@ html,body{
     sans-serif;
 }
 
-button,input,select{font:inherit}
-button{cursor:pointer}
+button,input,select{
+  font:inherit;
+}
+
+button{
+  cursor:pointer;
+}
 
 .app{
   width:100%;
@@ -112,6 +116,12 @@ h2{
   font-weight:950;
 }
 
+h3{
+  font-size:15px;
+  margin:0 0 5px;
+  font-weight:900;
+}
+
 .small{
   font-size:13px;
   line-height:1.55;
@@ -179,18 +189,6 @@ h2{
   margin-top:13px;
 }
 
-.secondary{
-  width:100%;
-  border:1px solid var(--line);
-  border-radius:11px;
-  padding:12px;
-  background:#fff;
-  color:var(--ink);
-  font-weight:900;
-  font-size:14px;
-  margin-top:9px;
-}
-
 .route{
   width:100%;
   text-align:left;
@@ -252,6 +250,12 @@ h2{
   font-size:13px;
   line-height:1.55;
   color:var(--muted);
+}
+
+.grid2{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:10px;
 }
 
 .statGrid{
@@ -330,6 +334,10 @@ h2{
   font-weight:950;
 }
 
+.good{color:var(--good)}
+.warn{color:var(--warn)}
+.bad{color:var(--bad)}
+
 .badgeRow{
   display:flex;
   gap:6px;
@@ -352,8 +360,72 @@ h2{
   margin-top:9px;
 }
 
-@media(max-width:520px){
+.eventChoice{
+  margin-top:9px;
+}
 
+.locked{
+  opacity:.65;
+  pointer-events:none;
+}
+
+.careerHero{
+  background:linear-gradient(135deg,#111827,#28344f);
+  color:#fff;
+  border-radius:15px;
+  padding:16px;
+  margin-bottom:11px;
+}
+
+.careerHero .muted{
+  color:#cbd5e1;
+}
+
+.careerTeam{
+  font-size:23px;
+  font-weight:950;
+  margin-top:5px;
+}
+
+.careerCode{
+  font-size:13px;
+  opacity:.8;
+  margin-top:3px;
+}
+
+.careerGrid{
+  display:grid;
+  grid-template-columns:repeat(4,1fr);
+  gap:8px;
+  margin-top:12px;
+}
+
+.careerStat{
+  background:rgba(255,255,255,.1);
+  border-radius:10px;
+  padding:9px 5px;
+  text-align:center;
+}
+
+.careerStat b{
+  display:block;
+  font-size:20px;
+}
+
+.careerStat span{
+  font-size:11px;
+  opacity:.8;
+}
+
+.careerSection{
+  border-top:1px solid rgba(255,255,255,.12);
+  margin-top:13px;
+  padding-top:12px;
+  font-size:13px;
+  line-height:1.55;
+}
+
+@media(max-width:520px){
   .app{
     min-height:100dvh;
   }
@@ -379,6 +451,10 @@ h2{
     font-size:20px;
   }
 
+  .grid2{
+    grid-template-columns:1fr;
+  }
+
   .statGrid{
     gap:6px;
   }
@@ -390,6 +466,18 @@ h2{
   .statValue{
     font-size:20px;
   }
+
+  .careerGrid{
+    gap:5px;
+  }
+
+  .careerStat{
+    padding:8px 3px;
+  }
+
+  .careerStat b{
+    font-size:18px;
+  }
 }
 </style>
 </head>
@@ -399,7 +487,6 @@ h2{
 <div class="app">
 
 <header class="top">
-
   <div class="topline">
     <div class="brand">職業人生模擬器</div>
     <span class="pill" id="phasePill">角色建立</span>
@@ -408,17 +495,11 @@ h2{
   <div class="player" id="playerName">Rookie</div>
 
   <div class="meta" id="playerMeta">
-    本名：無名選手・玩家名：Rookie・🌏 APAC・15 歲・尚未定位
+    本名：無名選手・玩家名：Rookie・APAC・15 歲・尚未定位
   </div>
-
 </header>
 
-
 <main>
-
-<!-- =========================
-     角色建立
-========================= -->
 
 <section id="setup">
 
@@ -429,99 +510,88 @@ h2{
     <h1>從業餘開始</h1>
 
     <p class="small">
-      🎮 建立你的選手身份。15 歲固定開始，年齡不開放修改。
+      建立你的選手身份，之後選擇主位置與遊戲風格。
     </p>
 
     <div class="field">
-
       <label>本名</label>
 
       <input
         id="realName"
+        value=""
         placeholder="可留空，預設為「無名選手」"
       >
-
     </div>
 
     <div class="field">
-
       <label>玩家 ID</label>
 
       <input
         id="idName"
+        value=""
         placeholder="可留空，預設為「Rookie」"
       >
-
     </div>
 
     <div class="field">
-
       <label>國家／地區代表</label>
 
-      <select id="country">
+      <select id="country" onchange="updateSetupRegion()">
 
         <optgroup label="APAC">
-
-          <option value="APAC">中華台北（APAC）</option>
-          <option value="APAC">日本（APAC）</option>
-          <option value="APAC">越南（APAC）</option>
-          <option value="APAC">菲律賓（APAC）</option>
-          <option value="APAC">香港（APAC）</option>
-          <option value="APAC">蒙古（APAC）</option>
-          <option value="APAC">紐西蘭（APAC）</option>
-
+          <option>中華台北（APAC）</option>
+          <option>日本（APAC）</option>
+          <option>越南（APAC）</option>
+          <option>菲律賓（APAC）</option>
+          <option>香港（APAC）</option>
+          <option>蒙古（APAC）</option>
+          <option>紐西蘭（APAC）</option>
         </optgroup>
 
         <optgroup label="KR">
-          <option value="KR">韓國（KR）</option>
+          <option>韓國（KR）</option>
         </optgroup>
 
         <optgroup label="CN">
-          <option value="CN">中國（CN）</option>
+          <option>中國（CN）</option>
         </optgroup>
 
         <optgroup label="EMEA">
-
-          <option value="EMEA">法國（EMEA）</option>
-          <option value="EMEA">丹麥（EMEA）</option>
-          <option value="EMEA">德國（EMEA）</option>
-          <option value="EMEA">西班牙（EMEA）</option>
-          <option value="EMEA">瑞典（EMEA）</option>
-          <option value="EMEA">波蘭（EMEA）</option>
-          <option value="EMEA">土耳其（EMEA）</option>
-          <option value="EMEA">希臘（EMEA）</option>
-
+          <option>法國（EMEA）</option>
+          <option>丹麥（EMEA）</option>
+          <option>德國（EMEA）</option>
+          <option>西班牙（EMEA）</option>
+          <option>瑞典（EMEA）</option>
+          <option>波蘭（EMEA）</option>
+          <option>土耳其（EMEA）</option>
+          <option>希臘（EMEA）</option>
         </optgroup>
 
         <optgroup label="AMERICA">
-
-          <option value="AMERICA">美國（AMERICA）</option>
-          <option value="AMERICA">加拿大（AMERICA）</option>
-          <option value="AMERICA">巴西（AMERICA）</option>
-          <option value="AMERICA">阿根廷（AMERICA）</option>
-          <option value="AMERICA">智利（AMERICA）</option>
-          <option value="AMERICA">秘魯（AMERICA）</option>
-          <option value="AMERICA">墨西哥（AMERICA）</option>
-
+          <option>美國（AMERICA）</option>
+          <option>加拿大（AMERICA）</option>
+          <option>巴西（AMERICA）</option>
+          <option>阿根廷（AMERICA）</option>
+          <option>智利（AMERICA）</option>
+          <option>秘魯（AMERICA）</option>
+          <option>墨西哥（AMERICA）</option>
         </optgroup>
 
       </select>
+    </div>
 
+    <div class="tip" id="regionPreview">
+      🌏 目前賽區：APAC<br>
+      🏆 Scout 將從 APAC 的 8 支隊伍中尋找適合你的隊伍。
     </div>
 
     <div class="tip">
-
-      🎲 <b>15 歲固定開始</b><br>
-      🧭 賽區會直接決定你之後能接觸到的職業隊伍池。<br>
-      🔒 主位置與遊戲風格選定後鎖定。
-
+      <b>🎲 15 歲固定開始</b><br>
+      年齡由遊戲設定，不開放玩家修改。選定主位置後會鎖定，不能反覆轉路。選完遊戲風格後才會隨機生成能力。
     </div>
 
-    <button
-      class="primary"
-      onclick="startGame()"
-    >
-      ▶️ 開始職業人生
+    <button class="primary" onclick="start()">
+      開始職業人生 →
     </button>
 
   </div>
@@ -529,16 +599,9 @@ h2{
 </section>
 
 
-<!-- =========================
-     位置
-========================= -->
-
 <section id="position" class="hidden">
 
-  <button
-    class="textBtn"
-    onclick="goBackFromPosition()"
-  >
+  <button class="textBtn" onclick="showSetup()">
     ← 上一步
   </button>
 
@@ -549,7 +612,7 @@ h2{
     <h1>選擇你的主位置</h1>
 
     <p class="small">
-      🧩 這會決定你的初始風格池與後續隊伍需求。
+      先選一路。選定後位置會鎖定。
     </p>
 
     <div id="positionChoices"></div>
@@ -559,16 +622,9 @@ h2{
 </section>
 
 
-<!-- =========================
-     風格
-========================= -->
-
 <section id="styleSelect" class="hidden">
 
-  <button
-    class="textBtn"
-    onclick="goBackFromStyle()"
-  >
+  <button class="textBtn" onclick="showPositions()">
     ← 上一步
   </button>
 
@@ -578,11 +634,8 @@ h2{
 
     <h1 id="styleTitle">選擇遊戲風格</h1>
 
-    <p
-      class="small"
-      id="styleIntro"
-    >
-      🎮 你的風格會影響四項核心能力的初始分布。
+    <p class="small" id="styleIntro">
+      你的選擇會影響四項核心能力的初始分配。
     </p>
 
     <div id="styleChoices"></div>
@@ -592,10 +645,6 @@ h2{
 </section>
 
 
-<!-- =========================
-     業餘角色頁
-========================= -->
-
 <section id="amateur" class="hidden">
 
   <div class="card">
@@ -603,26 +652,16 @@ h2{
     <div class="sectionHead">
 
       <div>
-
         <div class="muted">🧭 你的定位</div>
-
-        <h2 id="selectedStyle">
-          —
-        </h2>
-
+        <h2 id="selectedStyle">—</h2>
       </div>
 
-      <span class="pill">
-        🔒 已鎖定
-      </span>
+      <span class="pill">能力已生成</span>
 
     </div>
 
-    <div
-      class="small"
-      style="margin-top:7px"
-    >
-      🎯 主位置與遊戲風格已鎖定。
+    <div class="small" style="margin-top:7px">
+      主位置與遊戲風格已鎖定。
     </div>
 
   </div>
@@ -633,52 +672,28 @@ h2{
     <div class="sectionHead">
 
       <div>
-
         <div class="muted">📊 初始能力</div>
-
         <h2>四項核心素質</h2>
-
       </div>
 
     </div>
 
-    <div
-      class="statGrid"
-      id="stats"
-    ></div>
+    <div class="statGrid" id="stats"></div>
 
   </div>
 
 
-  <div
-    class="card"
-    id="scoutPreview"
-  >
+  <div class="card" id="scoutPreview">
 
     <div class="sectionHead">
 
       <div>
-
         <div class="muted">🔎 初始 Scout</div>
-
         <h2>目前有人注意你</h2>
-
       </div>
 
-      <span
-        class="pill"
-        id="previewRegion"
-      >
-        🌏 APAC
-      </span>
+      <span class="pill">開局觀察</span>
 
-    </div>
-
-    <div
-      class="small"
-      style="margin-top:7px"
-    >
-      📍 這裡只會顯示你目前賽區的隊伍。
     </div>
 
     <div id="teamList"></div>
@@ -688,11 +703,8 @@ h2{
 
   <div class="card">
 
-    <button
-      class="primary"
-      onclick="startGrowth()"
-    >
-      🏟️ 進入第一階段
+    <button class="primary" onclick="startGrowth()">
+      進入第一階段 →
     </button>
 
   </div>
@@ -700,19 +712,9 @@ h2{
 </section>
 
 
-<!-- =========================
-     第一階段
-========================= -->
+<section id="growth" class="hidden">
 
-<section
-  id="growth"
-  class="hidden"
->
-
-  <button
-    class="textBtn"
-    onclick="backToAmateur()"
-  >
+  <button class="textBtn" onclick="backToAmateur()">
     ← 返回角色頁
   </button>
 
@@ -723,13 +725,10 @@ h2{
     <h1>業餘聯賽</h1>
 
     <p class="small">
-      ⚔️ 進行比賽會改變你的四項能力，並影響 Scout 對你的評價。
+      這是一個完整階段。你會透過比賽累積表現，最後一次結算，再進入 Scout。
     </p>
 
-    <button
-      class="route"
-      onclick="playMatch()"
-    >
+    <button class="route" onclick="playMatch()">
 
       <div class="routeTop">
 
@@ -738,30 +737,28 @@ h2{
         </span>
 
         <span class="effect">
-          開始
+          +能力
         </span>
 
       </div>
 
       <div class="routeDesc">
-        🎯 進行一場比賽並結算本場表現。
+        進行一場比賽。勝負與表現會影響 OP、IQ、TM、XP。
       </div>
 
     </button>
+
+    <div class="tip">
+      📊 目前進度：${0} 場比賽<br>
+      🏁 完成階段後才會進行一次 Scout 結算。
+    </div>
 
   </div>
 
 </section>
 
 
-<!-- =========================
-     隨機事件
-========================= -->
-
-<section
-  id="event"
-  class="hidden"
->
+<section id="event" class="hidden">
 
   <div class="card">
 
@@ -771,18 +768,12 @@ h2{
       ⚔️ 比賽結果
     </h1>
 
-    <div
-      class="story"
-      id="eventText"
-    ></div>
+    <div class="story" id="eventText"></div>
 
     <div id="eventChoices"></div>
 
-    <button
-      class="primary"
-      onclick="finishEvent()"
-    >
-      ▶️ 繼續
+    <button class="primary" onclick="finishEvent()">
+      繼續 →
     </button>
 
   </div>
@@ -790,33 +781,20 @@ h2{
 </section>
 
 
-<!-- =========================
-     階段結算
-========================= -->
-
-<section
-  id="result"
-  class="hidden"
->
+<section id="result" class="hidden">
 
   <div class="card">
 
     <div class="muted">🏁 階段結果</div>
 
     <h1 id="resultTitle">
-      📈 第一階段結算
+      📈 你的表現
     </h1>
 
-    <div
-      class="story"
-      id="resultText"
-    ></div>
+    <div class="story" id="resultText"></div>
 
-    <button
-      class="primary"
-      onclick="showOffer()"
-    >
-      🔎 查看 Scout 關注
+    <button class="primary" onclick="showOffer()">
+      🔎 查看 Scout 關注 →
     </button>
 
   </div>
@@ -824,19 +802,9 @@ h2{
 </section>
 
 
-<!-- =========================
-     Scout
-========================= -->
+<section id="offer" class="hidden">
 
-<section
-  id="offer"
-  class="hidden"
->
-
-  <button
-    class="textBtn"
-    onclick="backToResult()"
-  >
+  <button class="textBtn" onclick="backToResult()">
     ← 返回結果
   </button>
 
@@ -846,10 +814,9 @@ h2{
 
     <h1>🏆 隊伍關注</h1>
 
-    <div
-      class="small"
-      id="offerIntro"
-    ></div>
+    <div class="small" id="offerIntro">
+      以下隊伍皆依照你目前的賽區篩選。
+    </div>
 
     <div id="offerList"></div>
 
@@ -858,14 +825,7 @@ h2{
 </section>
 
 
-<!-- =========================
-     邀約
-========================= -->
-
-<section
-  id="accept"
-  class="hidden"
->
+<section id="accept" class="hidden">
 
   <div class="card">
 
@@ -875,15 +835,9 @@ h2{
       🏆 你收到了一份邀約
     </h1>
 
-    <div
-      class="story"
-      id="acceptText"
-    ></div>
+    <div class="story" id="acceptText"></div>
 
-    <button
-      class="primary"
-      onclick="acceptTeam()"
-    >
+    <button class="primary" onclick="acceptTeam()">
       ✅ 接受邀約
     </button>
 
@@ -899,14 +853,7 @@ h2{
 </section>
 
 
-<!-- =========================
-     加入隊伍
-========================= -->
-
-<section
-  id="joined"
-  class="hidden"
->
+<section id="joined" class="hidden">
 
   <div class="card">
 
@@ -916,21 +863,117 @@ h2{
       🏆 你加入了新隊伍
     </h1>
 
-    <div
-      class="story"
-      id="joinedText"
-    ></div>
+    <div class="story" id="joinedText"></div>
 
-    <button
-      class="primary"
-      onclick="continueCareer()"
-    >
+    <button class="primary" onclick="continueCareer()">
+      ▶️ 進入職業賽段
+    </button>
+
+  </div>
+
+</section>
+
+
+<section id="career" class="hidden">
+
+  <div class="careerHero">
+
+    <div class="muted">🏆 職業生涯</div>
+
+    <div class="careerTeam" id="careerTitle">
+      職業隊伍
+    </div>
+
+    <div class="careerCode" id="careerCode">
+      —
+    </div>
+
+    <div class="careerGrid">
+
+      <div class="careerStat">
+        <b id="careerOP">0</b>
+        <span>OP</span>
+      </div>
+
+      <div class="careerStat">
+        <b id="careerIQ">0</b>
+        <span>IQ</span>
+      </div>
+
+      <div class="careerStat">
+        <b id="careerTM">0</b>
+        <span>TM</span>
+      </div>
+
+      <div class="careerStat">
+        <b id="careerXP">0</b>
+        <span>XP</span>
+      </div>
+
+    </div>
+
+    <div class="careerSection" id="careerText"></div>
+
+  </div>
+
+
+  <div class="card">
+
+    <div class="muted">🏟️ 職業賽段</div>
+
+    <h2>你的下一場比賽</h2>
+
+    <p class="small">
+      現在你已經是職業選手。之後的比賽不會再回到業餘聯賽，也不會重新產生入隊邀約。
+    </p>
+
+    <button class="route" onclick="playCareerMatch()">
+
+      <div class="routeTop">
+
+        <span class="routeTitle">
+          ⚔️ 進行職業比賽
+        </span>
+
+        <span class="effect">
+          職業賽段
+        </span>
+
+      </div>
+
+      <div class="routeDesc">
+        根據目前四項能力計算本場表現，並更新你的職業生涯數值。
+      </div>
+
+    </button>
+
+  </div>
+
+</section>
+
+
+<section id="careerEvent" class="hidden">
+
+  <div class="card">
+
+    <div class="muted">⚡ 職業賽事事件</div>
+
+    <h1 id="careerEventTitle">
+      🏟️ 職業比賽
+    </h1>
+
+    <div class="story" id="careerEventText"></div>
+
+    <div id="careerEventChoices"></div>
+
+    <button class="primary" onclick="finishCareerEvent()">
       ▶️ 繼續職涯
     </button>
 
   </div>
 
 </section>
+
 
 </main>
 </div>
@@ -940,62 +983,17 @@ h2{
 "use strict";
 
 
-/* =========================================================
-   工具
-========================================================= */
-
-const $ = id =>
-  document.getElementById(id);
-
-
-function escapeHTML(value){
-
-  return String(value)
-    .replaceAll("&","&amp;")
-    .replaceAll("<","&lt;")
-    .replaceAll(">","&gt;")
-    .replaceAll('"',"&quot;")
-    .replaceAll("'","&#039;");
-
-}
-
-
-function clamp(value,min,max){
-
-  return Math.max(
-    min,
-    Math.min(max,value)
-  );
-
-}
-
-
-function randInt(min,max){
-
-  return Math.floor(
-    Math.random()*(max-min+1)
-  )+min;
-
-}
-
-
-function signed(value){
-
-  return value >= 0
-    ? `+${value}`
-    : `${value}`;
-
-}
+const $=id=>document.getElementById(id);
 
 
 /* =========================================================
    玩家狀態
 ========================================================= */
 
-const g = {
+const g={
 
-  name:"Rookie",
-  real:"無名選手",
+  name:"",
+  real:"",
 
   age:15,
 
@@ -1004,13 +1002,16 @@ const g = {
   position:"",
   positionLocked:false,
 
+  positionScores:{},
+
   style:"",
-  styleLocked:false,
 
   op:0,
   iq:0,
   tm:0,
   xp:0,
+
+  attention:{},
 
   matches:0,
   wins:0,
@@ -1018,8 +1019,25 @@ const g = {
   joinedTeam:null,
   pendingOffer:null,
 
-  lastResult:null
+  careerMatches:0,
+  careerWins:0,
 
+  lastResult:null,
+  lastCareerResult:null
+
+};
+
+
+/* =========================================================
+   賽區名稱
+========================================================= */
+
+const REGION_LABELS={
+  APAC:"APAC",
+  KR:"KR",
+  CN:"CN",
+  EMEA:"EMEA",
+  AMERICA:"AMERICA"
 };
 
 
@@ -1027,31 +1045,31 @@ const g = {
    位置
 ========================================================= */
 
-const POSITIONS = [
+const POSITIONS=[
 
   {
     name:"上路",
-    desc:"⚔️ 單帶、對線、邊線壓力"
+    desc:"單帶、對線、邊線壓力"
   },
 
   {
     name:"打野",
-    desc:"🌲 節奏、資源控制、支援"
+    desc:"節奏、資源控制、支援"
   },
 
   {
     name:"中路",
-    desc:"🧠 線權、支援、輸出"
+    desc:"線權、支援、輸出"
   },
 
   {
     name:"下路",
-    desc:"🏹 射手核心、打線、後期"
+    desc:"射手核心、打線、後期"
   },
 
   {
     name:"輔助",
-    desc:"🛡️ 視野、開戰、保排"
+    desc:"視野、開戰、保排"
   }
 
 ];
@@ -1061,32 +1079,32 @@ const POSITIONS = [
    遊戲風格
 ========================================================= */
 
-const STYLE_POOLS = {
+const STYLE_POOLS={
 
   "上路":[
 
     {
       n:"打線壓制",
       d:"🎯 偏向強勢對線與單殺，主動製造線上優勢。",
-      bias:{op:.70,iq:.40,tm:.10,xp:.20}
+      bias:{op:.7,iq:.4,tm:.1,xp:.2}
     },
 
     {
       n:"後期大核",
       d:"📈 以發育與後期團戰輸出為核心。",
-      bias:{op:.40,iq:.50,tm:.40,xp:.70}
+      bias:{op:.4,iq:.5,tm:.4,xp:.7}
     },
 
     {
       n:"開團手段",
       d:"⚔️ 選擇能主動開戰、承擔團戰第一波壓力的英雄。",
-      bias:{op:.40,iq:.50,tm:.80,xp:.40}
+      bias:{op:.4,iq:.5,tm:.8,xp:.4}
     },
 
     {
       n:"法師專精",
       d:"🧙 偏向特殊法系上路與魔法傷害體系。",
-      bias:{op:.50,iq:.80,tm:.20,xp:.40}
+      bias:{op:.5,iq:.8,tm:.2,xp:.4}
     }
 
   ],
@@ -1096,25 +1114,25 @@ const STYLE_POOLS = {
     {
       n:"前期節奏",
       d:"⚡ 快速支援與入侵，利用前期節奏滾雪球。",
-      bias:{op:.60,iq:.80,tm:.50,xp:.30}
+      bias:{op:.6,iq:.8,tm:.5,xp:.3}
     },
 
     {
       n:"資源控制",
-      d:"🐉 圍繞大型資源與野區經濟建立優勢。",
-      bias:{op:.40,iq:.90,tm:.50,xp:.60}
+      d:"🐉 圍繞龍、預示者與野區經濟建立優勢。",
+      bias:{op:.4,iq:.9,tm:.5,xp:.6}
     },
 
     {
       n:"開戰核心",
       d:"⚔️ 以團戰先手與找機會為主要任務。",
-      bias:{op:.50,iq:.60,tm:.90,xp:.50}
+      bias:{op:.5,iq:.6,tm:.9,xp:.5}
     },
 
     {
       n:"後期核心",
       d:"📈 降低前期風險，換取後期更高戰鬥力。",
-      bias:{op:.40,iq:.50,tm:.50,xp:.90}
+      bias:{op:.4,iq:.5,tm:.5,xp:.9}
     }
 
   ],
@@ -1124,25 +1142,25 @@ const STYLE_POOLS = {
     {
       n:"線權壓制",
       d:"🎯 靠對線壓力取得優先權，再支援邊線。",
-      bias:{op:.80,iq:.60,tm:.40,xp:.30}
+      bias:{op:.8,iq:.6,tm:.4,xp:.3}
     },
 
     {
       n:"後期大核",
       d:"📈 以團戰輸出與後期接管比賽為目標。",
-      bias:{op:.50,iq:.50,tm:.50,xp:.90}
+      bias:{op:.5,iq:.5,tm:.5,xp:.9}
     },
 
     {
       n:"遊走支援",
       d:"🗺️ 主動離線，創造其他路的數值優勢。",
-      bias:{op:.60,iq:.90,tm:.80,xp:.30}
+      bias:{op:.6,iq:.9,tm:.8,xp:.3}
     },
 
     {
       n:"法師專精",
       d:"🧙 利用法師池與技能組合建立陣容優勢。",
-      bias:{op:.60,iq:.90,tm:.40,xp:.50}
+      bias:{op:.6,iq:.9,tm:.4,xp:.5}
     }
 
   ],
@@ -1152,25 +1170,25 @@ const STYLE_POOLS = {
     {
       n:"打線壓制",
       d:"🎯 利用射程、換血與操作取得線上優勢。",
-      bias:{op:.90,iq:.50,tm:.30,xp:.30}
+      bias:{op:.9,iq:.5,tm:.3,xp:.3}
     },
 
     {
       n:"後期大核",
       d:"📈 穩定發育，成為後期主要輸出核心。",
-      bias:{op:.70,iq:.50,tm:.50,xp:.90}
+      bias:{op:.7,iq:.5,tm:.5,xp:.9}
     },
 
     {
       n:"開團手段",
-      d:"⚔️ 利用特殊角色或功能型角色提供開戰手段。",
-      bias:{op:.60,iq:.60,tm:.90,xp:.40}
+      d:"⚔️ 利用特殊射手或功能型角色提供開戰手段。",
+      bias:{op:.6,iq:.6,tm:.9,xp:.4}
     },
 
     {
       n:"法師專精",
       d:"🧙 擅長法系下路與特殊下路體系。",
-      bias:{op:.60,iq:.90,tm:.40,xp:.50}
+      bias:{op:.6,iq:.9,tm:.4,xp:.5}
     }
 
   ],
@@ -1180,25 +1198,25 @@ const STYLE_POOLS = {
     {
       n:"開團手段",
       d:"⚔️ 以先手、控制與強迫團戰為核心。",
-      bias:{op:.60,iq:.70,tm:.90,xp:.40}
+      bias:{op:.6,iq:.7,tm:.9,xp:.4}
     },
 
     {
       n:"保排核心",
       d:"🛡️ 保護核心輸出，處理敵方進場威脅。",
-      bias:{op:.50,iq:.70,tm:.90,xp:.60}
+      bias:{op:.5,iq:.7,tm:.9,xp:.6}
     },
 
     {
       n:"遊走支援",
       d:"🗺️ 利用視野與移動創造全圖節奏。",
-      bias:{op:.50,iq:.90,tm:.80,xp:.40}
+      bias:{op:.5,iq:.9,tm:.8,xp:.4}
     },
 
     {
       n:"法師專精",
       d:"🧙 以高輸出法師與遠程消耗建立線權。",
-      bias:{op:.80,iq:.80,tm:.30,xp:.40}
+      bias:{op:.8,iq:.8,tm:.3,xp:.4}
     }
 
   ]
@@ -1207,137 +1225,503 @@ const STYLE_POOLS = {
 
 
 /* =========================================================
-   五個賽區
-   每區 8 隊
-   UI 永遠只使用化名
+   隊伍
+   每個賽區固定 8 隊
+   UI 只顯示化名，不顯示 realName
 ========================================================= */
 
-const REGION_TEAMS = {
-
-  KR:[
-    ["HLE","Horizon League Elite",1280,["上路","中路","下路"],["打線壓制","後期大核","法師專精"]],
-    ["GEN","Golden Elite Nexus",1270,["上路","中路","下路"],["後期大核","法師專精","資源控制"]],
-    ["T1","Titan One",1260,["上路","打野","中路","輔助"],["前期節奏","開團手段","遊走支援"]],
-    ["DK","Dragon Kingdom",1180,["上路","打野","中路"],["前期節奏","打線壓制","法師專精"]],
-    ["KT","Kinetic Titans",1140,["上路","打野","下路","輔助"],["開團手段","資源控制","後期大核"]],
-    ["BFX","Break Frontier X",1090,["上路","中路","下路"],["打線壓制","後期大核"]],
-    ["NS","Nova Storm",1040,["打野","中路","下路","輔助"],["前期節奏","遊走支援","開團手段"]],
-    ["DRX","Dragon Rising X",1010,["上路","打野","輔助"],["開團手段","保排核心","前期節奏"]]
-  ],
-
-  CN:[
-    ["BLG","Blue Legend Genius",1280,["上路","打野","中路","下路"],["打線壓制","後期大核","法師專精"]],
-    ["AL","Aurora Legion",1210,["上路","中路","下路"],["後期大核","法師專精","打線壓制"]],
-    ["JDG","Jade Dragon Gaming",1180,["上路","打野","中路","輔助"],["資源控制","開團手段","遊走支援"]],
-    ["TES","Thunder Elite Squad",1160,["上路","打野","下路"],["打線壓制","前期節奏","後期大核"]],
-    ["WBG","White Bear Gaming",1120,["上路","中路","下路"],["後期大核","法師專精","打線壓制"]],
-    ["LNG","Lightning Nexus Group",1080,["打野","中路","輔助"],["前期節奏","遊走支援","開團手段"]],
-    ["OMG","Omega Myth Gaming",1030,["上路","打野","輔助"],["開團手段","前期節奏","保排核心"]],
-    ["NIP","Nova Impact Phoenix",1010,["上路","中路","下路"],["打線壓制","法師專精","後期大核"]]
-  ],
-
-  EMEA:[
-    ["G2","Galaxy Guardians",1210,["上路","打野","中路","輔助"],["遊走支援","開團手段","法師專精"]],
-    ["FNC","Frontier Nexus",1170,["上路","中路","下路"],["打線壓制","後期大核","法師專精"]],
-    ["KC","Kingdom Core",1110,["打野","中路","輔助"],["前期節奏","遊走支援","開團手段"]],
-    ["TH","Thunder Horizon",1070,["上路","打野","下路"],["資源控制","後期大核","打線壓制"]],
-    ["BDS","Blue Dawn Squad",1040,["上路","打野","輔助"],["開團手段","保排核心","資源控制"]],
-    ["SK","Shadow Knights",1000,["打野","中路","輔助"],["遊走支援","前期節奏","法師專精"]],
-    ["VIT","Vital Core",980,["上路","中路","下路"],["打線壓制","後期大核"]],
-    ["GX","Galaxy X",950,["打野","中路","下路"],["前期節奏","資源控制","後期大核"]]
-  ],
-
-  APAC:[
-    ["DFM","Dawn Force Masters",1030,["上路","打野","中路","下路"],["前期節奏","資源控制","後期大核"]],
-    ["SHG","Sakura Horizon",1000,["上路","中路","輔助"],["法師專精","遊走支援","開團手段"]],
-    ["VKE","Vanguard Kinetic Elite",980,["打野","中路","下路"],["前期節奏","打線壓制","資源控制"]],
-    ["GAM","Golden Arena Masters",970,["上路","打野","輔助"],["開團手段","遊走支援","資源控制"]],
-    ["PSG","Phoenix Star Guardians",960,["上路","中路","下路"],["後期大核","打線壓制","法師專精"]],
-    ["CFO","Cobalt Force One",940,["打野","中路","輔助"],["資源控制","遊走支援","開團手段"]],
-    ["DCG","Deep Current Gaming",910,["上路","打野","下路"],["前期節奏","後期大核","打線壓制"]],
-    ["FAK","Fire Arc Knights",890,["中路","下路","輔助"],["法師專精","保排核心","後期大核"]]
-  ],
-
-  AMERICA:[
-    ["FLY","Flyer Legion",1100,["上路","打野","中路"],["前期節奏","遊走支援","開團手段"]],
-    ["TL","Titan League",1080,["上路","中路","下路"],["後期大核","打線壓制","資源控制"]],
-    ["C9","Cloud Ninefold",1050,["打野","中路","輔助"],["遊走支援","法師專精","前期節奏"]],
-    ["100T","Hundred Titans",1010,["上路","下路","輔助"],["保排核心","後期大核","開團手段"]],
-    ["DIG","Digital Giants",970,["上路","打野","中路"],["資源控制","前期節奏","打線壓制"]],
-    ["NRG","Northern Rising Group",950,["打野","中路","輔助"],["遊走支援","開團手段","法師專精"]],
-    ["IMT","Immortal Titans",930,["上路","下路","輔助"],["保排核心","後期大核"]],
-    ["SR","Sentinel Rising",910,["打野","中路","下路"],["前期節奏","打線壓制","後期大核"]]
-  ]
-
-};
-
-
-const REGION_LABELS = {
-
-  KR:"🇰🇷 KR",
-  CN:"🇨🇳 CN",
-  EMEA:"🌍 EMEA",
-  APAC:"🌏 APAC",
-  AMERICA:"🌎 AMERICA"
-
-};
-
-
-function buildTeams(){
-
-  const result={};
-
-  for(const region of Object.keys(REGION_TEAMS)){
-
-    result[region]=REGION_TEAMS[region]
-      .map((t,index)=>({
-
-        code:t[0],
-        name:t[1],
-        power:t[2],
-        roles:t[3],
-        styles:t[4],
-        region,
-        rank:index+1
-
-      }));
-
-  }
-
-  return result;
-
+function freezeTeam(team){
+  Object.freeze(team.roles);
+  Object.freeze(team.styles);
+  return Object.freeze(team);
 }
 
 
-const TEAMS=buildTeams();
+const TEAMS=Object.freeze({
+
+  KR:Object.freeze([
+
+    freezeTeam({
+      code:"HLE",
+      name:"Horizon Life Elite",
+      realName:"Hanwha Life Esports",
+      region:"KR",
+      power:1280,
+      rank:1,
+      roles:["下路","中路"],
+      styles:["打線壓制","後期大核"]
+    }),
+
+    freezeTeam({
+      code:"T1",
+      name:"Titan One",
+      realName:"T1",
+      region:"KR",
+      power:1240,
+      rank:2,
+      roles:["上路","打野","輔助"],
+      styles:["開團手段","前期節奏","遊走支援"]
+    }),
+
+    freezeTeam({
+      code:"GEN",
+      name:"Golden Elite Nexus",
+      realName:"Gen.G",
+      region:"KR",
+      power:1190,
+      rank:3,
+      roles:["中路","下路"],
+      styles:["法師專精","後期大核"]
+    }),
+
+    freezeTeam({
+      code:"DK",
+      name:"Dragon Kingdom",
+      realName:"Dplus KIA",
+      region:"KR",
+      power:1140,
+      rank:4,
+      roles:["打野","中路"],
+      styles:["前期節奏","資源控制"]
+    }),
+
+    freezeTeam({
+      code:"KT",
+      name:"Korea Titans",
+      realName:"KT Rolster",
+      region:"KR",
+      power:1090,
+      rank:5,
+      roles:["上路","輔助"],
+      styles:["開團手段","遊走支援"]
+    }),
+
+    freezeTeam({
+      code:"NS",
+      name:"Nexus Storm",
+      realName:"Nongshim RedForce",
+      region:"KR",
+      power:1050,
+      rank:6,
+      roles:["上路","下路"],
+      styles:["後期大核","打線壓制"]
+    }),
+
+    freezeTeam({
+      code:"DRX",
+      name:"Dragon X",
+      realName:"DRX",
+      region:"KR",
+      power:1010,
+      rank:7,
+      roles:["中路","輔助"],
+      styles:["法師專精","保排核心"]
+    }),
+
+    freezeTeam({
+      code:"BRO",
+      name:"Brave Origin",
+      realName:"OKSavingsBank BRION",
+      region:"KR",
+      power:970,
+      rank:8,
+      roles:["打野","輔助"],
+      styles:["資源控制","遊走支援"]
+    })
+
+  ]),
+
+  CN:Object.freeze([
+
+    freezeTeam({
+      code:"BLG",
+      name:"Blue Legend Genius",
+      realName:"Bilibili Gaming",
+      region:"CN",
+      power:1280,
+      rank:1,
+      roles:["上路","輔助"],
+      styles:["保排核心","開團手段"]
+    }),
+
+    freezeTeam({
+      code:"TES",
+      name:"Thunder Elite Squad",
+      realName:"Top Esports",
+      region:"CN",
+      power:1230,
+      rank:2,
+      roles:["下路","中路"],
+      styles:["打線壓制","後期大核"]
+    }),
+
+    freezeTeam({
+      code:"JDG",
+      name:"Jade Dragon Gaming",
+      realName:"JD Gaming",
+      region:"CN",
+      power:1190,
+      rank:3,
+      roles:["打野","上路"],
+      styles:["資源控制","前期節奏"]
+    }),
+
+    freezeTeam({
+      code:"WBG",
+      name:"White Bear Gaming",
+      realName:"Weibo Gaming",
+      region:"CN",
+      power:1140,
+      rank:4,
+      roles:["上路","下路"],
+      styles:["後期大核","打線壓制"]
+    }),
+
+    freezeTeam({
+      code:"LNG",
+      name:"Light Nova Gaming",
+      realName:"LNG Esports",
+      region:"CN",
+      power:1100,
+      rank:5,
+      roles:["中路","打野"],
+      styles:["法師專精","遊走支援"]
+    }),
+
+    freezeTeam({
+      code:"AL",
+      name:"Azure Legends",
+      realName:"Anyone's Legend",
+      region:"CN",
+      power:1060,
+      rank:6,
+      roles:["上路","輔助"],
+      styles:["開團手段","保排核心"]
+    }),
+
+    freezeTeam({
+      code:"NIP",
+      name:"Nexus Invictus Phoenix",
+      realName:"Ninjas in Pyjamas",
+      region:"CN",
+      power:1020,
+      rank:7,
+      roles:["下路","輔助"],
+      styles:["打線壓制","遊走支援"]
+    }),
+
+    freezeTeam({
+      code:"OMG",
+      name:"Omega Mythic Gaming",
+      realName:"Oh My God",
+      region:"CN",
+      power:980,
+      rank:8,
+      roles:["打野","中路"],
+      styles:["前期節奏","資源控制"]
+    })
+
+  ]),
+
+  APAC:Object.freeze([
+
+    freezeTeam({
+      code:"PSG",
+      name:"Phoenix Star Gaming",
+      realName:"PSG Talon",
+      region:"APAC",
+      power:1200,
+      rank:1,
+      roles:["中路","下路"],
+      styles:["遊走支援","後期大核"]
+    }),
+
+    freezeTeam({
+      code:"CFO",
+      name:"Chief Force Order",
+      realName:"CTBC Flying Oyster",
+      region:"APAC",
+      power:1160,
+      rank:2,
+      roles:["上路","輔助"],
+      styles:["開團手段","保排核心"]
+    }),
+
+    freezeTeam({
+      code:"GAM",
+      name:"Golden Archipelago Masters",
+      realName:"GAM Esports",
+      region:"APAC",
+      power:1120,
+      rank:3,
+      roles:["打野","中路"],
+      styles:["前期節奏","遊走支援"]
+    }),
+
+    freezeTeam({
+      code:"DFM",
+      name:"Dawn Force Masters",
+      realName:"DetonatioN FocusMe",
+      region:"APAC",
+      power:1080,
+      rank:4,
+      roles:["中路","輔助"],
+      styles:["法師專精","遊走支援"]
+    }),
+
+    freezeTeam({
+      code:"SHG",
+      name:"Silver Horizon Gaming",
+      realName:"Sengoku Gaming",
+      region:"APAC",
+      power:1040,
+      rank:5,
+      roles:["下路","上路"],
+      styles:["打線壓制","後期大核"]
+    }),
+
+    freezeTeam({
+      code:"VKE",
+      name:"Vanguard Kings Elite",
+      realName:"Vikings Esports",
+      region:"APAC",
+      power:1000,
+      rank:6,
+      roles:["打野","輔助"],
+      styles:["資源控制","開團手段"]
+    }),
+
+    freezeTeam({
+      code:"TS",
+      name:"Thunder Sword",
+      realName:"Team Secret",
+      region:"APAC",
+      power:960,
+      rank:7,
+      roles:["上路","中路"],
+      styles:["法師專精","開團手段"]
+    }),
+
+    freezeTeam({
+      code:"DFM2",
+      name:"Pacific Dawn",
+      realName:"Rascal Jester",
+      region:"APAC",
+      power:930,
+      rank:8,
+      roles:["下路","輔助"],
+      styles:["保排核心","打線壓制"]
+    })
+
+  ]),
+
+  EMEA:Object.freeze([
+
+    freezeTeam({
+      code:"G2",
+      name:"Galaxy Guardians",
+      realName:"G2 Esports",
+      region:"EMEA",
+      power:1220,
+      rank:1,
+      roles:["打野","下路"],
+      styles:["資源控制","後期大核"]
+    }),
+
+    freezeTeam({
+      code:"FNC",
+      name:"Future Nova Core",
+      realName:"Fnatic",
+      region:"EMEA",
+      power:1180,
+      rank:2,
+      roles:["中路","下路"],
+      styles:["打線壓制","遊走支援"]
+    }),
+
+    freezeTeam({
+      code:"KC",
+      name:"Kings Crown",
+      realName:"Karmine Corp",
+      region:"EMEA",
+      power:1130,
+      rank:3,
+      roles:["上路","輔助"],
+      styles:["開團手段","保排核心"]
+    }),
+
+    freezeTeam({
+      code:"MDK",
+      name:"Madrid Kings",
+      realName:"Movistar KOI",
+      region:"EMEA",
+      power:1090,
+      rank:4,
+      roles:["打野","中路"],
+      styles:["前期節奏","遊走支援"]
+    }),
+
+    freezeTeam({
+      code:"TH",
+      name:"Thunder Hearts",
+      realName:"Team Heretics",
+      region:"EMEA",
+      power:1050,
+      rank:5,
+      roles:["上路","下路"],
+      styles:["後期大核","打線壓制"]
+    }),
+
+    freezeTeam({
+      code:"BDS",
+      name:"Blue Dragon Squad",
+      realName:"Team BDS",
+      region:"EMEA",
+      power:1010,
+      rank:6,
+      roles:["上路","輔助"],
+      styles:["保排核心","開團手段"]
+    }),
+
+    freezeTeam({
+      code:"SK",
+      name:"Silver Knights",
+      realName:"SK Gaming",
+      region:"EMEA",
+      power:970,
+      rank:7,
+      roles:["打野","中路"],
+      styles:["資源控制","前期節奏"]
+    }),
+
+    freezeTeam({
+      code:"GX",
+      name:"Giant X",
+      realName:"GIANTX",
+      region:"EMEA",
+      power:930,
+      rank:8,
+      roles:["下路","輔助"],
+      styles:["打線壓制","保排核心"]
+    })
+
+  ]),
+
+  AMERICA:Object.freeze([
+
+    freezeTeam({
+      code:"TL",
+      name:"Titan League",
+      realName:"Team Liquid",
+      region:"AMERICA",
+      power:1210,
+      rank:1,
+      roles:["上路","下路"],
+      styles:["後期大核","打線壓制"]
+    }),
+
+    freezeTeam({
+      code:"C9",
+      name:"Cloud Nine",
+      realName:"Cloud9",
+      region:"AMERICA",
+      power:1170,
+      rank:2,
+      roles:["中路","打野"],
+      styles:["遊走支援","前期節奏"]
+    }),
+
+    freezeTeam({
+      code:"FLY",
+      name:"Flying Horizon",
+      realName:"FlyQuest",
+      region:"AMERICA",
+      power:1130,
+      rank:3,
+      roles:["下路","輔助"],
+      styles:["後期大核","保排核心"]
+    }),
+
+    freezeTeam({
+      code:"100",
+      name:"Century One Hundred",
+      realName:"100 Thieves",
+      region:"AMERICA",
+      power:1090,
+      rank:4,
+      roles:["中路","輔助"],
+      styles:["遊走支援","開團手段"]
+    }),
+
+    freezeTeam({
+      code:"NRG",
+      name:"North Rising Gaming",
+      realName:"NRG",
+      region:"AMERICA",
+      power:1050,
+      rank:5,
+      roles:["上路","打野"],
+      styles:["資源控制","前期節奏"]
+    }),
+
+    freezeTeam({
+      code:"DIG",
+      name:"Digital Giants",
+      realName:"Dignitas",
+      region:"AMERICA",
+      power:1010,
+      rank:6,
+      roles:["下路","中路"],
+      styles:["打線壓制","法師專精"]
+    }),
+
+    freezeTeam({
+      code:"IMT",
+      name:"Immortal Titans",
+      realName:"Immortals",
+      region:"AMERICA",
+      power:970,
+      rank:7,
+      roles:["上路","輔助"],
+      styles:["開團手段","保排核心"]
+    }),
+
+    freezeTeam({
+      code:"SR",
+      name:"Supernova Rift",
+      realName:"Shopify Rebellion",
+      region:"AMERICA",
+      power:930,
+      rank:8,
+      roles:["打野","下路"],
+      styles:["資源控制","後期大核"]
+    })
+
+  ])
+
+});
 
 
 /* =========================================================
-   頁面系統
+   隱藏頁面
 ========================================================= */
-
-const SCREENS=[
-
-  "setup",
-  "position",
-  "styleSelect",
-  "amateur",
-  "growth",
-  "event",
-  "result",
-  "offer",
-  "accept",
-  "joined"
-
-];
-
-
-let historyReady=false;
-
 
 function hideAll(){
 
-  SCREENS.forEach(id=>{
+  [
+    "setup",
+    "position",
+    "styleSelect",
+    "amateur",
+    "growth",
+    "event",
+    "result",
+    "offer",
+    "accept",
+    "joined",
+    "career",
+    "careerEvent"
+  ].forEach(id=>{
 
     const el=$(id);
 
@@ -1350,172 +1734,48 @@ function hideAll(){
 }
 
 
-function setPhase(text){
-
-  $("phasePill").textContent=text;
-
-}
-
+/* =========================================================
+   Header
+========================================================= */
 
 function renderHeader(){
 
   $("playerName").textContent=
-    g.name || "Rookie";
+    g.name||"Rookie";
 
   $("playerMeta").textContent=
-    `本名：${g.real||"無名選手"}・玩家名：${g.name||"Rookie"}・${REGION_LABELS[g.region]||g.region}・${g.age} 歲・${g.position||"尚未定位"}`;
+    `本名：${g.real||"無名選手"}・玩家名：${g.name||"Rookie"}・${g.region||"APAC"}・${g.age} 歲・${g.position||"尚未定位"}`;
 
 }
 
 
 /* =========================================================
-   修正重點 1
-   賽區即時更新 Header
+   賽區
 ========================================================= */
 
-$("country").addEventListener(
-  "change",
-  function(){
+function region(){
 
-    g.region=this.value;
+  const value=
+    $("country")?.value||"";
 
-    renderHeader();
+  const match=
+    value.match(/\((.*?)\)/);
 
-    if(
-      $("amateur") &&
-      !$("amateur").classList.contains("hidden")
-    ){
-
-      $("previewRegion").textContent=
-        REGION_LABELS[g.region]||g.region;
-
-      renderTeamList();
-
-    }
-
-  }
-);
-
-
-/* =========================================================
-   History
-   每一次遊戲決定都建立一個 state
-========================================================= */
-
-function pushGameState(screen){
-
-  history.pushState(
-    {
-      game:true,
-      screen:screen
-    },
-    "",
-    "#"+screen
-  );
+  return match&&match[1]
+    ?match[1]
+    :"APAC";
 
 }
 
 
-function showScreen(screen,phase){
+function updateSetupRegion(){
 
-  hideAll();
+  const r=region();
 
-  $(screen).classList.remove("hidden");
-
-  if(phase){
-    setPhase(phase);
-  }
-
-  renderHeader();
-
-  if(historyReady){
-
-    pushGameState(screen);
-
-  }
-
-}
-
-
-window.addEventListener(
-  "popstate",
-  function(event){
-
-    if(
-      !event.state ||
-      !event.state.game
-    ){
-
-      history.pushState(
-        {
-          game:true,
-          screen:"setup"
-        },
-        "",
-        "#setup"
-      );
-
-      showSetup(false);
-
-      return;
-
-    }
-
-    const screen=event.state.screen;
-
-    if(!SCREENS.includes(screen)){
-      return;
-    }
-
-    hideAll();
-
-    $(screen).classList.remove("hidden");
-
-    setPhaseForScreen(screen);
-
-    renderHeader();
-
-    if(screen==="position"){
-      renderPositions();
-    }
-
-    if(screen==="styleSelect"){
-      renderStyles();
-    }
-
-    if(screen==="amateur"){
-      renderStats();
-      renderTeamList();
-    }
-
-    if(screen==="offer"){
-      renderOffers();
-    }
-
-  }
-);
-
-
-function setPhaseForScreen(screen){
-
-  const map={
-
-    setup:"角色建立",
-    position:"選擇位置",
-    styleSelect:"選擇遊戲風格",
-    amateur:"業餘階段",
-    growth:"第一階段",
-    event:"隨機事件",
-    result:"階段結算",
-    offer:"Scout",
-    accept:"隊伍邀約",
-    joined:"職業生涯"
-
-  };
-
-  setPhase(
-    map[screen]||"職業人生"
-  );
+  $("regionPreview").innerHTML=`
+    🌏 目前賽區：<b>${REGION_LABELS[r]||r}</b><br>
+    🏆 Scout 將從 ${REGION_LABELS[r]||r} 的 8 支隊伍中尋找適合你的隊伍。
+  `;
 
 }
 
@@ -1524,106 +1784,90 @@ function setPhaseForScreen(screen){
    開始
 ========================================================= */
 
-function startGame(){
+function start(){
 
   g.name=
-    $("idName").value.trim() ||
-    "Rookie";
+    $("idName")?.value.trim()||"Rookie";
 
   g.real=
-    $("realName").value.trim() ||
-    "無名選手";
+    $("realName")?.value.trim()||"無名選手";
 
   g.age=15;
 
-  g.region=
-    $("country").value ||
-    "APAC";
+  g.region=region();
 
   g.position="";
   g.positionLocked=false;
-
+  g.positionScores={};
   g.style="";
-  g.styleLocked=false;
 
   g.op=0;
   g.iq=0;
   g.tm=0;
   g.xp=0;
 
+  g.attention={};
+
   g.matches=0;
   g.wins=0;
 
   g.joinedTeam=null;
   g.pendingOffer=null;
+
+  g.careerMatches=0;
+  g.careerWins=0;
+
   g.lastResult=null;
+  g.lastCareerResult=null;
 
   renderHeader();
 
-  history.replaceState(
-    {
-      game:true,
-      screen:"position"
-    },
-    "",
-    "#position"
-  );
-
-  historyReady=true;
-
-  showPositions(false);
+  showPositions();
 
 }
 
 
 /* =========================================================
-   角色建立
+   建立頁
 ========================================================= */
 
-function showSetup(push=true){
+function showSetup(){
 
   hideAll();
-
-  $("setup").classList.remove("hidden");
 
   setPhase("角色建立");
 
-  if(push && historyReady){
-    pushGameState("setup");
-  }
+  $("setup").classList.remove("hidden");
+
+  updateSetupRegion();
 
 }
 
 
 /* =========================================================
-   位置
+   Position
 ========================================================= */
 
-function showPositions(push=true){
+function showPositions(){
 
   hideAll();
 
-  $("position").classList.remove("hidden");
-
   setPhase("選擇位置");
 
-  renderPositions();
+  $("position").classList.remove("hidden");
 
-  if(push && historyReady){
-    pushGameState("position");
-  }
+  renderPositions();
 
 }
 
 
 function renderPositions(){
 
-  const box=
-    $("positionChoices");
+  const box=$("positionChoices");
 
   box.innerHTML="";
 
-  POSITIONS.forEach(position=>{
+  POSITIONS.forEach(p=>{
 
     const button=
       document.createElement("button");
@@ -1635,7 +1879,7 @@ function renderPositions(){
       <div class="routeTop">
 
         <span class="routeTitle">
-          ${escapeHTML(position.name)}
+          🎯 ${p.name}
         </span>
 
         <span class="effect">
@@ -1645,18 +1889,12 @@ function renderPositions(){
       </div>
 
       <div class="routeDesc">
-        ${escapeHTML(position.desc)}
+        ${p.desc}
       </div>
 
     `;
 
-    button.onclick=()=>{
-
-      choosePosition(
-        position.name
-      );
-
-    };
+    button.onclick=()=>selectPosition(p.name);
 
     box.appendChild(button);
 
@@ -1665,91 +1903,79 @@ function renderPositions(){
 }
 
 
-/* =========================================================
-   選位置
-========================================================= */
-
-function choosePosition(positionName){
+function selectPosition(name){
 
   if(g.positionLocked){
     return;
   }
 
-  if(
-    !STYLE_POOLS[positionName]
-  ){
-    alert("⚠️ 找不到這個位置的遊戲風格資料。");
-    return;
-  }
-
-  g.position=
-    positionName;
-
-  g.positionLocked=
-    true;
+  g.position=name;
+  g.positionLocked=true;
 
   renderHeader();
 
-  showStyles();
+  showStyleSelect();
 
 }
 
 
 /* =========================================================
-   風格
+   Style
 ========================================================= */
 
-function showStyles(push=true){
-
-  if(
-    !g.position ||
-    !STYLE_POOLS[g.position]
-  ){
-
-    showPositions();
-
-    return;
-
-  }
+function showStyleSelect(){
 
   hideAll();
 
-  $("styleSelect")
-    .classList
-    .remove("hidden");
+  setPhase("選擇風格");
 
-  setPhase("選擇遊戲風格");
+  $("styleSelect").classList.remove("hidden");
 
   $("styleTitle").textContent=
-    `${g.position}・選擇遊戲風格`;
+    `🎮 ${g.position}・選擇遊戲風格`;
 
   $("styleIntro").textContent=
-    `🎮 ${g.position} 已鎖定。選擇一種主要打法，之後生成四項核心能力。`;
+    "風格會影響 OP、IQ、TM、XP 的初始分配。選擇後鎖定。";
 
   renderStyles();
 
-  if(push && historyReady){
-    pushGameState("styleSelect");
+}
+
+
+function showPositions(){
+
+  if(g.positionLocked){
+    return;
   }
+
+  showPositionsInternal();
+
+}
+
+
+function showPositionsInternal(){
+
+  hideAll();
+
+  setPhase("選擇位置");
+
+  $("position").classList.remove("hidden");
+
+  renderPositions();
 
 }
 
 
 function renderStyles(){
 
-  const box=
-    $("styleChoices");
+  const box=$("styleChoices");
 
   box.innerHTML="";
 
-  const styles=
-    STYLE_POOLS[g.position];
+  const pool=
+    STYLE_POOLS[g.position]||[];
 
-  if(!styles){
-    return;
-  }
-
-  styles.forEach(style=>{
+  pool.forEach(style=>{
 
     const button=
       document.createElement("button");
@@ -1761,7 +1987,7 @@ function renderStyles(){
       <div class="routeTop">
 
         <span class="routeTitle">
-          ${escapeHTML(style.n)}
+          ${style.n}
         </span>
 
         <span class="effect">
@@ -1771,16 +1997,22 @@ function renderStyles(){
       </div>
 
       <div class="routeDesc">
-        ${escapeHTML(style.d)}
+        ${style.d}
+      </div>
+
+      <div class="badgeRow">
+
+        <span class="badge">OP ${Math.round(style.bias.op*100)}%</span>
+        <span class="badge">IQ ${Math.round(style.bias.iq*100)}%</span>
+        <span class="badge">TM ${Math.round(style.bias.tm*100)}%</span>
+        <span class="badge">XP ${Math.round(style.bias.xp*100)}%</span>
+
       </div>
 
     `;
 
-    button.onclick=()=>{
-
-      chooseStyle(style);
-
-    };
+    button.onclick=
+      ()=>selectStyle(style);
 
     box.appendChild(button);
 
@@ -1789,104 +2021,69 @@ function renderStyles(){
 }
 
 
-/* =========================================================
-   選風格
-========================================================= */
+function selectStyle(style){
 
-function chooseStyle(style){
+  g.style=style.n;
 
-  if(g.styleLocked){
-    return;
-  }
-
-  g.style=
-    style.n;
-
-  g.styleLocked=
-    true;
-
-  generateStats(
-    style.bias
-  );
+  generateInitialStats(style);
 
   $("selectedStyle").textContent=
     `🎮 ${g.position}・${g.style}`;
 
-  $("previewRegion").textContent=
-    REGION_LABELS[g.region] ||
-    g.region;
-
   renderStats();
-  renderTeamList();
+
   renderHeader();
 
-  showScreen(
-    "amateur",
-    "業餘階段"
+  hideAll();
+
+  setPhase("業餘階段");
+
+  $("amateur").classList.remove("hidden");
+
+  renderInitialScout();
+
+}
+
+
+/* =========================================================
+   初始能力
+========================================================= */
+
+function generateInitialStats(style){
+
+  const base=35;
+  const variance=8;
+
+  g.op=clamp(
+    Math.round(base+style.bias.op*variance+randInt(-3,3)),
+    1,
+    99
+  );
+
+  g.iq=clamp(
+    Math.round(base+style.bias.iq*variance+randInt(-3,3)),
+    1,
+    99
+  );
+
+  g.tm=clamp(
+    Math.round(base+style.bias.tm*variance+randInt(-3,3)),
+    1,
+    99
+  );
+
+  g.xp=clamp(
+    Math.round(base+style.bias.xp*variance+randInt(-3,3)),
+    1,
+    99
   );
 
 }
 
 
 /* =========================================================
-   四項能力
+   Stats
 ========================================================= */
-
-function generateStats(bias){
-
-  const base=45;
-
-  const variance=()=>
-    Math.floor(
-      Math.random()*11
-    )-5;
-
-  g.op=
-    clamp(
-      Math.round(
-        base+
-        bias.op*28+
-        variance()
-      ),
-      1,
-      99
-    );
-
-  g.iq=
-    clamp(
-      Math.round(
-        base+
-        bias.iq*28+
-        variance()
-      ),
-      1,
-      99
-    );
-
-  g.tm=
-    clamp(
-      Math.round(
-        base+
-        bias.tm*28+
-        variance()
-      ),
-      1,
-      99
-    );
-
-  g.xp=
-    clamp(
-      Math.round(
-        base+
-        bias.xp*28+
-        variance()
-      ),
-      1,
-      99
-    );
-
-}
-
 
 function renderStats(){
 
@@ -1900,85 +2097,73 @@ function renderStats(){
   ];
 
   $("stats").innerHTML=
-    stats.map(
-      ([code,name,value])=>`
 
-        <div class="stat">
+    stats.map(([code,name,value])=>`
 
-          <div class="statName">
-            ${code}・${name}
-          </div>
+      <div class="stat">
 
-          <div class="statValue">
-            ${value}
-          </div>
-
-          <div class="bar">
-            <i style="width:${value}%"></i>
-          </div>
-
+        <div class="statName">
+          ${code}・${name}
         </div>
 
-      `
-    ).join("");
+        <div class="statValue">
+          ${value}
+        </div>
+
+        <div class="bar">
+          <i style="width:${value}%"></i>
+        </div>
+
+      </div>
+
+    `).join("");
 
 }
 
 
 /* =========================================================
-   Scout 預覽
+   初始 Scout
 ========================================================= */
 
-function renderTeamList(){
+function renderInitialScout(){
 
-  const box=
-    $("teamList");
-
-  if(!box){
-    return;
-  }
+  const box=$("teamList");
 
   const teams=
-    TEAMS[g.region]||[];
+    getEligibleTeams();
 
   box.innerHTML=
-    teams
-      .slice(0,3)
-      .map(team=>`
+    teams.slice(0,3).map(team=>`
 
-        <div class="team">
+      <div class="team">
 
-          <div class="teamTop">
+        <div class="teamTop">
 
-            <div>
+          <div>
 
-              <div class="teamName">
-
-                ${escapeHTML(team.name)}
-
-                <span class="teamCode">
-                  ${escapeHTML(team.code)}
-                </span>
-
-              </div>
-
-              <div class="teamRegion">
-                ${REGION_LABELS[team.region]}
-                ・賽區第 ${team.rank} 名
-              </div>
-
+            <div class="teamName">
+              ${escapeHTML(team.name)}
+              <span class="teamCode">
+                ${escapeHTML(team.code)}
+              </span>
             </div>
 
-            <div class="attention">
-              ${team.power}
+            <div class="teamRegion">
+              ${REGION_LABELS[team.region]}
+              ・賽區第 ${team.rank} 名
             </div>
 
           </div>
 
+          <div class="attention">
+            ${Math.round(scoutScore(team))}
+          </div>
+
         </div>
 
-      `)
-      .join("");
+      </div>
+
+    `).join("");
 
 }
 
@@ -1989,10 +2174,31 @@ function renderTeamList(){
 
 function startGrowth(){
 
-  showScreen(
-    "growth",
-    "第一階段"
-  );
+  hideAll();
+
+  setPhase("第一階段");
+
+  $("growth").classList.remove("hidden");
+
+  updateGrowthInfo();
+
+}
+
+
+function updateGrowthInfo(){
+
+  const tip=
+    $("growth")?.querySelector(".tip");
+
+  if(!tip){
+    return;
+  }
+
+  tip.innerHTML=`
+    📊 目前進度：${g.matches} 場比賽<br>
+    🏆 勝場：${g.wins}<br>
+    🏁 階段結束後才會進行一次 Scout 結算。
+  `;
 
 }
 
@@ -2001,27 +2207,23 @@ function backToAmateur(){
 
   hideAll();
 
-  $("amateur")
-    .classList
-    .remove("hidden");
-
   setPhase("業餘階段");
 
-  renderStats();
-  renderTeamList();
-
-  if(historyReady){
-    pushGameState("amateur");
-  }
+  $("amateur").classList.remove("hidden");
 
 }
 
 
 /* =========================================================
-   比賽
+   業餘比賽
 ========================================================= */
 
 function playMatch(){
+
+  if(g.joinedTeam){
+    continueCareer();
+    return;
+  }
 
   g.matches++;
 
@@ -2045,56 +2247,31 @@ function playMatch(){
   }
 
   const opDelta=
-    randInt(0,2)+
-    (win?1:0);
+    randInt(0,2)+(win?1:0);
 
   const iqDelta=
     randInt(0,2);
 
   const tmDelta=
-    randInt(0,2)+
-    (win?1:0);
+    randInt(0,2)+(win?1:0);
 
   const xpDelta=1;
 
-  g.op=
-    clamp(
-      g.op+opDelta,
-      1,
-      99
-    );
-
-  g.iq=
-    clamp(
-      g.iq+iqDelta,
-      1,
-      99
-    );
-
-  g.tm=
-    clamp(
-      g.tm+tmDelta,
-      1,
-      99
-    );
-
-  g.xp=
-    clamp(
-      g.xp+xpDelta,
-      1,
-      99
-    );
+  g.op=clamp(g.op+opDelta,1,99);
+  g.iq=clamp(g.iq+iqDelta,1,99);
+  g.tm=clamp(g.tm+tmDelta,1,99);
+  g.xp=clamp(g.xp+xpDelta,1,99);
 
   g.lastResult={
-
     win,
     performance,
     opDelta,
     iqDelta,
     tmDelta,
     xpDelta
-
   };
+
+  updateGrowthInfo();
 
   showMatchEvent();
 
@@ -2102,18 +2279,18 @@ function playMatch(){
 
 
 /* =========================================================
-   隨機事件
+   比賽事件
 ========================================================= */
 
 function showMatchEvent(){
 
-  const r=
-    g.lastResult;
+  const r=g.lastResult;
 
-  showScreen(
-    "event",
-    "隨機事件"
-  );
+  hideAll();
+
+  setPhase("隨機事件");
+
+  $("event").classList.remove("hidden");
 
   if(r.win){
 
@@ -2121,7 +2298,7 @@ function showMatchEvent(){
       "🔥 你打出了一場漂亮的比賽";
 
     $("eventText").textContent=
-      `🎯 你在這場比賽中的表現高於平均線，隊友開始更願意依賴你的判斷。你的本場表現分數約為 ${Math.round(r.performance)}。`;
+      `🎯 你在這場比賽中的表現高於平均線，隊友開始更願意依賴你的判斷。你目前的表現分數約為 ${Math.round(r.performance)}。`;
 
   }else{
 
@@ -2129,7 +2306,7 @@ function showMatchEvent(){
       "⚠️ 這場比賽沒有照預期發展";
 
     $("eventText").textContent=
-      `🧩 你在幾個關鍵決策上出現問題，但這場比賽也提供了經驗。本場表現分數約為 ${Math.round(r.performance)}。`;
+      `🧩 你在幾個關鍵決策上出現問題，但比賽本身也提供了經驗。你目前的表現分數約為 ${Math.round(r.performance)}。`;
 
   }
 
@@ -2137,12 +2314,11 @@ function showMatchEvent(){
 
     <div class="tip">
 
-      📊 本場能力變化<br>
-
-      ⚡ OP ${signed(r.opDelta)}・
-      🧠 IQ ${signed(r.iqDelta)}・
-      🤝 TM ${signed(r.tmDelta)}・
-      📚 XP ${signed(r.xpDelta)}
+      📊 本場變化<br>
+      OP ${signed(r.opDelta)}・
+      IQ ${signed(r.iqDelta)}・
+      TM ${signed(r.tmDelta)}・
+      XP ${signed(r.xpDelta)}
 
     </div>
 
@@ -2151,6 +2327,10 @@ function showMatchEvent(){
 }
 
 
+/* =========================================================
+   階段結算
+========================================================= */
+
 function finishEvent(){
 
   showResult();
@@ -2158,25 +2338,18 @@ function finishEvent(){
 }
 
 
-/* =========================================================
-   階段結算
-========================================================= */
-
 function showResult(){
 
-  showScreen(
-    "result",
-    "階段結算"
-  );
+  hideAll();
+
+  setPhase("階段結算");
+
+  $("result").classList.remove("hidden");
 
   const winRate=
     g.matches
-      ? Math.round(
-          g.wins/
-          g.matches*
-          100
-        )
-      : 0;
+      ?Math.round(g.wins/g.matches*100)
+      :0;
 
   $("resultTitle").textContent=
     "📈 第一階段結算";
@@ -2189,7 +2362,7 @@ function showResult(){
     🏆 勝場：${g.wins}<br>
     📊 勝率：${winRate}%<br><br>
 
-    ⚡ OP：${g.op}<br>
+    🧠 OP：${g.op}<br>
     🧠 IQ：${g.iq}<br>
     🤝 TM：${g.tm}<br>
     📚 XP：${g.xp}
@@ -2205,10 +2378,16 @@ function showResult(){
 
 function showOffer(){
 
-  showScreen(
-    "offer",
-    "Scout"
-  );
+  if(g.joinedTeam){
+    continueCareer();
+    return;
+  }
+
+  hideAll();
+
+  setPhase("Scout");
+
+  $("offer").classList.remove("hidden");
 
   renderOffers();
 
@@ -2217,31 +2396,37 @@ function showOffer(){
 
 function getPlayerTeams(){
 
-  return TEAMS[g.region] || [];
+  return TEAMS[g.region]||[];
 
 }
 
 
 function getEligibleTeams(){
 
-  return getPlayerTeams()
+  const teams=
+    getPlayerTeams();
 
+  return teams
     .filter(team=>{
 
       if(!g.position){
         return true;
       }
 
-      return team.roles
-        .includes(g.position);
+      return team.roles.includes(g.position);
 
     })
+    .sort((a,b)=>{
 
-    .sort(
-      (a,b)=>
-        scoutScore(b)-
-        scoutScore(a)
-    );
+      const scoreA=
+        scoutScore(a);
+
+      const scoreB=
+        scoutScore(b);
+
+      return scoreB-scoreA;
+
+    });
 
 }
 
@@ -2251,24 +2436,14 @@ function scoutScore(team){
   let score=0;
 
   score+=
-    team.power*.55;
+    team.power*.055;
 
-  if(
-    team.roles
-      .includes(g.position)
-  ){
-
+  if(team.roles.includes(g.position)){
     score+=100;
-
   }
 
-  if(
-    team.styles
-      .includes(g.style)
-  ){
-
+  if(team.styles.includes(g.style)){
     score+=90;
-
   }
 
   score+=
@@ -2283,13 +2458,12 @@ function scoutScore(team){
 
 
 /* =========================================================
-   顯示隊伍
+   Scout 顯示
 ========================================================= */
 
 function renderOffers(){
 
-  const box=
-    $("offerList");
+  const box=$("offerList");
 
   box.innerHTML="";
 
@@ -2297,14 +2471,26 @@ function renderOffers(){
     getEligibleTeams();
 
   $("offerIntro").textContent=
-    `📍 ${REGION_LABELS[g.region]}・本賽區共 8 隊。以下依照你的位置、風格與目前能力排序。`;
+    `📍 ${REGION_LABELS[g.region]||g.region}・本賽區 8 隊中，目前依你的位置、風格與能力排序。`;
+
+  if(!teams.length){
+
+    box.innerHTML=`
+
+      <div class="tip">
+        😶 目前沒有符合你位置需求的隊伍。
+      </div>
+
+    `;
+
+    return;
+
+  }
 
   teams.forEach(team=>{
 
     const score=
-      Math.round(
-        scoutScore(team)
-      );
+      Math.round(scoutScore(team));
 
     const card=
       document.createElement("div");
@@ -2328,10 +2514,8 @@ function renderOffers(){
           </div>
 
           <div class="teamRegion">
-
             ${REGION_LABELS[team.region]}
             ・賽區第 ${team.rank} 名
-
           </div>
 
         </div>
@@ -2341,7 +2525,6 @@ function renderOffers(){
         </div>
 
       </div>
-
 
       <div class="badgeRow">
 
@@ -2359,25 +2542,21 @@ function renderOffers(){
 
       </div>
 
-
       <div class="badgeRow">
 
-        ${team.roles.map(
-          role=>`
+        ${team.roles.map(role=>`
 
-            <span class="badge">
-              ${escapeHTML(role)}
-            </span>
+          <span class="badge">
+            ${escapeHTML(role)}
+          </span>
 
-          `
-        ).join("")}
+        `).join("")}
 
       </div>
 
-
       <button
         class="route"
-        onclick="openOffer('${escapeHTML(team.code)}')"
+        onclick="openOffer('${team.code}')"
       >
 
         <div class="routeTop">
@@ -2387,18 +2566,13 @@ function renderOffers(){
           </span>
 
           <span class="effect">
-            Scout ${score}
+            Scout
           </span>
 
         </div>
 
         <div class="routeDesc">
-
-          🔎 ${escapeHTML(team.name)}
-          對你的
-          ${escapeHTML(g.style)}
-          風格有興趣。
-
+          ${escapeHTML(team.name)} 對你的 ${escapeHTML(g.style)} 風格有興趣。
         </div>
 
       </button>
@@ -2413,80 +2587,94 @@ function renderOffers(){
 
 
 /* =========================================================
-   邀約
+   開啟邀約
 ========================================================= */
 
 function openOffer(code){
 
+  if(g.joinedTeam){
+    continueCareer();
+    return;
+  }
+
   const team=
-    getPlayerTeams()
-      .find(
-        team=>team.code===code
-      );
+    getPlayerTeams().find(
+      team=>team.code===code
+    );
 
   if(!team){
     return;
   }
 
-  g.pendingOffer=
-    team;
+  g.pendingOffer=team;
 
   $("acceptTitle").textContent=
     `🏆 ${team.name} [${team.code}]`;
 
   $("acceptText").textContent=
-    `📨 ${team.name} 正式向你提出邀約。你的位置是 ${g.position}，目前風格是 ${g.style}。這支隊伍位於 ${REGION_LABELS[team.region]}，目前是賽區第 ${team.rank} 名。`;
+    `📨 ${team.name} 正式向你提出邀約。你的位置是 ${g.position}，目前風格是 ${g.style}。這支隊伍目前位於 ${REGION_LABELS[team.region]||team.region} 第 ${team.rank} 名。`;
 
-  showScreen(
-    "accept",
-    "隊伍邀約"
-  );
+  hideAll();
+
+  setPhase("隊伍邀約");
+
+  $("accept").classList.remove("hidden");
 
 }
 
 
+/* =========================================================
+   接受隊伍
+========================================================= */
+
 function acceptTeam(){
 
+  /*
+    重要：
+    接受邀約後絕對不重新產生 Scout。
+    直接把 pendingOffer 固定成 joinedTeam。
+  */
+
+  if(g.joinedTeam){
+    continueCareer();
+    return;
+  }
+
   if(!g.pendingOffer){
+    showOffer();
     return;
   }
 
   const team=
-    getPlayerTeams()
-      .find(
-        t=>
-          t.code===
-          g.pendingOffer.code
-      );
+    g.pendingOffer;
 
-  if(!team){
-
+  if(!team||!team.code){
     g.pendingOffer=null;
-
     showOffer();
-
     return;
-
   }
 
-  g.joinedTeam=
-    team;
-
+  g.joinedTeam=team;
   g.pendingOffer=null;
 
   $("joinedTitle").textContent=
     `🏆 你加入了 ${team.name}`;
 
   $("joinedText").textContent=
-    `🎉 你正式加入 ${team.name} [${team.code}]。你的職業生涯將從 ${REGION_LABELS[team.region]} 開始。`;
+    `🎉 你正式加入 ${team.name} [${team.code}]。你的職業生涯將從 ${REGION_LABELS[team.region]||team.region} 開始。從這一刻起，你已經離開業餘聯賽流程。`;
 
-  showScreen(
-    "joined",
-    "職業生涯"
-  );
+  hideAll();
+
+  setPhase("職業生涯");
+
+  $("joined").classList.remove("hidden");
 
 }
 
+
+/* =========================================================
+   拒絕
+========================================================= */
 
 function declineTeam(){
 
@@ -2503,61 +2691,436 @@ function declineTeam(){
 
 function continueCareer(){
 
-  showScreen(
-    "growth",
-    "職業生涯"
-  );
+  if(!g.joinedTeam){
+
+    showOffer();
+
+    return;
+
+  }
+
+  hideAll();
+
+  setPhase("職業生涯");
+
+  $("career").classList.remove("hidden");
+
+  renderCareerStats();
 
 }
 
 
 /* =========================================================
-   返回
+   職業數值
+========================================================= */
+
+function renderCareerStats(){
+
+  const team=
+    g.joinedTeam;
+
+  if(!team){
+    return;
+  }
+
+  $("careerTitle").textContent=
+    `${team.name}・職業賽段`;
+
+  $("careerCode").textContent=
+    `${team.code}・${REGION_LABELS[team.region]}・賽區第 ${team.rank} 名`;
+
+  $("careerOP").textContent=
+    g.op;
+
+  $("careerIQ").textContent=
+    g.iq;
+
+  $("careerTM").textContent=
+    g.tm;
+
+  $("careerXP").textContent=
+    g.xp;
+
+  $("careerText").textContent=
+    `🎉 你已正式成為 ${team.name} [${team.code}] 的職業選手。接下來的比賽會直接累積職業生涯數據，不會再回到業餘聯賽。`;
+
+}
+
+
+/* =========================================================
+   職業比賽
+========================================================= */
+
+function playCareerMatch(){
+
+  if(!g.joinedTeam){
+    showOffer();
+    return;
+  }
+
+  g.careerMatches++;
+
+  const total=
+    g.op*.30+
+    g.iq*.25+
+    g.tm*.25+
+    g.xp*.20;
+
+  const teamBonus=
+    g.joinedTeam.power/100;
+
+  const random=
+    Math.random()*20-10;
+
+  const performance=
+    total+teamBonus+random;
+
+  const win=
+    performance>=52;
+
+  if(win){
+    g.careerWins++;
+  }
+
+  const opDelta=
+    randInt(0,2)+(win?1:0);
+
+  const iqDelta=
+    randInt(0,2)+(performance>=65?1:0);
+
+  const tmDelta=
+    randInt(0,2)+(win?1:0);
+
+  const xpDelta=
+    1+(Math.random()<.35?1:0);
+
+  g.op=
+    clamp(g.op+opDelta,1,99);
+
+  g.iq=
+    clamp(g.iq+iqDelta,1,99);
+
+  g.tm=
+    clamp(g.tm+tmDelta,1,99);
+
+  g.xp=
+    clamp(g.xp+xpDelta,1,99);
+
+  g.lastCareerResult={
+    win,
+    performance,
+    opDelta,
+    iqDelta,
+    tmDelta,
+    xpDelta
+  };
+
+  showCareerEvent();
+
+}
+
+
+/* =========================================================
+   職業事件
+========================================================= */
+
+function showCareerEvent(){
+
+  const r=
+    g.lastCareerResult;
+
+  hideAll();
+
+  setPhase("職業賽事");
+
+  $("careerEvent").classList.remove("hidden");
+
+  if(r.win){
+
+    $("careerEventTitle").textContent=
+      "🔥 你在職業賽場打出亮眼表現";
+
+    $("careerEventText").textContent=
+      `🎯 你成功把自己的風格帶進職業賽場，本場表現約為 ${Math.round(r.performance)}。隊內對你的信任正在提高。`;
+
+  }else{
+
+    $("careerEventTitle").textContent=
+      "⚠️ 職業賽場給了你一課";
+
+    $("careerEventText").textContent=
+      `🧩 你在關鍵時間點沒有完全處理好局勢，但這場比賽仍然增加了你的職業經驗。本場表現約為 ${Math.round(r.performance)}。`;
+
+  }
+
+  $("careerEventChoices").innerHTML=`
+
+    <div class="tip">
+
+      📊 本場變化<br>
+      OP ${signed(r.opDelta)}・
+      IQ ${signed(r.iqDelta)}・
+      TM ${signed(r.tmDelta)}・
+      XP ${signed(r.xpDelta)}<br><br>
+
+      🏟️ 職業戰績：
+      ${g.careerWins} 勝 /
+      ${g.careerMatches} 場
+
+    </div>
+
+  `;
+
+}
+
+
+/* =========================================================
+   完成職業事件
+========================================================= */
+
+function finishCareerEvent(){
+
+  if(!g.joinedTeam){
+    showOffer();
+    return;
+  }
+
+  continueCareer();
+
+}
+
+
+/* =========================================================
+   返回結果
 ========================================================= */
 
 function backToResult(){
 
-  showScreen(
-    "result",
-    "階段結算"
-  );
+  if(g.joinedTeam){
 
-}
+    continueCareer();
 
+    return;
 
-function goBackFromPosition(){
+  }
 
-  showSetup();
+  hideAll();
 
-}
+  setPhase("階段結算");
 
-
-function goBackFromStyle(){
-
-  showPositions();
+  $("result").classList.remove("hidden");
 
 }
 
 
 /* =========================================================
-   初始 History
+   Phase
 ========================================================= */
 
-history.replaceState(
-  {
-    game:true,
-    screen:"setup"
-  },
-  "",
-  "#setup"
-);
+function setPhase(text){
 
-historyReady=true;
+  $("phasePill").textContent=
+    text;
+
+}
+
+
+/* =========================================================
+   工具
+========================================================= */
+
+function clamp(value,min,max){
+
+  return Math.max(
+    min,
+    Math.min(max,value)
+  );
+
+}
+
+
+function randInt(min,max){
+
+  return Math.floor(
+    Math.random()*(max-min+1)
+  )+min;
+
+}
+
+
+function signed(value){
+
+  return value>=0
+    ?`+${value}`
+    :`${value}`;
+
+}
+
+
+function escapeHTML(value){
+
+  return String(value)
+    .replace(/&/g,"&amp;")
+    .replace(/</g,"&lt;")
+    .replace(/>/g,"&gt;")
+    .replace(/"/g,"&quot;")
+    .replace(/'/g,"&#039;");
+
+}
+
+
+/* =========================================================
+   手機上一頁
+========================================================= */
+
+let internalNavigation=true;
+
+const GAME_SCREENS=[
+
+  "setup",
+  "position",
+  "styleSelect",
+  "amateur",
+  "growth",
+  "event",
+  "result",
+  "offer",
+  "accept",
+  "joined",
+  "career",
+  "careerEvent"
+
+];
+
+
+function currentScreen(){
+
+  return GAME_SCREENS.find(id=>{
+
+    const el=$(id);
+
+    return el&&
+      !el.classList.contains("hidden");
+
+  })||"setup";
+
+}
+
+
+function pushGameHistory(screen){
+
+  if(!internalNavigation){
+    return;
+  }
+
+  history.pushState(
+
+    {
+      game:true,
+      screen
+    },
+
+    "",
+
+    location.href.split("#")[0]+"#"+screen
+
+  );
+
+}
+
+
+/* =========================================================
+   讓所有主要頁面切換都記錄 history
+========================================================= */
+
+function showScreenWithHistory(screen){
+
+  hideAll();
+
+  $(screen).classList.remove("hidden");
+
+  pushGameHistory(screen);
+
+}
+
+
+/* =========================================================
+   初始化 history
+========================================================= */
+
+if(!history.state||!history.state.game){
+
+  history.replaceState(
+
+    {
+      game:true,
+      screen:"setup"
+    },
+
+    "",
+
+    location.href.split("#")[0]+"#setup"
+
+  );
+
+}
+
+
+/* =========================================================
+   手機上一頁
+========================================================= */
+
+window.addEventListener("popstate",event=>{
+
+  const state=
+    event.state;
+
+  if(!state||!state.game){
+
+    history.pushState(
+
+      {
+        game:true,
+        screen:currentScreen()
+      },
+
+      "",
+
+      location.href.split("#")[0]+"#"+currentScreen()
+
+    );
+
+    return;
+
+  }
+
+  const target=
+    state.screen;
+
+  if(!GAME_SCREENS.includes(target)){
+    return;
+  }
+
+  internalNavigation=false;
+
+  hideAll();
+
+  $(target).classList.remove("hidden");
+
+  internalNavigation=true;
+
+});
+
+
+/* =========================================================
+   初始化
+========================================================= */
 
 renderHeader();
+
+updateSetupRegion();
 
 </script>
 
 </body>
 </html>
-```
