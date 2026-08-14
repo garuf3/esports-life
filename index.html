@@ -1,483 +1,521 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>英雄聯盟職業人生模擬器</title>
+<style>
+*{box-sizing:border-box}
+body{margin:0;background:#eef1f5;color:#17202a;font-family:system-ui,-apple-system,"Noto Sans TC",sans-serif}
+.app{max-width:720px;margin:auto;background:#fff;min-height:100vh}
+header{position:sticky;top:0;z-index:5;background:#fff;border-bottom:1px solid #ddd;padding:10px}
+.top{display:flex;justify-content:space-between}.period{font-weight:900}.muted{color:#707780;font-size:11px}
+.name{font-size:21px;font-weight:950;margin-top:4px}
+.teamNow{text-align:right;font-size:11px;font-weight:800}
+.teamNow small{display:block;color:#777}
+.stats{display:grid;grid-template-columns:repeat(4,1fr);gap:5px;margin-top:8px}
+.stat{background:#f5f6f7;border-radius:8px;padding:5px;font-size:9px}
+.stat b{display:block;font-size:14px}.bar{height:3px;background:#ddd;margin-top:3px;border-radius:9px}.bar i{display:block;height:100%;background:#111}
+main{padding:10px}.card{border:1px solid #ddd;border-radius:12px;padding:13px;margin-bottom:9px}
+h1{font-size:20px;margin:3px 0 6px}h2{font-size:15px;margin:0 0 5px}
+.small{font-size:11px;line-height:1.55;color:#5f666d}
+button{width:100%;border:1px solid #ddd;background:#fff;border-radius:10px;padding:11px;margin-top:7px;text-align:left;font:inherit}
+.primary{background:#111827;color:#fff;border:0;text-align:center;font-weight:900}
+.tip{background:#f5f6f7;padding:9px;border-radius:8px;font-size:11px;line-height:1.5;margin-top:8px}
+.grid{display:grid;grid-template-columns:1fr 1fr;gap:7px}
+input,select{width:100%;padding:9px;border:1px solid #d5d9dd;border-radius:8px;margin-top:4px}
+label{font-size:10px;font-weight:800}
+.pos{display:flex;justify-content:space-between;border:1px solid #ddd;border-radius:10px;padding:10px;margin-top:7px}
+.pos.best{border:2px solid #111;background:#f8fafc}
+.score{font-size:18px;font-weight:950}.green{color:#187548}
+.tags{margin-top:4px}.tag{display:inline-block;background:#edf0f2;border-radius:99px;padding:3px 6px;font-size:9px;margin-right:3px}
+.route b,.choice b{font-size:12px}.route span,.choice span{display:block;font-size:10px;color:#697078;margin-top:3px}
+.team{border:1px solid #ddd;border-radius:9px;padding:9px;margin-top:7px}
+.teamtop{display:flex;justify-content:space-between}.power{font-weight:950}
+.interest{font-size:10px;color:#666;margin-top:5px}
+.ib{height:4px;background:#e5e7e9;border-radius:9px;margin-top:3px}.ib i{display:block;height:100%;background:#111}
+.hidden{display:none!important}
+.result{display:grid;grid-template-columns:1fr 1fr;gap:6px}.box{background:#f5f6f7;border-radius:8px;padding:8px;font-size:10px}.box b{display:block;font-size:16px}
+@media(max-width:500px){.grid{grid-template-columns:1fr}.stats{gap:3px}}
+</style>
+</head>
+
+<body>
+<div class="app">
+
+<header>
+  <div class="top">
+    <div>
+      <div class="muted">英雄聯盟職業人生模擬器</div>
+      <div class="period" id="period">2026・15 歲・業餘</div>
+    </div>
+    <div>資源 <b id="res">30</b></div>
+  </div>
+
+  <div class="top">
+    <div>
+      <div class="name" id="pname">Nova</div>
+      <div class="muted" id="meta">15 歲・尚未定位・APAC</div>
+    </div>
+    <div class="teamNow" id="now">自由身<small>等待青訓邀請</small></div>
+  </div>
+
+  <div class="stats">
+    <div class="stat">操作<b id="op">82</b><div class="bar"><i id="opb"></i></div></div>
+    <div class="stat">觀念<b id="iq">74</b><div class="bar"><i id="iqb"></i></div></div>
+    <div class="stat">團隊<b id="tm">69</b><div class="bar"><i id="tmb"></i></div></div>
+    <div class="stat">經驗<b id="xp">38</b><div class="bar"><i id="xpb"></i></div></div>
+  </div>
+</header>
+
+<main>
+
+<section id="setup">
+<div class="card">
+<div class="muted">角色建立</div>
+<h1>從業餘開始</h1>
+<p class="small">你 15 歲，已經有不錯的遊戲基礎。現在要做的是累積履歷，讓青訓 Scout 有理由找上你。</p>
+
+<div class="grid">
+<div><label>本名</label><input id="real" value="王小明"></div>
+<div><label>職業 ID</label><input id="id" value="Nova"></div>
+</div>
+
+<div style="margin-top:8px">
+<label>國家／地區代表</label>
+<select id="region">
+<option value="APAC">中華台北（APAC）</option>
+<option value="APAC">日本（APAC）</option>
+<option value="APAC">越南（APAC）</option>
+<option value="KR">韓國（KR）</option>
+<option value="CN">中國（CN）</option>
+<option value="EMEA">法國（EMEA）</option>
+<option value="EMEA">德國（EMEA）</option>
+<option value="EMEA">丹麥（EMEA）</option>
+<option value="EMEA">西班牙（EMEA）</option>
+<option value="AMERICA">美國（AMERICA）</option>
+<option value="AMERICA">加拿大（AMERICA）</option>
+<option value="AMERICA">巴西（AMERICA）</option>
+</select>
+</div>
+
+<div class="tip">
+初始能力：操作 82・觀念 74・團隊 69・經驗 38<br>
+系統會依數值判定最適合的位置，不要求你一開始亂選路線。
+</div>
+
+<button class="primary" data-a="start">開始 →</button>
+</div>
+</section>
+
+<section id="position" class="hidden">
+<div class="card">
+<div class="muted">能力分析</div>
+<h1>目前最適合的位置</h1>
+<p class="small">位置不是永久鎖定。你的數值、英雄池與比賽經驗會持續改變適配。</p>
+<div id="positions"></div>
+</div>
+<button class="primary" data-a="amateur">進入業餘生涯 →</button>
+</section>
+
+<section id="amateur" class="hidden">
+
+<div class="card">
+<div class="muted" id="stage">第一階段</div>
+<h1 id="goal">青訓窗口已開啟</h1>
+<p class="small" id="intro"></p>
+<div class="tip">本階段目標：<b id="goalText"></b></div>
+</div>
+
+<div class="card">
+<h2>你要怎麼安排這段時間？</h2>
+<div id="routes"></div>
+</div>
+
+<div class="card">
+<div class="muted">Scout 市場</div>
+<h2>正在關注你的隊伍</h2>
+<div id="teams"></div>
+</div>
+
+</section>
+
+<section id="growth" class="hidden">
+<div class="card">
+<div class="muted">本賽段結果</div>
+<h1>成長結算</h1>
+<div id="growthList"></div>
+<div class="tip" id="advice"></div>
+</div>
+<button class="primary" data-a="event">進入賽段事件 →</button>
+</section>
+
+<section id="event" class="hidden">
+<div class="card">
+<div class="muted">賽段事件</div>
+<h1 id="eventTitle"></h1>
+<p class="small" id="eventText"></p>
+<div id="choices"></div>
+</div>
+</section>
+
+<section id="result" class="hidden">
+<div class="card">
+<div class="muted">賽段結算</div>
+<h1 id="resultTitle"></h1>
+<p class="small" id="resultSub"></p>
+
+<div class="result">
+<div class="box">隊伍成績<b id="teamResult"></b></div>
+<div class="box">個人表現<b id="personal"></b></div>
+<div class="box">位置排名<b id="rank"></b></div>
+<div class="box">青訓邀請<b id="invite"></b></div>
+</div>
+
+<div class="tip" id="resultAdvice"></div>
+</div>
+
+<button class="primary" data-a="next">進入下一賽段 →</button>
+</section>
+
+<section id="offer" class="hidden">
+<div class="card">
+<div class="muted">重要事件</div>
+<h1>你收到青訓邀請</h1>
+<p class="small" id="offerText"></p>
+<button data-a="accept"><b>接受青訓邀請</b><span>進入職業體系，之後成長更偏向團隊戰術與正式比賽。</span></button>
+<button data-a="decline"><b>先留在業餘</b><span>保留自由度，繼續累積其他隊伍的興趣。</span></button>
+</div>
+</section>
+
+</main>
+</div>
+
 <script>
-
-/* =====================================================
-   職業隊伍資料
-   規則：
-   1. code 保留參照隊伍縮寫
-   2. name 為化名
-   3. 化名單字首必須對應 code
-   4. 數字縮寫使用英文單字
-   5. UI 顯示 name，不直接顯示 code
-===================================================== */
-
-const teams = {
-
-    KR: [
-
-        {
-            code: "HLE",
-            name: "Horizon League Elite",
-            power: 92,
-            style: ["穩定", "團戰", "資源控制"],
-            needs: ["觀念", "團隊", "經驗"]
-        },
-
-        {
-            code: "T1",
-            name: "Titan One",
-            power: 91,
-            style: ["進攻", "節奏", "大賽"],
-            needs: ["操作", "觀念", "經驗"]
-        },
-
-        {
-            code: "GEN",
-            name: "Golden Elite Nexus",
-            power: 90,
-            style: ["營運", "資源", "團隊"],
-            needs: ["觀念", "團隊"]
-        },
-
-        {
-            code: "DK",
-            name: "Dawn Kingdom",
-            power: 86,
-            style: ["進攻", "節奏", "操作"],
-            needs: ["操作", "經驗"]
-        },
-
-        {
-            code: "KT",
-            name: "Kinetic Titans",
-            power: 84,
-            style: ["團戰", "支援", "節奏"],
-            needs: ["團隊", "觀念"]
-        },
-
-        {
-            code: "BFX",
-            name: "Black Falcon X",
-            power: 81,
-            style: ["進攻", "操作", "打架"],
-            needs: ["操作"]
-        },
-
-        {
-            code: "DRX",
-            name: "Dragon Rift X",
-            power: 78,
-            style: ["發育", "團戰", "後期"],
-            needs: ["觀念", "團隊"]
-        },
-
-        {
-            code: "BRO",
-            name: "Black River Order",
-            power: 75,
-            style: ["團隊", "穩定", "支援"],
-            needs: ["團隊", "經驗"]
-        }
-
-    ],
-
-
-    CN: [
-
-        {
-            code: "BLG",
-            name: "Blue Legend Glory",
-            power: 93,
-            style: ["進攻", "操作", "團戰"],
-            needs: ["操作", "團隊"]
-        },
-
-        {
-            code: "TES",
-            name: "Titanic Elite Strike",
-            power: 89,
-            style: ["進攻", "節奏", "操作"],
-            needs: ["操作", "經驗"]
-        },
-
-        {
-            code: "AL",
-            name: "Astral League",
-            power: 84,
-            style: ["營運", "團戰", "資源"],
-            needs: ["觀念", "團隊"]
-        },
-
-        {
-            code: "JDG",
-            name: "Jade Dominion Guard",
-            power: 86,
-            style: ["資源", "營運", "團戰"],
-            needs: ["觀念", "團隊"]
-        },
-
-        {
-            code: "WBG",
-            name: "Warrior Battle Glory",
-            power: 83,
-            style: ["進攻", "操作", "大賽"],
-            needs: ["操作", "經驗"]
-        },
-
-        {
-            code: "NIP",
-            name: "Nova Impact Prime",
-            power: 78,
-            style: ["節奏", "支援", "進攻"],
-            needs: ["觀念", "團隊"]
-        },
-
-        {
-            code: "IG",
-            name: "Infinite Guardians",
-            power: 76,
-            style: ["進攻", "打架", "操作"],
-            needs: ["操作"]
-        },
-
-        {
-            code: "WE",
-            name: "Warrior Empire",
-            power: 74,
-            style: ["團隊", "發育", "穩定"],
-            needs: ["團隊", "觀念"]
-        }
-
-    ],
-
-
-    EMEA: [
-
-        {
-            code: "G2",
-            name: "Grand Two",
-            power: 88,
-            style: ["創意", "節奏", "團戰"],
-            needs: ["觀念", "團隊"]
-        },
-
-        {
-            code: "KC",
-            name: "Kingdom Core",
-            power: 82,
-            style: ["進攻", "團戰", "支援"],
-            needs: ["操作", "團隊"]
-        },
-
-        {
-            code: "MKOI",
-            name: "Moon Knights Order International",
-            power: 79,
-            style: ["營運", "團隊", "資源"],
-            needs: ["觀念", "團隊"]
-        },
-
-        {
-            code: "VIT",
-            name: "Vanguard Impact Titans",
-            power: 77,
-            style: ["進攻", "操作", "節奏"],
-            needs: ["操作"]
-        },
-
-        {
-            code: "GX",
-            name: "Genesis X",
-            power: 75,
-            style: ["團戰", "發育", "穩定"],
-            needs: ["團隊", "觀念"]
-        },
-
-        {
-            code: "FNC",
-            name: "Frost Nova Collective",
-            power: 80,
-            style: ["進攻", "大賽", "團戰"],
-            needs: ["操作", "經驗"]
-        },
-
-        {
-            code: "NAVI",
-            name: "Northern Apex Vanguard Initiative",
-            power: 73,
-            style: ["節奏", "支援", "創意"],
-            needs: ["觀念", "團隊"]
-        },
-
-        {
-            code: "SHF",
-            name: "Shadow Horizon Force",
-            power: 70,
-            style: ["防守", "資源", "後期"],
-            needs: ["觀念", "經驗"]
-        }
-
-    ],
-
-
-    AMERICA: [
-
-        {
-            code: "LYON",
-            name: "Lunar Youth Order Nexus",
-            power: 79,
-            style: ["進攻", "操作", "節奏"],
-            needs: ["操作"]
-        },
-
-        {
-            code: "FLY",
-            name: "Frontier League Youth",
-            power: 82,
-            style: ["團戰", "進攻", "支援"],
-            needs: ["操作", "團隊"]
-        },
-
-        {
-            code: "TL",
-            name: "Thunder League",
-            power: 81,
-            style: ["營運", "資源", "穩定"],
-            needs: ["觀念", "團隊"]
-        },
-
-        {
-            code: "C9",
-            name: "Celestial Nine",
-            power: 80,
-            style: ["創意", "節奏", "進攻"],
-            needs: ["觀念", "操作"]
-        },
-
-        {
-            code: "SEN",
-            name: "Sentinel Elite Nexus",
-            power: 76,
-            style: ["團戰", "支援", "進攻"],
-            needs: ["團隊"]
-        },
-
-        {
-            code: "SR",
-            name: "Summit Rebellion",
-            power: 73,
-            style: ["進攻", "打架", "操作"],
-            needs: ["操作"]
-        },
-
-        {
-            code: "DSG",
-            name: "Digital Storm Guardians",
-            power: 70,
-            style: ["節奏", "團隊", "支援"],
-            needs: ["團隊", "觀念"]
-        },
-
-        {
-            code: "DIG",
-            name: "Dominion Impact Guild",
-            power: 68,
-            style: ["發育", "後期", "團戰"],
-            needs: ["觀念", "團隊"]
-        }
-
-    ],
-
-
-    APAC: [
-
-        {
-            code: "TSW",
-            name: "Thunder Storm Warriors",
-            power: 80,
-            style: ["進攻", "操作", "節奏"],
-            needs: ["操作"]
-        },
-
-        {
-            code: "CFO",
-            name: "Crimson Falcon Order",
-            power: 78,
-            style: ["團戰", "資源", "穩定"],
-            needs: ["團隊", "觀念"]
-        },
-
-        {
-            code: "GAM",
-            name: "Golden Apex Masters",
-            power: 77,
-            style: ["進攻", "打架", "節奏"],
-            needs: ["操作", "團隊"]
-        },
-
-        {
-            code: "DCG",
-            name: "Dark Current Guardians",
-            power: 73,
-            style: ["團隊", "防守", "後期"],
-            needs: ["團隊", "經驗"]
-        },
-
-        {
-            code: "MVK",
-            name: "Meteor Vanguard Knights",
-            power: 71,
-            style: ["進攻", "操作", "節奏"],
-            needs: ["操作"]
-        },
-
-        {
-            code: "SHG",
-            name: "Shadow Horizon Guardians",
-            power: 69,
-            style: ["支援", "團戰", "營運"],
-            needs: ["觀念", "團隊"]
-        },
-
-        {
-            code: "GZ",
-            name: "Golden Zenith",
-            power: 67,
-            style: ["發育", "資源", "後期"],
-            needs: ["觀念"]
-        },
-
-        {
-            code: "DFM",
-            name: "Dragon Force Masters",
-            power: 65,
-            style: ["團隊", "穩定", "支援"],
-            needs: ["團隊", "經驗"]
-        }
-
-    ]
-
+/* =========================
+   後台隊伍資料
+   code 保留給 Ranking / 能力計算
+   UI 只顯示化名
+========================= */
+const T={
+KR:[
+["HLE","Horizon League Elite",92,"穩定 團戰 資源"],
+["T1","Titan One",91,"進攻 節奏 大賽"],
+["GEN","Golden Elite Nexus",90,"營運 資源 團隊"],
+["DK","Dawn Kingdom",86,"進攻 節奏 操作"],
+["KT","Kinetic Titans",84,"團戰 支援 節奏"],
+["BFX","Black Falcon X",81,"進攻 操作 節奏"],
+["DRX","Dragon Rift X",78,"發育 團戰 後期"],
+["BRO","Black River Order",75,"團隊 穩定 支援"]],
+CN:[
+["BLG","Blue Legend Glory",93,"進攻 操作 團戰"],
+["TES","Titanic Elite Strike",89,"進攻 節奏 操作"],
+["JDG","Jade Dominion Guard",86,"資源 營運 團戰"],
+["AL","Astral League",84,"營運 團戰 資源"],
+["WBG","Warrior Battle Glory",83,"進攻 操作 大賽"],
+["NIP","Nova Impact Prime",78,"節奏 支援 進攻"],
+["IG","Infinite Guardians",76,"進攻 操作 團戰"],
+["WE","Warrior Empire",74,"團隊 發育 穩定"]],
+EMEA:[
+["G2","Grand Two",88,"創意 節奏 團戰"],
+["KC","Kingdom Core",82,"進攻 團戰 支援"],
+["FNC","Frost Nexus Collective",80,"進攻 大賽 團戰"],
+["MKOI","Moon Knights Order International",79,"營運 團隊 資源"],
+["VIT","Vanguard Impact Titans",77,"進攻 操作 節奏"],
+["GX","Genesis X",75,"團戰 發育 穩定"],
+["NAVI","Northern Apex Vanguard Initiative",73,"節奏 支援 創意"],
+["SHF","Shadow Horizon Force",70,"防守 資源 後期"]],
+AMERICA:[
+["FLY","Frontier League Youth",82,"團戰 進攻 支援"],
+["TL","Thunder League",81,"營運 資源 穩定"],
+["C9","Celestial Nine",80,"創意 節奏 進攻"],
+["LYON","Lunar Youth Order Nexus",79,"進攻 操作 節奏"],
+["SEN","Sentinel Elite Nexus",76,"團戰 支援 進攻"],
+["SR","Summit Rebellion",73,"進攻 操作 節奏"],
+["DSG","Digital Storm Guardians",70,"節奏 團隊 支援"],
+["DIG","Dominion Impact Guild",68,"發育 後期 團戰"]],
+APAC:[
+["TSW","Thunder Storm Warriors",80,"進攻 操作 節奏"],
+["CFO","Crimson Falcon Order",78,"團戰 資源 穩定"],
+["GAM","Golden Apex Masters",77,"進攻 節奏 團戰"],
+["DCG","Dark Current Guardians",73,"團隊 防守 後期"],
+["MVK","Meteor Vanguard Knights",71,"進攻 操作 節奏"],
+["SHG","Shadow Horizon Guardians",69,"支援 團戰 營運"],
+["GZ","Golden Zenith",67,"發育 資源 後期"],
+["DFM","Dragon Force Masters",65,"團隊 穩定 支援"]]
 };
 
+const POS=[
+["上路",["操作","觀念"]],
+["打野",["觀念","經驗"]],
+["中路",["操作","觀念"]],
+["下路",["操作","團隊"]],
+["輔助",["觀念","團隊"]]
+];
 
-/* =====================================================
-   取得目前賽區隊伍
-===================================================== */
+let g={
+year:2026,age:15,stage:1,op:82,iq:74,tm:69,xp:38,
+name:"Nova",region:"APAC",position:"",exposure:0,ladder:0,
+team:null,school:"星港高級中學",delta:{}
+};
 
-function getRegionTeams(){
+const $=x=>document.getElementById(x);
+const screens=["setup","position","amateur","growth","event","result","offer"];
 
-    return teams[game.region] || [];
-
+function show(x){
+ screens.forEach(s=>$(s).classList.toggle("hidden",s!==x));
+ window.scrollTo(0,0);
 }
 
+function render(){
+ $("period").textContent=`${g.year}・${g.age} 歲・${g.team?"青訓":"業餘"}`;
+ $("pname").textContent=g.name;
+ $("meta").textContent=`${g.age} 歲・${g.position||"尚未定位"}・${g.region}`;
+ $("res").textContent=30;
+ $("now").innerHTML=g.team?
+ `${g.team[1]}<small>青訓</small>`:
+ `${g.school}<small>業餘新人</small>`;
 
-/* =====================================================
-   UI 顯示隊伍
-   注意：
-   code 不顯示給玩家
-   只顯示化名
-===================================================== */
-
-function renderTeamInterest(){
-
-    const list = getRegionTeams();
-
-    const container =
-        document.getElementById("teamInterest");
-
-    if(!container){
-        return;
-    }
-
-    if(!list.length){
-
-        container.innerHTML =
-            "<div class='muted'>目前沒有隊伍關注你。</div>";
-
-        return;
-    }
-
-    let html = "";
-
-    list.forEach(team => {
-
-        const positionScore =
-            game.position
-            ? positionFit(game.position)
-            : 70;
-
-        const interest = Math.max(
-            0,
-            Math.min(
-                99,
-                Math.round(
-                    team.power * 0.55 +
-                    positionScore * 0.25 +
-                    game.fit * 0.20
-                )
-            )
-        );
-
-        html += `
-
-        <div class="teamCard">
-
-            <div class="teamHeader">
-
-                <div>
-
-                    <div class="teamName">
-                        ${team.name}
-                    </div>
-
-                    <div class="teamType">
-                        ${game.region}
-                    </div>
-
-                </div>
-
-                <div class="teamPower">
-                    ${team.power}
-                </div>
-
-            </div>
-
-
-            <div class="teamMeta">
-
-                ${team.style.map(tag => `
-                    <span class="tag">
-                        ${tag}
-                    </span>
-                `).join("")}
-
-            </div>
-
-
-            <div class="interest">
-
-                邀約適性
-                <b>
-                    ${interest}
-                </b>
-
-                <div class="interestBar">
-
-                    <i style="
-                        width:${interest}%;
-                    "></i>
-
-                </div>
-
-            </div>
-
-        </div>
-
-        `;
-
-    });
-
-    container.innerHTML = html;
-
+ [["op","opb"],["iq","iqb"],["tm","tmb"],["xp","xpb"]].forEach(x=>{
+   $(x[0]).textContent=g[x[0]];
+   $(x[1]).style.width=g[x[0]]+"%";
+ });
 }
 
+function positionScore(p){
+ let a={操作:g.op,觀念:g.iq,團隊:g.tm,經驗:g.xp};
+ return Math.round((a[p[1][0]]+a[p[1][1]])/2);
+}
+
+function start(){
+ g.name=$("id").value.trim()||"Nova";
+ g.region=$("region").value;
+ g.school=["星港高級中學","北辰實驗高中","青嶼科技高中","晨曦國際高中"][Math.floor(Math.random()*4)];
+ render();
+
+ let a=POS.map(p=>[p[0],p[1],positionScore(p)])
+          .sort((a,b)=>b[2]-a[2]);
+
+ g.position=a[0][0];
+
+ $("positions").innerHTML=a.map((p,i)=>`
+ <div class="pos ${i?"":"best"}" data-pos="${p[0]}">
+   <div>
+    <b>${p[0]}${i?"":"　最適合"}</b>
+    <div class="tags">
+      ${p[1].map(x=>`<span class="tag">${x}</span>`).join("")}
+    </div>
+    <div class="muted">目前約贏過 ${Math.max(45,p[2]-4)}% 的同位置玩家</div>
+   </div>
+   <div class="score ${p[2]>=80?"green":""}">${p[2]}</div>
+ </div>`).join("");
+
+ show("position");
+}
+
+function amateur(){
+ render();
+ let s=g.stage;
+ $("stage").textContent=`第 ${s} 階段`;
+ $("goal").textContent=s===1?"青訓窗口已開啟":"繼續累積職業履歷";
+ $("intro").textContent=`${g.school} 校隊已記錄你的表現。天梯曝光 ${g.ladder}・比賽曝光 ${g.exposure}。`;
+ $("goalText").textContent=[
+ "建立天梯與校隊履歷",
+ "爭取第一次正式比賽曝光",
+ "讓青訓邀請變成實際機會",
+ "決定是否進入職業體系"
+ ][s-1];
+
+ const R=[
+ ["狂打天梯","提升操作、天梯曝光與個人樣本",{op:2,iq:1,xp:2},12,5],
+ ["讀書與戰術研究","提升觀念與團隊理解",{iq:3,tm:1,xp:1},3,5],
+ ["開直播","降低部分訓練量，但提高知名度",{op:1,iq:1},0,18],
+ ["參加業餘比賽","建立正式比賽履歷與團隊能力",{tm:3,xp:3},0,20]
+ ];
+
+ $("routes").innerHTML=R.map((r,i)=>`
+ <button class="route" data-route="${i}">
+  <b>${r[0]}</b>
+  <span>${r[1]}</span>
+  <span>效果：${Object.entries(r[2]).map(x=>x[0]+" "+(x[1]>0?"+":"")+x[1]).join("・")}
+  ・曝光 +${r[4]}</span>
+ </button>`).join("");
+
+ let teams=[...T[g.region]].sort((a,b)=>fit(b)-fit(a)).slice(0,5);
+ $("teams").innerHTML=teams.map(t=>{
+   let f=Math.round(fit(t));
+   return `<div class="team">
+    <div class="teamtop"><div><b>${t[1]}</b><div class="muted">${g.region}・Power ${t[2]}</div></div><div class="power">${f}%</div></div>
+    <div class="tags">${t[3].split(" ").map(x=>`<span class="tag">${x}</span>`).join("")}</div>
+    <div class="interest">Scout 關注度</div>
+    <div class="ib"><i style="width:${f}%"></i></div>
+   </div>`;
+ }).join("");
+
+ show("amateur");
+}
+
+function fit(t){
+ let avg=(g.op+g.iq+g.tm+g.xp)/4;
+ return Math.max(8,Math.min(99,Math.round(avg+(g.exposure*.3)+(g.ladder*.15)-(t[2]-75))));
+}
+
+function route(i){
+ let r=[
+  {op:2,iq:1,xp:2,ladder:12,exposure:5},
+  {iq:3,tm:1,xp:1,ladder:3,exposure:5},
+  {op:1,iq:1,exposure:18},
+  {tm:3,xp:3,exposure:20}
+ ][i];
+
+ g.delta={};
+ ["op","iq","tm","xp"].forEach(k=>{
+   if(r[k]){
+     g[k]=Math.min(99,g[k]+r[k]);
+     g.delta[k]=r[k];
+   }
+ });
+ g.ladder+=r.ladder||0;
+ g.exposure+=r.exposure||0;
+ render();
+
+ $("growthList").innerHTML=["op","iq","tm","xp"].map(k=>
+ `<div style="padding:7px 0;border-bottom:1px solid #eee;font-size:11px">
+  ${k==="op"?"操作":k==="iq"?"觀念":k==="tm"?"團隊":"經驗"}
+  <b style="float:right">${g[k]}　${g.delta[k]?"+":""}${g.delta[k]||0}</b>
+ </div>`).join("");
+
+ $("advice").textContent=
+ i===0?"天梯數據成長很快，但 Scout 仍會看你能不能把個人能力轉成團隊價值。":
+ i===1?"你的觀念開始成為明顯優勢，適合往決策與團隊型路線發展。":
+ i===2?"你的曝光增加最快，但要避免知名度高於實際比賽能力。":
+ "正式比賽履歷正在形成，這是青訓最看重的成長證據之一。";
+
+ show("growth");
+}
+
+function event(){
+ let E=[
+ ["⚡ 校隊臨時缺人","週末比賽少一名主力，教練問你願不願意頂上。",
+ [["直接上場",{tm:2,xp:3,exposure:12}],
+  ["先研究對手",{iq:2,xp:1,exposure:5}],
+  ["維持個人訓練",{op:2}]]],
+ ["⚡ 隊伍要求加練","教練認為你有一項能力仍不足。",
+ [["補強觀念",{iq:3,xp:1}],
+  ["補強操作",{op:3}],
+  ["陪隊友練習",{tm:3,xp:2,exposure:4}]]],
+ ["⚡ Scout 問起你的英雄池","Scout 想知道你是否能適應不同版本。",
+ [["展示招牌英雄",{op:2,exposure:8}],
+  ["展示功能型英雄",{iq:2,tm:2,exposure:10}],
+  ["展示擴充中的英雄池",{xp:2,exposure:5}]]]
+ ][(g.stage-1)%3];
+
+ $("eventTitle").textContent=E[0];
+ $("eventText").textContent=E[1];
+ $("choices").innerHTML=E[2].map((c,i)=>
+ `<button class="choice" data-event="${i}"><b>${c[0]}</b><span>選擇後立即結算</span></button>`).join("");
+
+ window.E=E;
+ show("event");
+}
+
+function resolveEvent(i){
+ let d=window.E[2][i][1];
+ g.delta={};
+
+ ["op","iq","tm","xp"].forEach(k=>{
+   if(d[k]){
+     g[k]=Math.min(99,g[k]+d[k]);
+     g.delta[k]=d[k];
+   }
+ });
+
+ g.exposure+=d.exposure||0;
+ render();
+
+ let teams=[...T[g.region]].sort((a,b)=>fit(b)-fit(a));
+ let t=teams[0],score=Math.round((g.op+g.iq+g.tm+g.xp)/4+g.exposure*.1);
+
+ $("resultTitle").textContent=score>=85?"賽段表現突出":score>=75?"穩定完成賽段":"仍需補強";
+ $("resultSub").textContent=`${g.school}・${g.position}`;
+ $("teamResult").textContent=`${t[1]}・${Math.round(score)}`;
+ $("personal").textContent=Math.min(99,score);
+ $("rank").textContent=`約前 ${Math.max(1,100-score)}%`;
+ $("invite").textContent=fit(t)>=70||g.exposure>=30?"有青訓機會":"暫無新增邀請";
+ $("resultAdvice").textContent=
+ `本賽段隊伍成績：${t[1]} ${Math.round(score)}。你的 ${g.position} 適配度約 ${fit(t)}%。`;
+
+ if((fit(t)>=70||g.exposure>=30)&&g.stage>=2){
+   g.offer=t;
+ }
+
+ show("result");
+}
+
+function next(){
+ g.stage++;
+
+ if(g.stage>4){
+   g.stage=1;
+   g.year++;
+   g.age++;
+   g.exposure=Math.round(g.exposure*.7);
+   g.ladder=Math.round(g.ladder*.7);
+ }
+
+ if(g.offer){
+   $("offerText").textContent=
+    `${g.offer[1]}（${g.region}）看過你最近的比賽與數據，認為你與「${g.offer[3]}」風格有不錯的契合度。`;
+   show("offer");
+ }else{
+   amateur();
+ }
+}
+
+function accept(){
+ g.team=g.offer;
+ g.exposure+=10;
+ g.offer=null;
+ render();
+ $("resultTitle").textContent="加入青訓";
+ $("resultSub").textContent="你正式進入職業體系";
+ $("teamResult").textContent="青訓加入";
+ $("personal").textContent="潛力提升";
+ $("rank").textContent="Scout 建檔";
+ $("invite").textContent="已接受";
+ $("resultAdvice").textContent="下一階段開始，你會接觸更強的隊伍訓練、版本適應與正式比賽。";
+ show("result");
+}
+
+function decline(){
+ g.offer=null;
+ $("resultTitle").textContent="繼續自由身";
+ $("resultSub").textContent="你選擇保留更多選擇權";
+ $("teamResult").textContent="業餘累積";
+ $("personal").textContent="自由發展";
+ $("rank").textContent="持續被觀察";
+ $("invite").textContent="邀請保留";
+ $("resultAdvice").textContent="你沒有失去機會，但下一階段需要更強的比賽履歷證明自己。";
+ show("result");
+}
+
+/* 單一事件入口，避免手機版 onclick 流程失效 */
+document.addEventListener("click",e=>{
+ const b=e.target.closest("[data-a],[data-route],[data-event],[data-pos]");
+ if(!b)return;
+
+ if(b.dataset.a==="start")start();
+ else if(b.dataset.a==="amateur")amateur();
+ else if(b.dataset.a==="event")event();
+ else if(b.dataset.a==="next")next();
+ else if(b.dataset.a==="accept")accept();
+ else if(b.dataset.a==="decline")decline();
+ else if(b.dataset.route)route(+b.dataset.route);
+ else if(b.dataset.event)resolveEvent(+b.dataset.event);
+ else if(b.dataset.pos){g.position=b.dataset.pos;render()}
+});
+
+render();
 </script>
+</body>
+</html>
