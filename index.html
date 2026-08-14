@@ -1,17 +1,26 @@
-<!-- 把原本上半部 CSS 替換成這段 -->
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="theme-color" content="#111827">
+<title>英雄聯盟職業人生模擬器</title>
+
 <style>
 *{box-sizing:border-box}
+
 :root{
   --bg:#eef1f5;
   --card:#fff;
   --ink:#17202a;
-  --muted:#6b7280;
+  --muted:#697386;
   --line:#dfe4ea;
   --soft:#f6f8fa;
   --dark:#111827;
   --good:#19734a;
   --warn:#9a6500;
-  --bad:#b33a3a
+  --bad:#b33a3a;
+  --accent:#5b67f1
 }
 
 html,body{
@@ -22,36 +31,45 @@ html,body{
   "Noto Sans TC","Microsoft JhengHei",sans-serif
 }
 
-button,input,select{font:inherit}
-button{cursor:pointer}
+body{
+  min-height:100vh
+}
+
+button,input,select{
+  font:inherit
+}
+
+button{
+  cursor:pointer
+}
 
 .app{
   width:100%;
   max-width:760px;
+  min-height:100vh;
   margin:auto;
-  background:#fff;
-  min-height:100vh
+  background:#fff
 }
 
-/* ===== 上半部 HUD ===== */
+/* =========================
+   上半部 HUD
+   ========================= */
+
 .top{
   position:sticky;
   top:0;
-  z-index:20;
+  z-index:30;
   background:#fff;
   border-bottom:1px solid var(--line);
   padding:8px 10px 9px;
   box-shadow:0 2px 10px rgba(15,23,42,.06)
 }
 
-.topline,
-.sectionHead,
-.teamTop,
-.routeTop{
+.topline{
   display:flex;
+  align-items:center;
   justify-content:space-between;
-  gap:8px;
-  align-items:center
+  gap:8px
 }
 
 .brand{
@@ -62,34 +80,48 @@ button{cursor:pointer}
 }
 
 .player{
+  margin-top:5px;
   font-size:24px;
   line-height:1.05;
   font-weight:950;
-  margin-top:5px;
   letter-spacing:-.02em
 }
 
 .meta{
-  font-size:13px;
-  color:#5b6575;
   margin-top:3px;
+  font-size:13px;
+  line-height:1.3;
+  color:#5b6575;
   white-space:nowrap;
   overflow:hidden;
   text-overflow:ellipsis
 }
 
+.pill{
+  display:inline-flex;
+  align-items:center;
+  min-height:27px;
+  padding:4px 9px;
+  border-radius:999px;
+  background:#f0f2f5;
+  color:#4b5563;
+  border:1px solid #e3e7ec;
+  font-size:12px;
+  font-weight:850
+}
+
 .hudRow{
   display:grid;
-  grid-template-columns:1.05fr 1.15fr .8fr;
-  gap:6px;
-  margin-top:8px
+  grid-template-columns:1fr 1.25fr .8fr;
+  gap:5px;
+  margin-top:7px
 }
 
 .hudCell{
+  min-width:0;
   display:flex;
   align-items:center;
   gap:6px;
-  min-width:0;
   padding:7px 8px;
   border:1px solid var(--line);
   border-radius:10px;
@@ -97,18 +129,19 @@ button{cursor:pointer}
 }
 
 .hudLabel{
+  flex:0 0 auto;
   font-size:11px;
   color:var(--muted);
-  font-weight:800;
-  white-space:nowrap
+  font-weight:850
 }
 
 .hudValue{
-  font-size:15px;
-  font-weight:950;
-  white-space:nowrap;
+  min-width:0;
   overflow:hidden;
-  text-overflow:ellipsis
+  text-overflow:ellipsis;
+  white-space:nowrap;
+  font-size:15px;
+  font-weight:950
 }
 
 .hudScore{
@@ -121,60 +154,65 @@ button{cursor:pointer}
   align-items:center;
   gap:5px;
   margin-top:7px;
-  font-size:12px;
   color:var(--muted);
+  font-size:12px;
   font-weight:850;
   white-space:nowrap;
   overflow:hidden
 }
 
 .flowDot{
+  width:18px;
+  height:18px;
+  flex:0 0 auto;
   display:inline-flex;
   align-items:center;
   justify-content:center;
-  width:18px;
-  height:18px;
   border-radius:50%;
   background:#edf0f3;
   color:#697386;
   font-size:10px;
-  font-weight:950;
-  flex:0 0 auto
+  font-weight:950
 }
 
 .flowDot.on{
-  background:#111827;
+  background:var(--dark);
   color:#fff
 }
 
 .flowArrow{
+  flex:0 0 auto;
   color:#a0a7b2;
-  font-size:11px;
-  flex:0 0 auto
+  font-size:11px
 }
 
+/* =========================
+   共用
+   ========================= */
+
 main{
-  padding:10px 12px 24px
+  padding:10px 12px 26px
 }
 
 .card{
+  margin-bottom:10px;
+  padding:13px;
   background:var(--card);
   border:1px solid var(--line);
-  border-radius:15px;
-  padding:13px;
-  margin-bottom:10px
+  border-radius:15px
 }
 
 h1{
+  margin:2px 0 5px;
   font-size:22px;
   line-height:1.2;
-  margin:2px 0 5px;
   font-weight:950
 }
 
 h2{
-  font-size:17px;
   margin:0;
+  font-size:17px;
+  line-height:1.25;
   font-weight:950
 }
 
@@ -187,136 +225,410 @@ h2{
 .muted{
   font-size:12px;
   color:var(--muted);
-  font-weight:800;
-  letter-spacing:.04em
-}
-
-.pill{
-  display:inline-flex;
-  align-items:center;
-  padding:5px 8px;
-  border-radius:999px;
-  background:var(--soft);
-  font-size:12px;
-  color:var(--muted);
   font-weight:800
 }
 
-.hidden{display:none!important}
-
-/* 其餘原本 CSS 保留 */
-</style>
-
-
-<!-- 把原本 header 替換成這段 -->
-<header class="top">
-  <div class="topline">
-    <div class="brand">職業人生模擬器</div>
-    <span class="pill" id="phasePill">角色建立</span>
-  </div>
-
-  <div class="player" id="playerName">新人選手</div>
-
-  <div class="meta" id="playerMeta">
-    本名：—・玩家名：—・APAC・尚未定位
-  </div>
-
-  <div class="hudRow">
-    <div class="hudCell">
-      <span class="hudLabel">位置</span>
-      <span class="hudValue" id="hudPosition">—</span>
-    </div>
-
-    <div class="hudCell">
-      <span class="hudLabel">風格</span>
-      <span class="hudValue" id="hudStyle">—</span>
-    </div>
-
-    <div class="hudCell">
-      <span class="hudLabel">適性</span>
-      <span class="hudScore" id="hudFit">—</span>
-    </div>
-  </div>
-
-  <div class="flowRow">
-    <span class="flowDot on" id="flow1">1</span>
-    <span>角色</span>
-
-    <span class="flowArrow">→</span>
-
-    <span class="flowDot" id="flow2">2</span>
-    <span>選路</span>
-
-    <span class="flowArrow">→</span>
-
-    <span class="flowDot" id="flow3">3</span>
-    <span>風格</span>
-
-    <span class="flowArrow">→</span>
-
-    <span class="flowDot" id="flow4">4</span>
-    <span>能力</span>
-  </div>
-</header>
-
-
-<!-- 把原本 renderHeader() 替換成這段 -->
-<script>
-function renderHeader(){
-  $("playerName").textContent=g.name||"新人選手";
-
-  $("playerMeta").textContent=
-    `本名：${g.real||"—"}・玩家名：${g.name||"—"}・${g.region||"APAC"}・${g.position||"尚未定位"}`;
-
-  if($("hudPosition"))
-    $("hudPosition").textContent=g.position||"—";
-
-  if($("hudStyle"))
-    $("hudStyle").textContent=g.style||"—";
-
-  if($("hudFit")){
-    const fit=
-      g.position && Number.isFinite(g.positionScores[g.position])
-        ? g.positionScores[g.position]
-        : "—";
-
-    $("hudFit").textContent=fit;
-  }
-
-  const phase=$("phasePill");
-
-  if(phase){
-    phase.textContent=
-      g.style
-        ? "能力已生成"
-        : g.position
-          ? "選擇風格"
-          : g.name
-            ? "選擇位置"
-            : "角色建立";
-  }
-
-  const step=
-    g.style
-      ? 4
-      : g.position
-        ? 3
-        : g.name
-          ? 2
-          : 1;
-
-  for(let i=1;i<=4;i++){
-    const el=$("flow"+i);
-    if(!el)continue;
-
-    el.classList.toggle("on",i<=step);
-  }
+.hidden{
+  display:none!important
 }
-</script>
 
+.row{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:8px
+}
 
-<!-- 手機版再補這段 -->
-<style>
+.grid2{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:8px
+}
+
+.grid4{
+  display:grid;
+  grid-template-columns:repeat(4,1fr);
+  gap:6px
+}
+
+.divider{
+  height:1px;
+  background:var(--line);
+  margin:9px 0
+}
+
+/* =========================
+   表單
+   ========================= */
+
+label{
+  display:block;
+  margin-bottom:5px;
+  font-size:13px;
+  font-weight:850
+}
+
+input,
+select{
+  width:100%;
+  min-height:43px;
+  padding:8px 10px;
+  border:1px solid #d6dce4;
+  border-radius:10px;
+  outline:none;
+  background:#fff;
+  color:var(--ink);
+  font-size:15px
+}
+
+input:focus,
+select:focus{
+  border-color:var(--accent);
+  box-shadow:0 0 0 3px rgba(91,103,241,.10)
+}
+
+.primary{
+  width:100%;
+  min-height:45px;
+  border:0;
+  border-radius:11px;
+  background:var(--dark);
+  color:#fff;
+  font-size:15px;
+  font-weight:900
+}
+
+.secondary{
+  min-height:40px;
+  padding:7px 12px;
+  border:1px solid var(--line);
+  border-radius:10px;
+  background:#fff;
+  color:var(--ink);
+  font-size:14px;
+  font-weight:850
+}
+
+/* =========================
+   位置
+   ========================= */
+
+.position{
+  width:100%;
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:10px;
+  margin-bottom:7px;
+  padding:10px;
+  border:1px solid var(--line);
+  border-radius:12px;
+  background:#fff;
+  text-align:left
+}
+
+.position:last-child{
+  margin-bottom:0
+}
+
+.position:hover{
+  border-color:#bfc6d1
+}
+
+.posTitle{
+  font-size:16px;
+  font-weight:950
+}
+
+.tags{
+  display:flex;
+  flex-wrap:wrap;
+  gap:4px;
+  margin-top:4px
+}
+
+.tag{
+  display:inline-flex;
+  align-items:center;
+  padding:3px 6px;
+  border-radius:999px;
+  background:#f0f2f5;
+  color:#5f6877;
+  font-size:11px;
+  font-weight:800
+}
+
+.percent{
+  margin-top:4px;
+  color:var(--muted);
+  font-size:12px
+}
+
+.fit{
+  flex:0 0 auto;
+  min-width:45px;
+  padding:6px 8px;
+  border-radius:999px;
+  text-align:center;
+  font-size:16px;
+  font-weight:950
+}
+
+.fit.good{
+  background:#e8f5ee;
+  color:var(--good)
+}
+
+.fit.warn{
+  background:#fff4dc;
+  color:var(--warn)
+}
+
+.fit.bad{
+  background:#fbeaea;
+  color:var(--bad)
+}
+
+/* =========================
+   風格
+   ========================= */
+
+.styleGrid{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:8px
+}
+
+.styleChoice{
+  min-height:100px;
+  padding:11px;
+  border:1px solid var(--line);
+  border-radius:12px;
+  background:#fff;
+  text-align:left
+}
+
+.styleChoice:hover{
+  border-color:#b8c0cc
+}
+
+.styleChoice.selected{
+  border:2px solid var(--dark);
+  padding:10px
+}
+
+.styleTitle{
+  font-size:15px;
+  font-weight:950
+}
+
+.styleDesc{
+  margin-top:5px;
+  color:var(--muted);
+  font-size:12px;
+  line-height:1.45
+}
+
+.styleScore{
+  display:inline-flex;
+  margin-top:7px;
+  padding:3px 7px;
+  border-radius:999px;
+  background:#f0f2f5;
+  font-size:11px;
+  font-weight:900
+}
+
+/* =========================
+   能力
+   ========================= */
+
+.stat{
+  padding:8px 4px;
+  text-align:center;
+  border:1px solid var(--line);
+  border-radius:10px;
+  background:var(--soft)
+}
+
+.statLabel{
+  font-size:12px;
+  color:var(--muted);
+  font-weight:850
+}
+
+.statValue{
+  margin-top:2px;
+  font-size:19px;
+  font-weight:950
+}
+
+.statHint{
+  margin-top:2px;
+  font-size:10px;
+  color:var(--muted)
+}
+
+/* =========================
+   隊伍
+   ========================= */
+
+.team{
+  padding:10px;
+  margin-bottom:7px;
+  border:1px solid var(--line);
+  border-radius:12px;
+  background:#fff
+}
+
+.team:last-child{
+  margin-bottom:0
+}
+
+.teamTop{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  gap:8px
+}
+
+.teamName{
+  font-size:15px;
+  font-weight:950
+}
+
+.teamCode{
+  font-size:11px;
+  color:var(--muted);
+  font-weight:850
+}
+
+.teamMeta{
+  margin-top:4px;
+  color:var(--muted);
+  font-size:12px;
+  line-height:1.45
+}
+
+.attention{
+  display:inline-flex;
+  align-items:center;
+  padding:4px 7px;
+  border-radius:999px;
+  background:#eef1ff;
+  color:#4d59d8;
+  font-size:12px;
+  font-weight:900
+}
+
+/* =========================
+   能力膠囊
+   ========================= */
+
+.statCapsules{
+  display:grid;
+  grid-template-columns:repeat(4,1fr);
+  gap:6px
+}
+
+.statCapsule{
+  min-width:0;
+  padding:7px 5px;
+  border-radius:999px;
+  background:#f3f5f7;
+  text-align:center
+}
+
+.statCapsule .name{
+  display:block;
+  font-size:11px;
+  color:var(--muted);
+  font-weight:850
+}
+
+.statCapsule .num{
+  display:block;
+  margin-top:1px;
+  font-size:17px;
+  font-weight:950
+}
+
+/* =========================
+   選項
+   ========================= */
+
+.choice{
+  width:100%;
+  display:flex;
+  flex-direction:column;
+  align-items:flex-start;
+  gap:3px;
+  margin-bottom:7px;
+  padding:10px;
+  border:1px solid var(--line);
+  border-radius:11px;
+  background:#fff;
+  text-align:left
+}
+
+.choice:last-child{
+  margin-bottom:0
+}
+
+.choice b{
+  font-size:15px
+}
+
+.choice span{
+  font-size:12px;
+  color:var(--muted);
+  line-height:1.4
+}
+
+/* =========================
+   事件
+   ========================= */
+
+.eventBox{
+  padding:11px;
+  border-radius:12px;
+  background:#f7f8fa;
+  border:1px solid var(--line)
+}
+
+.eventTitle{
+  font-size:17px;
+  font-weight:950
+}
+
+.eventText{
+  margin-top:5px;
+  font-size:14px;
+  line-height:1.6
+}
+
+/* =========================
+   結果
+   ========================= */
+
+.resultScore{
+  font-size:42px;
+  line-height:1;
+  font-weight:950;
+  letter-spacing:-.04em
+}
+
+.resultLabel{
+  margin-top:4px;
+  color:var(--muted);
+  font-size:13px;
+  font-weight:850
+}
+
+/* =========================
+   手機
+   ========================= */
+
 @media(max-width:520px){
 
   .top{
@@ -353,17 +665,1874 @@ function renderHeader(){
   }
 
   .flowRow{
-    font-size:12px;
+    gap:4px;
+    font-size:12px
+  }
+
+  .styleGrid{
+    grid-template-columns:1fr 1fr
+  }
+
+  .grid2{
+    grid-template-columns:1fr 1fr
+  }
+
+  .statCapsules{
     gap:4px
   }
 
-  .flowDot{
-    width:18px;
-    height:18px
+  .statCapsule .num{
+    font-size:16px
   }
 
-  .small{
-    font-size:14px
+  main{
+    padding:9px 9px 22px
+  }
+
+  .card{
+    padding:11px
   }
 }
 </style>
+</head>
+
+<body>
+
+<div class="app">
+
+<header class="top">
+
+  <div class="topline">
+    <div class="brand">職業人生模擬器</div>
+    <span class="pill" id="phasePill">角色建立</span>
+  </div>
+
+  <div class="player" id="playerName">新人選手</div>
+
+  <div class="meta" id="playerMeta">
+    本名：—・玩家名：—・APAC・尚未定位
+  </div>
+
+  <div class="hudRow">
+
+    <div class="hudCell">
+      <span class="hudLabel">位置</span>
+      <span class="hudValue" id="hudPosition">—</span>
+    </div>
+
+    <div class="hudCell">
+      <span class="hudLabel">風格</span>
+      <span class="hudValue" id="hudStyle">—</span>
+    </div>
+
+    <div class="hudCell">
+      <span class="hudLabel">適性</span>
+      <span class="hudScore" id="hudFit">—</span>
+    </div>
+
+  </div>
+
+  <div class="flowRow">
+
+    <span class="flowDot on" id="flow1">1</span>
+    <span>角色</span>
+
+    <span class="flowArrow">→</span>
+
+    <span class="flowDot" id="flow2">2</span>
+    <span>選路</span>
+
+    <span class="flowArrow">→</span>
+
+    <span class="flowDot" id="flow3">3</span>
+    <span>風格</span>
+
+    <span class="flowArrow">→</span>
+
+    <span class="flowDot" id="flow4">4</span>
+    <span>能力</span>
+
+  </div>
+
+</header>
+
+
+<main>
+
+<!-- =========================
+     角色建立
+     ========================= -->
+
+<section id="setup" class="card">
+
+  <h1>建立你的職業選手</h1>
+
+  <div class="small">
+    先決定你的身份與賽區，之後會依你的選擇生成職涯路線。
+  </div>
+
+  <div style="height:10px"></div>
+
+  <div class="grid2">
+
+    <div>
+      <label for="realName">本名</label>
+      <input id="realName" placeholder="例如：王小明">
+    </div>
+
+    <div>
+      <label for="playerNameInput">玩家名</label>
+      <input id="playerNameInput" placeholder="例如：NOVA">
+    </div>
+
+  </div>
+
+  <div style="height:8px"></div>
+
+  <div class="grid2">
+
+    <div>
+      <label for="age">年齡</label>
+      <input id="age" type="number" min="15" max="30" value="17">
+    </div>
+
+    <div>
+      <label for="regionSelect">賽區</label>
+      <select id="regionSelect">
+        <option value="APAC">APAC</option>
+        <option value="KR">KR</option>
+        <option value="CN">CN</option>
+        <option value="EMEA">EMEA</option>
+        <option value="AMERICA">AMERICA</option>
+      </select>
+    </div>
+
+  </div>
+
+  <div style="height:10px"></div>
+
+  <button class="primary" onclick="startCareer()">
+    開始職業人生
+  </button>
+
+</section>
+
+
+<!-- =========================
+     選路
+     ========================= -->
+
+<section id="position" class="hidden">
+
+  <div class="card">
+
+    <div class="row">
+      <h1>選擇你的主位置</h1>
+      <span class="pill">不可頻繁轉路</span>
+    </div>
+
+    <div class="small">
+      先決定主要位置，再選擇你的遊戲風格。
+    </div>
+
+    <div style="height:10px"></div>
+
+    <div id="positions"></div>
+
+  </div>
+
+</section>
+
+
+<!-- =========================
+     選風格
+     ========================= -->
+
+<section id="styleSelect" class="hidden">
+
+  <div class="card">
+
+    <div class="row">
+      <h1 id="styleTitle">選擇遊戲風格</h1>
+      <span class="pill" id="stylePosition">—</span>
+    </div>
+
+    <div class="small">
+      你的選角風格會直接影響能力結構。
+    </div>
+
+    <div style="height:10px"></div>
+
+    <div id="styleChoices" class="styleGrid"></div>
+
+  </div>
+
+</section>
+
+
+<!-- =========================
+     業餘階段
+     ========================= -->
+
+<section id="amateur" class="hidden">
+
+  <div class="card">
+
+    <div class="row">
+      <h1>業餘階段</h1>
+      <span class="pill">Rank</span>
+    </div>
+
+    <div class="small">
+      你的風格已經確定，接下來開始累積職業能力。
+    </div>
+
+    <div style="height:9px"></div>
+
+    <div id="amateurStats" class="statCapsules"></div>
+
+  </div>
+
+  <div class="card">
+
+    <h2>目前表現</h2>
+
+    <div style="height:8px"></div>
+
+    <div id="amateurText" class="small"></div>
+
+  </div>
+
+  <div class="card">
+
+    <button class="primary" onclick="continueGrowth()">
+      繼續職涯
+    </button>
+
+  </div>
+
+</section>
+
+
+<!-- =========================
+     成長
+     ========================= -->
+
+<section id="growth" class="hidden">
+
+  <div class="card">
+
+    <div class="row">
+      <h1>能力成長</h1>
+      <span class="pill" id="growthYear">—</span>
+    </div>
+
+    <div style="height:9px"></div>
+
+    <div id="growthStats" class="statCapsules"></div>
+
+  </div>
+
+  <div class="card">
+
+    <div id="growthText" class="small"></div>
+
+  </div>
+
+  <div class="card">
+
+    <button class="primary" onclick="nextEvent()">
+      下一步
+    </button>
+
+  </div>
+
+</section>
+
+
+<!-- =========================
+     事件
+     ========================= -->
+
+<section id="event" class="hidden">
+
+  <div class="card">
+
+    <div class="eventBox">
+
+      <div class="eventTitle" id="eventTitle">
+        職涯事件
+      </div>
+
+      <div class="eventText" id="eventText">
+        —
+      </div>
+
+    </div>
+
+  </div>
+
+  <div class="card">
+
+    <div id="eventChoices"></div>
+
+  </div>
+
+</section>
+
+
+<!-- =========================
+     隊伍關注
+     ========================= -->
+
+<section id="offer" class="hidden">
+
+  <div class="card">
+
+    <div class="row">
+      <h1>隊伍關注</h1>
+      <span class="pill" id="offerRegion">APAC</span>
+    </div>
+
+    <div class="small">
+      以下隊伍會依照目前賽區的 Power Ranking 與你的遊戲風格評估你。
+    </div>
+
+    <div style="height:10px"></div>
+
+    <div id="teams"></div>
+
+  </div>
+
+  <div class="card">
+
+    <h2>Scout 評價</h2>
+
+    <div style="height:8px"></div>
+
+    <div id="offerText" class="small"></div>
+
+    <div style="height:9px"></div>
+
+    <div id="offerChoices"></div>
+
+  </div>
+
+</section>
+
+
+<!-- =========================
+     結果
+     ========================= -->
+
+<section id="result" class="hidden">
+
+  <div class="card">
+
+    <div class="muted">CAREER RESULT</div>
+
+    <div style="height:7px"></div>
+
+    <div class="resultScore" id="resultScore">
+      0
+    </div>
+
+    <div class="resultLabel">
+      職業生涯評分
+    </div>
+
+    <div style="height:10px"></div>
+
+    <div id="resultText" class="small"></div>
+
+  </div>
+
+  <div class="card">
+
+    <div class="grid4" id="resultStats"></div>
+
+  </div>
+
+  <div class="card">
+
+    <button class="primary" onclick="location.reload()">
+      重新開始
+    </button>
+
+  </div>
+
+</section>
+
+</main>
+
+</div>
+
+
+<script>
+"use strict";
+
+/* =========================================================
+   基本工具
+   ========================================================= */
+
+const $=id=>document.getElementById(id);
+
+function hideAll(){
+
+  [
+    "setup",
+    "position",
+    "styleSelect",
+    "amateur",
+    "growth",
+    "event",
+    "offer",
+    "result"
+  ].forEach(id=>{
+    const el=$(id);
+    if(el)el.classList.add("hidden");
+  });
+
+}
+
+function show(id){
+
+  hideAll();
+
+  const el=$(id);
+
+  if(el)el.classList.remove("hidden");
+
+}
+
+function rand(min,max){
+
+  return Math.floor(
+    Math.random()*(max-min+1)
+  )+min;
+
+}
+
+function clamp(n,min,max){
+
+  return Math.max(
+    min,
+    Math.min(max,n)
+  );
+
+}
+
+
+/* =========================================================
+   遊戲資料
+   ========================================================= */
+
+const POS=[
+  {
+    name:"上路",
+    tags:["對線","單帶","戰士"],
+    base:72
+  },
+  {
+    name:"打野",
+    tags:["節奏","控圖","支援"],
+    base:72
+  },
+  {
+    name:"中路",
+    tags:["輸出","遊走","法刺"],
+    base:74
+  },
+  {
+    name:"AD",
+    tags:["打線","後期","輸出"],
+    base:75
+  },
+  {
+    name:"輔助",
+    tags:["視野","開團","保排"],
+    base:71
+  }
+];
+
+
+/*
+  每一路自己的遊戲風格。
+  風格會直接決定初始能力傾向。
+*/
+
+const STYLES={
+
+  "上路":[
+    {
+      name:"對線壓制",
+      desc:"強調換血、單殺與線權。",
+      weights:{
+        操作:1.30,
+        觀念:1.05,
+        團隊:0.80,
+        經驗:0.95
+      }
+    },
+    {
+      name:"單帶牽制",
+      desc:"利用邊線壓力逼迫對手回應。",
+      weights:{
+        操作:1.00,
+        觀念:1.30,
+        團隊:0.75,
+        經驗:1.10
+      }
+    },
+    {
+      name:"團戰坦克",
+      desc:"吸收傷害、開戰並穩定團戰。",
+      weights:{
+        操作:.85,
+        觀念:1.10,
+        團隊:1.35,
+        經驗:1.05
+      }
+    },
+    {
+      name:"戰士專精",
+      desc:"以少數英雄建立極高熟練度。",
+      weights:{
+        操作:1.35,
+        觀念:.90,
+        團隊:.85,
+        經驗:1.05
+      }
+    }
+  ],
+
+  "打野":[
+    {
+      name:"節奏入侵",
+      desc:"主動入侵、搶資源與控制前期節奏。",
+      weights:{
+        操作:1.20,
+        觀念:1.35,
+        團隊:1.00,
+        經驗:.95
+      }
+    },
+    {
+      name:"控圖營運",
+      desc:"圍繞視野、資源與地圖交換建立優勢。",
+      weights:{
+        操作:.90,
+        觀念:1.40,
+        團隊:1.10,
+        經驗:1.20
+      }
+    },
+    {
+      name:"支援帶節奏",
+      desc:"高頻支援隊友，讓線上快速滾起來。",
+      weights:{
+        操作:1.10,
+        觀念:1.20,
+        團隊:1.35,
+        經驗:.90
+      }
+    },
+    {
+      name:"野核發育",
+      desc:"以自身經濟與等級作為後期核心。",
+      weights:{
+        操作:1.25,
+        觀念:1.15,
+        團隊:.85,
+        經驗:1.10
+      }
+    }
+  ],
+
+  "中路":[
+    {
+      name:"線權遊走",
+      desc:"快速取得線權並支援邊線。",
+      weights:{
+        操作:1.15,
+        觀念:1.35,
+        團隊:1.15,
+        經驗:.90
+      }
+    },
+    {
+      name:"刺客爆發",
+      desc:"靠操作與進場時機尋找單殺。",
+      weights:{
+        操作:1.45,
+        觀念:1.05,
+        團隊:.85,
+        經驗:.95
+      }
+    },
+    {
+      name:"法師控場",
+      desc:"利用技能距離與區域控制影響團戰。",
+      weights:{
+        操作:1.05,
+        觀念:1.30,
+        團隊:1.25,
+        經驗:1.00
+      }
+    },
+    {
+      name:"後期大核",
+      desc:"以發育與後期團戰輸出為主。",
+      weights:{
+        操作:1.15,
+        觀念:1.15,
+        團隊:1.00,
+        經驗:1.30
+      }
+    }
+  ],
+
+  "AD":[
+    {
+      name:"打線壓制",
+      desc:"利用對線能力取得經濟與塔皮優勢。",
+      weights:{
+        操作:1.40,
+        觀念:1.10,
+        團隊:.90,
+        經驗:.90
+      }
+    },
+    {
+      name:"後期大核",
+      desc:"穩定發育，在後期接管團戰。",
+      weights:{
+        操作:1.20,
+        觀念:1.15,
+        團隊:1.00,
+        經驗:1.25
+      }
+    },
+    {
+      name:"開團手段",
+      desc:"依靠特殊英雄與進場能力製造團戰突破口。",
+      weights:{
+        操作:1.15,
+        觀念:1.20,
+        團隊:1.40,
+        經驗:.95
+      }
+    },
+    {
+      name:"法師專精",
+      desc:"以非傳統 AP 選角改變下路輸出結構。",
+      weights:{
+        操作:1.20,
+        觀念:1.30,
+        團隊:1.05,
+        經驗:1.10
+      }
+    }
+  ],
+
+  "輔助":[
+    {
+      name:"開團先手",
+      desc:"尋找先手角度，主動打開團戰。",
+      weights:{
+        操作:1.20,
+        觀念:1.25,
+        團隊:1.45,
+        經驗:.95
+      }
+    },
+    {
+      name:"保排輔助",
+      desc:"保護核心、反制進場並延長團戰。",
+      weights:{
+        操作:1.00,
+        觀念:1.25,
+        團隊:1.40,
+        經驗:1.15
+      }
+    },
+    {
+      name:"視野控圖",
+      desc:"利用視野與地圖資訊控制比賽節奏。",
+      weights:{
+        操作:.90,
+        觀念:1.45,
+        團隊:1.20,
+        經驗:1.35
+      }
+    },
+    {
+      name:"遊走支援",
+      desc:"放棄部分線上資源，換取全圖影響力。",
+      weights:{
+        操作:1.10,
+        觀念:1.40,
+        團隊:1.30,
+        經驗:1.00
+      }
+    }
+  ]
+
+};
+
+
+/* =========================================================
+   Power Ranking 基底
+   ========================================================= */
+
+const TEAMS={
+
+  APAC:[
+    {name:"Hanwha Life Esports",code:"HLE",rank:1,power:96},
+    {name:"Gen.G",code:"GEN",rank:2,power:95},
+    {name:"T1",code:"T1",rank:3,power:94},
+    {name:"Bilibili Gaming",code:"BLG",rank:4,power:92},
+    {name:"G2 Esports",code:"G2",rank:5,power:88}
+  ],
+
+  KR:[
+    {name:"Hanwha Life Esports",code:"HLE",rank:1,power:96},
+    {name:"Gen.G",code:"GEN",rank:2,power:95},
+    {name:"T1",code:"T1",rank:3,power:94},
+    {name:"Dplus KIA",code:"DK",rank:4,power:85},
+    {name:"KT Rolster",code:"KT",rank:5,power:84}
+  ],
+
+  CN:[
+    {name:"Bilibili Gaming",code:"BLG",rank:1,power:92},
+    {name:"Top Esports",code:"TES",rank:2,power:89},
+    {name:"Anyone's Legend",code:"AL",rank:3,power:86},
+    {name:"JD Gaming",code:"JDG",rank:4,power:84},
+    {name:"Weibo Gaming",code:"WBG",rank:5,power:82}
+  ],
+
+  EMEA:[
+    {name:"G2 Esports",code:"G2",rank:1,power:88},
+    {name:"Fnatic",code:"FNC",rank:2,power:84},
+    {name:"Movistar KOI",code:"MKOI",rank:3,power:80},
+    {name:"Karmine Corp",code:"KC",rank:4,power:78},
+    {name:"GIANTX",code:"GX",rank:5,power:74}
+  ],
+
+  AMERICA:[
+    {name:"FlyQuest",code:"FLY",rank:1,power:83},
+    {name:"100 Thieves",code:"100T",rank:2,power:79},
+    {name:"Cloud9",code:"C9",rank:3,power:78},
+    {name:"Team Liquid",code:"TL",rank:4,power:77},
+    {name:"NRG",code:"NRG",rank:5,power:73}
+  ]
+
+};
+
+
+/* =========================================================
+   化名
+   ========================================================= */
+
+const ALIAS_WORDS=[
+  "Nova",
+  "Tempest",
+  "Vanguard",
+  "Falcon",
+  "Apex",
+  "Pulse",
+  "Titan",
+  "Crown",
+  "Orbit",
+  "Rift",
+  "Vertex",
+  "Eclipse"
+];
+
+function makeAlias(team){
+
+  const code=String(team.code||"");
+
+  let hash=0;
+
+  for(let i=0;i<code.length;i++){
+    hash=(hash*31+code.charCodeAt(i))>>>0;
+  }
+
+  const word=ALIAS_WORDS[
+    hash%ALIAS_WORDS.length
+  ];
+
+  return `${word} ${code}`;
+
+}
+
+
+/* =========================================================
+   遊戲狀態
+   ========================================================= */
+
+const g={
+
+  real:"",
+  name:"",
+  age:17,
+  region:"APAC",
+
+  position:null,
+  positionLocked:false,
+  style:null,
+
+  stats:{
+    操作:0,
+    觀念:0,
+    團隊:0,
+    經驗:0
+  },
+
+  positionScores:{},
+
+  attention:{},
+
+  invitedCodes:[],
+
+  offerTeam:null,
+
+  year:1,
+
+  score:0
+
+};
+
+
+/* =========================================================
+   區域資料
+   ========================================================= */
+
+function ensureRegionTeams(){
+
+  const regions=[
+    "APAC",
+    "KR",
+    "CN",
+    "EMEA",
+    "AMERICA"
+  ];
+
+  regions.forEach(region=>{
+
+    if(!Array.isArray(TEAMS[region])){
+      TEAMS[region]=[];
+    }
+
+  });
+
+}
+
+
+function teamPool(){
+
+  ensureRegionTeams();
+
+  const region=g.region||"APAC";
+
+  return [...(TEAMS[region]||[])]
+    .sort((a,b)=>(a.rank||999)-(b.rank||999));
+
+}
+
+
+/* =========================================================
+   位置評分
+   ========================================================= */
+
+function posScore(position){
+
+  const p=POS.find(x=>x.name===position);
+
+  if(!p)return 50;
+
+  let score=p.base;
+
+  if(g.style){
+
+    const styles=STYLES[position]||[];
+
+    const idx=styles.findIndex(
+      x=>x.name===g.style
+    );
+
+    if(idx>=0){
+      score+=
+        idx===0 ? 7 :
+        idx===1 ? 4 :
+        idx===2 ? 2 :
+        0;
+    }
+
+  }
+
+  score+=rand(-3,3);
+
+  return clamp(
+    Math.round(score),
+    45,
+    99
+  );
+
+}
+
+
+function renderPositionList(){
+
+  const box=$("positions");
+
+  if(!box)return;
+
+  const arr=POS.map(p=>({
+
+    ...p,
+
+    score:posScore(p.name)
+
+  })).sort(
+    (a,b)=>b.score-a.score
+  );
+
+  g.positionScores={};
+
+  arr.forEach(p=>{
+    g.positionScores[p.name]=p.score;
+  });
+
+  box.innerHTML=arr.map(p=>`
+
+    <button
+      class="position"
+      onclick="pickPosition('${p.name}')"
+    >
+
+      <div>
+
+        <div class="posTitle">
+          ${p.name}
+        </div>
+
+        <div class="tags">
+          ${(p.tags||[])
+            .map(x=>`<span class="tag">${x}</span>`)
+            .join("")}
+        </div>
+
+        <div class="percent">
+          目前約贏過 ${clamp(p.score-4,45,99)}% 的同位置玩家
+        </div>
+
+      </div>
+
+      <div class="fit ${
+        p.score>=82
+          ?"good"
+          :p.score>=70
+            ?"warn"
+            :"bad"
+      }">
+        ${p.score}
+      </div>
+
+    </button>
+
+  `).join("");
+
+}
+
+
+/* =========================================================
+   Header
+   ========================================================= */
+
+function renderHeader(){
+
+  $("playerName").textContent=
+    g.name||"新人選手";
+
+  $("playerMeta").textContent=
+    `本名：${g.real||"—"}・玩家名：${g.name||"—"}・${g.region||"APAC"}・${g.position||"尚未定位"}`;
+
+  if($("hudPosition"))
+    $("hudPosition").textContent=
+      g.position||"—";
+
+  if($("hudStyle"))
+    $("hudStyle").textContent=
+      g.style||"—";
+
+  if($("hudFit")){
+
+    const fit=
+      g.position &&
+      Number.isFinite(
+        g.positionScores[g.position]
+      )
+        ?g.positionScores[g.position]
+        :"—";
+
+    $("hudFit").textContent=fit;
+
+  }
+
+  const phase=$("phasePill");
+
+  if(phase){
+
+    phase.textContent=
+      g.style
+        ?"能力已生成"
+        :g.position
+          ?"選擇風格"
+          :g.name
+            ?"選擇位置"
+            :"角色建立";
+
+  }
+
+  const step=
+    g.style
+      ?4
+      :g.position
+        ?3
+        :g.name
+          ?2
+          :1;
+
+  for(let i=1;i<=4;i++){
+
+    const el=$("flow"+i);
+
+    if(!el)continue;
+
+    el.classList.toggle(
+      "on",
+      i<=step
+    );
+
+  }
+
+}
+
+
+/* =========================================================
+   建立角色
+   ========================================================= */
+
+function startCareer(){
+
+  const real=
+    $("realName").value.trim();
+
+  const name=
+    $("playerNameInput").value.trim();
+
+  const age=
+    Number($("age").value)||17;
+
+  const region=
+    $("regionSelect").value;
+
+  if(!real){
+
+    alert("請輸入本名");
+
+    return;
+
+  }
+
+  if(!name){
+
+    alert("請輸入玩家名");
+
+    return;
+
+  }
+
+  g.real=real;
+  g.name=name;
+  g.age=clamp(age,15,30);
+  g.region=region;
+
+  g.position=null;
+  g.positionLocked=false;
+  g.style=null;
+
+  g.attention={};
+  g.invitedCodes=[];
+  g.offerTeam=null;
+
+  renderHeader();
+
+  show("position");
+
+  renderPositionList();
+
+}
+
+
+/* =========================================================
+   選路
+   ========================================================= */
+
+function pickPosition(position){
+
+  if(g.positionLocked)return;
+
+  g.position=position;
+
+  g.positionScores[position]=
+    posScore(position);
+
+  renderHeader();
+
+  showStyleSelect();
+
+}
+
+
+function showStyleSelect(){
+
+  if(!g.position){
+
+    alert("請先選擇位置");
+
+    return;
+
+  }
+
+  const box=$("styleChoices");
+
+  const title=$("styleTitle");
+
+  const pos=$("stylePosition");
+
+  if(title)
+    title.textContent=
+      `${g.position}・選擇遊戲風格`;
+
+  if(pos)
+    pos.textContent=g.position;
+
+  const styles=
+    STYLES[g.position]||[];
+
+  box.innerHTML=
+    styles.map((s,i)=>`
+
+      <button
+        class="styleChoice"
+        onclick="pickStyle(${i})"
+      >
+
+        <div class="styleTitle">
+          ${s.name}
+        </div>
+
+        <div class="styleDesc">
+          ${s.desc}
+        </div>
+
+        <span class="styleScore">
+          ${i===0?"高操作":i===1?"高觀念":i===2?"高團隊":"高專精"}
+        </span>
+
+      </button>
+
+    `).join("");
+
+  renderHeader();
+
+  show("styleSelect");
+
+}
+
+
+function pickStyle(index){
+
+  const styles=
+    STYLES[g.position]||[];
+
+  const style=styles[index];
+
+  if(!style)return;
+
+  g.style=style.name;
+  g.positionLocked=true;
+
+  generateStats(style);
+
+  renderHeader();
+
+  showAmateur();
+
+}
+
+
+/* =========================================================
+   能力生成
+   ========================================================= */
+
+function generateStats(style){
+
+  const names=[
+    "操作",
+    "觀念",
+    "團隊",
+    "經驗"
+  ];
+
+  names.forEach(name=>{
+
+    const w=
+      style.weights[name]||1;
+
+    let value=
+      60+
+      Math.round(
+        (w-1)*24
+      )+
+      rand(-5,5);
+
+    g.stats[name]=
+      clamp(value,45,99);
+
+  });
+
+}
+
+
+/* =========================================================
+   能力顯示
+   ========================================================= */
+
+function statHTML(){
+
+  return [
+    "操作",
+    "觀念",
+    "團隊",
+    "經驗"
+  ].map(name=>`
+
+    <div class="statCapsule">
+
+      <span class="name">
+        ${name}
+      </span>
+
+      <span class="num">
+        ${g.stats[name]}
+      </span>
+
+    </div>
+
+  `).join("");
+
+}
+
+
+/* =========================================================
+   業餘
+   ========================================================= */
+
+function showAmateur(){
+
+  $("amateurStats").innerHTML=
+    statHTML();
+
+  $("amateurText").innerHTML=
+    `你以「<b>${g.style}</b>」作為主要遊戲風格。
+    這會決定你最容易成長的能力，也會影響不同隊伍對你的興趣。`;
+
+  renderHeader();
+
+  show("amateur");
+
+}
+
+
+function continueGrowth(){
+
+  g.year++;
+
+  Object.keys(g.stats).forEach(name=>{
+
+    const growth=
+      rand(0,3);
+
+    g.stats[name]=
+      clamp(
+        g.stats[name]+growth,
+        45,
+        99
+      );
+
+  });
+
+  $("growthYear").textContent=
+    `第 ${g.year} 年`;
+
+  $("growthStats").innerHTML=
+    statHTML();
+
+  $("growthText").textContent=
+    `你的 ${g.position}・${g.style}
+    開始逐漸形成固定特色。`;
+
+  renderHeader();
+
+  show("growth");
+
+}
+
+
+/* =========================================================
+   事件
+   ========================================================= */
+
+function nextEvent(){
+
+  const events=[
+
+    {
+      title:"重要比賽",
+      text:"你在一場高強度比賽中遇到更強的對手。",
+      choices:[
+        {
+          title:"正面對線",
+          text:"靠操作爭取優勢。",
+          action:()=>changeStats("操作",3)
+        },
+        {
+          title:"穩定營運",
+          text:"降低失誤等待機會。",
+          action:()=>changeStats("觀念",3)
+        }
+      ]
+    },
+
+    {
+      title:"隊伍試訓",
+      text:"一支隊伍邀請你參加短期試訓。",
+      choices:[
+        {
+          title:"接受挑戰",
+          text:"提高團隊適應能力。",
+          action:()=>changeStats("團隊",3)
+        },
+        {
+          title:"維持訓練",
+          text:"專注自己的招牌風格。",
+          action:()=>changeStats("操作",2)
+        }
+      ]
+    },
+
+    {
+      title:"版本改動",
+      text:"版本開始偏離你原本最熟悉的英雄池。",
+      choices:[
+        {
+          title:"學習新版本",
+          text:"提高版本適應能力。",
+          action:()=>changeStats("觀念",3)
+        },
+        {
+          title:"堅持專精",
+          text:"維持招牌風格。",
+          action:()=>changeStats("操作",2)
+        }
+      ]
+    }
+
+  ];
+
+  const event=
+    events[rand(0,events.length-1)];
+
+  $("eventTitle").textContent=
+    event.title;
+
+  $("eventText").textContent=
+    event.text;
+
+  $("eventChoices").innerHTML=
+    event.choices.map(
+      (choice,i)=>`
+
+        <button
+          class="choice"
+          onclick="chooseEvent(${i})"
+        >
+
+          <b>${choice.title}</b>
+
+          <span>${choice.text}</span>
+
+        </button>
+
+      `
+    ).join("");
+
+  window.currentEvent=event;
+
+  show("event");
+
+}
+
+
+function chooseEvent(index){
+
+  const event=
+    window.currentEvent;
+
+  if(!event)return;
+
+  const choice=
+    event.choices[index];
+
+  if(!choice)return;
+
+  choice.action();
+
+  updateAttention();
+
+  showOffer();
+
+}
+
+
+/* =========================================================
+   能力修改
+   ========================================================= */
+
+function changeStats(name,value){
+
+  if(!(name in g.stats))return;
+
+  g.stats[name]=
+    clamp(
+      g.stats[name]+value,
+      45,
+      99
+    );
+
+}
+
+
+/* =========================================================
+   Scout 關注
+   ========================================================= */
+
+function ensureAttention(){
+
+  ensureRegionTeams();
+
+  teamPool().forEach(team=>{
+
+    if(
+      !Number.isFinite(
+        g.attention[team.code]
+      )
+    ){
+
+      g.attention[team.code]=
+        clamp(
+          25+
+          (team.power-70)*.45,
+          25,
+          70
+        );
+
+    }
+
+  });
+
+}
+
+
+function teamFit(team){
+
+  const positionScore=
+    g.position
+      ?g.positionScores[g.position]||60
+      :60;
+
+  const styleScore=
+    g.style
+      ?(
+        STYLES[g.position]||[]
+      ).findIndex(
+        x=>x.name===g.style
+      )
+      :0;
+
+  const styleBonus=
+    styleScore===0
+      ?8
+      :styleScore===1
+        ?5
+        :styleScore===2
+          ?3
+          :1;
+
+  const power=
+    team.power||70;
+
+  return clamp(
+    Math.round(
+      power*.55+
+      positionScore*.30+
+      styleBonus
+    ),
+    0,
+    99
+  );
+
+}
+
+
+function updateAttention(){
+
+  ensureAttention();
+
+  teamPool().forEach(team=>{
+
+    const fit=
+      teamFit(team);
+
+    const current=
+      g.attention[team.code]||25;
+
+    const next=
+      current+
+      Math.round(
+        (fit-70)/10
+      );
+
+    g.attention[team.code]=
+      clamp(
+        next,
+        0,
+        99
+      );
+
+  });
+
+}
+
+
+/* =========================================================
+   隊伍顯示
+   ========================================================= */
+
+function renderTeams(){
+
+  ensureAttention();
+
+  const box=$("teams");
+
+  if(!box)return;
+
+  const arr=
+    teamPool()
+      .map(team=>({
+
+        ...team,
+
+        attention:
+          g.attention[team.code]||0,
+
+        fit:
+          teamFit(team),
+
+        alias:
+          makeAlias(team)
+
+      }))
+      .sort(
+        (a,b)=>
+          b.attention-a.attention ||
+          a.rank-b.rank
+      );
+
+  if(!arr.length){
+
+    box.innerHTML=`
+      <div class="small">
+        目前沒有可用的隊伍資料。
+      </div>
+    `;
+
+    return;
+
+  }
+
+  box.innerHTML=
+    arr.slice(0,5)
+      .map(team=>`
+
+        <div class="team">
+
+          <div class="teamTop">
+
+            <div>
+
+              <div class="teamName">
+                ${team.alias}
+              </div>
+
+              <div class="teamCode">
+                現實對應：${team.code}
+                ・Power Ranking #${team.rank}
+              </div>
+
+            </div>
+
+            <span class="attention">
+              關注 ${team.attention}
+            </span>
+
+          </div>
+
+          <div class="teamMeta">
+            ${team.name}
+            ・你的適配度 ${team.fit}
+          </div>
+
+        </div>
+
+      `)
+      .join("");
+
+}
+
+
+/* =========================================================
+   Offer
+   ========================================================= */
+
+function showOffer(){
+
+  ensureRegionTeams();
+
+  updateAttention();
+
+  renderTeams();
+
+  const region=
+    g.region||"APAC";
+
+  $("offerRegion").textContent=
+    region;
+
+  const candidates=
+    [...teamPool()]
+      .sort(
+        (a,b)=>
+          teamFit(b)-teamFit(a)
+      );
+
+  if(!candidates.length){
+
+    $("offerText").textContent=
+      `${region} 目前沒有可用的隊伍資料。`;
+
+    $("offerChoices").innerHTML=`
+      <button
+        class="choice"
+        onclick="finishCareer()"
+      >
+        <b>繼續自由身</b>
+        <span>等待新的 Scout 機會。</span>
+      </button>
+    `;
+
+    g.offerTeam=null;
+
+    show("offer");
+
+    return;
+
+  }
+
+  const best=
+    candidates[0];
+
+  g.offerTeam=best;
+
+  const attention=
+    g.attention[best.code]||0;
+
+  $("offerText").innerHTML=
+    `<b>${makeAlias(best)}</b>
+    對你的 ${g.position}・${g.style} 有一定興趣。
+    目前 Scout 關注度為 <b>${attention}</b>。`;
+
+  $("offerChoices").innerHTML=`
+
+    <button
+      class="choice"
+      onclick="acceptOffer()"
+    >
+
+      <b>
+        接受 ${makeAlias(best)} 的邀請
+      </b>
+
+      <span>
+        以目前能力加入隊伍。
+      </span>
+
+    </button>
+
+    <button
+      class="choice"
+      onclick="finishCareer()"
+    >
+
+      <b>繼續尋找機會</b>
+
+      <span>
+        不接受目前邀請。
+      </span>
+
+    </button>
+
+  `;
+
+  show("offer");
+
+}
+
+
+/* =========================================================
+   接受 Offer
+   ========================================================= */
+
+function acceptOffer(){
+
+  const team=
+    g.offerTeam;
+
+  if(!team){
+
+    finishCareer();
+
+    return;
+
+  }
+
+  g.score=
+    clamp(
+      Math.round(
+        teamFit(team)+
+        (
+          g.stats.操作+
+          g.stats.觀念+
+          g.stats.團隊+
+          g.stats.經驗
+        )/4
+      ),
+      0,
+      99
+    );
+
+  showResult(
+    `你加入了 ${makeAlias(team)}。`
+  );
+
+}
+
+
+function finishCareer(){
+
+  const average=
+    (
+      g.stats.操作+
+      g.stats.觀念+
+      g.stats.團隊+
+      g.stats.經驗
+    )/4;
+
+  g.score=
+    clamp(
+      Math.round(average),
+      0,
+      99
+    );
+
+  showResult(
+    "你選擇繼續尋找下一個職涯機會。"
+  );
+
+}
+
+
+/* =========================================================
+   結果
+   ========================================================= */
+
+function showResult(text){
+
+  $("resultScore").textContent=
+    g.score;
+
+  $("resultText").textContent=
+    text;
+
+  $("resultStats").innerHTML=
+    [
+      "操作",
+      "觀念",
+      "團隊",
+      "經驗"
+    ].map(name=>`
+
+      <div class="stat">
+
+        <div class="statLabel">
+          ${name}
+        </div>
+
+        <div class="statValue">
+          ${g.stats[name]}
+        </div>
+
+      </div>
+
+    `).join("");
+
+  renderHeader();
+
+  show("result");
+
+}
+
+
+/* =========================================================
+   初始化
+   ========================================================= */
+
+window.addEventListener(
+  "DOMContentLoaded",
+  ()=>{
+
+    renderHeader();
+
+    ensureRegionTeams();
+
+  }
+);
+
+</script>
+
+</body>
+</html>
