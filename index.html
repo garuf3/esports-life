@@ -2,86 +2,1274 @@
 <html lang="zh-Hant">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
-<meta name="theme-color" content="#111827">
-<title>英雄聯盟職業人生模擬器・APAC 縮編版</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>TeSL My Player｜跑跑職業人生 DEMO</title>
+
 <style>
-*{box-sizing:border-box} :root{--bg:#eef1f5;--card:#fff;--ink:#17202a;--muted:#687282;--line:#dfe4ea;--soft:#f5f7fa;--dark:#111827;--good:#19734a;--warn:#9a6500;--bad:#b33a3a;--accent:#5965e8}
-html,body{margin:0;background:var(--bg);color:var(--ink);font-family:system-ui,-apple-system,BlinkMacSystemFont,"Noto Sans TC","Microsoft JhengHei",sans-serif}button,input,select{font:inherit}button{cursor:pointer}
-.app{width:100%;max-width:760px;margin:auto;background:#fff;min-height:100vh}.top{position:sticky;top:0;z-index:20;background:rgba(255,255,255,.98);border-bottom:1px solid var(--line);padding:9px 12px 10px}
-.topline,.focus,.sectionHead,.teamTop,.routeTop{display:flex;justify-content:space-between;gap:8px;align-items:center}.brand{font-size:10px;color:var(--muted);font-weight:900}.period{font-size:14px;font-weight:950}.resource{background:#eef1f4;border-radius:999px;padding:5px 9px;font-size:10px;font-weight:900}.resource b{font-size:14px}.focus{margin-top:8px}.playerName{font-size:20px;font-weight:950;line-height:1.05}.playerMeta{font-size:10px;color:var(--muted);margin-top:3px}.teamNow{font-size:11px;text-align:right;font-weight:900}.teamNow span{display:block;font-size:9px;color:var(--muted);font-weight:600;margin-top:2px}
-.statRow{display:grid;grid-template-columns:repeat(4,1fr);gap:5px;margin-top:8px}.miniStat{background:var(--soft);border-radius:9px;padding:5px 6px}.miniStat span{display:block;color:var(--muted);font-size:9px}.miniStat b{display:block;font-size:14px;margin-top:1px}.miniBar{height:3px;background:#e0e5e9;border-radius:99px;overflow:hidden;margin-top:3px}.miniBar i{display:block;height:100%;background:#111827}
-.main{padding:10px}.card{border:1px solid var(--line);border-radius:14px;background:var(--card);padding:13px;margin-bottom:9px;box-shadow:0 1px 1px rgba(0,0,0,.02)}h1{font-size:20px;margin:2px 0 5px}h2{font-size:16px;margin:0 0 4px}h3{font-size:13px;margin:0 0 7px}.muted{font-size:10px;color:var(--muted)}.small{font-size:11px;line-height:1.55;color:#4b5563}.tip,.advice,.notice{margin-top:9px;padding:9px;border-radius:9px;background:var(--soft);font-size:11px;line-height:1.55}.notice{background:#fff7df;color:#775000}.primary,.secondary{width:100%;border-radius:10px;padding:11px;margin-top:8px;font-weight:900}.primary{border:0;background:var(--dark);color:#fff}.secondary{border:1px solid var(--line);background:#fff}.hidden{display:none!important}.grid2{display:grid;grid-template-columns:1fr 1fr;gap:8px}.field{margin-top:8px}.field label{display:block;font-size:10px;font-weight:850;margin-bottom:4px}.field input,.field select{width:100%;padding:9px;border:1px solid #d4dae0;border-radius:9px;background:#fff}
-.route,.choice{border:1px solid var(--line);border-radius:10px;background:#fff;padding:10px;margin-top:7px;text-align:left;width:100%}.route:active,.choice:active{transform:translateY(1px)}.route b,.choice b{font-size:12px}.effect{font-size:10px;font-weight:900}.routeDesc,.choice span{font-size:10px;color:var(--muted);margin-top:3px;line-height:1.45;display:block}.tag,.pill,.delta{font-size:9px;font-weight:800;background:#edf0f3;border-radius:999px;padding:3px 6px}.tags,.deltaRow{display:flex;flex-wrap:wrap;gap:4px;margin-top:5px}
-.team{border:1px solid var(--line);border-radius:10px;padding:10px;margin-top:7px}.teamName{font-weight:950;font-size:12px}.teamRegion{font-size:9px;color:var(--muted);margin-top:2px}.power{font-size:17px;font-weight:950}.interestLine{margin-top:6px;font-size:10px;color:var(--muted)}.interestBar{height:5px;background:#e7eaed;border-radius:99px;overflow:hidden;margin-top:3px}.interestBar i{display:block;height:100%;background:#111827}
-.statGrid{display:grid;grid-template-columns:repeat(4,1fr);gap:5px;margin-top:8px}.statBox{border:1px solid var(--line);border-radius:9px;padding:7px}.statBox span{font-size:9px;color:var(--muted);display:block}.statBox b{font-size:17px;display:block;margin-top:2px}.statBox small{font-size:9px;color:var(--muted)}
-.stageGrid{display:grid;grid-template-columns:repeat(4,1fr);gap:4px;margin-top:8px}.stage{padding:6px 2px;border-radius:7px;background:#edf0f3;text-align:center;font-size:8px;font-weight:850}.stage.on{background:#111827;color:#fff}.resultGrid{display:grid;grid-template-columns:1fr 1fr;gap:6px}.resultBox{background:var(--soft);border-radius:9px;padding:8px}.resultBox span{font-size:9px;color:var(--muted);display:block}.resultBox b{font-size:16px;display:block;margin-top:2px}.footerNote{text-align:center;color:#9aa1a8;font-size:9px;padding:3px 0 16px}
-@media(max-width:520px){.app{max-width:none}.main{padding:8px}.top{padding:8px 10px}.grid2{grid-template-columns:1fr}.statGrid{grid-template-columns:1fr 1fr}.statRow{gap:3px}.miniStat{padding:4px}.miniStat b{font-size:13px}}
+* {
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+    background: #111827;
+    color: #f3f4f6;
+    font-family: Arial, "Microsoft JhengHei", sans-serif;
+}
+
+button {
+    font: inherit;
+}
+
+#app {
+    width: 100%;
+    max-width: 1100px;
+    margin: auto;
+    min-height: 100vh;
+    padding: 20px;
+}
+
+.header {
+    background: #1f2937;
+    border-radius: 18px;
+    padding: 20px;
+    margin-bottom: 16px;
+    border: 1px solid #374151;
+}
+
+.header h1 {
+    margin: 0 0 6px;
+    font-size: 26px;
+}
+
+.subtitle {
+    color: #9ca3af;
+    font-size: 14px;
+}
+
+.panel {
+    background: #1f2937;
+    border: 1px solid #374151;
+    border-radius: 18px;
+    padding: 20px;
+    margin-bottom: 16px;
+}
+
+.panel h2 {
+    margin-top: 0;
+}
+
+.grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 14px;
+}
+
+.card {
+    background: #111827;
+    border: 1px solid #374151;
+    border-radius: 14px;
+    padding: 16px;
+}
+
+.card h3 {
+    margin-top: 0;
+}
+
+input,
+select {
+    width: 100%;
+    padding: 12px;
+    margin-top: 7px;
+    border-radius: 10px;
+    border: 1px solid #4b5563;
+    background: #111827;
+    color: white;
+}
+
+label {
+    display: block;
+    margin-bottom: 14px;
+    color: #d1d5db;
+}
+
+button {
+    border: 0;
+    border-radius: 10px;
+    padding: 11px 16px;
+    background: #2563eb;
+    color: white;
+    cursor: pointer;
+    margin: 4px;
+}
+
+button:hover {
+    filter: brightness(1.15);
+}
+
+button:disabled {
+    opacity: 0.4;
+    cursor: not-allowed;
+}
+
+.secondary {
+    background: #374151;
+}
+
+.danger {
+    background: #991b1b;
+}
+
+.success {
+    background: #047857;
+}
+
+.team {
+    cursor: pointer;
+    transition: 0.15s;
+}
+
+.team:hover {
+    transform: translateY(-2px);
+    border-color: #60a5fa;
+}
+
+.team.selected {
+    border: 2px solid #60a5fa;
+}
+
+.locked {
+    opacity: 0.55;
+}
+
+.stat {
+    margin: 10px 0;
+}
+
+.stat-top {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 4px;
+}
+
+.bar {
+    height: 8px;
+    background: #374151;
+    border-radius: 10px;
+    overflow: hidden;
+}
+
+.bar-inner {
+    height: 100%;
+    background: #3b82f6;
+}
+
+.big-number {
+    font-size: 30px;
+    font-weight: bold;
+}
+
+.event {
+    border-left: 4px solid #60a5fa;
+    padding: 10px 14px;
+    background: #111827;
+    margin-bottom: 10px;
+    border-radius: 0 10px 10px 0;
+}
+
+.result {
+    font-size: 20px;
+    font-weight: bold;
+    padding: 14px;
+    background: #111827;
+    border-radius: 12px;
+    margin-bottom: 10px;
+}
+
+.ending {
+    text-align: center;
+    padding: 30px 15px;
+}
+
+.ending h2 {
+    font-size: 30px;
+}
+
+.small {
+    font-size: 13px;
+    color: #9ca3af;
+}
+
+@media (max-width: 700px) {
+    #app {
+        padding: 10px;
+    }
+
+    .grid {
+        grid-template-columns: 1fr;
+    }
+
+    .header h1 {
+        font-size: 22px;
+    }
+}
 </style>
 </head>
-<body><div class="app">
-<header class="top"><div class="topline"><div><div class="brand">英雄聯盟職業人生模擬器・APAC</div><div class="period" id="period">2026・15 歲・業餘</div></div><div class="resource">點數 <b id="resource">30</b></div></div><div class="focus"><div><div class="playerName" id="playerName">Nova</div><div class="playerMeta" id="playerMeta">15 歲・尚未定位・台港澳</div></div><div class="teamNow" id="teamNow">自由身<span>等待 Scout</span></div></div><div class="statRow"><div class="miniStat"><span>操作</span><b id="op">—</b><div class="miniBar"><i id="opBar"></i></div></div><div class="miniStat"><span>理解</span><b id="iq">—</b><div class="miniBar"><i id="iqBar"></i></div></div><div class="miniStat"><span>團隊</span><b id="tm">—</b><div class="miniBar"><i id="tmBar"></i></div></div><div class="miniStat"><span>經驗</span><b id="xp">—</b><div class="miniBar"><i id="xpBar"></i></div></div></div></header>
-<main class="main">
-<section id="setup"><div class="card"><div class="muted">角色建立</div><h1>2026・從業餘開始</h1><p class="small">這一版先縮到 APAC。你的出身會決定 Scout 能正式給你的隊伍範圍；隊伍本身的風格則在每個新存檔隨機生成。</p><div class="grid2"><div class="field"><label>本名</label><input id="realName" value="王小明"></div><div class="field"><label>職業 ID</label><input id="idName" value="Nova"></div></div><div class="field"><label>出身地區</label><select id="country"><option value="PCS">台港澳</option><option value="JPN">日本</option><option value="VNM">越南</option></select></div><div class="tip"><b>九個追蹤數值</b><br>常規四項：操作、遊戲理解、團隊配合、職業經驗。<br>英雄池四項：前期打線、後期核心、工具開團、搖擺選位。<br>另外獨立追蹤健康，不把健康塞進能力通膨。</div><button class="primary" onclick="start()">開始職業人生 →</button></div></section>
-<section id="position" class="hidden"><div class="card"><div class="muted">能力分析</div><h1>選擇主位置</h1><p class="small">主位置會鎖定，但「搖擺選位」會讓你保留其他位置的英雄池彈性。</p><div id="positions"></div></div><button class="primary" onclick="confirmPosition()">確認定位 →</button></section>
-<section id="amateur" class="hidden"><div class="card"><div class="muted" id="stageKicker">業餘・第一階段</div><h1 id="stageTitle">第一階段</h1><p class="small" id="stageIntro"></p><div class="stageGrid"><div class="stage on" id="s1">1</div><div class="stage" id="s2">2</div><div class="stage" id="s3">3</div><div class="stage" id="s4">4</div></div><div class="notice">本階段：<b id="stageGoal"></b></div></div><div class="card"><h3>你的八項能力</h3><div class="statGrid" id="allStats"></div><div class="tip">健康 <b id="healthValue">—</b> / 100。健康太低時，訓練效率會下降。</div></div><div class="card"><h3>本階段選一項</h3><p class="small">每個階段只做一次主活動。活動先隨機給你一包點數，再由你自己決定要點哪個數值。</p><div id="activities"></div></div><div class="card"><h3>本局八隊・隨機隊伍特性</h3><p class="small">八座城固定存在，但每次新存檔會重新抽隊伍性格。適合你的隊伍，之後會讓成長點數取得效率更高。</p><div id="teams"></div></div></section>
-<section id="allocate" class="hidden"><div class="card"><div class="muted">點數分配</div><h1 id="allocateTitle">你獲得了點數</h1><p class="small" id="allocateIntro"></p><div class="notice">剩餘可分配：<b id="pointsLeft">0</b></div><div id="allocations"></div><button class="primary" onclick="finishAllocation()">完成配點 →</button></div></section>
-<section id="result" class="hidden"><div class="card"><div class="muted">賽段結算</div><h1 id="resultTitle">第一階段完成</h1><p class="small" id="resultText"></p><div class="resultGrid"><div class="resultBox"><span>本階段點數</span><b id="resultPoints">—</b></div><div class="resultBox"><span>健康</span><b id="resultHealth">—</b></div><div class="resultBox"><span>最高適性隊伍</span><b id="resultTeam">—</b></div><div class="resultBox"><span>Scout</span><b id="resultOffer">—</b></div></div><div class="advice" id="resultAdvice"></div><button class="primary" id="nextBtn" onclick="nextStage()">進入下一階段 →</button></div></section>
-<section id="offer" class="hidden"><div class="card"><div class="muted">Scout</div><h1>你的職業邀約</h1><p class="small" id="offerIntro"></p><div id="offerList"></div></div></section>
-<section id="career" class="hidden"><div class="card"><div class="muted">🏆 一人一城</div><h1 id="careerTitle">—</h1><p class="small" id="careerText"></p><div class="statGrid" id="careerStats"></div><div class="tip">加入後，這支隊伍就是你的職業主場。隊伍性格不再重抽；你的適性會影響之後每個階段能拿到的成長點數。</div><button class="primary" onclick="careerStage()">開始職業階段 →</button></div></section>
-<section id="careerEvent" class="hidden"><div class="card"><div class="muted">職業賽段</div><h1 id="careerEventTitle">—</h1><p class="small" id="careerEventText"></p><button class="primary" onclick="finishCareerStage()">繼續職涯 →</button></div></section>
-<div class="footerNote">APAC 縮編測試版：八隊固定、隊伍特性隨機、八項能力＋健康、階段制配點。</div>
-</main></div>
+
+<body>
+
+<div id="app"></div>
+
 <script>
-"use strict";
-const $=id=>document.getElementById(id), clamp=(v,a=1,b=99)=>Math.max(a,Math.min(b,Math.round(v))), rand=(a,b)=>Math.floor(Math.random()*(b-a+1))+a;
-const SCREENS=["setup","position","amateur","allocate","result","offer","career","careerEvent"];
-const POS=["上路","打野","中路","下路","輔助"];
-const STAGES=["建立基礎","建立比賽樣本","衝刺青訓","決定職業去向"];
-const CORE=["op","iq","tm","xp"], HERO=["laning","scaling","utility","flex"];
-const LABEL={op:"操作",iq:"遊戲理解",tm:"團隊配合",xp:"職業經驗",laning:"前期打線",scaling:"後期核心",utility:"工具開團",flex:"搖擺選位"};
-const TEAMS=[
- {code:"CFO",name:"CTBC Flying Oyster",home:"PCS",power:92},
- {code:"DCG",name:"Deep Cross Gaming",home:"PCS",power:78},
- {code:"GZ",name:"Ground Zero Gaming",home:"PCS",power:70},
- {code:"SHG",name:"Fukuoka SoftBank HAWKS gaming",home:"JPN",power:84},
- {code:"DFM",name:"DetonatioN FocusMe",home:"JPN",power:76},
- {code:"GAM",name:"GAM Esports",home:"VNM",power:90},
- {code:"MVK",name:"MVK Esports",home:"VNM",power:79},
- {code:"TSW",name:"Team Secret Whales",home:"VNM",power:86}
+/* =========================================================
+   TeSL My Player
+   跑跑職業人生 DEMO
+   單檔版本
+========================================================= */
+
+const app = document.getElementById("app");
+
+const state = {
+    screen: "create",
+
+    name: "",
+    age: 18,
+    year: 2008,
+
+    team: null,
+    locked: false,
+
+    ability: {
+        speed: 60,
+        stability: 60,
+        route: 60,
+        reaction: 60,
+        mentality: 60,
+        teamwork: 60
+    },
+
+    potential: 80,
+
+    fame: 10,
+    money: 0,
+
+    professional: false,
+    retired: false,
+
+    careerYears: 0,
+    championships: 0,
+    races: 0,
+    wins: 0,
+
+    teamRelationship: 50,
+
+    leagueStrength: 100,
+
+    history: [],
+    events: []
+};
+
+
+/* =========================================================
+   隊伍
+========================================================= */
+
+const teams = [
+    {
+        id: "A",
+        name: "星火車隊",
+        strength: 82,
+        opportunity: 55,
+        salary: 18000,
+        description: "傳統強隊，冠軍競爭力高，但新人上場機會有限。"
+    },
+    {
+        id: "B",
+        name: "疾風車隊",
+        strength: 72,
+        opportunity: 85,
+        salary: 13000,
+        description: "新興隊伍，願意培養新人。"
+    },
+    {
+        id: "C",
+        name: "藍翼車隊",
+        strength: 63,
+        opportunity: 95,
+        salary: 10000,
+        description: "目前成績普通，但你很可能直接成為核心。"
+    }
 ];
-const TEAM_TRAITS=["前期進攻","資源控制","團戰開戰","後期營運","視野節奏","多核輸出"];
-const HOME_NAME={PCS:"台港澳",JPN:"日本",VNM:"越南"};
-let g={name:"Nova",real:"王小明",age:15,year:2026,home:"PCS",position:"",locked:false,stats:{op:45,iq:45,tm:45,xp:25,laning:35,scaling:35,utility:35,flex:20},health:90,points:30,stage:1,teamTraits:{},joined:null,offers:[],pending:{},lastGain:0,careerStages:0};
-function show(s){SCREENS.forEach(x=>$(x).classList.add("hidden"));$(s).classList.remove("hidden");scrollTo(0,0)}
-function sampleTraits(){g.teamTraits={};TEAMS.forEach(t=>{let pool=[...TEAM_TRAITS].sort(()=>Math.random()-.5);g.teamTraits[t.code]=pool.slice(0,2)})}
-function start(){g.name=$("idName").value.trim()||"Nova";g.real=$("realName").value.trim()||"王小明";g.home=$("country").value;g.age=15;g.year=2026;g.stage=1;g.position="";g.locked=false;g.joined=null;g.points=30;g.health=90;g.offers=[];g.careerStages=0;g.stats={op:rand(40,50),iq:rand(40,50),tm:rand(40,50),xp:rand(20,30),laning:rand(28,38),scaling:rand(28,38),utility:rand(28,38),flex:rand(15,25)};sampleTraits();renderHeader();showPositions()}
-function renderHeader(){$("period").textContent=`${g.year}・${g.age} 歲・${g.joined?"職業":"業餘"}`;$("playerName").textContent=g.name;$("playerMeta").textContent=`${g.age} 歲・${g.position||"尚未定位"}・${HOME_NAME[g.home]}`;$("resource").textContent=g.points;$("teamNow").innerHTML=g.joined?`${g.joined.name}<span>${g.joined.code}・你的職業主場</span>`:`自由身<span>${HOME_NAME[g.home]} 出身</span>`;[["op","opBar"],["iq","iqBar"],["tm","tmBar"],["xp","xpBar"]].forEach(([k,b])=>{$(k).textContent=g.stats[k];$(b).style.width=g.stats[k]+"%"})}
-function showPositions(){show("position");$("positions").innerHTML=POS.map((p,i)=>`<button class="route" onclick="pickPosition('${p}')"><div class="routeTop"><b>${p}</b><span class="effect">選擇</span></div><div class="routeDesc">${i===0?"對線、單帶、團戰":i===1?"節奏、資源、支援":i===2?"線權、支援、輸出":i===3?"輸出、走位、後期":"視野、開戰、保排"}</div></button>`).join("")}
-function pickPosition(p){g.position=p;document.querySelectorAll("#positions .route").forEach(x=>x.style.opacity=.55);event.currentTarget.style.opacity=1}
-function confirmPosition(){if(!g.position){alert("請先選擇位置");return}g.locked=true;renderAmateur();show("amateur")}
-function stageActivityList(){return [
- {id:"scrim",name:"訓練賽",desc:"練常規能力與實戰能力。",base:rand(6,10),pool:[...CORE]},
- {id:"gym",name:"健身",desc:"提高健康，並給少量常規能力點。",base:rand(5,9),pool:["health","op","tm"]},
- {id:"stream",name:"直播",desc:"提高曝光與人氣，附帶少量理解／團隊點。",base:rand(4,8),pool:["iq","tm","flex"]},
- {id:"ladder",name:"積分",desc:"專門練英雄池，不再直接灌常規能力。",base:rand(6,11),pool:[...HERO]}
-]}
-function renderAmateur(){renderHeader();$("stageKicker").textContent=`業餘・第 ${g.stage} 階段`;$("stageTitle").textContent=STAGES[g.stage-1];$("stageIntro").textContent=`主位置：${g.position}。這一階段只做一次活動，取得點數後自己分配。`;$("stageGoal").textContent=g.stage===1?"建立基本能力與英雄池":g.stage===2?"建立穩定比賽樣本":g.stage===3?"提高 Scout 適性": "決定第一份職業邀約";for(let i=1;i<=4;i++)$("s"+i).classList.toggle("on",i===g.stage);renderStats();renderActivities();renderTeams()}
-function renderStats(){let html=[...CORE,...HERO].map(k=>`<div class="statBox"><span>${LABEL[k]}</span><b>${g.stats[k]}</b><small>${HERO.includes(k)?"英雄池":"常規"}</small></div>`).join("");$("allStats").innerHTML=html;$("healthValue").textContent=g.health}
-function renderActivities(){let acts=stageActivityList();$("activities").innerHTML=acts.map(a=>`<button class="route" onclick='chooseActivity(${JSON.stringify(a)})'><div class="routeTop"><b>${a.name}</b><span class="effect">隨機 ${a.base}–${a.base+3} 點</span></div><div class="routeDesc">${a.desc}</div><div class="deltaRow">${a.pool.map(k=>`<span class="delta">${LABEL[k]||"健康"}</span>`).join("")}</div></button>`).join("")}
-function chooseActivity(a){let total=a.base+rand(0,3);let fit=g.joined?teamFit(g.joined):1;total=Math.max(2,Math.round(total*fit));g.pending={activity:a,points:total,spent:{}};g.lastGain=total;renderAllocation();show("allocate")}
-function renderAllocation(){let a=g.pending.activity;$("allocateTitle").textContent=`${a.name}・獲得 ${g.pending.points} 點`;$("allocateIntro").textContent=a.desc+` 可分配項目：${a.pool.map(k=>LABEL[k]||"健康").join("、")}`;$("pointsLeft").textContent=g.pending.points;$("allocations").innerHTML=a.pool.map(k=>`<div class="route"><div class="routeTop"><b>${LABEL[k]||"健康"}</b><span id="val_${k}" class="effect">0</span></div><input style="width:100%" type="range" min="0" max="${g.pending.points}" value="0" oninput="setAlloc('${k}',this.value)"></div>`).join("")}
-function setAlloc(k,v){v=Number(v);let s=g.pending.spent;let old=s[k]||0;let other=Object.values(s).reduce((x,y)=>x+y,0)-old;if(other+v>g.pending.points)v=g.pending.points-other;s[k]=v;$("val_"+k).textContent=v;$("pointsLeft").textContent=g.pending.points-Object.values(s).reduce((x,y)=>x+y,0)}
-function finishAllocation(){let spent=Object.values(g.pending.spent).reduce((a,b)=>a+b,0);if(spent<g.pending.points){if(!confirm(`還有 ${g.pending.points-spent} 點未分配，確定放棄嗎？`))return}Object.entries(g.pending.spent).forEach(([k,v])=>{if(k==="health")g.health=Math.min(100,g.health+v);else g.stats[k]=clamp(g.stats[k]+v)});g.health=Math.max(0,g.health);g.points+=Math.floor(g.pending.points*.25);g.pending={};renderResult();show("result")}
-function teamFit(t){let traits=g.teamTraits[t.code]||[];let s=1;let map={前期進攻:"laning",資源控制:"iq",團戰開戰:"utility",後期營運:"scaling",視野節奏:"tm",多核輸出:"flex"};traits.forEach(tr=>{let k=map[tr];s+=((g.stats[k]||0)-50)*.002});if(g.position&&["CFO","DCG","GZ"].includes(t.code)&&g.home!=="PCS")s-=.08;if(g.home===t.home)s+=.08;return Math.max(.8,Math.min(1.25,s))}
-function teamScore(t){let trait=g.teamTraits[t.code]||[];let score=t.power*0.7+teamFit(t)*30;let map={前期進攻:"laning",資源控制:"iq",團戰開戰:"utility",後期營運:"scaling",視野節奏:"tm",多核輸出:"flex"};trait.forEach(x=>score+=(g.stats[map[x]]||0)*.9);return score}
-function renderTeams(){let arr=TEAMS.map(t=>({...t,score:teamScore(t)})).sort((a,b)=>b.score-a.score);$("teams").innerHTML=arr.map(t=>`<div class="team"><div class="teamTop"><div><div class="teamName">${t.name}</div><div class="teamRegion">${HOME_NAME[t.home]}・${t.code}</div></div><div class="power">${Math.round(teamFit(t)*100)}%</div></div><div class="tags">${g.teamTraits[t.code].map(x=>`<span class="tag">${x}</span>`).join("")}</div><div class="interestLine">適性效率：${teamFit(t)>=1.08?"高":teamFit(t)>=.98?"中":"低"}・總評 ${Math.round(t.score)}</div></div>`).join("")}
-function renderResult(){renderHeader();$("resultTitle").textContent=`第 ${g.stage} 階段完成`;$("resultText").textContent=`你完成「${g.pending?.activity?.name||"本階段"}」。這次的點數不是固定灌入，而是先隨機產生，再由你決定方向。`;$("resultPoints").textContent=`+${g.lastGain}`;$("resultHealth").textContent=g.health;let eligible=TEAMS.filter(t=>t.home===g.home).sort((a,b)=>teamScore(b)-teamScore(a));let best=eligible[0];$("resultTeam").textContent=best?best.name:"—";let offer=eligible.filter(t=>teamFit(t)>=1.02).slice(0,2);g.offers=offer;$("resultOffer").textContent=offer.length?`${offer.length} 支`:"尚未";$("resultAdvice").textContent=offer.length?`你的出身區域為 ${HOME_NAME[g.home]}，這一階段後可以收到同區隊伍的正式邀約。適性越高，後續成長效率越好。`:`先累積能力與英雄池，下一階段再看。`;$("nextBtn").textContent=g.stage<4?"進入下一階段 →":"查看 Scout 邀約 →"}
-function nextStage(){if(g.stage>=4){showOffers();return}g.stage++;g.year+=g.stage===1?1:0;if(g.stage===1)g.age++;g.points+=8;g.health=Math.max(35,g.health-2);renderAmateur();show("amateur")}
-function showOffers(){show("offer");let arr=g.offers.length?g.offers:TEAMS.filter(t=>t.home===g.home).sort((a,b)=>teamScore(b)-teamScore(a)).slice(0,2);$("offerIntro").textContent=`你的出身地區是 ${HOME_NAME[g.home]}。為了保留「一人一城」，這裡只提供你的 Home Region 隊伍；沒有跨區亂跳。`;$("offerList").innerHTML=arr.map(t=>`<div class="team"><div class="teamTop"><div><div class="teamName">${t.name}</div><div class="teamRegion">${HOME_NAME[t.home]}・${t.code}</div></div><div class="power">${Math.round(teamFit(t)*100)}%</div></div><div class="tags">${g.teamTraits[t.code].map(x=>`<span class="tag">${x}</span>`).join("")}</div><button class="primary" onclick="joinTeam('${t.code}')">接受 ${t.name}</button></div>`).join("")}
-function joinTeam(code){g.joined=TEAMS.find(t=>t.code===code);renderCareer();show("career")}
-function renderCareer(){renderHeader();$("careerTitle").textContent=`${g.joined.name}・你的主場`;$("careerText").textContent=`你正式加入 ${g.joined.name}。這支隊伍的兩項特性本局不再重抽：${g.teamTraits[g.joined.code].join("、")}。之後適性會轉化成成長點效率。`;$("careerStats").innerHTML=[...CORE,...HERO].map(k=>`<div class="statBox"><span>${LABEL[k]}</span><b>${g.stats[k]}</b><small>${HERO.includes(k)?"英雄池":"常規"}</small></div>`).join("")}
-function careerStage(){let gain=Math.max(4,Math.round(rand(7,12)*teamFit(g.joined)));g.careerStages++;g.points+=gain;g.health=Math.max(30,g.health-rand(1,5));g.pending={activity:{name:"職業階段"},points:gain,spent:{}};$("careerEventTitle").textContent=`${g.joined.name}・職業階段 ${g.careerStages}`;$("careerEventText").textContent=`隊伍本季特性：${g.teamTraits[g.joined.code].join("、")}。本階段你取得 ${gain} 個成長點，適性效率為 ${Math.round(teamFit(g.joined)*100)}%。接下來仍可沿用同一套配點系統。`;show("careerEvent")}
-function finishCareerStage(){renderCareer();show("career")}
-renderHeader();
-</script></body></html>
+
+
+/* =========================================================
+   工具
+========================================================= */
+
+function random(min, max) {
+    return Math.floor(Math.random() * (max - min + 1)) + min;
+}
+
+function averageAbility() {
+    const values = Object.values(state.ability);
+    return Math.round(values.reduce((a, b) => a + b, 0) / values.length);
+}
+
+function ageFactor() {
+    /*
+        年齡不直接禁止職業。
+        18~24：黃金成長期
+        25~29：成熟
+        30~34：開始有市場壓力
+        35+：高齡
+    */
+
+    if (state.age <= 20) return 1.05;
+    if (state.age <= 24) return 1.10;
+    if (state.age <= 28) return 1.00;
+    if (state.age <= 31) return 0.90;
+    if (state.age <= 34) return 0.78;
+    return 0.62;
+}
+
+function marketValue() {
+    let value = averageAbility();
+
+    value *= ageFactor();
+
+    value += state.fame * 0.25;
+
+    if (state.professional) {
+        value += 5;
+    }
+
+    return Math.round(value);
+}
+
+function salaryExpectation() {
+    const market = marketValue();
+
+    if (market >= 90) return 30000;
+    if (market >= 80) return 24000;
+    if (market >= 70) return 18000;
+    if (market >= 60) return 13000;
+    return 8000;
+}
+
+function logEvent(text) {
+    state.events.unshift(text);
+
+    if (state.events.length > 8) {
+        state.events.pop();
+    }
+}
+
+
+/* =========================================================
+   建立角色
+========================================================= */
+
+function renderCreate() {
+
+    app.innerHTML = `
+        <div class="header">
+            <h1>TeSL My Player</h1>
+            <div class="subtitle">
+                跑跑卡丁車職業人生 DEMO
+            </div>
+        </div>
+
+        <div class="panel">
+            <h2>建立你的選手</h2>
+
+            <label>
+                選手名稱
+                <input id="name" placeholder="例如：Yu-Hsiang">
+            </label>
+
+            <label>
+                年齡
+                <input id="age" type="number" min="14" max="40" value="18">
+            </label>
+
+            <p class="small">
+                年齡不會直接決定你能不能打職業。
+                它會影響成長、衰退與職業市場價值。
+            </p>
+
+            <button onclick="createPlayer()">
+                開始生涯
+            </button>
+        </div>
+    `;
+}
+
+function createPlayer() {
+
+    const name = document.getElementById("name").value.trim();
+    const age = Number(document.getElementById("age").value);
+
+    if (!name) {
+        alert("請輸入選手名稱");
+        return;
+    }
+
+    if (age < 14 || age > 40) {
+        alert("年齡請設定在 14～40 歲");
+        return;
+    }
+
+    state.name = name;
+    state.age = age;
+
+    state.ability.speed = random(55, 70);
+    state.ability.stability = random(55, 70);
+    state.ability.route = random(55, 70);
+    state.ability.reaction = random(55, 70);
+    state.ability.mentality = random(50, 70);
+    state.ability.teamwork = random(50, 70);
+
+    state.potential = random(75, 95);
+
+    state.screen = "teams";
+
+    renderTeams();
+}
+
+
+/* =========================================================
+   選隊
+========================================================= */
+
+function renderTeams() {
+
+    app.innerHTML = `
+        <div class="header">
+            <h1>2008 年｜生涯起點</h1>
+            <div class="subtitle">
+                選擇你的第一支隊伍。確認後將 LOCK IN。
+            </div>
+        </div>
+
+        <div class="panel">
+            <h2>${state.name}｜${state.age} 歲</h2>
+
+            <div class="grid">
+
+                ${teams.map(team => `
+                    <div class="card team"
+                         onclick="selectTeam('${team.id}')"
+                         id="team-${team.id}">
+
+                        <h3>${team.name}</h3>
+
+                        <p>${team.description}</p>
+
+                        <p>
+                            戰隊實力：
+                            <strong>${team.strength}</strong>
+                        </p>
+
+                        <p>
+                            新人機會：
+                            <strong>${team.opportunity}</strong>
+                        </p>
+
+                        <p>
+                            預估月薪：
+                            <strong>$${team.salary.toLocaleString()}</strong>
+                        </p>
+
+                    </div>
+                `).join("")}
+
+            </div>
+
+            <div id="selectedTeam"></div>
+        </div>
+    `;
+}
+
+function selectTeam(id) {
+
+    if (state.locked) return;
+
+    state.team = teams.find(t => t.id === id);
+
+    document.querySelectorAll(".team")
+        .forEach(el => el.classList.remove("selected"));
+
+    document
+        .getElementById("team-" + id)
+        .classList.add("selected");
+
+    document.getElementById("selectedTeam").innerHTML = `
+        <div class="panel">
+            <h3>你選擇了：${state.team.name}</h3>
+
+            <p>
+                選擇之後將會正式 LOCK IN。
+                除非發生交易、解散或其他特殊事件，
+                你不能主動跳隊。
+            </p>
+
+            <button onclick="lockInTeam()">
+                🔒 LOCK IN
+            </button>
+        </div>
+    `;
+}
+
+function lockInTeam() {
+
+    if (!state.team) {
+        alert("請先選擇隊伍");
+        return;
+    }
+
+    state.locked = true;
+
+    /*
+        根據隊伍決定初始職業狀態
+    */
+
+    const market = marketValue();
+
+    if (market >= 65 && state.team.opportunity >= 70) {
+        state.professional = true;
+    } else if (market >= 70 && state.team.strength >= 75) {
+        state.professional = true;
+    }
+
+    logEvent(
+        `${state.year}年：${state.name} 加入 ${state.team.name}。`
+    );
+
+    state.screen = "career";
+
+    renderCareer();
+}
+
+
+/* =========================================================
+   主畫面
+========================================================= */
+
+function renderCareer() {
+
+    app.innerHTML = `
+        <div class="header">
+            <h1>TeSL｜${state.year} 年</h1>
+            <div class="subtitle">
+                ${state.name}｜${state.age} 歲｜${state.team.name}
+            </div>
+        </div>
+
+        <div class="grid">
+
+            <div class="panel">
+                <h2>選手資料</h2>
+
+                <div class="big-number">
+                    ${averageAbility()}
+                </div>
+
+                <div class="small">
+                    綜合能力
+                </div>
+
+                ${renderStat("速度", state.ability.speed)}
+                ${renderStat("穩定", state.ability.stability)}
+                ${renderStat("路線理解", state.ability.route)}
+                ${renderStat("反應", state.ability.reaction)}
+                ${renderStat("心態", state.ability.mentality)}
+                ${renderStat("團隊配合", state.ability.teamwork)}
+
+            </div>
+
+            <div class="panel">
+
+                <h2>生涯狀態</h2>
+
+                <p>
+                    年齡：
+                    <strong>${state.age}</strong>
+                </p>
+
+                <p>
+                    身分：
+                    <strong>
+                        ${state.professional ? "職業選手" : "業餘選手"}
+                    </strong>
+                </p>
+
+                <p>
+                    市場價值：
+                    <strong>${marketValue()}</strong>
+                </p>
+
+                <p>
+                    預期薪資：
+                    <strong>
+                        $${salaryExpectation().toLocaleString()}
+                    </strong>
+                </p>
+
+                <p>
+                    聲望：
+                    <strong>${state.fame}</strong>
+                </p>
+
+                <p>
+                    冠軍：
+                    <strong>${state.championships}</strong>
+                </p>
+
+                <p>
+                    職業年數：
+                    <strong>${state.careerYears}</strong>
+                </p>
+
+            </div>
+
+        </div>
+
+        <div class="panel">
+
+            <h2>本年度事件</h2>
+
+            ${state.events.length
+                ? state.events.map(e =>
+                    `<div class="event">${e}</div>`
+                  ).join("")
+                : `<p class="small">目前還沒有事件。</p>`
+            }
+
+        </div>
+
+        <div class="panel">
+
+            <h2>下一年</h2>
+
+            <button onclick="train()">
+                🎯 專注訓練
+            </button>
+
+            <button onclick="rest()"
+                    class="secondary">
+                💤 休息／兼顧人生
+            </button>
+
+            <button onclick="nextYear()"
+                    class="success">
+                ▶ 推進一年
+            </button>
+
+            <button onclick="retire()"
+                    class="danger">
+                退役
+            </button>
+
+        </div>
+    `;
+}
+
+function renderStat(name, value) {
+
+    return `
+        <div class="stat">
+
+            <div class="stat-top">
+                <span>${name}</span>
+                <strong>${value}</strong>
+            </div>
+
+            <div class="bar">
+                <div class="bar-inner"
+                     style="width:${Math.min(value,100)}%">
+                </div>
+            </div>
+
+        </div>
+    `;
+}
+
+
+/* =========================================================
+   訓練
+========================================================= */
+
+function train() {
+
+    const gains = [];
+
+    for (const key in state.ability) {
+
+        if (Math.random() < 0.65) {
+
+            const gain =
+                Math.max(
+                    1,
+                    Math.floor(
+                        (state.potential - state.ability[key]) / 15
+                    )
+                );
+
+            state.ability[key] =
+                Math.min(
+                    100,
+                    state.ability[key] + gain
+                );
+
+            gains.push(key);
+        }
+    }
+
+    state.fame += random(1, 3);
+
+    logEvent(
+        `${state.year}年：你投入大量時間訓練，${gains.length} 項能力有所提升。`
+    );
+
+    renderCareer();
+}
+
+
+/* =========================================================
+   休息
+========================================================= */
+
+function rest() {
+
+    state.teamRelationship += random(1, 4);
+
+    state.ability.mentality =
+        Math.min(100, state.ability.mentality + 1);
+
+    logEvent(
+        `${state.year}年：你選擇休息並兼顧生活，心態有所提升。`
+    );
+
+    renderCareer();
+}
+
+
+/* =========================================================
+   年齡成長／衰退
+========================================================= */
+
+function ageDevelopment() {
+
+    state.age++;
+
+    /*
+        年輕：容易成長
+        中期：穩定
+        高齡：部分能力開始衰退
+    */
+
+    if (state.age <= 24) {
+
+        for (const key in state.ability) {
+
+            if (Math.random() < 0.55) {
+
+                state.ability[key] =
+                    Math.min(
+                        100,
+                        state.ability[key] + random(0, 2)
+                    );
+            }
+        }
+
+    } else if (state.age <= 29) {
+
+        for (const key in state.ability) {
+
+            if (Math.random() < 0.25) {
+
+                state.ability[key] =
+                    Math.min(
+                        100,
+                        state.ability[key] + 1
+                    );
+            }
+        }
+
+    } else {
+
+        /*
+            高齡不會所有能力一起崩。
+            反應／速度比較容易下降。
+        */
+
+        if (Math.random() < 0.55) {
+            state.ability.reaction =
+                Math.max(
+                    40,
+                    state.ability.reaction - random(0, 2)
+                );
+        }
+
+        if (Math.random() < 0.45) {
+            state.ability.speed =
+                Math.max(
+                    40,
+                    state.ability.speed - random(0, 2)
+                );
+        }
+
+        if (Math.random() < 0.25) {
+            state.ability.route =
+                Math.min(
+                    100,
+                    state.ability.route + 1
+                );
+        }
+
+        if (Math.random() < 0.25) {
+            state.ability.mentality =
+                Math.min(
+                    100,
+                    state.ability.mentality + 1
+                );
+        }
+
+    }
+}
+
+
+/* =========================================================
+   比賽
+========================================================= */
+
+function simulateSeason() {
+
+    if (!state.professional) {
+
+        /*
+            業餘比賽
+        */
+
+        const power =
+            averageAbility() +
+            random(-15, 15);
+
+        if (power >= 80) {
+
+            state.wins += random(2, 5);
+            state.fame += random(2, 5);
+
+            if (Math.random() < 0.25) {
+                state.championships++;
+
+                logEvent(
+                    `${state.year}年：你在業餘賽事拿下冠軍！`
+                );
+
+            } else {
+
+                logEvent(
+                    `${state.year}年：你在業餘賽事表現亮眼。`
+                );
+            }
+
+        } else {
+
+            logEvent(
+                `${state.year}年：你參加多場業餘賽事，但成績普通。`
+            );
+        }
+
+        return;
+    }
+
+
+    /*
+        職業比賽
+    */
+
+    const teamPower =
+        state.team.strength +
+        averageAbility() * 0.35 +
+        random(-15, 15);
+
+    state.races += 12;
+
+    if (teamPower >= 95) {
+
+        state.wins += random(5, 8);
+        state.championships++;
+
+        state.fame += random(5, 10);
+
+        logEvent(
+            `${state.year}年：${state.team.name} 奪得年度冠軍！`
+        );
+
+    } else if (teamPower >= 80) {
+
+        state.wins += random(3, 5);
+        state.fame += random(2, 5);
+
+        logEvent(
+            `${state.year}年：你與 ${state.team.name} 打入年度後段賽事。`
+        );
+
+    } else {
+
+        state.fame += random(0, 2);
+
+        logEvent(
+            `${state.year}年：本季戰績不佳，隊伍需要重新調整。`
+        );
+    }
+
+}
+
+
+/* =========================================================
+   特殊歷史事件
+========================================================= */
+
+function historicalEvents() {
+
+    /*
+        這裡目前故意使用虛構事件。
+        之後再把真正 TeSL 歷史資料填進來。
+    */
+
+    if (state.year === 2010) {
+
+        state.leagueStrength += 5;
+
+        logEvent(
+            "聯盟進入擴張期，電競產業受到更多關注。"
+        );
+    }
+
+    if (state.year === 2012) {
+
+        state.leagueStrength += 3;
+
+        logEvent(
+            "聯盟進入黃金時期，職業選手的曝光度提高。"
+        );
+    }
+
+    if (state.year === 2013) {
+
+        state.leagueStrength -= 8;
+
+        logEvent(
+            "聯盟開始出現結構性的變化。部分隊伍開始重新評估未來。"
+        );
+    }
+
+    if (state.year === 2014) {
+
+        state.leagueStrength -= 15;
+
+        logEvent(
+            "職業環境開始惡化，部分選手開始思考其他人生選擇。"
+        );
+    }
+
+    if (state.year === 2015) {
+
+        state.leagueStrength -= 20;
+
+        logEvent(
+            "職業聯賽規模縮小，留下來的選手開始尋找新的舞台。"
+        );
+    }
+
+    if (state.year >= 2016) {
+
+        state.leagueStrength -= random(3, 8);
+
+        if (state.leagueStrength < 20) {
+
+            state.leagueStrength = 20;
+
+            logEvent(
+                "台灣職業舞台已經與當年完全不同。"
+            );
+        }
+    }
+}
+
+
+/* =========================================================
+   交易
+========================================================= */
+
+function possibleTransfer() {
+
+    if (!state.professional) return;
+
+    /*
+        目前只有在特定條件下發生。
+        之後可以改成真正的歷史隊伍資料。
+    */
+
+    if (Math.random() < 0.10) {
+
+        const candidates =
+            teams.filter(t => t.id !== state.team.id);
+
+        const newTeam =
+            candidates[random(0, candidates.length - 1)];
+
+        state.team = newTeam;
+
+        logEvent(
+            `重大轉會：你被交易至 ${newTeam.name}。`
+        );
+    }
+}
+
+
+/* =========================================================
+   聯盟衰退後的職業機會
+========================================================= */
+
+function leagueCheck() {
+
+    /*
+        聯盟越弱，職業機會越低。
+        但不是直接禁止。
+    */
+
+    if (!state.professional) return;
+
+    const market = marketValue();
+
+    if (
+        state.leagueStrength < 40 &&
+        market < 70
+    ) {
+
+        state.professional = false;
+
+        logEvent(
+            "職業舞台逐漸消失，你暫時回到業餘賽事。"
+        );
+    }
+}
+
+
+/* =========================================================
+   年度結算
+========================================================= */
+
+function nextYear() {
+
+    if (state.retired) return;
+
+    state.year++;
+
+    ageDevelopment();
+
+    simulateSeason();
+
+    historicalEvents();
+
+    possibleTransfer();
+
+    leagueCheck();
+
+    if (state.professional) {
+        state.careerYears++;
+        state.money += salaryExpectation() * 12;
+    }
+
+    /*
+        聯盟非常衰退時
+        檢查特殊事件
+    */
+
+    if (
+        state.year >= 2016 &&
+        averageAbility() >= 90 &&
+        state.age <= 35 &&
+        !state.professional
+    ) {
+
+        if (Math.random() < 0.18) {
+
+            logEvent(
+                "多年後，一場意外的國際邀請賽讓你重新受到關注。"
+            );
+        }
+    }
+
+    /*
+        年齡非常高時，不直接強制退役。
+        市場自然會變差。
+    */
+
+    if (state.age >= 38) {
+
+        if (marketValue() < 55) {
+
+            logEvent(
+                "你仍然熱愛比賽，但職業市場已經很少給高齡選手機會。"
+            );
+        }
+    }
+
+    renderCareer();
+}
+
+
+/* =========================================================
+   退役
+========================================================= */
+
+function retire() {
+
+    state.retired = true;
+
+    renderEnding();
+}
+
+
+/* =========================================================
+   結局判定
+========================================================= */
+
+function renderEnding() {
+
+    let title = "";
+    let description = "";
+
+    const avg = averageAbility();
+
+    if (
+        avg >= 90 &&
+        state.leagueStrength <= 30 &&
+        state.championships === 0
+    ) {
+
+        title = "生不逢時";
+
+        description =
+            "你的能力已經登上頂尖水準，" +
+            "但當你真正成熟時，屬於你的職業舞台卻已經逐漸消失。";
+
+    } else if (
+        !state.professional &&
+        state.championships >= 3 &&
+        avg >= 80
+    ) {
+
+        title = "業餘之神";
+
+        description =
+            "你沒有成為傳統意義上的職業明星，" +
+            "但在那個年代的業餘圈，你就是最難被忘記的名字。";
+
+    } else if (
+        state.championships >= 4
+    ) {
+
+        title = "職業王者";
+
+        description =
+            "你把自己的巔峰時期完整轉化成了冠軍。";
+
+    } else if (
+        state.age >= 32 &&
+        avg >= 80
+    ) {
+
+        title = "老將不死";
+
+        description =
+            "你的速度或許不再是年輕時的自己，" +
+            "但經驗、理解與心態讓你仍然能站在賽場上。";
+
+    } else if (
+        state.fame >= 60
+    ) {
+
+        title = "時代留下的名字";
+
+        description =
+            "你未必拿到了最多的冠軍，" +
+            "但這個時代的人記得你。";
+
+    } else {
+
+        title = "另一種人生";
+
+        description =
+            "你的生涯沒有成為傳奇，" +
+            "但你確實活過那個屬於電競的年代。";
+    }
+
+
+    app.innerHTML = `
+        <div class="header">
+            <h1>生涯終章</h1>
+        </div>
+
+        <div class="panel ending">
+
+            <h2>${title}</h2>
+
+            <p>
+                ${description}
+            </p>
+
+            <hr>
+
+            <p>
+                <strong>${state.name}</strong>
+            </p>
+
+            <p>
+                生涯：${state.year - 2008 + 1} 年
+            </p>
+
+            <p>
+                最終年齡：${state.age}
+            </p>
+
+            <p>
+                最終能力：${averageAbility()}
+            </p>
+
+            <p>
+                冠軍：${state.championships}
+            </p>
+
+            <p>
+                職業年數：${state.careerYears}
+            </p>
+
+            <p>
+                生涯收入：
+                $${state.money.toLocaleString()}
+            </p>
+
+            <button onclick="location.reload()">
+                再開一局
+            </button>
+
+        </div>
+    `;
+}
+
+
+/* =========================================================
+   啟動
+========================================================= */
+
+renderCreate();
+
+</script>
+
+</body>
+</html>
